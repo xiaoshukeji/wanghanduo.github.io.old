@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>iPhone Rental | 机型查看</title>
+		<link rel="stylesheet" type="text/css" href="../../fonts.loli.net/css-family=Open+Sans-700,400&subset=latin.css">
+		<link rel="stylesheet" type="text/css" href="../css/release.css">
+		<link rel="icon" type="image/png" href="../img/favicon-64.png">
+		<meta name="color-scheme" content="light dark">
+		<script src="../js/jquery-3.3.1.js" tppabs="https://typoraio.cn/js/jquery-3.3.1.js"></script>
+		<style>h1 {
+      padding: 46px;
+      padding-bottom: 0;
+      padding-top: 48px;
+      border: none;
+      margin: 0;
+      max-width: 860px;
+      margin-top: 24px;
+      margin: auto;
+    }
+    
+    .tab-slider--nav {
+      width: 100%;
+      margin-bottom: 20px;
+      padding: 46px;
+      max-width: 860px;
+      margin: auto;
+      padding-top: 24px;
+      padding-bottom: 56px;
+      border-bottom: 1px solid #607d8b;
+    }
+    
+    .tab-slider--tabs {
+      display: block;
+      float: left;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      position: relative;
+      overflow: hidden;
+      background: #fff;
+      height: 35px;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+    
+    .tab-slider--tabs:after {
+      content: "";
+      width: 33%;
+      background: #555;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      -webkit-transition: all 250ms ease-in-out;
+      transition: all 250ms ease-in-out;
+      border-radius: 8px;
+    }
+    
+    .tab-slider--trigger {
+      font-size: 12px;
+      line-height: 1;
+      font-weight: bold;
+      color: #555;
+      text-align: center;
+      padding: 11px 20px;
+      position: relative;
+      z-index: 2;
+      cursor: pointer;
+      display: inline-block;
+      -webkit-transition: color 250ms ease-in-out;
+      transition: color 250ms ease-in-out;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      width: 140px;
+    }
+
+    .tab-slider--tabs.slide1:after { left: 33%; }
+
+    .tab-slider--tabs.slide2:after { left: 67%; }
+    
+    .tab-slider--trigger.active { color: #fff; }
+    
+    .tab-slider--body { margin-bottom: 20px; }
+
+    iframe {
+      width: 100%;
+      border: none;
+      height: calc(100vh - 260px);
+    }</style><script>$("document").ready(function(){
+      $(".tab-slider--body").hide();
+      $(".tab-slider--body:first").show();
+
+      $(".tab-slider--nav li").click(function() {
+        $(".tab-slider--body").hide();
+        var activeTab = $(this).attr("rel");
+        $("#"+activeTab).fadeIn();
+        if($(this).attr("rel") == "tab2"){
+          $('.tab-slider--tabs').addClass('slide1').removeClass('slide2');
+        }else if($(this).attr("rel") == "tab3"){
+          $('.tab-slider--tabs').addClass('slide2').removeClass('slide1');
+        } else{
+          $('.tab-slider--tabs').removeClass('slide1').removeClass('slide2');
+        }
+        $(".tab-slider--nav li").removeClass("active");
+        $(this).addClass("active");
+      });
+
+      if(location.hash.indexOf("win7") > -1) {
+        $("[rel='tab3']").click();
+      } else if(location.hash.indexOf("dev") > -1) {
+        $("[rel='tab2']").click();
+      }
+    });</script>
+	</head>
+	<body>
+		<div class="container">
+			<h1>iPhone Rental | 机型查看</h1>
+			<div class="tab-slider--nav">
+				
+				<ul class="tab-slider--tabs">
+					<li class="tab-slider--trigger active" rel="tab1">苹果手机</li>
+					<li class="tab-slider--trigger" rel="tab2"></li>
+					<li class="tab-slider--trigger" rel="tab3"></li>
+				</ul>
+			</div>
+			<div class="tab-slider--container"><div id="tab1" class="tab-slider--body">
+				<iframe src="stable-no-warning.htm" frameborder="0"></iframe>
+			</div>
+			</div>
+		</div>
+	</body>
+</html>
