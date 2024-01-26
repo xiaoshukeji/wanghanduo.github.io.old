@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Mirrored from code.visualstudio.com/blogs/2020/12/03/chromebook-get-started by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 04 Jan 2023 12:15:13 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="google-site-verification" content="hNs7DXrTySP_X-0P_AC0WulAXvUwgSXEmgfcO2r79dw" />
+
+  <!-- Twitter and Facebook OpenGraph Metadata-->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@code" />
+
+  <meta name="description" content="Installing Visual Studio Code on Chromebooks with Crostini and getting started with coding and learning" />
+<meta name="keywords" content="" />
+<!-- Twitter and Facebook OpenGraph Metadata-->
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="og:url" content="chromebook-get-started.html" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Coding and learning with VS Code on Chromebooks" />
+<meta property="og:description" content="Installing Visual Studio Code on Chromebooks with Crostini and getting started with coding and learning" />
+
+<meta property="og:image" content="../../../../opengraphimg/opengraph-blog.png" />
+
+
+
+  <link rel="shortcut icon" href="../../../../favicon.ico" sizes="128x128" />
+  <link rel="apple-touch-icon" href="../../../../apple-touch-icon.png">
+
+  <title>Coding and learning with VS Code on Chromebooks</title>
+
+  <link rel="stylesheet" href="../../../../vendor/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../../../../dist/style.css">
+
+  <script type="text/javascript" src="../../../../../js.monitor.azure.com/scripts/c/ms.analytics-web-3.min.js"></script>
+  <script>
+  window.appInsights = new oneDS.ApplicationInsights();
+  window.appInsights.initialize({
+    instrumentationKey: "1a3eb3104447440391ad5f2a6ee06a0a-62879566-bc58-4741-9650-302bf2af703f-7103",
+    webAnalyticsConfiguration:{ // Web Analytics Plugin configuration
+        urlCollectQuery:true, 
+        autoCapture: {
+          scroll: true,
+          pageView: true,
+          onLoad: true,
+          onUnload: true,
+          click: true,
+          resize: true,
+          jsError: true
+        }
+    }
+  }, []);
+  </script>
+  
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','../../../../../www.google-analytics.com/analytics.js','ga');
+  </script>  
+  <link rel="alternate" type="application/atom+xml" title="RSS Feed for code.visualstudio.com" href="../../../../feed.xml" />
+</head>
+
+<body>
+  <!-- EU Cookie Compliance JS -->
+  <script src="../../../../../wcpstatic.microsoft.com/mscc/lib/v2/wcp-consent.js"></script>
+
+  <div id="main">
+          <div class="navbar-fixed-container">
+              <div class="navbar navbar-inverse navbar-fixed-top ">
+                  <div id='cookie-banner'></div>        <nav role="navigation" aria-label="Top Level">
+                      <div class="container">
+                          <div class="nav navbar-header">
+                              <a role="button" id="skip-to-content" class="link-button" href="#main-content">Skip to content<i>&nbsp;</i><span class="glyphicon glyphicon-menu-down"></span></a>
+                              <a class="navbar-brand" id="navbar-brand" href="../../../../index.html">Visual Studio Code</a>
+                              <button type="button" class="navbar-toggle" role="navigation" data-toggle="collapse" data-target=".navbar-collapse" aria-label="Toggle Navigation Menu">
+                                  <span class="icon-bar"></span>
+                                  <span class="icon-bar"></span>
+                                  <span class="icon-bar"></span>
+                              </button>
+                          </div>
+                          <div class="navbar-collapse collapse" role="navigation">
+                              <ul class="nav navbar-nav navbar-left">
+                                  <li ><a id="nav-docs" href="../../../../docs.html">Docs</a></li>
+                                  <li ><a id="nav-updates" href="../../../../updates/v1_74.html">Updates</a></li>
+                                  <li class="active" ><a id="nav-blogs" href="../../../../blogs.html">Blog</a></li>
+                                  <li ><a id="nav-extend" href="../../../../api.html">API</a></li>
+                                  <li><a href="https://marketplace.visualstudio.com/VSCode" target="_blank" id="nav-extensions">Extensions</a></li>
+                                  <li ><a id="nav-faqs" href="../../../../docs/supporting/faq.html">FAQ</a></li>
+                                  <li ><a id="nav-learn" href="../../../../learn.html">Learn</a></li>
+                                  <li class='search visible-xs visible-sm'
+                                      ><a href="../../../../Search.html">Search</a></li>
+                              </ul>
+          
+                              <ul class="nav navbar-nav navbar-right" role="presentation">
+                                  <!-- Floating search icon -->
+                                  <li>
+                                      <a href="../../../../Search.html" title="Search" class="btn search-btn" id="nav-search">
+                                          <img class="search-icon" src="../../../../assets/icons/search.svg" width="16px" height="16px" alt="Search"/>
+                                          <img class="search-icon-inverted" src="../../../../assets/icons/search_dark.svg" width="16px" height="16px" alt="Search" />
+                                      </a>
+                                  </li>
+                                  <!-- Actual search icon -->
+                                  <li class="search" role="presentation">
+                                      <form class="nav-search search-form" role="search" aria-label="Search">
+                                          <div class="input-group" role="presentation">
+                                              <input type="text" name="q" class="search-box form-control" placeholder="Search Docs" aria-label="Search text"/>
+                                              <span class="input-group-btn">
+                                                  <button tabindex="0" class="btn" type="submit" aria-label="Search">
+                                                          <img class="search-icon" src="../../../../assets/icons/search.svg" width="16px" height="16px" alt="Search" />
+                                                          <img class="search-icon-inverted" src="../../../../assets/icons/search_dark.svg" width="16px" height="16px" alt="Search" />
+                                                  </button>
+                                              </span>
+                                          </div>
+                                      </form>                        </li>
+                                  <!-- this was hiden in the home and download page, keeping it for now -->
+                                  <li><a class="link-button" href="../../../../Download.html" id="nav-download">
+                                      <img class="download-icon" src="../../../../assets/icons/download.svg" width="16px" height="16px" alt="Download VS Code"/>
+                                      <img class="download-icon-inverted" src="../../../../assets/icons/download-black.svg" width="16px" height="16px" alt="Download VS Code" />
+                                      <span>Download</span>
+                                  </a></li>
+                              </ul>
+                          </div>
+                      </div>
+                  </nav>
+              </div>
+          </div>          <div class="updates-banner  ">
+              <div class="container">
+                  <p class="message"><a href="../../../../updates/v1_74.html" id="banner-link-updates">Version 1.74</a> is now available! Read about the new features and fixes from November.</p> 
+              </div>
+              <div tabindex="0" role="button" title="Dismiss this update" class="dismiss-btn" id="banner-dismiss-btn"><span class="sr-only">Dismiss this update</span><span aria-hidden="true" class="glyph-icon"></span></div>
+          </div>      <div role="main" id="main-content">
+        <div class="container body-content docs blog">
+    <div class="row">
+        <div class="col-md-2 docs-navbar-container">
+            <nav id="docs-navbar" aria-label="Blog posts" class="docs-nav updates-nav visible-md visible-lg">
+            	<h4>Blog posts</h4>
+            	<ul class="nav">
+            		
+            			<li >
+            				<a href="../../../2022/12/07/remote-even-better.html" >Remote Development Even Better</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2022/11/28/vscode-sandbox.html" >VS Code Sandboxing</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2022/10/04/vscode-community-discussions.html" >VS Code Community Discussions</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2022/09/15/dev-container-features.html" >Dev Container Features</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2022/08/16/markdown-language-server.html" >Markdown Language Server</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2022/07/07/vscode-server.html" >The VS Code Server</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2022/05/18/dev-container-cli.html" >Dev container CLI</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2022/04/04/increase-productivity-with-containers.html" >Moving from Local to Remote Development</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2022/03/08/the-tutorial-problem.html" >The problem with tutorials</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2021/11/08/custom-notebooks.html" >Custom Notebooks</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2021/10/20/vscode-dev.html" >vscode.dev</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2021/10/11/webview-ui-toolkit.html" >Webview UI Toolkit</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2021/09/29/bracket-pair-colorization.html" >Bracket Pair Colorization</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2021/08/05/notebooks.html" >Notebooks</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2021/07/06/workspace-trust.html" >Workspace Trust</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2021/06/10/remote-repositories.html" >Remote Repositories</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2021/06/02/build-2021.html" >Build 2021</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2021/02/16/extension-bisect.html" >Extension bisect</a>
+            			</li>
+            		
+            			<li class="active">
+            				<a href="chromebook-get-started.html" aria-label="Current Page: VS Code on Chromebook">VS Code on Chromebook</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../07/27/containers-edu.html" >Development Containers in Education</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../07/01/containers-wsl.html" >Dev Containers in WSL 2</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../06/09/go-extension.html" >The Go experience</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../05/14/vscode-build-2020.html" >VS Code at Build</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../05/06/github-issues-integration.html" >GitHub Issues Integration</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../03/02/docker-in-wsl2.html" >Docker in WSL 2</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../02/24/custom-data-format.html" >Custom Data Format</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../02/18/optimizing-ci.html" >Improving CI Build Times</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2019/10/31/inspecting-containers.html" >Inspecting Containers</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2019/10/03/remote-ssh-tips-and-tricks.html" >SSH Tips and Tricks</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2019/09/03/wsl2.html" >WSL 2</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2019/07/25/remote-ssh.html" >Remote SSH</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2019/05/23/strict-null.html" >Strict null checking</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2019/05/02/remote-development.html" >Remote Development</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2019/02/19/lsif.html" >Language Server Index Format</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2018/12/04/rich-navigation.html" >Rich Code Navigation</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2018/11/26/event-stream.html" >Event-Stream Package Security Update</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2018/09/12/engineering-with-azure-pipelines.html" >Using Azure Pipelines</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2018/09/10/introducing-github-pullrequests.html" >GitHub Pull Requests</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2018/08/07/debug-adapter-protocol-website.html" >New home for Debug Adapter Protocol</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2018/07/12/introducing-logpoints-and-auto-attach.html" >Logpoints and auto-attach</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2018/05/07/live-share-public-preview.html" >Live Share Preview</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2018/04/25/bing-settings-search.html" >Settings Search</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2018/03/23/text-buffer-reimplementation.html" >Text Buffer Reimplementation</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/12/20/chrome-debugging.html" >What's New for Chrome Debugging</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/11/16/connect.html" >Connect 2017</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/11/15/live-share.html" >Introducing Live Share</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/10/24/theicon.html" >The Icon Journey</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/10/03/terminal-renderer.html" >Integrated Terminal Performance</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/09/28/java-debug.html" >Java Debugging</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/08/07/emmet-2.html" >Emmet 2.0</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/06/20/great-looking-editor-roundup.html" >Fresh Paint</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/05/10/build-2017-demo.html" >Build 2017 Demo</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/04/10/sublime-text-roundup.html" >Sublime Text Extension Roundup</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/03/07/extension-pack-roundup.html" >Extension Packs</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/02/12/code-lens-roundup.html" >Extensions using CodeLens</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/02/08/syntax-highlighting-optimizations.html" >Optimizations in Syntax Highlighting</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/01/15/connect-nina-e2e.html" >Node.js Development with Visual Studio Code and Azure</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2016/12/12/roundup-customize.html" >Customize VS Code Extension Roundup</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2016/11/30/hot-exit-in-insiders.html" >Hot Exit Comes to Insiders</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2016/11/15/formatters-best-practices.html" >Creating a Formatter Extension</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2016/10/31/js_roundup_2.html" >JavaScript Extensions Part 2</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2016/09/14/js_roundup_1.html" >JavaScript Extensions Part 1</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2016/09/08/icon-themes.html" >File Icon Themes</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2016/07/29/extensions-roundup-git.html" >Extensions Roundup - Fun with Git</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2016/06/27/common-language-protocol.html" >The Language Server Protocol</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2016/05/04/extension-roundup-may.html" >Extensions Roundup</a>
+            			</li>
+            		
+            	</ul>
+            </nav>
+            <nav id="small-nav" aria-label="Blog posts" class="docs-nav updates-nav hidden-md hidden-lg">
+            	<h4>Blogs</h4>
+            	<select id="small-nav-dropdown" aria-label="blog posts">
+            		
+            			<option value="/blogs/2022/12/07/remote-even-better" >Remote Development Even Better</option>
+            		
+            			<option value="/blogs/2022/11/28/vscode-sandbox" >VS Code Sandboxing</option>
+            		
+            			<option value="/blogs/2022/10/04/vscode-community-discussions" >VS Code Community Discussions</option>
+            		
+            			<option value="/blogs/2022/09/15/dev-container-features" >Dev Container Features</option>
+            		
+            			<option value="/blogs/2022/08/16/markdown-language-server" >Markdown Language Server</option>
+            		
+            			<option value="/blogs/2022/07/07/vscode-server" >The VS Code Server</option>
+            		
+            			<option value="/blogs/2022/05/18/dev-container-cli" >Dev container CLI</option>
+            		
+            			<option value="/blogs/2022/04/04/increase-productivity-with-containers" >Moving from Local to Remote Development</option>
+            		
+            			<option value="/blogs/2022/03/08/the-tutorial-problem" >The problem with tutorials</option>
+            		
+            			<option value="/blogs/2021/11/08/custom-notebooks" >Custom Notebooks</option>
+            		
+            			<option value="/blogs/2021/10/20/vscode-dev" >vscode.dev</option>
+            		
+            			<option value="/blogs/2021/10/11/webview-ui-toolkit" >Webview UI Toolkit</option>
+            		
+            			<option value="/blogs/2021/09/29/bracket-pair-colorization" >Bracket Pair Colorization</option>
+            		
+            			<option value="/blogs/2021/08/05/notebooks" >Notebooks</option>
+            		
+            			<option value="/blogs/2021/07/06/workspace-trust" >Workspace Trust</option>
+            		
+            			<option value="/blogs/2021/06/10/remote-repositories" >Remote Repositories</option>
+            		
+            			<option value="/blogs/2021/06/02/build-2021" >Build 2021</option>
+            		
+            			<option value="/blogs/2021/02/16/extension-bisect" >Extension bisect</option>
+            		
+            			<option value="/blogs/2020/12/03/chromebook-get-started" selected>VS Code on Chromebook</option>
+            		
+            			<option value="/blogs/2020/07/27/containers-edu" >Development Containers in Education</option>
+            		
+            			<option value="/blogs/2020/07/01/containers-wsl" >Dev Containers in WSL 2</option>
+            		
+            			<option value="/blogs/2020/06/09/go-extension" >The Go experience</option>
+            		
+            			<option value="/blogs/2020/05/14/vscode-build-2020" >VS Code at Build</option>
+            		
+            			<option value="/blogs/2020/05/06/github-issues-integration" >GitHub Issues Integration</option>
+            		
+            			<option value="/blogs/2020/03/02/docker-in-wsl2" >Docker in WSL 2</option>
+            		
+            			<option value="/blogs/2020/02/24/custom-data-format" >Custom Data Format</option>
+            		
+            			<option value="/blogs/2020/02/18/optimizing-ci" >Improving CI Build Times</option>
+            		
+            			<option value="/blogs/2019/10/31/inspecting-containers" >Inspecting Containers</option>
+            		
+            			<option value="/blogs/2019/10/03/remote-ssh-tips-and-tricks" >SSH Tips and Tricks</option>
+            		
+            			<option value="/blogs/2019/09/03/wsl2" >WSL 2</option>
+            		
+            			<option value="/blogs/2019/07/25/remote-ssh" >Remote SSH</option>
+            		
+            			<option value="/blogs/2019/05/23/strict-null" >Strict null checking</option>
+            		
+            			<option value="/blogs/2019/05/02/remote-development" >Remote Development</option>
+            		
+            			<option value="/blogs/2019/02/19/lsif" >Language Server Index Format</option>
+            		
+            			<option value="/blogs/2018/12/04/rich-navigation" >Rich Code Navigation</option>
+            		
+            			<option value="/blogs/2018/11/26/event-stream" >Event-Stream Package Security Update</option>
+            		
+            			<option value="/blogs/2018/09/12/engineering-with-azure-pipelines" >Using Azure Pipelines</option>
+            		
+            			<option value="/blogs/2018/09/10/introducing-github-pullrequests" >GitHub Pull Requests</option>
+            		
+            			<option value="/blogs/2018/08/07/debug-adapter-protocol-website" >New home for Debug Adapter Protocol</option>
+            		
+            			<option value="/blogs/2018/07/12/introducing-logpoints-and-auto-attach" >Logpoints and auto-attach</option>
+            		
+            			<option value="/blogs/2018/05/07/live-share-public-preview" >Live Share Preview</option>
+            		
+            			<option value="/blogs/2018/04/25/bing-settings-search" >Settings Search</option>
+            		
+            			<option value="/blogs/2018/03/23/text-buffer-reimplementation" >Text Buffer Reimplementation</option>
+            		
+            			<option value="/blogs/2017/12/20/chrome-debugging" >What's New for Chrome Debugging</option>
+            		
+            			<option value="/blogs/2017/11/16/connect" >Connect 2017</option>
+            		
+            			<option value="/blogs/2017/11/15/live-share" >Introducing Live Share</option>
+            		
+            			<option value="/blogs/2017/10/24/theicon" >The Icon Journey</option>
+            		
+            			<option value="/blogs/2017/10/03/terminal-renderer" >Integrated Terminal Performance</option>
+            		
+            			<option value="/blogs/2017/09/28/java-debug" >Java Debugging</option>
+            		
+            			<option value="/blogs/2017/08/07/emmet-2.0" >Emmet 2.0</option>
+            		
+            			<option value="/blogs/2017/06/20/great-looking-editor-roundup" >Fresh Paint</option>
+            		
+            			<option value="/blogs/2017/05/10/build-2017-demo" >Build 2017 Demo</option>
+            		
+            			<option value="/blogs/2017/04/10/sublime-text-roundup" >Sublime Text Extension Roundup</option>
+            		
+            			<option value="/blogs/2017/03/07/extension-pack-roundup" >Extension Packs</option>
+            		
+            			<option value="/blogs/2017/02/12/code-lens-roundup" >Extensions using CodeLens</option>
+            		
+            			<option value="/blogs/2017/02/08/syntax-highlighting-optimizations" >Optimizations in Syntax Highlighting</option>
+            		
+            			<option value="/blogs/2017/01/15/connect-nina-e2e" >Node.js Development with Visual Studio Code and Azure</option>
+            		
+            			<option value="/blogs/2016/12/12/roundup-customize" >Customize VS Code Extension Roundup</option>
+            		
+            			<option value="/blogs/2016/11/30/hot-exit-in-insiders" >Hot Exit Comes to Insiders</option>
+            		
+            			<option value="/blogs/2016/11/15/formatters-best-practices" >Creating a Formatter Extension</option>
+            		
+            			<option value="/blogs/2016/10/31/js_roundup_2" >JavaScript Extensions Part 2</option>
+            		
+            			<option value="/blogs/2016/09/14/js_roundup_1" >JavaScript Extensions Part 1</option>
+            		
+            			<option value="/blogs/2016/09/08/icon-themes" >File Icon Themes</option>
+            		
+            			<option value="/blogs/2016/07/29/extensions-roundup-git" >Extensions Roundup - Fun with Git</option>
+            		
+            			<option value="/blogs/2016/06/27/common-language-protocol" >The Language Server Protocol</option>
+            		
+            			<option value="/blogs/2016/05/04/extension-roundup-may" >Extensions Roundup</option>
+            		
+            	</select>
+            </nav>        </div>
+        <div class="col-sm-9 col-md-8 body">
+            <h1>Learning with VS Code on Chromebooks</h1>
+<p>December 3, 2020 by Alessandro Segala, <a href="https://twitter.com/ItalyPaleAle" class="external-link" target="_blank">@ItalyPaleAle</a></p>
+<p>For the last few years, Chromebooks running Google Chrome OS have been providing an alternative to &quot;traditional&quot; laptops. Thanks to lots of choices, from very affordable models to high-end ones, Chromebooks are especially popular among students, who can use them for learning, completing assignments, and attending classes virtually.</p>
+<p>While Chromebooks and Chrome OS are typically centered around the web browser, you can also enable a Linux environment that allows installing native desktop applications, including Visual Studio Code!</p>
+<p>With VS Code running on your Chromebook, you can start coding easily and quickly in a variety of languages and frameworks. This includes languages such as Python, JavaScript and Node.js, Java, and C#, among many more!</p>
+<p>In this article, the first of two, we'll look at how to install Visual Studio Code on a Chromebook and how to set up an environment to start coding in Python or JavaScript/Node.js. In a later post, we'll also look at how to leverage the <a href="https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.vscode-remote-extensionpack" class="external-link" target="_blank">Remote Development</a> extensions for VS Code to connect to more powerful development environments.</p>
+<h2 id="_what-youll-need" data-needslink="_what-youll-need">What you'll need</h2>
+<p>VS Code runs on any recent Chromebook, as long as you are able to enable Linux applications via <a href="https://chromeos.dev/en/linux" class="external-link" target="_blank">Crostini</a>, which we'll look at how to do in just a moment.</p>
+<p>Visual Studio Code is a lightweight editor, so you will be able to run it on low-powered Chromebooks, with a minimum of 1 GB of RAM. In addition, VS Code is now available for Linux on ARMv7 and ARM64, which means that you can run it on Chromebooks powered by an ARM chip as well!</p>
+<p>For this tutorial, I'll be using an entry-level Chromebook, with an ARM64 CPU, 4 GB of RAM, and a 32 GB-disk. Despite the modest specs, VS Code runs just fine on this machine!</p>
+<h2 id="_enable-linux-on-your-chromebook" data-needslink="_enable-linux-on-your-chromebook">Enable Linux on your Chromebook</h2>
+<p>Before we can install VS Code on Chrome OS, we need to enable support for native Linux apps, using Crostini.</p>
+<p>First, open your system's Settings, then look for <strong>Linux (Beta)</strong> on the sidebar. From there, turn on Linux support.</p>
+<p><img src="../../../../assets/blogs/2020/12/03/enable-crostini.png" alt="Enabling Linux support on Chrome OS" loading="lazy"></p>
+<p>Follow the instructions on screen to configure the Linux environment (for most people, accepting the default values should be enough). Your Chromebook will then download the tools to create the Linux environment and configure it for you. Behind the scenes, this is actually creating a container running Debian 10, so you get a full Linux distribution to play with!</p>
+<p>Once the Linux environment has been set up, you'll see a new terminal window popping up.</p>
+<p><img src="../../../../assets/blogs/2020/12/03/terminal.png" alt="Terminal running on Linux" loading="lazy"></p>
+<p>Before we can install VS Code, we need to run a couple of commands in the Linux terminal. We need to update the list of Linux packages and to install the optional (but strongly recommended) dependency <code>gnome-keyring</code>. In the terminal, type the following two commands (press the <span class="keybinding">Enter</span> key at the end of each command to execute them):</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #000000">sudo apt-get update</span></span>
+<span class="line"><span style="color: #000000">sudo apt-get install -y gnome-keyring</span></span>
+<span class="line"></span></code></pre>
+<p>The output will be similar to this:</p>
+<p><img src="../../../../assets/blogs/2020/12/03/install-deps.png" alt="Output of the commands in the terminal" loading="lazy"></p>
+<p>As soon as the second command ends, you can move to the next step.</p>
+<h2 id="_install-vs-code" data-needslink="_install-vs-code">Install VS Code</h2>
+<p>We're now ready to install VS Code!</p>
+<p>Go to the Visual Studio Code <a href="../../../../download-2.html">Download</a> page. From there, you need to pick the right package for your Chromebook:</p>
+<ul>
+<li>For Chromebooks running an Intel or AMD chip, pick the <strong>.deb</strong> in variant <strong>64 bit</strong>.</li>
+<li>If your Chromebook is running on an ARM64 chip (like the one I'm testing with), pick the <strong>.deb</strong> package in the variant <strong>ARM64</strong> instead.</li>
+</ul>
+<p><img src="../../../../assets/blogs/2020/12/03/downloads.png" alt="List of downloads" loading="lazy"></p>
+<p>If you're unsure what kind of CPU your Chromebook is using, run the command <code>dpkg --print-architecture</code> in the Linux terminal to find out. You'll see either <code>amd64</code> (for both Intel and AMD chips: pick the <strong>64 bit</strong> variant for VS Code) or <code>arm64</code> (pick <strong>ARM64</strong>).</p>
+<p><img src="../../../../assets/blogs/2020/12/03/dpkg-arch.png" alt="Output of the command to find the architecture: this laptop is running on arm64" loading="lazy"></p>
+<p>After you've downloaded VS Code, you'll find the package in your <strong>Downloads</strong> folder. Double-click on the package to launch the installer:</p>
+<p><img src="../../../../assets/blogs/2020/12/03/install-deb.png" alt="Package installer asking to install VS Code" loading="lazy"></p>
+<p>Your Chromebook will then install VS Code and all other dependencies.</p>
+<p>After the installation is complete, in your list of apps, you'll find <strong>Visual Studio Code</strong> inside a folder called <strong>Linux apps</strong> (along with the Linux terminal). You can now launch VS Code.</p>
+<p><img src="../../../../assets/blogs/2020/12/03/launch-vscode.png" alt="Launching the Visual Studio Code app" loading="lazy"></p>
+<p>You should see VS Code running, and at this point you're ready to start coding!</p>
+<p><img src="../../../../assets/blogs/2020/12/03/vscode-running.png" alt="VS Code running on the Chromebook" loading="lazy"></p>
+<p>If you're new to VS Code and want to know how to use the editor, here are some resources for you to explore:</p>
+<ul>
+<li><a href="../../../../docs/getstarted/introvideos.html">VS Code Introductory Videos</a>: These videos will explain how to use VS Code to open files and folders, install themes and extensions, configure the editor, and more.</li>
+<li><a href="../../../../learn/index.html">Learn to code with VS Code</a>: Our &quot;Learn&quot; section contains articles, tutorials, and videos for people who are new to coding and want to get started.</li>
+</ul>
+<h2 id="_code-with-javascript-and-nodejs" data-needslink="_code-with-javascript-and-nodejs">Code with JavaScript and Node.js</h2>
+<p>JavaScript is a very flexible programming language, that can be used to build apps running inside a web browser and on web servers with Node.js. Nowadays, JavaScript is also being used to build native desktop apps (Electron) and mobile apps (Apache Cordoba, React Native, etc.), programming Internet-of-Things (IoT) devices, and much more.</p>
+<blockquote>
+<p><strong>Tip</strong>: If you want to learn JavaScript, there is a <a href="https://aka.ms/learnJS" class="external-link" target="_blank">free video series</a> our colleagues made:
+<a href="https://aka.ms/learnJS" class="external-link" target="_blank"><img src="../../../../assets/blogs/2020/12/03/intro-to-js-cover.jpg" alt="Watch: Beginner's series to JavaScript" loading="lazy"></a></p>
+</blockquote>
+<p>Visual Studio Code is a very popular editor for coding with JavaScript and Node.js (<a href="https://2019.stateofjs.com/other-tools/text_editors" class="external-link" target="_blank">State of JS survey</a>), and supports JavaScript natively.</p>
+<p>However, in order to use Node.js (and JavaScript in general) on your Chromebook, you'll have to install the Node.js runtime. To do that, we're going to use <a href="https://github.com/nvm-sh/nvm" class="external-link" target="_blank">nvm</a>, a small open-source utility that makes it easier to install Node.js and update it.</p>
+<p>To install nvm, run the following commands inside the Linux terminal:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #000000">wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.2/install.sh | bash</span></span>
+<span class="line"><span style="color: #795E26">source</span><span style="color: #000000"> .bashrc</span></span>
+<span class="line"></span></code></pre>
+<p><img src="../../../../assets/blogs/2020/12/03/install-nvm.png" alt="Installing nvm" loading="lazy"></p>
+<p>After you have nvm installed, you can install the latest version of Node.js with this command:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #000000">nvm install node</span></span>
+<span class="line"></span></code></pre>
+<p><img src="../../../../assets/blogs/2020/12/03/install-node.png" alt="Installing Node.js via nvm" loading="lazy"></p>
+<blockquote>
+<p><strong>Tip</strong>: Did you know that VS Code contains an integrated terminal? You can launch it from the <strong>Terminal</strong> menu and then <strong>New Terminal</strong>. VS Code is running in the context of the Linux environment, so the integrated terminal is also running in Linux.</p>
+</blockquote>
+<p>nvm offers quite a few options to set up, update, and manage Node.js. If you're interested, you can read more in the official <a href="https://github.com/nvm-sh/nvm" class="external-link" target="_blank">documentation for nvm</a>.</p>
+<p>After Node.js is installed, you can use the <code>node</code> command in the terminal (running <code>node --version</code> is a good way to check your Node.js installation), as well as all the built-in features of VS Code, such as the integrated task runner and debugger for Node.js and JavaScript. To learn more about using JavaScript and Node.js in VS Code, <a href="../../../../docs/languages/javascript.html">check out the VS Code documentation</a>!</p>
+<h2 id="_code-with-python" data-needslink="_code-with-python">Code with Python</h2>
+<p>Python is another popular programming language, and it's especially great for beginners. With Python, you can build apps for the web, desktop, and command line. Python is one of the best-suited languages for working with data science and Artificial Intelligence (AI), and it's also used to program IoT devices, microcontrollers, and more!</p>
+<p>VS Code is an excellent editor for coding Python and learning the language. You can use Python in VS Code both for building apps of every kind and for working with notebooks, such as those used by data scientists.</p>
+<blockquote>
+<p><strong>Tip</strong>: If you're looking at getting started with Python, there is a <a href="https://aka.ms/LearnPython" class="external-link" target="_blank">free video series</a> for you as well:
+<a href="https://aka.ms/LearnPython" class="external-link" target="_blank"><img src="../../../../assets/blogs/2020/12/03/intro-to-python-cover.jpg" alt="Watch: Intro to Python video series" loading="lazy"></a></p>
+</blockquote>
+<p>Chrome OS already comes with the Python 3 interpreter pre-installed, but we need to install a few more packages to get the best Python coding experience. This includes <em>pip</em> (a dependency manager for Python), <em>venv</em> (for managing Python virtual environments), and some build tools for working with native packages. In the terminal, run:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #000000">sudo apt-get install -y python3-pip python3-dev python3-venv build-essential libssl-dev libffi-dev</span></span>
+<span class="line"></span></code></pre>
+<p><img src="../../../../assets/blogs/2020/12/03/install-python-deps.png" alt="Installing Python dependencies" loading="lazy"></p>
+<p>Python support in VS Code is provided through the <a href="https://marketplace.visualstudio.com/items?itemName=ms-python.python" class="external-link" target="_blank">Microsoft Python</a> extension. To install the Python extension, from within VS Code, use the left Activity bar to open the Extensions view (<span class="dynamic-keybinding" data-commandId="workbench.view.extensions" data-osx="⇧⌘X" data-win="Ctrl+Shift+X" data-linux="Ctrl+Shift+X"><span class="keybinding">⇧⌘X</span> (Windows, Linux <span class="keybinding">Ctrl+Shift+X</span>)</span>), then search for &quot;python&quot; and install the extension provided by Microsoft:</p>
+<p><img src="../../../../assets/blogs/2020/12/03/install-python-ext.png" alt="Installing the Python extension for VS Code" loading="lazy"></p>
+<p>At this point, you're ready to start developing with Python in VS Code! To learn more about using Python with VS Code, including running your code, using the integrated debugger, linting, etc., check out our documentation for <a href="../../../../docs/python/python-tutorial.html">Python in VS Code</a>.</p>
+<h2 id="_coming-next-using-remote-development" data-needslink="_coming-next-using-remote-development">Coming next: using Remote Development</h2>
+<p>That's all for today! In this post, we looked at how to install VS Code on a Chromebook and how to get started with coding in JavaScript/Node.js and Python.</p>
+<p>But wait, there's more. While Chromebooks can run VS Code just fine, even on lower-powered versions like the one I'm testing with, sometimes you need to use faster machines for your development, with more memory and/or a faster CPU. For example, maybe you're using an ARM-powered Chromebook but you need to run your code on a Intel/AMD chip. Or maybe you want to work with Artificial Intelligence and need access to machines with powerful GPUs.</p>
+<p>With VS Code and the <a href="../../../../docs/remote/remote-overview.html">Remote Development</a> extensions (SSH and Container), as well as <a href="https://docs.github.com/github/developing-online-with-codespaces" class="external-link" target="_blank">GitHub Codespaces</a>, we can solve all of the problems above–and more.</p>
+<p>In the next part of this tutorial, you'll learn how VS Code Remote extensions and GitHub Codespaces can turn your Chromebook into a development powerhouse!</p>
+<p>In the meanwhile, happy coding… and happy learning!</p>
+<p>Alessandro Segala, VS Code Product Manager <a href="https://twitter.com/ItalyPaleAle" class="external-link" target="_blank">@ItalyPaleAle</a></p>
+
+        </div>
+        <div class="col-sm-3 col-md-2 docs-subnavbar-container">
+            <nav id="docs-subnavbar" aria-label="On Page" data-spy="affix" data-offset-top="20">
+                
+                <h4><span class="sr-only">In this blog post, there are 6
+                        sections</span><span aria-hidden="true">In this blog post</span></h4>
+                
+                <ul class="nav">
+                    
+                    <li><a href="#_what-youll-need">What you'll need</a></li>
+                    
+                    <li><a href="#_enable-linux-on-your-chromebook">Enable Linux on your Chromebook</a></li>
+                    
+                    <li><a href="#_install-vs-code">Install VS Code</a></li>
+                    
+                    <li><a href="#_code-with-javascript-and-nodejs">Code with JavaScript and Node.js</a></li>
+                    
+                    <li><a href="#_code-with-python">Code with Python</a></li>
+                    
+                    <li><a href="#_coming-next-using-remote-development">Coming next: using Remote Development</a></li>
+                    
+                </ul>
+                <div class="connect-widget"></div>
+            </nav>
+        </div>
+    </div>
+</div>
+      </div>
+  </div>
+
+  <footer role="contentinfo">
+      <div class="container">
+          <div class="row">
+              <div class="left col-md-7">
+                  <ul class="links">
+                      <li>
+                          <span class="message">Hello from Seattle.</span>
+                      </li>
+                      <li>
+                          <a href="https://go.microsoft.com/fwlink/?LinkID=533687" onclick="followOnTwitter()" tabindex="0">Follow @code</a>
+                      </li>
+                      <li>
+                          <div class="github-star-button">
+                              <iframe src="../../../../assets/github-button29be.html?user=Microsoft&amp;repo=vscode&amp;type=star&amp;count=true"
+                                  frameborder="0" scrolling="0" width="130px" height="20px" title="GitHub follow button" loading="lazy"></iframe>
+                          </div>
+                      </li>
+  
+                      <script>
+                          function followOnTwitter() {
+                              var windowFeatures = "location=yes,height=600,width=550,scrollbars=yes,status=yes";
+                              var originalReferer = "&original_referer=" + document.URL;
+                              var screenName = "&screen_name=code";
+                              var URL = "https://twitter.com/intent/follow?" + originalReferer + screenName;
+                              window.open(URL, "_blank", windowFeatures);
+                          }
+  
+                          function manageConsent() {
+                              if(WcpConsent.siteConsent.isConsentRequired){
+                                  WcpConsent.siteConsent.manageConsent();
+                              }
+                          }
+                      </script>
+                  </ul>
+              </div>
+              <div class="right col-md-5">
+                  <ul class="links">
+                      <li><a id="footer-support-link" href="https://support.serviceshub.microsoft.com/supportforbusiness/create?sapId=d66407ed-3967-b000-4cfb-2c318cad363d"
+                              target="_blank">Support</a></li>
+                      <li><a id="footer-privacy-link" href="https://privacy.microsoft.com/privacystatement"
+                              target="_blank">Privacy</a></li>
+                      <li style="display: none;"><a id="footer-cookie-link" style="cursor: pointer;" onclick="manageConsent()"
+                              target="_blank">Manage Cookies</a></li>
+                      <li><a id="footer-terms-link" href="https://www.microsoft.com/legal/terms-of-use"
+                              target="_blank">Terms of Use</a></li>
+                      <li><a id="footer-license-link" href="../../../../License.html">License</a></li>
+                  </ul>
+                  <div class="copyright">
+                      <a id="footer-microsoft-link" class="logo" href="https://www.microsoft.com/">
+                          <img class="microsoft-logo" src="../../../../assets/images/microsoft-logo.png" height="20" alt="Microsoft homepage"/>
+                          <img class="microsoft-logo-inverted" src="../../../../assets/images/microsoft-logo-inverted.png" height="20" alt="Microsoft homepage" />
+                      </a>
+                      <span>&copy; 2023 Microsoft</span>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </footer>
+  <script src="../../../../dist/index.js"></script>
+
+  
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "SoftwareApplication",
+      "name" : "Visual Studio Code",
+      "softwareVersion": "1.74",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "applicationCategory": "DeveloperApplication",
+      "applicationSubCategory": "Text Editor",
+      "alternateName": "VS Code",
+      "datePublished": "2021-11-03",
+      "operatingSystem": "Mac, Linux, Windows",
+      "logo": "https://code.visualstudio.com/assets/apple-touch-icon.png",
+      "screenshot": "https://code.visualstudio.com/assets/home/home-screenshot-win.png",
+      "releaseNotes": "https://code.visualstudio.com/updates",
+      "downloadUrl": "https://code.visualstudio.com/download",
+      "license": "https://code.visualstudio.com/license",
+      "softwareRequirements": "https://code.visualstudio.com/docs/supporting/requirements",
+      "url" : "https://code.visualstudio.com",
+      "author": {
+        "@type": "Organization",
+        "name": "Microsoft"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Microsoft"
+      },
+      "maintainer": {
+        "@type": "Organization",
+        "name": "Microsoft"
+      },
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://code.visualstudio.com/Search?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      },
+      "sameAs" : [
+        "https://en.wikipedia.org/wiki/Visual_Studio_Code",
+        "https://twitter.com/code",
+        "https://www.youtube.com/code",
+        "https://www.tiktok.com/@vscode",
+        "https://github.com/microsoft/vscode"
+      ]
+    }
+  </script>
+</body>
+
+<!-- Mirrored from code.visualstudio.com/blogs/2020/12/03/chromebook-get-started by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 04 Jan 2023 12:15:13 GMT -->
+</html>

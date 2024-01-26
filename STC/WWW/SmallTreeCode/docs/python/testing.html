@@ -1,0 +1,1983 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Mirrored from code.visualstudio.com/docs/python/testing by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 04 Jan 2023 10:09:57 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="google-site-verification" content="hNs7DXrTySP_X-0P_AC0WulAXvUwgSXEmgfcO2r79dw" />
+
+  <!-- Twitter and Facebook OpenGraph Metadata-->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@code" />
+
+  <meta name="description" content="Testing Python in Visual Studio Code including the Test Explorer" />
+<meta name="keywords" content="" />
+<meta name="ms.prod" content="vs-code" />
+<meta name="ms.TOCTitle" content="Testing" />
+<meta name="ms.ContentId" content="9480bef3-4dfc-4671-a454-b9252567bc60" />
+<meta name="ms.date" content="11/17/2021" />
+<meta name="ms.topic" content="conceptual" />
+<!-- Twitter and Facebook OpenGraph Metadata-->
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="og:url" content="testing.html" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Testing Python in Visual Studio Code" />
+<meta property="og:description" content="Testing Python in Visual Studio Code including the Test Explorer" />
+
+<meta property="og:image" content="../../assets/docs/python/tutorial/social.png" />
+
+
+
+  <link rel="shortcut icon" href="../../favicon.ico" sizes="128x128" />
+  <link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+
+  <title>Testing Python in Visual Studio Code</title>
+
+  <link rel="stylesheet" href="../../vendor/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../../dist/style.css">
+
+  <script type="text/javascript" src="../../../js.monitor.azure.com/scripts/c/ms.analytics-web-3.min.js"></script>
+  <script>
+  window.appInsights = new oneDS.ApplicationInsights();
+  window.appInsights.initialize({
+    instrumentationKey: "1a3eb3104447440391ad5f2a6ee06a0a-62879566-bc58-4741-9650-302bf2af703f-7103",
+    webAnalyticsConfiguration:{ // Web Analytics Plugin configuration
+        urlCollectQuery:true, 
+        autoCapture: {
+          scroll: true,
+          pageView: true,
+          onLoad: true,
+          onUnload: true,
+          click: true,
+          resize: true,
+          jsError: true
+        }
+    }
+  }, []);
+  </script>
+  
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','../../../www.google-analytics.com/analytics.js','ga');
+  </script>  
+  <link rel="alternate" type="application/atom+xml" title="RSS Feed for code.visualstudio.com" href="../../feed.xml" />
+</head>
+
+<body>
+  <!-- EU Cookie Compliance JS -->
+  <script src="../../../wcpstatic.microsoft.com/mscc/lib/v2/wcp-consent.js"></script>
+
+  <div id="main">
+          <div class="navbar-fixed-container">
+              <div class="navbar navbar-inverse navbar-fixed-top ">
+                  <div id='cookie-banner'></div>        <nav role="navigation" aria-label="Top Level">
+                      <div class="container">
+                          <div class="nav navbar-header">
+                              <a role="button" id="skip-to-content" class="link-button" href="#main-content">Skip to content<i>&nbsp;</i><span class="glyphicon glyphicon-menu-down"></span></a>
+                              <a class="navbar-brand" id="navbar-brand" href="../../index.html">Visual Studio Code</a>
+                              <button type="button" class="navbar-toggle" role="navigation" data-toggle="collapse" data-target=".navbar-collapse" aria-label="Toggle Navigation Menu">
+                                  <span class="icon-bar"></span>
+                                  <span class="icon-bar"></span>
+                                  <span class="icon-bar"></span>
+                              </button>
+                          </div>
+                          <div class="navbar-collapse collapse" role="navigation">
+                              <ul class="nav navbar-nav navbar-left">
+                                  <li class="active" ><a id="nav-docs" href="../../docs.html">Docs</a></li>
+                                  <li ><a id="nav-updates" href="../../updates/v1_74.html">Updates</a></li>
+                                  <li ><a id="nav-blogs" href="../../blogs.html">Blog</a></li>
+                                  <li ><a id="nav-extend" href="../../api.html">API</a></li>
+                                  <li><a href="https://marketplace.visualstudio.com/VSCode" target="_blank" id="nav-extensions">Extensions</a></li>
+                                  <li ><a id="nav-faqs" href="../supporting/faq.html">FAQ</a></li>
+                                  <li ><a id="nav-learn" href="../../learn.html">Learn</a></li>
+                                  <li class='search visible-xs visible-sm'
+                                      ><a href="../../Search.html">Search</a></li>
+                              </ul>
+          
+                              <ul class="nav navbar-nav navbar-right" role="presentation">
+                                  <!-- Floating search icon -->
+                                  <li>
+                                      <a href="../../Search.html" title="Search" class="btn search-btn" id="nav-search">
+                                          <img class="search-icon" src="../../assets/icons/search.svg" width="16px" height="16px" alt="Search"/>
+                                          <img class="search-icon-inverted" src="../../assets/icons/search_dark.svg" width="16px" height="16px" alt="Search" />
+                                      </a>
+                                  </li>
+                                  <!-- Actual search icon -->
+                                  <li class="search" role="presentation">
+                                      <form class="nav-search search-form" role="search" aria-label="Search">
+                                          <div class="input-group" role="presentation">
+                                              <input type="text" name="q" class="search-box form-control" placeholder="Search Docs" aria-label="Search text"/>
+                                              <span class="input-group-btn">
+                                                  <button tabindex="0" class="btn" type="submit" aria-label="Search">
+                                                          <img class="search-icon" src="../../assets/icons/search.svg" width="16px" height="16px" alt="Search" />
+                                                          <img class="search-icon-inverted" src="../../assets/icons/search_dark.svg" width="16px" height="16px" alt="Search" />
+                                                  </button>
+                                              </span>
+                                          </div>
+                                      </form>                        </li>
+                                  <!-- this was hiden in the home and download page, keeping it for now -->
+                                  <li><a class="link-button" href="../../Download.html" id="nav-download">
+                                      <img class="download-icon" src="../../assets/icons/download.svg" width="16px" height="16px" alt="Download VS Code"/>
+                                      <img class="download-icon-inverted" src="../../assets/icons/download-black.svg" width="16px" height="16px" alt="Download VS Code" />
+                                      <span>Download</span>
+                                  </a></li>
+                              </ul>
+                          </div>
+                      </div>
+                  </nav>
+              </div>
+          </div>          <div class="updates-banner  ">
+              <div class="container">
+                  <p class="message"><a href="../../updates/v1_74.html" id="banner-link-updates">Version 1.74</a> is now available! Read about the new features and fixes from November.</p> 
+              </div>
+              <div tabindex="0" role="button" title="Dismiss this update" class="dismiss-btn" id="banner-dismiss-btn"><span class="sr-only">Dismiss this update</span><span aria-hidden="true" class="glyph-icon"></span></div>
+          </div>      <div role="main" id="main-content">
+        <script>
+    function closeReportIssue() {
+        var element = document.getElementById('surveypopup');
+        element.parentElement.removeChild(element);
+    }
+
+    function reportIssue(tutorial, page) {
+        var div = document.createElement('div');
+        div.innerHTML = '<div id="surveypopup" class="overlay visible"><div class="surveypopup"><div id="surveytitle">Tell us more<a href="javascript:void(0)" onclick="closeReportIssue()">X</a></div><div id="surveydiv"><iframe frameBorder="0" scrolling="0" src="https://www.research.net/r/PWZWZ52?tutorial=' + tutorial + '&step=' + page + '"></iframe></div></div></div>';
+        document.body.appendChild(div.children[0]);
+    }
+
+    function pushCodingPackEvent(language, os) {
+        let id = `${language}-${os}-coding-pack`;
+        var analytics = window.vscodeAnalytics;
+
+        analytics && analytics.event(
+            'click',
+            'download',
+            id,
+        );
+    }
+</script>
+
+<div class="container body-content docs">
+    <div class="row">
+        <div class="col-md-2 docs-navbar-container">
+            <nav id="docs-navbar" aria-label="Topics" class="docs-nav visible-md visible-lg">
+            	<ul class="nav" id="main-nav">
+            		<li >
+            			<a class="docs-home" href="../../docs.html" >Overview</a>
+            		</li>
+            		
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#setup-articles" data-parent="#main-nav" data-toggle="collapse">Setup</a>
+            					<ul id="setup-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../setup/setup-overview.html" >Overview</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../setup/linux.html" >Linux</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../setup/mac.html" >macOS</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../setup/windows.html" >Windows</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../setup/raspberry-pi.html" >Raspberry Pi</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../setup/network.html" >Network</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../setup/additional-components.html" >Additional Components</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../setup/enterprise.html" >Enterprise</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../setup/uninstall.html" >Uninstall</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#getstarted-articles" data-parent="#main-nav" data-toggle="collapse">Get Started</a>
+            					<ul id="getstarted-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../getstarted/introvideos.html" >Intro Videos</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../getstarted/tips-and-tricks.html" >Tips and Tricks</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../getstarted/userinterface.html" >User Interface</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../getstarted/themes.html" >Themes</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../getstarted/settings.html" >Settings</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../getstarted/keybindings.html" >Key Bindings</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../getstarted/locales.html" >Display Language</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../getstarted/telemetry.html" >Telemetry</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#editor-articles" data-parent="#main-nav" data-toggle="collapse">User Guide</a>
+            					<ul id="editor-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../editor/codebasics.html" >Basic Editing</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../editor/extension-marketplace.html" >Extension Marketplace</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../editor/intellisense.html" >IntelliSense</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../editor/editingevolved.html" >Code Navigation</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../editor/refactoring.html" >Refactoring</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../editor/debugging.html" >Debugging</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../editor/vscode-web.html" >VS Code for the Web</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../editor/tasks.html" >Tasks</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../editor/settings-sync.html" >Settings Sync</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../editor/userdefinedsnippets.html" >Snippets</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../editor/emmet.html" >Emmet</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../editor/command-line.html" >Command Line Interface</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../editor/workspace-trust.html" >Workspace Trust</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../editor/multi-root-workspaces.html" >Multi-root Workspaces</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../editor/accessibility.html" >Accessibility</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#sourcecontrol-articles" data-parent="#main-nav" data-toggle="collapse">Source Control</a>
+            					<ul id="sourcecontrol-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../sourcecontrol/overview.html" >Overview</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../sourcecontrol/github.html" >Collaborate on GitHub</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../sourcecontrol/faq.html" >FAQ</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#terminal-articles" data-parent="#main-nav" data-toggle="collapse">Terminal</a>
+            					<ul id="terminal-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../terminal/basics.html" >Terminal Basics</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../terminal/profiles.html" >Terminal Profiles</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../terminal/shell-integration.html" >Shell Integration</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../terminal/appearance.html" >Appearance</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../terminal/advanced.html" >Advanced</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#languages-articles" data-parent="#main-nav" data-toggle="collapse">Languages</a>
+            					<ul id="languages-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../languages/overview.html" >Overview</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/javascript.html" >JavaScript</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/json.html" >JSON</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/html.html" >HTML</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/css.html" >CSS, SCSS and Less</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/typescript.html" >TypeScript</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/markdown.html" >Markdown</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/powershell.html" >PowerShell</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/cpp.html" >C++</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/java.html" >Java</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/php.html" >PHP</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/python.html" >Python</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/julia.html" >Julia</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/r.html" >R</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/rust.html" >Rust</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/go.html" >Go</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/tsql.html" >T-SQL</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/csharp.html" >C#</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/dotnet.html" >.NET</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#nodejs-articles" data-parent="#main-nav" data-toggle="collapse">Node.js / JavaScript</a>
+            					<ul id="nodejs-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../nodejs/working-with-javascript.html" >Working with JavaScript</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../nodejs/nodejs-tutorial.html" >Node.js Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../nodejs/nodejs-debugging.html" >Node.js Debugging</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../nodejs/nodejs-deployment.html" >Deploy Node.js Apps</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../nodejs/browser-debugging.html" >Browser Debugging</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../nodejs/angular-tutorial.html" >Angular Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../nodejs/reactjs-tutorial.html" >React Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../nodejs/vuejs-tutorial.html" >Vue Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../nodejs/emberjs-tutorial.html" >Ember Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../nodejs/debugging-recipes.html" >Debugging Recipes</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../nodejs/profiling.html" >Performance Profiling</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../nodejs/extensions.html" >Extensions</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#typescript-articles" data-parent="#main-nav" data-toggle="collapse">TypeScript</a>
+            					<ul id="typescript-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../typescript/typescript-tutorial.html" >Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../typescript/typescript-compiling.html" >Compiling</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../typescript/typescript-editing.html" >Editing</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../typescript/typescript-refactoring.html" >Refactoring</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../typescript/typescript-debugging.html" >Debugging</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel active expanded">
+            					<a class="area" role="button" href="#python-articles" data-parent="#main-nav" data-toggle="collapse">Python</a>
+            					<ul id="python-articles" class="collapse in">
+            					
+            						<li >
+            							<a href="python-tutorial.html" >Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="editing.html" >Editing Code</a>
+            						</li>
+            					
+            						<li >
+            							<a href="linting.html" >Linting</a>
+            						</li>
+            					
+            						<li >
+            							<a href="debugging.html" >Debugging</a>
+            						</li>
+            					
+            						<li >
+            							<a href="environments.html" >Environments</a>
+            						</li>
+            					
+            						<li class="active">
+            							<a href="testing.html" aria-label="Current Page: Testing">Testing</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../datascience/overview.html" >Data Science</a>
+            						</li>
+            					
+            						<li >
+            							<a href="jupyter-support-py.html" >Python Interactive</a>
+            						</li>
+            					
+            						<li >
+            							<a href="tutorial-django.html" >Django Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="tutorial-flask.html" >Flask Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../containers/quickstart-python.html" >Create containers</a>
+            						</li>
+            					
+            						<li >
+            							<a href="python-on-azure.html" >Deploy Python Apps</a>
+            						</li>
+            					
+            						<li >
+            							<a href="python-web.html" >Python in the Web</a>
+            						</li>
+            					
+            						<li >
+            							<a href="settings-reference.html" >Settings Reference</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#java-articles" data-parent="#main-nav" data-toggle="collapse">Java</a>
+            					<ul id="java-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../java/java-tutorial.html" >Getting Started</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-editing.html" >Navigate and Edit</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-refactoring.html" >Refactoring</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-linting.html" >Formatting and Linting</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-project.html" >Project Management</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-build.html" >Build Tools</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-debugging.html" >Run and Debug</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-testing.html" >Testing</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-spring-boot.html" >Spring Boot</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-tomcat-jetty.html" >Application Servers</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-on-azure.html" >Deploy Java Apps</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-gui.html" >GUI Applications</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/extensions.html" >Extensions</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-faq.html" >FAQ</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#cpp-articles" data-parent="#main-nav" data-toggle="collapse">C++</a>
+            					<ul id="cpp-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../cpp/introvideos-cpp.html" >Intro Videos</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../cpp/config-linux.html" >GCC on Linux</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../cpp/config-mingw.html" >GCC on Windows</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../cpp/config-wsl.html" >GCC on Windows Subsystem for Linux</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../cpp/config-clang-mac.html" >Clang on macOS</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../cpp/config-msvc.html" >Microsoft C++ on Windows</a>
+            						</li>
+            					
+            						<li >
+            							<a href="https://github.com/microsoft/vscode-cmake-tools/blob/main/docs/README.md" >Build with CMake</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../cpp/cmake-linux.html" >CMake Tools on Linux</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../cpp/cpp-ide.html" >Editing</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../cpp/cpp-debug.html" >Debugging</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../cpp/launch-json-reference.html" >Configure debugging</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../cpp/customize-default-settings-cpp.html" >Settings</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../cpp/configure-intellisense-crosscompilation.html" >Configure IntelliSense for cross-compiling</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../cpp/faq-cpp.html" >FAQ</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#containers-articles" data-parent="#main-nav" data-toggle="collapse">Docker</a>
+            					<ul id="containers-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../containers/overview.html" >Overview</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../containers/quickstart-node.html" >Node.js</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../containers/quickstart-python.html" >Python</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../containers/quickstart-aspnet-core.html" >ASP.NET Core</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../containers/debug-common.html" >Debug</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../containers/docker-compose.html" >Docker Compose</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../containers/quickstart-container-registries.html" >Registries</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../containers/app-service.html" >Deploy to Azure</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../containers/choosing-dev-environment.html" >Choose a dev environment</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../containers/reference.html" >Customize</a>
+            						</li>
+            					
+            						<li >
+            							<a href="https://learn.microsoft.com/visualstudio/bridge/bridge-to-kubernetes-vs-code" >Develop with Kubernetes</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../containers/troubleshooting.html" >Tips and Tricks</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#datascience-articles" data-parent="#main-nav" data-toggle="collapse">Data Science</a>
+            					<ul id="datascience-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../datascience/overview.html" >Overview</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../datascience/jupyter-notebooks.html" >Jupyter Notebooks</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../datascience/data-science-tutorial.html" >Data Science Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="jupyter-support-py.html" >Python Interactive</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../datascience/pytorch-support.html" >PyTorch Support</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../datascience/azure-machine-learning.html" >Azure Machine Learning</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#azure-articles" data-parent="#main-nav" data-toggle="collapse">Azure</a>
+            					<ul id="azure-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../azure/extensions.html" >Extensions</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../azure/deployment.html" >Deployment</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../azure/remote-debugging.html" >Remote Debugging for Node.js</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../containers/overview.html" >Docker</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../azure/mongodb.html" >MongoDB</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../azure/kubernetes.html" >Kubernetes</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../azure/aksextensions.html" >Azure Kubernetes Service</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#remote-articles" data-parent="#main-nav" data-toggle="collapse">Remote</a>
+            					<ul id="remote-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../remote/remote-overview.html" >Overview</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../remote/ssh.html" >SSH</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../devcontainers/containers.html" >Dev Containers</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../remote/wsl.html" >Windows Subsystem for Linux</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../remote/codespaces.html" >GitHub Codespaces</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../remote/vscode-server.html" >VS Code Server</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../remote/tunnels.html" >Tunnels</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../remote/ssh-tutorial.html" >SSH Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../remote/wsl-tutorial.html" >WSL Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../remote/troubleshooting.html" >Tips and Tricks</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../remote/faq.html" >FAQ</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#devcontainers-articles" data-parent="#main-nav" data-toggle="collapse">Dev Containers</a>
+            					<ul id="devcontainers-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../devcontainers/containers.html" >Overview</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../devcontainers/tutorial.html" >Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../devcontainers/attach-container.html" >Attach to Container</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../devcontainers/create-dev-container.html" >Create a Dev Container</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../../remote/advancedcontainers/overview.html" >Advanced Containers</a>
+            						</li>
+            					
+            						<li >
+            							<a href="https://containers.dev/implementors/json_reference" >devcontainer.json</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../devcontainers/devcontainer-cli.html" >Dev Container CLI</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../devcontainers/tips-and-tricks.html" >Tips and Tricks</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../devcontainers/faq.html" >FAQ</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            		
+            	</ul>
+            </nav>
+            <nav id="small-nav" aria-label="Topics" class="docs-nav hidden-md hidden-lg">
+            	<h4>Topics</h4>
+            	<select id="small-nav-dropdown" aria-label="topics">
+            		<option value="/docs" >Overview</option>
+            		
+            			
+            		
+            			
+            				<optgroup label="Setup">
+            				
+            					<option value="/docs/setup/setup-overview" >Overview</option>
+            				
+            					<option value="/docs/setup/linux" >Linux</option>
+            				
+            					<option value="/docs/setup/mac" >macOS</option>
+            				
+            					<option value="/docs/setup/windows" >Windows</option>
+            				
+            					<option value="/docs/setup/raspberry-pi" >Raspberry Pi</option>
+            				
+            					<option value="/docs/setup/network" >Network</option>
+            				
+            					<option value="/docs/setup/additional-components" >Additional Components</option>
+            				
+            					<option value="/docs/setup/enterprise" >Enterprise</option>
+            				
+            					<option value="/docs/setup/uninstall" >Uninstall</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Get Started">
+            				
+            					<option value="/docs/getstarted/introvideos" >Intro Videos</option>
+            				
+            					<option value="/docs/getstarted/tips-and-tricks" >Tips and Tricks</option>
+            				
+            					<option value="/docs/getstarted/userinterface" >User Interface</option>
+            				
+            					<option value="/docs/getstarted/themes" >Themes</option>
+            				
+            					<option value="/docs/getstarted/settings" >Settings</option>
+            				
+            					<option value="/docs/getstarted/keybindings" >Key Bindings</option>
+            				
+            					<option value="/docs/getstarted/locales" >Display Language</option>
+            				
+            					<option value="/docs/getstarted/telemetry" >Telemetry</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="User Guide">
+            				
+            					<option value="/docs/editor/codebasics" >Basic Editing</option>
+            				
+            					<option value="/docs/editor/extension-marketplace" >Extension Marketplace</option>
+            				
+            					<option value="/docs/editor/intellisense" >IntelliSense</option>
+            				
+            					<option value="/docs/editor/editingevolved" >Code Navigation</option>
+            				
+            					<option value="/docs/editor/refactoring" >Refactoring</option>
+            				
+            					<option value="/docs/editor/debugging" >Debugging</option>
+            				
+            					<option value="/docs/editor/vscode-web" >VS Code for the Web</option>
+            				
+            					<option value="/docs/editor/tasks" >Tasks</option>
+            				
+            					<option value="/docs/editor/settings-sync" >Settings Sync</option>
+            				
+            					<option value="/docs/editor/userdefinedsnippets" >Snippets</option>
+            				
+            					<option value="/docs/editor/emmet" >Emmet</option>
+            				
+            					<option value="/docs/editor/command-line" >Command Line Interface</option>
+            				
+            					<option value="/docs/editor/workspace-trust" >Workspace Trust</option>
+            				
+            					<option value="/docs/editor/multi-root-workspaces" >Multi-root Workspaces</option>
+            				
+            					<option value="/docs/editor/accessibility" >Accessibility</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Source Control">
+            				
+            					<option value="/docs/sourcecontrol/overview" >Overview</option>
+            				
+            					<option value="/docs/sourcecontrol/github" >Collaborate on GitHub</option>
+            				
+            					<option value="/docs/sourcecontrol/faq" >FAQ</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Terminal">
+            				
+            					<option value="/docs/terminal/basics" >Terminal Basics</option>
+            				
+            					<option value="/docs/terminal/profiles" >Terminal Profiles</option>
+            				
+            					<option value="/docs/terminal/shell-integration" >Shell Integration</option>
+            				
+            					<option value="/docs/terminal/appearance" >Appearance</option>
+            				
+            					<option value="/docs/terminal/advanced" >Advanced</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Languages">
+            				
+            					<option value="/docs/languages/overview" >Overview</option>
+            				
+            					<option value="/docs/languages/javascript" >JavaScript</option>
+            				
+            					<option value="/docs/languages/json" >JSON</option>
+            				
+            					<option value="/docs/languages/html" >HTML</option>
+            				
+            					<option value="/docs/languages/css" >CSS, SCSS and Less</option>
+            				
+            					<option value="/docs/languages/typescript" >TypeScript</option>
+            				
+            					<option value="/docs/languages/markdown" >Markdown</option>
+            				
+            					<option value="/docs/languages/powershell" >PowerShell</option>
+            				
+            					<option value="/docs/languages/cpp" >C++</option>
+            				
+            					<option value="/docs/languages/java" >Java</option>
+            				
+            					<option value="/docs/languages/php" >PHP</option>
+            				
+            					<option value="/docs/languages/python" >Python</option>
+            				
+            					<option value="/docs/languages/julia" >Julia</option>
+            				
+            					<option value="/docs/languages/r" >R</option>
+            				
+            					<option value="/docs/languages/rust" >Rust</option>
+            				
+            					<option value="/docs/languages/go" >Go</option>
+            				
+            					<option value="/docs/languages/tsql" >T-SQL</option>
+            				
+            					<option value="/docs/languages/csharp" >C#</option>
+            				
+            					<option value="/docs/languages/dotnet" >.NET</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Node.js / JavaScript">
+            				
+            					<option value="/docs/nodejs/working-with-javascript" >Working with JavaScript</option>
+            				
+            					<option value="/docs/nodejs/nodejs-tutorial" >Node.js Tutorial</option>
+            				
+            					<option value="/docs/nodejs/nodejs-debugging" >Node.js Debugging</option>
+            				
+            					<option value="/docs/nodejs/nodejs-deployment" >Deploy Node.js Apps</option>
+            				
+            					<option value="/docs/nodejs/browser-debugging" >Browser Debugging</option>
+            				
+            					<option value="/docs/nodejs/angular-tutorial" >Angular Tutorial</option>
+            				
+            					<option value="/docs/nodejs/reactjs-tutorial" >React Tutorial</option>
+            				
+            					<option value="/docs/nodejs/vuejs-tutorial" >Vue Tutorial</option>
+            				
+            					<option value="/docs/nodejs/emberjs-tutorial" >Ember Tutorial</option>
+            				
+            					<option value="/docs/nodejs/debugging-recipes" >Debugging Recipes</option>
+            				
+            					<option value="/docs/nodejs/profiling" >Performance Profiling</option>
+            				
+            					<option value="/docs/nodejs/extensions" >Extensions</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="TypeScript">
+            				
+            					<option value="/docs/typescript/typescript-tutorial" >Tutorial</option>
+            				
+            					<option value="/docs/typescript/typescript-compiling" >Compiling</option>
+            				
+            					<option value="/docs/typescript/typescript-editing" >Editing</option>
+            				
+            					<option value="/docs/typescript/typescript-refactoring" >Refactoring</option>
+            				
+            					<option value="/docs/typescript/typescript-debugging" >Debugging</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Python">
+            				
+            					<option value="/docs/python/python-tutorial" >Tutorial</option>
+            				
+            					<option value="/docs/python/editing" >Editing Code</option>
+            				
+            					<option value="/docs/python/linting" >Linting</option>
+            				
+            					<option value="/docs/python/debugging" >Debugging</option>
+            				
+            					<option value="/docs/python/environments" >Environments</option>
+            				
+            					<option value="/docs/python/testing" selected>Testing</option>
+            				
+            					<option value="/docs/python/data-science" >Data Science</option>
+            				
+            					<option value="/docs/python/jupyter-support-py" >Python Interactive</option>
+            				
+            					<option value="/docs/python/tutorial-django" >Django Tutorial</option>
+            				
+            					<option value="/docs/python/tutorial-flask" >Flask Tutorial</option>
+            				
+            					<option value="/docs/python/tutorial-create-containers" >Create containers</option>
+            				
+            					<option value="/docs/python/python-on-azure" >Deploy Python Apps</option>
+            				
+            					<option value="/docs/python/python-web" >Python in the Web</option>
+            				
+            					<option value="/docs/python/settings-reference" >Settings Reference</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Java">
+            				
+            					<option value="/docs/java/java-tutorial" >Getting Started</option>
+            				
+            					<option value="/docs/java/java-editing" >Navigate and Edit</option>
+            				
+            					<option value="/docs/java/java-refactoring" >Refactoring</option>
+            				
+            					<option value="/docs/java/java-linting" >Formatting and Linting</option>
+            				
+            					<option value="/docs/java/java-project" >Project Management</option>
+            				
+            					<option value="/docs/java/java-build" >Build Tools</option>
+            				
+            					<option value="/docs/java/java-debugging" >Run and Debug</option>
+            				
+            					<option value="/docs/java/java-testing" >Testing</option>
+            				
+            					<option value="/docs/java/java-spring-boot" >Spring Boot</option>
+            				
+            					<option value="/docs/java/java-tomcat-jetty" >Application Servers</option>
+            				
+            					<option value="/docs/java/java-on-azure" >Deploy Java Apps</option>
+            				
+            					<option value="/docs/java/java-gui" >GUI Applications</option>
+            				
+            					<option value="/docs/java/extensions" >Extensions</option>
+            				
+            					<option value="/docs/java/java-faq" >FAQ</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="C++">
+            				
+            					<option value="/docs/cpp/introvideos-cpp" >Intro Videos</option>
+            				
+            					<option value="/docs/cpp/config-linux" >GCC on Linux</option>
+            				
+            					<option value="/docs/cpp/config-mingw" >GCC on Windows</option>
+            				
+            					<option value="/docs/cpp/config-wsl" >GCC on Windows Subsystem for Linux</option>
+            				
+            					<option value="/docs/cpp/config-clang-mac" >Clang on macOS</option>
+            				
+            					<option value="/docs/cpp/config-msvc" >Microsoft C++ on Windows</option>
+            				
+            					<option value="/docs/cpp/build-with-cmake" >Build with CMake</option>
+            				
+            					<option value="/docs/cpp/cmake-linux" >CMake Tools on Linux</option>
+            				
+            					<option value="/docs/cpp/cpp-ide" >Editing</option>
+            				
+            					<option value="/docs/cpp/cpp-debug" >Debugging</option>
+            				
+            					<option value="/docs/cpp/launch-json-reference" >Configure debugging</option>
+            				
+            					<option value="/docs/cpp/customize-default-settings-cpp" >Settings</option>
+            				
+            					<option value="/docs/cpp/configure-intellisense-crosscompilation" >Configure IntelliSense for cross-compiling</option>
+            				
+            					<option value="/docs/cpp/faq-cpp" >FAQ</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Docker">
+            				
+            					<option value="/docs/containers/overview" >Overview</option>
+            				
+            					<option value="/docs/containers/quickstart-node" >Node.js</option>
+            				
+            					<option value="/docs/containers/quickstart-python" >Python</option>
+            				
+            					<option value="/docs/containers/quickstart-aspnet-core" >ASP.NET Core</option>
+            				
+            					<option value="/docs/containers/debug-common" >Debug</option>
+            				
+            					<option value="/docs/containers/docker-compose" >Docker Compose</option>
+            				
+            					<option value="/docs/containers/quickstart-container-registries" >Registries</option>
+            				
+            					<option value="/docs/containers/app-service" >Deploy to Azure</option>
+            				
+            					<option value="/docs/containers/choosing-dev-environment" >Choose a dev environment</option>
+            				
+            					<option value="/docs/containers/reference" >Customize</option>
+            				
+            					<option value="/docs/containers/bridge-to-kubernetes" >Develop with Kubernetes</option>
+            				
+            					<option value="/docs/containers/troubleshooting" >Tips and Tricks</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Data Science">
+            				
+            					<option value="/docs/datascience/overview" >Overview</option>
+            				
+            					<option value="/docs/datascience/jupyter-notebooks" >Jupyter Notebooks</option>
+            				
+            					<option value="/docs/datascience/data-science-tutorial" >Data Science Tutorial</option>
+            				
+            					<option value="/docs/datascience/python-interactive" >Python Interactive</option>
+            				
+            					<option value="/docs/datascience/pytorch-support" >PyTorch Support</option>
+            				
+            					<option value="/docs/datascience/azure-machine-learning" >Azure Machine Learning</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Azure">
+            				
+            					<option value="/docs/azure/extensions" >Extensions</option>
+            				
+            					<option value="/docs/azure/deployment" >Deployment</option>
+            				
+            					<option value="/docs/azure/remote-debugging" >Remote Debugging for Node.js</option>
+            				
+            					<option value="/docs/azure/docker" >Docker</option>
+            				
+            					<option value="/docs/azure/mongodb" >MongoDB</option>
+            				
+            					<option value="/docs/azure/kubernetes" >Kubernetes</option>
+            				
+            					<option value="/docs/azure/aksextensions" >Azure Kubernetes Service</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Remote">
+            				
+            					<option value="/docs/remote/remote-overview" >Overview</option>
+            				
+            					<option value="/docs/remote/ssh" >SSH</option>
+            				
+            					<option value="/docs/remote/dev-containers" >Dev Containers</option>
+            				
+            					<option value="/docs/remote/wsl" >Windows Subsystem for Linux</option>
+            				
+            					<option value="/docs/remote/codespaces" >GitHub Codespaces</option>
+            				
+            					<option value="/docs/remote/vscode-server" >VS Code Server</option>
+            				
+            					<option value="/docs/remote/tunnels" >Tunnels</option>
+            				
+            					<option value="/docs/remote/ssh-tutorial" >SSH Tutorial</option>
+            				
+            					<option value="/docs/remote/wsl-tutorial" >WSL Tutorial</option>
+            				
+            					<option value="/docs/remote/troubleshooting" >Tips and Tricks</option>
+            				
+            					<option value="/docs/remote/faq" >FAQ</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Dev Containers">
+            				
+            					<option value="/docs/devcontainers/containers" >Overview</option>
+            				
+            					<option value="/docs/devcontainers/tutorial" >Tutorial</option>
+            				
+            					<option value="/docs/devcontainers/attach-container" >Attach to Container</option>
+            				
+            					<option value="/docs/devcontainers/create-dev-container" >Create a Dev Container</option>
+            				
+            					<option value="/docs/devcontainers/containers-advanced" >Advanced Containers</option>
+            				
+            					<option value="/docs/devcontainers/devcontainerjson-reference" >devcontainer.json</option>
+            				
+            					<option value="/docs/devcontainers/devcontainer-cli" >Dev Container CLI</option>
+            				
+            					<option value="/docs/devcontainers/tips-and-tricks" >Tips and Tricks</option>
+            				
+            					<option value="/docs/devcontainers/faq" >FAQ</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            		
+            	</select>
+            </nav>        </div>
+        <div class="col-sm-9 col-md-8 body">
+            <div class="edit-github pull-right">
+                <a href="https://vscode.dev/github/microsoft/vscode-docs/blob/main/docs/python/testing.md"
+                    class="btn btn-default" title="Edit this document in vscode.dev">
+                    <span class="glyphicon glyphicon-pencil"></span>
+                    <span class="hidden-xs">Edit</span>
+                </a>
+            </div>
+            <h1>Python testing in Visual Studio Code</h1>
+<p>The <a href="https://marketplace.visualstudio.com/items?itemName=ms-python.python" class="external-link" target="_blank">Python extension</a> supports testing with Python's built-in <a href="https://docs.python.org/3/library/unittest.html" class="external-link" target="_blank">unittest</a> framework and <a href="https://docs.pytest.org/" class="external-link" target="_blank">pytest</a>.</p>
+<h2 id="_a-little-background-on-unit-testing" data-needslink="_a-little-background-on-unit-testing">A little background on unit testing</h2>
+<p>(If you're already familiar with unit testing, you can skip to the <a href="#_example-test-walkthroughs">walkthroughs</a>.)</p>
+<p>A <strong>unit</strong> is a specific piece of code to be tested, such as a function or a class. <strong>Unit tests</strong> are then other pieces of code that specifically exercise the code unit with a full range of different inputs, including boundary and edge cases.</p>
+<p>For example, say you have a function to validate the format of an account number that a user enters in a web form:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #0000FF">def</span><span style="color: #000000"> </span><span style="color: #795E26">validate_account_number_format</span><span style="color: #000000">(</span><span style="color: #001080">account_string</span><span style="color: #000000">):</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #008000"># Return False if invalid, True if valid</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #008000"># ...</span></span>
+<span class="line"></span></code></pre>
+<p>Unit tests are concerned only with the unit's <strong>interface</strong>—its arguments and return values—not with its implementation (which is why no code is shown here in the function body; often you'd be using other well-tested libraries to help implement the function). In this example, the function accepts any string and returns true if that string contains a properly formatted account number, false otherwise.</p>
+<p>To thoroughly test this function, you want to throw at it every conceivable input: valid strings, mistyped strings (off by one or two characters, or containing invalid characters), strings that are too short or too long, blank strings, null arguments, strings containing control characters (non-text codes), string containing HTML, strings containing injection attacks (such as SQL commands or JavaScript code), and so on. It's especially important to test security cases like injection attacks if the validated string is later used in database queries or displayed in the app's UI.</p>
+<p>For each input, you then define the function's expected return value (or values). In this example, again, the function should return true for only properly formatted strings. (Whether the number itself is a real account is a different matter that would be handled elsewhere through a database query.)</p>
+<p>With all the arguments and expected return values in hand, you now write the tests themselves, which are pieces of code that call the function with a particular input, then compare the actual return value with the expected return value (this comparison is called an <strong>assertion</strong>):</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #008000"># Import the code to be tested</span></span>
+<span class="line"><span style="color: #AF00DB">import</span><span style="color: #000000"> validator</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #008000"># Import the test framework (this is a hypothetical module)</span></span>
+<span class="line"><span style="color: #AF00DB">import</span><span style="color: #000000"> test_framework</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #008000"># This is a generalized example, not specific to a test framework</span></span>
+<span class="line"><span style="color: #0000FF">class</span><span style="color: #000000"> </span><span style="color: #267F99">Test_TestAccountValidator</span><span style="color: #000000">(</span><span style="color: #267F99">test_framework</span><span style="color: #000000">.</span><span style="color: #267F99">TestBaseClass</span><span style="color: #000000">):</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #0000FF">def</span><span style="color: #000000"> </span><span style="color: #795E26">test_validator_valid_string</span><span style="color: #000000">():</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #008000"># The exact assertion call depends on the framework as well</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #AF00DB">assert</span><span style="color: #000000">(validate_account_number_format(</span><span style="color: #A31515">&quot;1234567890&quot;</span><span style="color: #000000">), </span><span style="color: #0000FF">True</span><span style="color: #000000">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #008000"># ...</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #0000FF">def</span><span style="color: #000000"> </span><span style="color: #795E26">test_validator_blank_string</span><span style="color: #000000">():</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #008000"># The exact assertion call depends on the framework as well</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #AF00DB">assert</span><span style="color: #000000">(validate_account_number_format(</span><span style="color: #A31515">&quot;&quot;</span><span style="color: #000000">), </span><span style="color: #0000FF">False</span><span style="color: #000000">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #008000"># ...</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #0000FF">def</span><span style="color: #000000"> </span><span style="color: #795E26">test_validator_sql_injection</span><span style="color: #000000">():</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #008000"># The exact assertion call depends on the framework as well</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #AF00DB">assert</span><span style="color: #000000">(validate_account_number_format(</span><span style="color: #A31515">&quot;drop database master&quot;</span><span style="color: #000000">), </span><span style="color: #0000FF">False</span><span style="color: #000000">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #008000"># ... tests for all other cases</span></span>
+<span class="line"></span></code></pre>
+<p>The exact structure of the code depends on the test framework you're using, and specific examples are provided later in this article. In any case, as you can see, each test is simple: invoke the function with an argument and assert the expected return value.</p>
+<p>The combined results of all the tests is your test report, which tells you whether the function (the unit), is behaving as expected across all test cases. That is, when a unit passes all of its tests, you can be confident that it's functioning properly. (The practice of <strong>test-driven development</strong> is where you actually write the tests first, then write the code to pass increasingly more tests until all of them pass.)</p>
+<p>Because unit tests are small, isolated pieces of code (in unit testing you avoid external dependencies and use mock data or otherwise simulated inputs), they're quick and inexpensive to run. This characteristic means that you can run unit tests early and often. Developers typically run unit tests even before committing code to a repository; gated check-in systems can also run unit tests before merging a commit. Many continuous integration systems also run unit tests after every build. Running the unit test early and often means that you quickly catch <strong>regressions,</strong> which are unexpected changes in the behavior of code that previously passed all its unit tests. Because the test failure can easily be traced to a particular code change, it's easy to find and remedy the cause of the failure, which is undoubtedly better than discovering a problem much later in the process!</p>
+<p>For a general background on unit testing, read <a href="https://wikipedia.org/wiki/Unit_testing" class="external-link" target="_blank">Unit testing</a> on Wikipedia. For useful unit test examples, you can review <a href="https://github.com/gwtw/py-sorting" class="external-link" target="_blank">https://github.com/gwtw/py-sorting</a>, a repository with tests for different sorting algorithms.</p>
+<h2 id="_example-test-walkthroughs" data-needslink="_example-test-walkthroughs">Example test walkthroughs</h2>
+<p>Python tests are Python classes that reside in separate files from the code being tested. Each test framework specifies the structure and naming of tests and test files. Once you write tests and enable a test framework, VS Code locates those tests and provides you with various commands to run and debug them.</p>
+<p>For this section, create a folder and open it in VS Code. Then create a file named <code>inc_dec.py</code> with the following code to be tested:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #0000FF">def</span><span style="color: #000000"> </span><span style="color: #795E26">increment</span><span style="color: #000000">(</span><span style="color: #001080">x</span><span style="color: #000000">):</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #AF00DB">return</span><span style="color: #000000"> x + </span><span style="color: #098658">1</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #0000FF">def</span><span style="color: #000000"> </span><span style="color: #795E26">decrement</span><span style="color: #000000">(</span><span style="color: #001080">x</span><span style="color: #000000">):</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #AF00DB">return</span><span style="color: #000000"> x - </span><span style="color: #098658">1</span></span>
+<span class="line"></span></code></pre>
+<p>With this code, you can experience working with tests in VS Code as described in the sections that follow.</p>
+<h2 id="_configure-tests" data-needslink="_configure-tests">Configure tests</h2>
+<p>Once you have the Python extension installed and a Python file open within the editor, a test beaker icon will be displayed on the VS Code Activity bar. The beaker icon is for the <strong>Test Explorer</strong> view. When opening the Test Explorer, you will see a <strong>Configure Tests</strong> button if you don't have a test framework enabled. Once you select <strong>Configure Tests</strong>, you will be prompted to select a test framework and a folder containing the tests. If you're using unittest, you will also be asked to select the file glob pattern used to identify your test files.</p>
+<p><img src="../../assets/docs/python/testing/test-explorer-no-tests.png" alt="Configure Python Tests button displayed in the Test Explorer when tests haven't been configured." loading="lazy"></p>
+<p>You can configure your tests anytime by using the <strong>Python: Configure Tests</strong> command from the <a href="../getstarted/userinterface.html#_command-palette">Command Palette</a>. You can also configure testing manually by setting either <code>python.testing.unittestEnabled</code> or <code>python.testing.pytestEnabled</code> to true. Each framework also has specific configuration settings as described under <a href="#_test-configuration-settings">Test configuration settings</a> for their folders and patterns.</p>
+<p>If both frameworks are enabled, then the Python extension will only run <code>pytest</code>.</p>
+<p>When you enable a test framework, VS Code prompts you to install the framework package if it's not already present in the currently activated environment:</p>
+<p><img src="../../assets/docs/python/testing/install-framework.png" alt="VS Code prompt to install a test framework when enabled" loading="lazy"></p>
+<h2 id="_create-tests" data-needslink="_create-tests">Create tests</h2>
+<p>Each test framework has its own conventions for naming test files and structuring the tests within, as described in the following sections. Each case includes two test methods, one of which is intentionally set to fail for the purposes of demonstration.</p>
+<h3 id="_tests-in-unittest" data-needslink="_tests-in-unittest">Tests in unittest</h3>
+<p>Create a file named <code>test_unittest.py</code> that contains a test class with two test methods:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #AF00DB">import</span><span style="color: #000000"> inc_dec    </span><span style="color: #008000"># The code to test</span></span>
+<span class="line"><span style="color: #AF00DB">import</span><span style="color: #000000"> unittest   </span><span style="color: #008000"># The test framework</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #0000FF">class</span><span style="color: #000000"> </span><span style="color: #267F99">Test_TestIncrementDecrement</span><span style="color: #000000">(</span><span style="color: #267F99">unittest</span><span style="color: #000000">.</span><span style="color: #267F99">TestCase</span><span style="color: #000000">):</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #0000FF">def</span><span style="color: #000000"> </span><span style="color: #795E26">test_increment</span><span style="color: #000000">(</span><span style="color: #001080">self</span><span style="color: #000000">):</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #0000FF">self</span><span style="color: #000000">.assertEqual(inc_dec.increment(</span><span style="color: #098658">3</span><span style="color: #000000">), </span><span style="color: #098658">4</span><span style="color: #000000">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #0000FF">def</span><span style="color: #000000"> </span><span style="color: #795E26">test_decrement</span><span style="color: #000000">(</span><span style="color: #001080">self</span><span style="color: #000000">):</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #0000FF">self</span><span style="color: #000000">.assertEqual(inc_dec.decrement(</span><span style="color: #098658">3</span><span style="color: #000000">), </span><span style="color: #098658">4</span><span style="color: #000000">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #AF00DB">if</span><span style="color: #000000"> </span><span style="color: #001080">__name__</span><span style="color: #000000"> == </span><span style="color: #A31515">&#39;__main__&#39;</span><span style="color: #000000">:</span></span>
+<span class="line"><span style="color: #000000">    unittest.main()</span></span>
+<span class="line"></span></code></pre>
+<h3 id="_tests-in-pytest" data-needslink="_tests-in-pytest">Tests in pytest</h3>
+<p>Create a file named <code>test_pytest.py</code> that contains two test methods:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #AF00DB">import</span><span style="color: #000000"> inc_dec    </span><span style="color: #008000"># The code to test</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #0000FF">def</span><span style="color: #000000"> </span><span style="color: #795E26">test_increment</span><span style="color: #000000">():</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #AF00DB">assert</span><span style="color: #000000"> inc_dec.increment(</span><span style="color: #098658">3</span><span style="color: #000000">) == </span><span style="color: #098658">4</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #0000FF">def</span><span style="color: #000000"> </span><span style="color: #795E26">test_decrement</span><span style="color: #000000">():</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #AF00DB">assert</span><span style="color: #000000"> inc_dec.decrement(</span><span style="color: #098658">3</span><span style="color: #000000">) == </span><span style="color: #098658">4</span></span>
+<span class="line"></span></code></pre>
+<h2 id="_test-discovery" data-needslink="_test-discovery">Test discovery</h2>
+<p>By default, the Python extension attempts to discover tests once you enable a framework. You can trigger test discovery at any time using the <strong>Test: Refresh Tests</strong> command.</p>
+<p><code>python.testing.autoTestDiscoverOnSaveEnabled</code> is set to <code>true</code> by default, meaning that test discovery is also performed automatically whenever you add, delete, or update any Python file in the workspace. To disable this feature, set the value to <code>false</code>. You will need to reload the window for this setting to take effect.</p>
+<p>Test discovery applies the discovery patterns for the current framework (which can be customized using the <a href="#_test-configuration-settings">Test configuration settings</a>). The default behavior is as follows:</p>
+<ul>
+<li>
+<p><code>python.testing.unittestArgs</code>: Looks for any Python (<code>.py</code>) file with &quot;test&quot; in the name in the top-level project folder. All test files must be importable modules or packages. You can customize the file matching pattern with the <code>-p</code> configuration setting, and customize the folder with the <code>-t</code> setting.</p>
+</li>
+<li>
+<p><code>python.testing.pytestArgs</code>: Looks for any Python (<code>.py</code>) file whose name begins with &quot;test_&quot; or ends with &quot;_test&quot;, located anywhere within the current folder and all subfolders.</p>
+</li>
+</ul>
+<blockquote>
+<p><strong>Tip</strong>: Sometimes tests placed in subfolders aren't discovered because such test files cannot be imported. To make them importable, create an empty file named <code>__init__.py</code> in that folder.</p>
+</blockquote>
+<p>If the test discovery succeeds, you'll see tests listed in the Test Explorer:</p>
+<p><img src="../../assets/docs/python/testing/test-explorer.png" alt="The VS Code Test Explorer for Python tests" loading="lazy"></p>
+<p>If discovery fails (for example, the test framework isn't installed or you have a syntax error in your test file), you'll see an error message displayed in the Test Explorer. You can check the <strong>Python</strong> output panel to see the entire error message (use the <strong>View</strong> &gt; <strong>Output</strong> menu command to show the <strong>Output</strong> panel, then select <strong>Python</strong> from the dropdown on the right side).</p>
+<p><img src="../../assets/docs/python/testing/test-discovery-error.png" alt="Discovery failure error messaged displayed in the Test Explorer" loading="lazy"></p>
+<p>Once VS Code recognizes tests, it provides several ways to run those tests as described in <a href="#_run-tests">Run tests</a>.</p>
+<h2 id="_run-tests" data-needslink="_run-tests">Run tests</h2>
+<p>You can run tests using any of the following actions:</p>
+<ul>
+<li>
+<p>With a test file open, select the green run icon that is displayed in the gutter next to the test definition line, as shown in the previous section. This command runs only that one method.</p>
+<p><img src="../../assets/docs/python/testing/run-tests-gutter.png" alt="Run test icon displayed on the gutter when the test file is open in the editor" loading="lazy"></p>
+</li>
+<li>
+<p>From the <strong>Command Palette</strong>, by running any of the following commands:</p>
+<ul>
+<li><strong>Test: Run All Tests</strong> - Runs all tests that have been discovered.</li>
+<li><strong>Test: Run Tests in Current File</strong> - Runs all tests in a file that that is open in the editor.</li>
+<li><strong>Test: Run Test at Cursor</strong> - Runs only the test method under your cursor in the editor.</li>
+</ul>
+</li>
+<li>
+<p>From the <strong>Test Explorer</strong>:</p>
+<ul>
+<li>
+<p>To run all discovered tests, select the play button at the top of <strong>Test Explorer</strong>:</p>
+<p><img src="../../assets/docs/python/testing/test-explorer-run-all-tests.png" alt="Running all tests through Test Explorer" loading="lazy"></p>
+</li>
+<li>
+<p>To run a specific group of tests, or a single test, select the file, class, or test, then select the play button to the right of that item:</p>
+<p><img src="../../assets/docs/python/testing/test-explorer-run-scoped-tests.png" alt="Running tests at specific scopes through Test Explorer" loading="lazy"></p>
+</li>
+<li>
+<p>You can also run a selection of tests through the Test Explorer. To do that, <span class="keybinding">Ctrl+Click</span> (or <span class="keybinding">Cmd+Click</span> on macOS) on the tests you wish to run, right-click on one of them and then select <strong>Run Test</strong>.</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>After a test run, VS Code displays results directly in the editor as gutter decorations. Failed tests will also be highlighted in the editor, with a Peek View that displays the test run error message and a history of all of the tests' runs. You can press <span class="keybinding">Escape</span> to dismiss the view, and you can disable it by opening the User settings (<strong>Preferences: Open Settings (UI)</strong> command in the <strong>Command Palette</strong>) and changing the value of the <strong>Testing: Automatically Open Peek View</strong> setting to <code>never</code>.</p>
+<p>In the <strong>Test Explorer</strong>, results are shown for individual tests and any classes and files containing those tests.</p>
+<p><img src="../../assets/docs/python/testing/test-results.png" alt="Test results on a unittest class and in Test Explorer" loading="lazy"></p>
+<p>VS Code also shows test results in the <strong>Python Test Log</strong> output panel.</p>
+<p><img src="../../assets/docs/python/testing/python-test-log-output.png" alt="Test results in the Python Test Log output panel" loading="lazy"></p>
+<h2 id="_run-tests-in-parallel" data-needslink="_run-tests-in-parallel">Run tests in parallel</h2>
+<p>Support for running tests in parallel with pytest is available through the <code>pytest-xdist</code> package. To enable parallel testing:</p>
+<ol>
+<li>
+<p>Open the integrated terminal and install the <code>pytest-xdist</code> package. For more details, refer to the <a href="https://pypi.org/project/pytest-xdist/" class="external-link" target="_blank">project's documentation page</a>.</p>
+<p><strong>For Windows</strong></p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #000000">py </span><span style="color: #098658">-3</span><span style="color: #000000"> -m pip install pytest-xdist</span></span>
+<span class="line"></span></code></pre>
+<p><strong>For macOS/Linux</strong></p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #000000">python3 -m pip install pytest-xdist</span></span>
+<span class="line"></span></code></pre>
+</li>
+<li>
+<p>Next, create a file named <code>pytest.ini</code> in your project directory and add the content below, specifying the number of CPUs to be used. For example, to set it up for 4 CPUs:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #000000"> [pytest]</span></span>
+<span class="line"><span style="color: #000000"> </span><span style="color: #0000FF">addopts</span><span style="color: #000000">=-n4</span></span>
+<span class="line"></span></code></pre>
+<p>Or, if you are using a <code>pyproject.toml</code> file</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #000000"> [tool.pytest.ini_options]</span></span>
+<span class="line"><span style="color: #000000"> </span><span style="color: #001080">addopts</span><span style="color: #000000">=</span><span style="color: #A31515">&quot;-n 4&quot;</span></span>
+<span class="line"></span></code></pre>
+</li>
+<li>
+<p>Run your tests, which will now be run in parallel.</p>
+</li>
+</ol>
+<h2 id="_debug-tests" data-needslink="_debug-tests">Debug tests</h2>
+<p>You might occasionally need to step through and analyze tests in the debugger, either because the tests themselves have a code defect you need to track down or in order to better understand why an area of code being tested is failing.</p>
+<p>For example, the <code>test_decrement</code> functions given earlier are failing because the assertion itself is faulty. The following steps demonstrate how to analyze the test:</p>
+<ol>
+<li>
+<p>Set a breakpoint on the first line in the <code>test_decrement</code> function.</p>
+</li>
+<li>
+<p>Right-click on the gutter decoration next to the function definition and select <strong>Debug Test</strong>, or select the <strong>Debug Test</strong> icon next to that test in the <strong>Test Explorer</strong>. VS Code starts the debugger and pauses at the breakpoint.</p>
+<p><img src="../../assets/docs/python/testing/debug-test-in-explorer.png" alt="Debug Test icon in the Test Explorer" loading="lazy"></p>
+</li>
+<li>
+<p>In the <strong>Debug Console</strong> panel, enter <code>inc_dec.decrement(3)</code> to see that the actual result is 2, whereas the expected result specified in the test is the incorrect value of 4.</p>
+</li>
+<li>
+<p>Stop the debugger and correct the faulty code:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #008000"># unittest</span></span>
+<span class="line"><span style="color: #0000FF">self</span><span style="color: #000000">.assertEqual(inc_dec.decrement(</span><span style="color: #098658">3</span><span style="color: #000000">), </span><span style="color: #098658">2</span><span style="color: #000000">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #008000"># pytest</span></span>
+<span class="line"><span style="color: #AF00DB">assert</span><span style="color: #000000"> inc_dec.decrement(</span><span style="color: #098658">3</span><span style="color: #000000">) == </span><span style="color: #098658">2</span></span>
+<span class="line"></span></code></pre>
+</li>
+<li>
+<p>Save the file and run the tests again to confirm that they pass, and see that the gutter decorations also indicate passing status.</p>
+<blockquote>
+<p><strong>Note</strong>: Running or debugging a test does not automatically save the test file. Always be sure to save changes to a test before running it, otherwise you'll likely be confused by the results because they still reflect the previous version of the file!</p>
+</blockquote>
+</li>
+</ol>
+<p>You can use the following commands from the Command Palette to debug tests:</p>
+<ul>
+<li><strong>Test: Debug All Tests</strong> - Launches the debugger for all tests in your workspace.</li>
+<li><strong>Test: Debug Tests in Current File</strong> - Launches the debugger for the tests you have defined in the file you have open in the editor.</li>
+<li><strong>Test: Debug Test at Cursor</strong> - Launches the debugger only for the method where you have your cursor focused on the editor. You can also use the <strong>Debug Test</strong> icons in Test Explorer to launch the debugger for all tests in a selected scope and all discovered tests.</li>
+</ul>
+<p>You can also change the default behavior of clicking on the gutter decoration to debug tests instead of run, by changing the <code>testing.defaultGutterClickAction</code> setting value to <code>debug</code> in your <code>settings.json</code> file.</p>
+<p>The debugger works the same for tests as for other Python code, including breakpoints, variable inspection, and so on. To customize settings for debugging tests, you can specify <code>&quot;purpose&quot;: [&quot;debug-test&quot;]</code> in the <code>launch.json</code> file in the <code>.vscode</code> folder from your workspace. This configuration will be used when you run <strong>Test: Debug All Tests</strong>, <strong>Test: Debug Tests in Current File</strong> and <strong>Test: Debug Test at Cursor</strong> commands.</p>
+<p>For example, the configuration below in the <code>launch.json</code> file disables the <code>justMyCode</code> setting for debugging tests:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #000000">{</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;name&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;Python: Debug Tests&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;type&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;python&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;request&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;launch&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;program&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;${file}&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;purpose&quot;</span><span style="color: #000000">: [</span><span style="color: #A31515">&quot;debug-test&quot;</span><span style="color: #000000">],</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;console&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;integratedTerminal&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;justMyCode&quot;</span><span style="color: #000000">: </span><span style="color: #0000FF">false</span></span>
+<span class="line"><span style="color: #000000">}</span></span>
+<span class="line"></span></code></pre>
+<p>If you have more than one configuration entry with <code>&quot;purpose&quot;: [&quot;debug-test&quot;]</code>, the first definition will be used since we currently don't support multiple definitions for this request type.</p>
+<p>For more information on debugging, see <a href="debugging.html">Python debugging configurations</a> and the general VS Code <a href="../editor/debugging.html">Debugging</a> article.</p>
+<h2 id="_test-commands" data-needslink="_test-commands">Test commands</h2>
+<p>Below are all the supported commands for testing with the Python extension in VS Code:</p>
+<table class="table table-striped">
+<thead>
+<tr>
+<th>Command Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Python: Configure Tests</strong></td>
+<td>Configure the test framework to be used with the Python extension.</td>
+</tr>
+<tr>
+<td><strong>Test: Clear All Results</strong></td>
+<td>Clear all tests statuses, as the UI persists test results across sessions.</td>
+</tr>
+<tr>
+<td><strong>Test: Debug Failed Tests</strong></td>
+<td>Debug tests that failed in the most recent test run.</td>
+</tr>
+<tr>
+<td><strong>Test: Debug Last Run</strong></td>
+<td>Debug tests that were executed in the most recent test run.</td>
+</tr>
+<tr>
+<td><strong>Test: Debug Test at Cursor</strong></td>
+<td>Debug the test method where you have your cursor focused on the editor. Similar to <strong>Python: Debug Test Method...</strong> on versions prior to 2021.9.</td>
+</tr>
+<tr>
+<td><strong>Test: Debug Tests in Current File</strong></td>
+<td>Debug tests in the file that is currently in focus on the editor.</td>
+</tr>
+<tr>
+<td><strong>Test: Go to Next Test Failure</strong></td>
+<td>If the error peek view is open, open and move to the peek view of the next test in the explorer that has failed.</td>
+</tr>
+<tr>
+<td><strong>Test: Go to Previous Test Failure</strong></td>
+<td>If the error peek view is open, open and move to the peek view of the previous test in the explorer that has failed.</td>
+</tr>
+<tr>
+<td><strong>Test: Peek Output</strong></td>
+<td>Opens the error peek view for a test method that has failed.</td>
+</tr>
+<tr>
+<td><strong>Test: Refresh Tests</strong></td>
+<td>Perform test discovery and updates the Test Explorer to reflect any test changes, addition, or deletion. Similar to <strong>Python: Discover Tests</strong> on versions prior to 2021.9.</td>
+</tr>
+<tr>
+<td><strong>Test: Rerun Failed Tests</strong></td>
+<td>Run tests that failed in the most recent test run. Similar to <strong>Python: Run Failed Tests</strong> on versions prior to 2021.9.</td>
+</tr>
+<tr>
+<td><strong>Test: Rerun Last Run</strong></td>
+<td>Debug tests that were executed in the most recent test run.</td>
+</tr>
+<tr>
+<td><strong>Test: Run All Tests</strong></td>
+<td>Run all discovered tests. Equivalent to <strong>Python: Run All Tests</strong> on versions prior to 2021.9.</td>
+</tr>
+<tr>
+<td><strong>Test: Run Test at Cursor</strong></td>
+<td>Run the test method where you have your cursor focused on the editor.  Similar to <strong>Python: Run Test Method...</strong> on versions prior to 2021.9.</td>
+</tr>
+<tr>
+<td><strong>Test: Run Test in Current File</strong></td>
+<td>Run tests in the file that is currently in focus on the editor. Equivalent to <strong>Python: Run Current Test File</strong> on versions prior to 2021.9.</td>
+</tr>
+<tr>
+<td><strong>Test: Show Output</strong></td>
+<td>Open the output with details of all the test runs. Similar to <strong>Python: Show Test Output</strong> on versions prior to 2021.9.</td>
+</tr>
+<tr>
+<td><strong>Testing: Focus on Test Explorer View</strong></td>
+<td>Open the Test Explorer view. Similar to <strong>Testing: Focus on Python View</strong> on versions prior to 2021.9.</td>
+</tr>
+<tr>
+<td><strong>Test: Stop Refreshing Tests</strong></td>
+<td>Cancel test discovery.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_test-configuration-settings" data-needslink="_test-configuration-settings">Test configuration settings</h2>
+<p>The behavior of testing with Python is driven by general UI settings provided by VS Code, and settings that are specific to Python and to whichever framework you've enabled.</p>
+<h3 id="_general-ui-settings" data-needslink="_general-ui-settings">General UI settings</h3>
+<p>The settings that affect the UI of the testing features are provided by VS Code itself, and can be found in the <a href="../getstarted/settings.html">VS Code Settings editor</a> when you search for &quot;Testing&quot;.</p>
+<h3 id="_general-python-settings" data-needslink="_general-python-settings">General Python settings</h3>
+<table class="table table-striped">
+<thead>
+<tr>
+<th>Setting<br/>(python.testing.)</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>autoTestDiscoverOnSaveEnabled</td>
+<td><code>true</code></td>
+<td>Specifies whether to enable or disable auto run test discovery when saving a test file. You may need to reload the window after making changes to this setting for it to be applied.</td>
+</tr>
+<tr>
+<td>cwd</td>
+<td>null</td>
+<td>Specifies an optional working directory for tests.</td>
+</tr>
+<tr>
+<td>debugPort</td>
+<td><code>3000</code></td>
+<td>Port number used for debugging of unittest tests.</td>
+</tr>
+<tr>
+<td>promptToConfigure</td>
+<td><code>true</code></td>
+<td>Specifies whether VS Code prompts to configure a test framework if potential tests are discovered.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_unittest-configuration-settings" data-needslink="_unittest-configuration-settings">unittest configuration settings</h3>
+<table class="table table-striped">
+<thead>
+<tr>
+<th>Setting<br/>(python.testing.)</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>unittestEnabled</td>
+<td><code>false</code></td>
+<td>Specifies whether unittest is enabled as the test framework. The equivalent setting for pytest should be disabled.</td>
+</tr>
+<tr>
+<td>unittestArgs</td>
+<td><code>[&quot;-v&quot;, &quot;-s&quot;, &quot;.&quot;, &quot;-p&quot;, &quot;*test*.py&quot;]</code></td>
+<td>Arguments to pass to unittest, where each element that's separated by a space is a separate item in the list. See below for a description of the defaults.</td>
+</tr>
+</tbody>
+</table>
+<p>The default arguments for unittest are as follows:</p>
+<ul>
+<li><code>-v</code> sets default verbosity. Remove this argument for simpler output.</li>
+<li><code>-s .</code> specifies the starting directory for discovering tests. If you have tests in a &quot;test&quot; folder, change the argument to <code>-s test</code> (meaning <code>&quot;-s&quot;, &quot;test&quot;</code> in the arguments array).</li>
+<li><code>-p *test*.py</code> is the discovery pattern used to look for tests. In this case, it's any <code>.py</code> file that includes the word &quot;test&quot;. If you name test files differently, such as appending &quot;_test&quot; to every filename, then use a pattern like <code>*_test.py</code> in the appropriate argument of the array.</li>
+</ul>
+<p>To stop a test run on the first failure, add the fail fast option <code>&quot;-f&quot;</code> to the arguments array.</p>
+<p>See <a href="https://docs.python.org/3/library/unittest.html#command-line-interface" class="external-link" target="_blank">unittest command-line interface</a> for the full set of available options.</p>
+<h3 id="_pytest-configuration-settings" data-needslink="_pytest-configuration-settings">pytest configuration settings</h3>
+<table class="table table-striped">
+<thead>
+<tr>
+<th>Setting<br/>(python.testing.)</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>pytestEnabled</td>
+<td><code>false</code></td>
+<td>Specifies whether pytest is enabled as the test framework. The equivalent setting for unittest should be disabled.</td>
+</tr>
+<tr>
+<td>pytestPath</td>
+<td><code>&quot;pytest&quot;</code></td>
+<td>Path to pytest. Use a full path if pytest is located outside the current environment.</td>
+</tr>
+<tr>
+<td>pytestArgs</td>
+<td><code>[]</code></td>
+<td>Arguments to pass to pytest, where each element that's separated by a space is a separate item in the list. See <a href="https://docs.pytest.org/en/latest/reference/reference.html#command-line-flags" class="external-link" target="_blank">pytest command-line options</a>.</td>
+</tr>
+</tbody>
+</table>
+<p>You can also configure pytest using a <code>pytest.ini</code> file as described on <a href="https://docs.pytest.org/en/latest/reference/customize.html" class="external-link" target="_blank">pytest Configuration</a>.</p>
+<blockquote>
+<p><strong>Note</strong>
+If you have the pytest-cov coverage module installed, VS Code doesn't stop at breakpoints while debugging because pytest-cov is using the same technique to access the source code being run. To prevent this behavior, include <code>--no-cov</code> in <code>pytestArgs</code> when debugging tests, for example by adding <code>&quot;env&quot;: {&quot;PYTEST_ADDOPTS&quot;: &quot;--no-cov&quot;}</code> to your debug configuration. (See <a href="#_debug-tests">Debug Tests</a> above about how to set up that launch configuration.) (For more information, see <a href="https://pytest-cov.readthedocs.io/en/latest/debuggers.html" class="external-link" target="_blank">Debuggers and PyCharm</a> in the pytest-cov documentation.)</p>
+</blockquote>
+<h2 id="_see-also" data-needslink="_see-also">See also</h2>
+<ul>
+<li><a href="environments.html">Python environments</a> - Control which Python interpreter is used for editing and debugging.</li>
+<li><a href="settings-reference.html">Settings reference</a> - Explore the full range of Python-related settings in VS Code.</li>
+</ul>
+
+            <div class="feedback"></div>
+            
+            <div class="body-footer">11/17/2021</div>
+            
+        </div>
+        <div class="col-sm-3 col-md-2 docs-subnavbar-container">
+            <nav id="docs-subnavbar" aria-label="On Page" data-spy="affix" data-offset-top="20">
+                
+                <h4><span class="sr-only">In this article there are 11 sections</span><span
+                        aria-hidden="true">In this article</span></h4>
+                <ul class="nav">
+                    
+                    <li><a href="#_a-little-background-on-unit-testing">A little background on unit testing</a></li>
+                    
+                    <li><a href="#_example-test-walkthroughs">Example test walkthroughs</a></li>
+                    
+                    <li><a href="#_configure-tests">Configure tests</a></li>
+                    
+                    <li><a href="#_create-tests">Create tests</a></li>
+                    
+                    <li><a href="#_test-discovery">Test discovery</a></li>
+                    
+                    <li><a href="#_run-tests">Run tests</a></li>
+                    
+                    <li><a href="#_run-tests-in-parallel">Run tests in parallel</a></li>
+                    
+                    <li><a href="#_debug-tests">Debug tests</a></li>
+                    
+                    <li><a href="#_test-commands">Test commands</a></li>
+                    
+                    <li><a href="#_test-configuration-settings">Test configuration settings</a></li>
+                    
+                    <li><a href="#_see-also">See also</a></li>
+                    
+                </ul>
+                
+                <div class="connect-widget"></div>
+            </nav>
+        </div>
+    </div>
+</div>
+      </div>
+  </div>
+
+  <footer role="contentinfo">
+      <div class="container">
+          <div class="row">
+              <div class="left col-md-7">
+                  <ul class="links">
+                      <li>
+                          <span class="message">Hello from Seattle.</span>
+                      </li>
+                      <li>
+                          <a href="https://go.microsoft.com/fwlink/?LinkID=533687" onclick="followOnTwitter()" tabindex="0">Follow @code</a>
+                      </li>
+                      <li>
+                          <div class="github-star-button">
+                              <iframe src="../../assets/github-button29be.html?user=Microsoft&amp;repo=vscode&amp;type=star&amp;count=true"
+                                  frameborder="0" scrolling="0" width="130px" height="20px" title="GitHub follow button" loading="lazy"></iframe>
+                          </div>
+                      </li>
+  
+                      <script>
+                          function followOnTwitter() {
+                              var windowFeatures = "location=yes,height=600,width=550,scrollbars=yes,status=yes";
+                              var originalReferer = "&original_referer=" + document.URL;
+                              var screenName = "&screen_name=code";
+                              var URL = "https://twitter.com/intent/follow?" + originalReferer + screenName;
+                              window.open(URL, "_blank", windowFeatures);
+                          }
+  
+                          function manageConsent() {
+                              if(WcpConsent.siteConsent.isConsentRequired){
+                                  WcpConsent.siteConsent.manageConsent();
+                              }
+                          }
+                      </script>
+                  </ul>
+              </div>
+              <div class="right col-md-5">
+                  <ul class="links">
+                      <li><a id="footer-support-link" href="https://support.serviceshub.microsoft.com/supportforbusiness/create?sapId=d66407ed-3967-b000-4cfb-2c318cad363d"
+                              target="_blank">Support</a></li>
+                      <li><a id="footer-privacy-link" href="https://privacy.microsoft.com/privacystatement"
+                              target="_blank">Privacy</a></li>
+                      <li style="display: none;"><a id="footer-cookie-link" style="cursor: pointer;" onclick="manageConsent()"
+                              target="_blank">Manage Cookies</a></li>
+                      <li><a id="footer-terms-link" href="https://www.microsoft.com/legal/terms-of-use"
+                              target="_blank">Terms of Use</a></li>
+                      <li><a id="footer-license-link" href="../../License.html">License</a></li>
+                  </ul>
+                  <div class="copyright">
+                      <a id="footer-microsoft-link" class="logo" href="https://www.microsoft.com/">
+                          <img class="microsoft-logo" src="../../assets/images/microsoft-logo.png" height="20" alt="Microsoft homepage"/>
+                          <img class="microsoft-logo-inverted" src="../../assets/images/microsoft-logo-inverted.png" height="20" alt="Microsoft homepage" />
+                      </a>
+                      <span>&copy; 2023 Microsoft</span>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </footer>
+  <script src="../../dist/index.js"></script>
+
+  
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "SoftwareApplication",
+      "name" : "Visual Studio Code",
+      "softwareVersion": "1.74",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "applicationCategory": "DeveloperApplication",
+      "applicationSubCategory": "Text Editor",
+      "alternateName": "VS Code",
+      "datePublished": "2021-11-03",
+      "operatingSystem": "Mac, Linux, Windows",
+      "logo": "https://code.visualstudio.com/assets/apple-touch-icon.png",
+      "screenshot": "https://code.visualstudio.com/assets/home/home-screenshot-win.png",
+      "releaseNotes": "https://code.visualstudio.com/updates",
+      "downloadUrl": "https://code.visualstudio.com/download",
+      "license": "https://code.visualstudio.com/license",
+      "softwareRequirements": "https://code.visualstudio.com/docs/supporting/requirements",
+      "url" : "https://code.visualstudio.com",
+      "author": {
+        "@type": "Organization",
+        "name": "Microsoft"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Microsoft"
+      },
+      "maintainer": {
+        "@type": "Organization",
+        "name": "Microsoft"
+      },
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://code.visualstudio.com/Search?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      },
+      "sameAs" : [
+        "https://en.wikipedia.org/wiki/Visual_Studio_Code",
+        "https://twitter.com/code",
+        "https://www.youtube.com/code",
+        "https://www.tiktok.com/@vscode",
+        "https://github.com/microsoft/vscode"
+      ]
+    }
+  </script>
+</body>
+
+<!-- Mirrored from code.visualstudio.com/docs/python/testing by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 04 Jan 2023 10:10:08 GMT -->
+</html>

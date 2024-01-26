@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Mirrored from code.visualstudio.com/blogs/2022/09/15/dev-container-features by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 04 Jan 2023 12:15:03 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="google-site-verification" content="hNs7DXrTySP_X-0P_AC0WulAXvUwgSXEmgfcO2r79dw" />
+
+  <!-- Twitter and Facebook OpenGraph Metadata-->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@code" />
+
+  <meta name="description" content="What are dev container Features and what's new" />
+<meta name="keywords" content="" />
+<!-- Twitter and Facebook OpenGraph Metadata-->
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="og:url" content="dev-container-features.html" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Dev Container Features" />
+<meta property="og:description" content="What are dev container Features and what's new" />
+
+<meta property="og:image" content="../../../../opengraphimg/opengraph-blog.png" />
+
+
+
+  <link rel="shortcut icon" href="../../../../favicon.ico" sizes="128x128" />
+  <link rel="apple-touch-icon" href="../../../../apple-touch-icon.png">
+
+  <title>Dev Container Features</title>
+
+  <link rel="stylesheet" href="../../../../vendor/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../../../../dist/style.css">
+
+  <script type="text/javascript" src="../../../../../js.monitor.azure.com/scripts/c/ms.analytics-web-3.min.js"></script>
+  <script>
+  window.appInsights = new oneDS.ApplicationInsights();
+  window.appInsights.initialize({
+    instrumentationKey: "1a3eb3104447440391ad5f2a6ee06a0a-62879566-bc58-4741-9650-302bf2af703f-7103",
+    webAnalyticsConfiguration:{ // Web Analytics Plugin configuration
+        urlCollectQuery:true, 
+        autoCapture: {
+          scroll: true,
+          pageView: true,
+          onLoad: true,
+          onUnload: true,
+          click: true,
+          resize: true,
+          jsError: true
+        }
+    }
+  }, []);
+  </script>
+  
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','../../../../../www.google-analytics.com/analytics.js','ga');
+  </script>  
+  <link rel="alternate" type="application/atom+xml" title="RSS Feed for code.visualstudio.com" href="../../../../feed.xml" />
+</head>
+
+<body>
+  <!-- EU Cookie Compliance JS -->
+  <script src="../../../../../wcpstatic.microsoft.com/mscc/lib/v2/wcp-consent.js"></script>
+
+  <div id="main">
+          <div class="navbar-fixed-container">
+              <div class="navbar navbar-inverse navbar-fixed-top ">
+                  <div id='cookie-banner'></div>        <nav role="navigation" aria-label="Top Level">
+                      <div class="container">
+                          <div class="nav navbar-header">
+                              <a role="button" id="skip-to-content" class="link-button" href="#main-content">Skip to content<i>&nbsp;</i><span class="glyphicon glyphicon-menu-down"></span></a>
+                              <a class="navbar-brand" id="navbar-brand" href="../../../../index.html">Visual Studio Code</a>
+                              <button type="button" class="navbar-toggle" role="navigation" data-toggle="collapse" data-target=".navbar-collapse" aria-label="Toggle Navigation Menu">
+                                  <span class="icon-bar"></span>
+                                  <span class="icon-bar"></span>
+                                  <span class="icon-bar"></span>
+                              </button>
+                          </div>
+                          <div class="navbar-collapse collapse" role="navigation">
+                              <ul class="nav navbar-nav navbar-left">
+                                  <li ><a id="nav-docs" href="../../../../docs.html">Docs</a></li>
+                                  <li ><a id="nav-updates" href="../../../../updates/v1_74.html">Updates</a></li>
+                                  <li class="active" ><a id="nav-blogs" href="../../../../blogs.html">Blog</a></li>
+                                  <li ><a id="nav-extend" href="../../../../api.html">API</a></li>
+                                  <li><a href="https://marketplace.visualstudio.com/VSCode" target="_blank" id="nav-extensions">Extensions</a></li>
+                                  <li ><a id="nav-faqs" href="../../../../docs/supporting/faq.html">FAQ</a></li>
+                                  <li ><a id="nav-learn" href="../../../../learn.html">Learn</a></li>
+                                  <li class='search visible-xs visible-sm'
+                                      ><a href="../../../../Search.html">Search</a></li>
+                              </ul>
+          
+                              <ul class="nav navbar-nav navbar-right" role="presentation">
+                                  <!-- Floating search icon -->
+                                  <li>
+                                      <a href="../../../../Search.html" title="Search" class="btn search-btn" id="nav-search">
+                                          <img class="search-icon" src="../../../../assets/icons/search.svg" width="16px" height="16px" alt="Search"/>
+                                          <img class="search-icon-inverted" src="../../../../assets/icons/search_dark.svg" width="16px" height="16px" alt="Search" />
+                                      </a>
+                                  </li>
+                                  <!-- Actual search icon -->
+                                  <li class="search" role="presentation">
+                                      <form class="nav-search search-form" role="search" aria-label="Search">
+                                          <div class="input-group" role="presentation">
+                                              <input type="text" name="q" class="search-box form-control" placeholder="Search Docs" aria-label="Search text"/>
+                                              <span class="input-group-btn">
+                                                  <button tabindex="0" class="btn" type="submit" aria-label="Search">
+                                                          <img class="search-icon" src="../../../../assets/icons/search.svg" width="16px" height="16px" alt="Search" />
+                                                          <img class="search-icon-inverted" src="../../../../assets/icons/search_dark.svg" width="16px" height="16px" alt="Search" />
+                                                  </button>
+                                              </span>
+                                          </div>
+                                      </form>                        </li>
+                                  <!-- this was hiden in the home and download page, keeping it for now -->
+                                  <li><a class="link-button" href="../../../../Download.html" id="nav-download">
+                                      <img class="download-icon" src="../../../../assets/icons/download.svg" width="16px" height="16px" alt="Download VS Code"/>
+                                      <img class="download-icon-inverted" src="../../../../assets/icons/download-black.svg" width="16px" height="16px" alt="Download VS Code" />
+                                      <span>Download</span>
+                                  </a></li>
+                              </ul>
+                          </div>
+                      </div>
+                  </nav>
+              </div>
+          </div>          <div class="updates-banner  ">
+              <div class="container">
+                  <p class="message"><a href="../../../../updates/v1_74.html" id="banner-link-updates">Version 1.74</a> is now available! Read about the new features and fixes from November.</p> 
+              </div>
+              <div tabindex="0" role="button" title="Dismiss this update" class="dismiss-btn" id="banner-dismiss-btn"><span class="sr-only">Dismiss this update</span><span aria-hidden="true" class="glyph-icon"></span></div>
+          </div>      <div role="main" id="main-content">
+        <div class="container body-content docs blog">
+    <div class="row">
+        <div class="col-md-2 docs-navbar-container">
+            <nav id="docs-navbar" aria-label="Blog posts" class="docs-nav updates-nav visible-md visible-lg">
+            	<h4>Blog posts</h4>
+            	<ul class="nav">
+            		
+            			<li >
+            				<a href="../../12/07/remote-even-better.html" >Remote Development Even Better</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../11/28/vscode-sandbox.html" >VS Code Sandboxing</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../10/04/vscode-community-discussions.html" >VS Code Community Discussions</a>
+            			</li>
+            		
+            			<li class="active">
+            				<a href="dev-container-features.html" aria-label="Current Page: Dev Container Features">Dev Container Features</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../08/16/markdown-language-server.html" >Markdown Language Server</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../07/07/vscode-server.html" >The VS Code Server</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../05/18/dev-container-cli.html" >Dev container CLI</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../04/04/increase-productivity-with-containers.html" >Moving from Local to Remote Development</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../03/08/the-tutorial-problem.html" >The problem with tutorials</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2021/11/08/custom-notebooks.html" >Custom Notebooks</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2021/10/20/vscode-dev.html" >vscode.dev</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2021/10/11/webview-ui-toolkit.html" >Webview UI Toolkit</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2021/09/29/bracket-pair-colorization.html" >Bracket Pair Colorization</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2021/08/05/notebooks.html" >Notebooks</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2021/07/06/workspace-trust.html" >Workspace Trust</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2021/06/10/remote-repositories.html" >Remote Repositories</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2021/06/02/build-2021.html" >Build 2021</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2021/02/16/extension-bisect.html" >Extension bisect</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2020/12/03/chromebook-get-started.html" >VS Code on Chromebook</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2020/07/27/containers-edu.html" >Development Containers in Education</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2020/07/01/containers-wsl.html" >Dev Containers in WSL 2</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2020/06/09/go-extension.html" >The Go experience</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2020/05/14/vscode-build-2020.html" >VS Code at Build</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2020/05/06/github-issues-integration.html" >GitHub Issues Integration</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2020/03/02/docker-in-wsl2.html" >Docker in WSL 2</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2020/02/24/custom-data-format.html" >Custom Data Format</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2020/02/18/optimizing-ci.html" >Improving CI Build Times</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2019/10/31/inspecting-containers.html" >Inspecting Containers</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2019/10/03/remote-ssh-tips-and-tricks.html" >SSH Tips and Tricks</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2019/09/03/wsl2.html" >WSL 2</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2019/07/25/remote-ssh.html" >Remote SSH</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2019/05/23/strict-null.html" >Strict null checking</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2019/05/02/remote-development.html" >Remote Development</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2019/02/19/lsif.html" >Language Server Index Format</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2018/12/04/rich-navigation.html" >Rich Code Navigation</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2018/11/26/event-stream.html" >Event-Stream Package Security Update</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2018/09/12/engineering-with-azure-pipelines.html" >Using Azure Pipelines</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2018/09/10/introducing-github-pullrequests.html" >GitHub Pull Requests</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2018/08/07/debug-adapter-protocol-website.html" >New home for Debug Adapter Protocol</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2018/07/12/introducing-logpoints-and-auto-attach.html" >Logpoints and auto-attach</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2018/05/07/live-share-public-preview.html" >Live Share Preview</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2018/04/25/bing-settings-search.html" >Settings Search</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2018/03/23/text-buffer-reimplementation.html" >Text Buffer Reimplementation</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/12/20/chrome-debugging.html" >What's New for Chrome Debugging</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/11/16/connect.html" >Connect 2017</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/11/15/live-share.html" >Introducing Live Share</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/10/24/theicon.html" >The Icon Journey</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/10/03/terminal-renderer.html" >Integrated Terminal Performance</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/09/28/java-debug.html" >Java Debugging</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/08/07/emmet-2.html" >Emmet 2.0</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/06/20/great-looking-editor-roundup.html" >Fresh Paint</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/05/10/build-2017-demo.html" >Build 2017 Demo</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/04/10/sublime-text-roundup.html" >Sublime Text Extension Roundup</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/03/07/extension-pack-roundup.html" >Extension Packs</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/02/12/code-lens-roundup.html" >Extensions using CodeLens</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/02/08/syntax-highlighting-optimizations.html" >Optimizations in Syntax Highlighting</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/01/15/connect-nina-e2e.html" >Node.js Development with Visual Studio Code and Azure</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2016/12/12/roundup-customize.html" >Customize VS Code Extension Roundup</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2016/11/30/hot-exit-in-insiders.html" >Hot Exit Comes to Insiders</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2016/11/15/formatters-best-practices.html" >Creating a Formatter Extension</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2016/10/31/js_roundup_2.html" >JavaScript Extensions Part 2</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2016/09/14/js_roundup_1.html" >JavaScript Extensions Part 1</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2016/09/08/icon-themes.html" >File Icon Themes</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2016/07/29/extensions-roundup-git.html" >Extensions Roundup - Fun with Git</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2016/06/27/common-language-protocol.html" >The Language Server Protocol</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2016/05/04/extension-roundup-may.html" >Extensions Roundup</a>
+            			</li>
+            		
+            	</ul>
+            </nav>
+            <nav id="small-nav" aria-label="Blog posts" class="docs-nav updates-nav hidden-md hidden-lg">
+            	<h4>Blogs</h4>
+            	<select id="small-nav-dropdown" aria-label="blog posts">
+            		
+            			<option value="/blogs/2022/12/07/remote-even-better" >Remote Development Even Better</option>
+            		
+            			<option value="/blogs/2022/11/28/vscode-sandbox" >VS Code Sandboxing</option>
+            		
+            			<option value="/blogs/2022/10/04/vscode-community-discussions" >VS Code Community Discussions</option>
+            		
+            			<option value="/blogs/2022/09/15/dev-container-features" selected>Dev Container Features</option>
+            		
+            			<option value="/blogs/2022/08/16/markdown-language-server" >Markdown Language Server</option>
+            		
+            			<option value="/blogs/2022/07/07/vscode-server" >The VS Code Server</option>
+            		
+            			<option value="/blogs/2022/05/18/dev-container-cli" >Dev container CLI</option>
+            		
+            			<option value="/blogs/2022/04/04/increase-productivity-with-containers" >Moving from Local to Remote Development</option>
+            		
+            			<option value="/blogs/2022/03/08/the-tutorial-problem" >The problem with tutorials</option>
+            		
+            			<option value="/blogs/2021/11/08/custom-notebooks" >Custom Notebooks</option>
+            		
+            			<option value="/blogs/2021/10/20/vscode-dev" >vscode.dev</option>
+            		
+            			<option value="/blogs/2021/10/11/webview-ui-toolkit" >Webview UI Toolkit</option>
+            		
+            			<option value="/blogs/2021/09/29/bracket-pair-colorization" >Bracket Pair Colorization</option>
+            		
+            			<option value="/blogs/2021/08/05/notebooks" >Notebooks</option>
+            		
+            			<option value="/blogs/2021/07/06/workspace-trust" >Workspace Trust</option>
+            		
+            			<option value="/blogs/2021/06/10/remote-repositories" >Remote Repositories</option>
+            		
+            			<option value="/blogs/2021/06/02/build-2021" >Build 2021</option>
+            		
+            			<option value="/blogs/2021/02/16/extension-bisect" >Extension bisect</option>
+            		
+            			<option value="/blogs/2020/12/03/chromebook-get-started" >VS Code on Chromebook</option>
+            		
+            			<option value="/blogs/2020/07/27/containers-edu" >Development Containers in Education</option>
+            		
+            			<option value="/blogs/2020/07/01/containers-wsl" >Dev Containers in WSL 2</option>
+            		
+            			<option value="/blogs/2020/06/09/go-extension" >The Go experience</option>
+            		
+            			<option value="/blogs/2020/05/14/vscode-build-2020" >VS Code at Build</option>
+            		
+            			<option value="/blogs/2020/05/06/github-issues-integration" >GitHub Issues Integration</option>
+            		
+            			<option value="/blogs/2020/03/02/docker-in-wsl2" >Docker in WSL 2</option>
+            		
+            			<option value="/blogs/2020/02/24/custom-data-format" >Custom Data Format</option>
+            		
+            			<option value="/blogs/2020/02/18/optimizing-ci" >Improving CI Build Times</option>
+            		
+            			<option value="/blogs/2019/10/31/inspecting-containers" >Inspecting Containers</option>
+            		
+            			<option value="/blogs/2019/10/03/remote-ssh-tips-and-tricks" >SSH Tips and Tricks</option>
+            		
+            			<option value="/blogs/2019/09/03/wsl2" >WSL 2</option>
+            		
+            			<option value="/blogs/2019/07/25/remote-ssh" >Remote SSH</option>
+            		
+            			<option value="/blogs/2019/05/23/strict-null" >Strict null checking</option>
+            		
+            			<option value="/blogs/2019/05/02/remote-development" >Remote Development</option>
+            		
+            			<option value="/blogs/2019/02/19/lsif" >Language Server Index Format</option>
+            		
+            			<option value="/blogs/2018/12/04/rich-navigation" >Rich Code Navigation</option>
+            		
+            			<option value="/blogs/2018/11/26/event-stream" >Event-Stream Package Security Update</option>
+            		
+            			<option value="/blogs/2018/09/12/engineering-with-azure-pipelines" >Using Azure Pipelines</option>
+            		
+            			<option value="/blogs/2018/09/10/introducing-github-pullrequests" >GitHub Pull Requests</option>
+            		
+            			<option value="/blogs/2018/08/07/debug-adapter-protocol-website" >New home for Debug Adapter Protocol</option>
+            		
+            			<option value="/blogs/2018/07/12/introducing-logpoints-and-auto-attach" >Logpoints and auto-attach</option>
+            		
+            			<option value="/blogs/2018/05/07/live-share-public-preview" >Live Share Preview</option>
+            		
+            			<option value="/blogs/2018/04/25/bing-settings-search" >Settings Search</option>
+            		
+            			<option value="/blogs/2018/03/23/text-buffer-reimplementation" >Text Buffer Reimplementation</option>
+            		
+            			<option value="/blogs/2017/12/20/chrome-debugging" >What's New for Chrome Debugging</option>
+            		
+            			<option value="/blogs/2017/11/16/connect" >Connect 2017</option>
+            		
+            			<option value="/blogs/2017/11/15/live-share" >Introducing Live Share</option>
+            		
+            			<option value="/blogs/2017/10/24/theicon" >The Icon Journey</option>
+            		
+            			<option value="/blogs/2017/10/03/terminal-renderer" >Integrated Terminal Performance</option>
+            		
+            			<option value="/blogs/2017/09/28/java-debug" >Java Debugging</option>
+            		
+            			<option value="/blogs/2017/08/07/emmet-2.0" >Emmet 2.0</option>
+            		
+            			<option value="/blogs/2017/06/20/great-looking-editor-roundup" >Fresh Paint</option>
+            		
+            			<option value="/blogs/2017/05/10/build-2017-demo" >Build 2017 Demo</option>
+            		
+            			<option value="/blogs/2017/04/10/sublime-text-roundup" >Sublime Text Extension Roundup</option>
+            		
+            			<option value="/blogs/2017/03/07/extension-pack-roundup" >Extension Packs</option>
+            		
+            			<option value="/blogs/2017/02/12/code-lens-roundup" >Extensions using CodeLens</option>
+            		
+            			<option value="/blogs/2017/02/08/syntax-highlighting-optimizations" >Optimizations in Syntax Highlighting</option>
+            		
+            			<option value="/blogs/2017/01/15/connect-nina-e2e" >Node.js Development with Visual Studio Code and Azure</option>
+            		
+            			<option value="/blogs/2016/12/12/roundup-customize" >Customize VS Code Extension Roundup</option>
+            		
+            			<option value="/blogs/2016/11/30/hot-exit-in-insiders" >Hot Exit Comes to Insiders</option>
+            		
+            			<option value="/blogs/2016/11/15/formatters-best-practices" >Creating a Formatter Extension</option>
+            		
+            			<option value="/blogs/2016/10/31/js_roundup_2" >JavaScript Extensions Part 2</option>
+            		
+            			<option value="/blogs/2016/09/14/js_roundup_1" >JavaScript Extensions Part 1</option>
+            		
+            			<option value="/blogs/2016/09/08/icon-themes" >File Icon Themes</option>
+            		
+            			<option value="/blogs/2016/07/29/extensions-roundup-git" >Extensions Roundup - Fun with Git</option>
+            		
+            			<option value="/blogs/2016/06/27/common-language-protocol" >The Language Server Protocol</option>
+            		
+            			<option value="/blogs/2016/05/04/extension-roundup-may" >Extensions Roundup</option>
+            		
+            	</select>
+            </nav>        </div>
+        <div class="col-sm-9 col-md-8 body">
+            <h1>Custom Dev Container Features</h1>
+<p>September 15, 2022 by Brigit Murtaugh, <a href="https://twitter.com/BrigitMurtaugh" class="external-link" target="_blank">@BrigitMurtaugh</a></p>
+<p>We've all had that moment when setting up our development environment – &quot;Oh, I just need one more thing!&quot; – that &quot;thing&quot; being one more language or toolset (or maybe a few more 😊) to work on your project.</p>
+<p>Development containers are a great way to simplify environment set up - they provide a complete coding environment with the tools your project needs. They're configured using an image, Dockerfile, or Docker Compose file and <code>devcontainer.json</code>, which is a metadata format used to enrich containers with development specific content and settings.</p>
+<p>When creating dev containers, you may have the same &quot;I just need one more thing!&quot; reaction repeatedly – maybe you're using a Node.js image in your Dockerfile and just need to add Git. Or maybe you need to add something more complex, like working with Docker or Kubernetes from within your dev container. Dev containers are great since anyone accessing your code will have the same, consistent experience with all those tools you added – but what's the best way to add them?</p>
+<p>What if there was an easy way to install that extra tool in your dev container, simply by mentioning the tool's name and version? Or what if as a tool user or author, you could create an easy way for others to install it? Sharing manual scripts can help with reuse, but when referencing one, you may forget to reference container or tooling settings, such as enabling ptrace support for Go, Rust, or C++ debugging, adding a specific entry point to fire on container start, or ensuring the right VS Code extensions are included.</p>
+<h2 id="_features" data-needslink="_features">Features</h2>
+<p>We're happy to share that dev container <strong>Features</strong> help you smoothly get the tools you need in your dev container!</p>
+<p>Features are self-contained units of installation code, container configuration, and/or settings and extensions designed to enable new development capabilities in your dev container. They can be built to work with a wide range of base container images. As part of our work on the <a href="https://containers.dev/" class="external-link" target="_blank">open dev container specification</a>, we've made some improvements to where you can grab pre-created Features and how you can author and distribute your own.</p>
+<p>Let's see what's new and how you can get started with Features from any dev container supporting tool or service (such as the <a href="https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers" class="external-link" target="_blank">VS Code Dev Containers</a> extension or <a href="https://github.com/features/codespaces" class="external-link" target="_blank">GitHub Codespaces</a>)!</p>
+<h2 id="_adding-features-to-your-dev-container" data-needslink="_adding-features-to-your-dev-container">Adding Features to your dev container</h2>
+<p>Dev Container Features provide a quick way to associate dev container metadata with some install steps. You can add them to your dev containers through a simple reference.</p>
+<p>These Features can now be stored as <a href="https://github.com/opencontainers/artifacts" class="external-link" target="_blank">OCI Artifacts</a> in any supporting container registry, which means you can reference them using the same types of identifiers you would use to reference a container image. We've moved some early Features that were in the <a href="https://github.com/microsoft/vscode-dev-containers" class="external-link" target="_blank">vscode-dev-containers</a> repository into a new <a href="https://github.com/devcontainers/features" class="external-link" target="_blank">devcontainers/features</a> repository where they are published using this new approach.</p>
+<p>Referencing different Features from the devcontainers/features repository is as simple as adding a <code>features</code> property to your <code>devcontainer.json</code>. Each Feature has a <code>README.md</code> that shows how to reference the Feature and which options are available for it.</p>
+<p>The example below installs the <a href="https://github.com/devcontainers/features/tree/main/src/go" class="external-link" target="_blank">go</a> and <a href="https://github.com/devcontainers/features/tree/main/src/docker-in-docker" class="external-link" target="_blank">docker-in-docker</a> Features:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #A31515">&quot;name&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;my-project-devcontainer&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #A31515">&quot;image&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;mcr.microsoft.com/devcontainers/base:ubuntu&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #A31515">&quot;features&quot;</span><span style="color: #000000">: {</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #0451A5">&quot;ghcr.io/devcontainers/features/go:1&quot;</span><span style="color: #000000">: {</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #0451A5">&quot;version&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;1.18&quot;</span></span>
+<span class="line"><span style="color: #000000">    },</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #0451A5">&quot;ghcr.io/devcontainers/features/docker-in-docker:1&quot;</span><span style="color: #000000">: {</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #0451A5">&quot;version&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;latest&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #0451A5">&quot;moby&quot;</span><span style="color: #000000">: </span><span style="color: #0000FF">true</span></span>
+<span class="line"><span style="color: #000000">    }</span></span>
+<span class="line"><span style="color: #000000">}</span></span>
+<span class="line"></span></code></pre>
+<p>You can also explore official and publicly contributed Features <a href="https://containers.dev/features" class="external-link" target="_blank">on the specification site</a>. Any Feature can be added by editing <code>devcontainer.json</code>, and publicly published ones can be added through existing dev container configuration experiences (such as available in the VS Code <a href="../../../../docs/devcontainers/containers.html#_dev-container-features">Dev Containers</a> extension).</p>
+<p><img src="../../../../assets/blogs/2022/09/15/features-list-site.png" alt="Specification site list of available Features" loading="lazy"></p>
+<p>You can even use dev containers with Features from your favorite CI system using the <a href="https://github.com/devcontainers/cli" class="external-link" target="_blank">dev container CLI</a>, a GitHub Action, or an Azure DevOps task. We have a GitHub Action and Azure DevOps task available in the <a href="https://github.com/devcontainers/ci" class="external-link" target="_blank">devcontainers/ci</a> repository. The dev container CLI, GitHub Action, or Azure DevOps task can also be used to <a href="../../../../docs/devcontainers/devcontainer-cli.html#_prebuilding">pre-build images</a> that include Feature contents to speed up start times.</p>
+<p>If you'd like to not only use publicly available Features but also create your own private or public ones to share, continue reading!</p>
+<h2 id="_authoring" data-needslink="_authoring">Authoring</h2>
+<p>A great place to get started with creating your own Features is the new <a href="https://github.com/devcontainers/feature-template" class="external-link" target="_blank">Features template</a> repository.  Beyond including a good template for the contents of a given Feature, the template also includes a GitHub Actions workflow to quickly publish them too, using the <a href="https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry" class="external-link" target="_blank">GitHub Container Registry</a> (GHCR) for your account to get you up and running as fast as possible. We'll talk more about publishing in a minute.</p>
+<p>The source code of a Feature has two components: An install script (<code>install.sh</code>) and a configuration file (<code>devcontainer-feature.json</code>).</p>
+<pre class="shiki"><code>+-- feature
+|    +-- devcontainer-feature.json
+|    +-- install.sh
+|    +-- (other files)
+
+</code></pre>
+<p><code>install.sh</code>: The installation entry point script – it's conceptually added as a layer of the image's Dockerfile and executed during build-time. This entry point script can install tools such as languages (for example, Ruby) and tools (GitHub CLI).</p>
+<p><code>devcontainer-feature.json</code>: This contains metadata about the Feature, a set of options that can be passed to a Feature's install script during installation, as well as &quot;pieces&quot; of <code>devcontainer.json</code> that will be merged into the final dev container. For example, if any Feature indicates <code>&quot;privileged&quot;: true</code> in their configuration, the entire dev container will be started with the <code>--privileged</code> flag.</p>
+<p>Features can be authored in a variety of languages, the most straightforward being shell scripts. If a Feature is authored in a different language, information about it should be included in the metadata so that users can make an informed choice about it.</p>
+<blockquote>
+<p><strong>Note:</strong> While install.sh will run Features in any language, if you wrote a Feature in an interpreted language that wasn't present in the dev container, the code would fail to execute. Be sure to acquire the language(s) you need as part of install.sh.</p>
+</blockquote>
+<blockquote>
+<p>You should be sure that Features you release publicly check and install dependencies in addition to the Feature.</p>
+</blockquote>
+<blockquote>
+<p>Furthermore, public Features are very likely to be used from both arm64 or x86_64 machines - so be sure to adapt to this when possible.</p>
+</blockquote>
+<p>You can review <code>devcontainer-feature.json</code> properties <a href="https://containers.dev/implementors/features/#devcontainer-feature-json-properties" class="external-link" target="_blank">in the specification</a>, along with public examples in the <a href="https://github.com/devcontainers/features" class="external-link" target="_blank">devcontainers/features</a> repository.</p>
+<p>Now that we've seen how to create a Feature, how can I distribute it to others?</p>
+<h2 id="_distribution" data-needslink="_distribution">Distribution</h2>
+<p>Features are distributed as tarballs. The tarball contains the entire contents of the Feature subdirectory, including the <code>devcontainer-feature.json</code>, <code>install.sh</code>, and any other files in the directory.</p>
+<p>The <a href="https://opencontainers.org/" class="external-link" target="_blank">Open Container Initiative</a> (OCI) defines industry standards for containers and container resources. We treat Features as OCI Artifacts and use the concept of an <a href="https://containers.dev/implementors/features-distribution/#oci-registry" class="external-link" target="_blank">OCI Registry</a> to distribute Features.</p>
+<p>The <a href="https://github.com/devcontainers/feature-template" class="external-link" target="_blank">Features template</a> repository mentioned above includes a <a href="https://github.com/marketplace/actions/dev-container-publish" class="external-link" target="_blank">GitHub Actions workflow</a> to automate the publishing process. It packages the Feature into a tarball and publishes the assets as an OCI artifact to GHCR. Trigger the <code>release.yaml</code> workflow from the template repository by selecting it on the left of the repository's Actions tab on GitHub. The GitHub Action will publish the Feature to GHCR under the <code>&lt;owner&gt;/&lt;repo&gt;</code> namespace. A Feature is only republished when the version property in its <code>devcontainer-feature.json</code> is updated.</p>
+<blockquote>
+<p><strong>Note:</strong> One manual step with GHCR is to mark the OCI <a href="https://github.com/devcontainers/feature-template#marking-feature-public" class="external-link" target="_blank">package as &quot;public&quot;</a>. This only has to be done once per Feature. Private Features do not require this step and may be accessed as long as you've logged into the Docker CLI using the credentials for your registry.</p>
+</blockquote>
+<h3 id="_sharing-your-features-with-the-community" data-needslink="_sharing-your-features-with-the-community">Sharing your Features with the community</h3>
+<p>If you'd like your contributions to appear in the VS Code <a href="https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers" class="external-link" target="_blank">Dev Containers</a> or <a href="https://github.com/features/codespaces" class="external-link" target="_blank">GitHub Codespaces</a> UI for dev container creation, you can do the following steps:</p>
+<ul>
+<li>Go to <a href="https://github.com/devcontainers/devcontainers.github.io" class="external-link" target="_blank">devcontainers.github.io</a> (the GitHub repo backing <a href="https://containers.dev/" class="external-link" target="_blank">containers.dev</a>)</li>
+<li>Open a PR to modify the <a href="https://github.com/devcontainers/devcontainers.github.io/blob/gh-pages/_data/collection-index.yml" class="external-link" target="_blank"><code>collection-index.yml</code></a> file</li>
+</ul>
+<p>Once merged, your change will appear at <a href="https://containers.dev/collections" class="external-link" target="_blank">containers.dev/collections</a>.</p>
+<h2 id="_feature-installation-order" data-needslink="_feature-installation-order">Feature installation order</h2>
+<p>What if my Feature should only install after another one? As a Feature author, you may find that your Feature should install before or after other Features. In your <code>devcontainer-feature.json</code>, you can use the <code>installsAfter</code> property to list Features that should execute before it.</p>
+<p>As an end user, you can further control the order of execution with the <code>overrideFeatureInstallOrder</code> property in your <code>devcontainer.json</code>. Any Feature IDs in this array will be installed before all other Features, in the provided order. As an example:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #A31515">&quot;features&quot;</span><span style="color: #000000">: {</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #0451A5">&quot;ghcr.io/devcontainers/features/java:1&quot;</span><span style="color: #CD3131">,</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #0451A5">&quot;ghcr.io/devcontainers/features/node:1&quot;</span><span style="color: #CD3131">,</span></span>
+<span class="line"><span style="color: #000000">  },</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #A31515">&quot;overrideFeatureInstallOrder&quot;</span><span style="color: #000000">: [</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #A31515">&quot;ghcr.io/devcontainers/features/node&quot;</span></span>
+<span class="line"><span style="color: #000000">  ]</span></span>
+<span class="line"></span></code></pre>
+<p>By default, Features are installed on top of a base image in an order determined as optimal by the implementing tool.</p>
+<p>If any of the following properties are provided in the Feature's <code>devcontainer-feature.json</code>, or the user's <code>devcontainer.json</code>, the order indicated by these propert(ies) are respected (with decreasing precedence).</p>
+<ol>
+<li>The <code>overrideFeatureInstallOrder</code> property in user's <code>devcontainer.json</code>. Allows users to control the order of execution of their Features.</li>
+<li>The <code>installsAfter</code> property defined as part of a Feature's <code>devcontainer-feature.json</code>.</li>
+</ol>
+<p>You can read more about Feature execution and installation order <a href="https://containers.dev/implementors/features/#execution" class="external-link" target="_blank">in the specification</a>.</p>
+<h2 id="_what-else-is-new" data-needslink="_what-else-is-new">What else is new?</h2>
+<p>Along with the new Features repository, we recently open sourced a new <a href="https://github.com/devcontainers/images" class="external-link" target="_blank">devcontainers/images</a> repository where we host a specific set of images that were previously in the <a href="https://github.com/microsoft/vscode-dev-containers" class="external-link" target="_blank">vscode-dev-containers</a> repository.</p>
+<p>We're developing a community distribution plan for dev container templates (what we refer to as &quot;definitions&quot; in <a href="https://github.com/microsoft/vscode-dev-containers" class="external-link" target="_blank">vscode-dev-containers</a>), which we anticipate to be similar to Features. We'll be sure to post an update in the vscode-dev-containers repository, as we did when <a href="https://github.com/microsoft/vscode-dev-containers/issues/1589" class="external-link" target="_blank">announcing the new Features and images repos</a>.</p>
+<h2 id="_how-can-i-learn-more" data-needslink="_how-can-i-learn-more">How can I learn more?</h2>
+<p>This post just touches the surface of what you can do with Features, and we're excited for you to try them out!</p>
+<p>As linked throughout the above content, the best spots to learn more about what goes into Features and how to distribute them are the <a href="https://containers.dev/implementors/features/" class="external-link" target="_blank">Features</a> and <a href="https://containers.dev/implementors/features-distribution/" class="external-link" target="_blank">Features distribution</a> pages of the dev container specification.</p>
+<p>We look forward to your feedback as you use, create, and publish Features – we'd love to hear how they're working for you in the <a href="https://github.com/devcontainers/spec/issues/61" class="external-link" target="_blank">Features</a> and <a href="https://github.com/devcontainers/spec/issues/70" class="external-link" target="_blank">Features distribution</a> issue proposals.</p>
+<p>If you're interested in getting involved with the specification overall or wiring up another tool to take advantage of it, check out the dev container <a href="https://github.com/devcontainers/spec" class="external-link" target="_blank">spec</a> and <a href="https://github.com/devcontainers/cli" class="external-link" target="_blank">CLI</a> repositories.</p>
+<p>Happy dev container creation, and happy coding!</p>
+<p>Brigit Murtaugh, <a href="https://twitter.com/BrigitMurtaugh" class="external-link" target="_blank">@BrigitMurtaugh</a></p>
+
+        </div>
+        <div class="col-sm-3 col-md-2 docs-subnavbar-container">
+            <nav id="docs-subnavbar" aria-label="On Page" data-spy="affix" data-offset-top="20">
+                
+                <h4><span class="sr-only">In this blog post, there are 7
+                        sections</span><span aria-hidden="true">In this blog post</span></h4>
+                
+                <ul class="nav">
+                    
+                    <li><a href="#_features">Features</a></li>
+                    
+                    <li><a href="#_adding-features-to-your-dev-container">Adding Features to your dev container</a></li>
+                    
+                    <li><a href="#_authoring">Authoring</a></li>
+                    
+                    <li><a href="#_distribution">Distribution</a></li>
+                    
+                    <li><a href="#_feature-installation-order">Feature installation order</a></li>
+                    
+                    <li><a href="#_what-else-is-new">What else is new?</a></li>
+                    
+                    <li><a href="#_how-can-i-learn-more">How can I learn more?</a></li>
+                    
+                </ul>
+                <div class="connect-widget"></div>
+            </nav>
+        </div>
+    </div>
+</div>
+      </div>
+  </div>
+
+  <footer role="contentinfo">
+      <div class="container">
+          <div class="row">
+              <div class="left col-md-7">
+                  <ul class="links">
+                      <li>
+                          <span class="message">Hello from Seattle.</span>
+                      </li>
+                      <li>
+                          <a href="https://go.microsoft.com/fwlink/?LinkID=533687" onclick="followOnTwitter()" tabindex="0">Follow @code</a>
+                      </li>
+                      <li>
+                          <div class="github-star-button">
+                              <iframe src="../../../../assets/github-button29be.html?user=Microsoft&amp;repo=vscode&amp;type=star&amp;count=true"
+                                  frameborder="0" scrolling="0" width="130px" height="20px" title="GitHub follow button" loading="lazy"></iframe>
+                          </div>
+                      </li>
+  
+                      <script>
+                          function followOnTwitter() {
+                              var windowFeatures = "location=yes,height=600,width=550,scrollbars=yes,status=yes";
+                              var originalReferer = "&original_referer=" + document.URL;
+                              var screenName = "&screen_name=code";
+                              var URL = "https://twitter.com/intent/follow?" + originalReferer + screenName;
+                              window.open(URL, "_blank", windowFeatures);
+                          }
+  
+                          function manageConsent() {
+                              if(WcpConsent.siteConsent.isConsentRequired){
+                                  WcpConsent.siteConsent.manageConsent();
+                              }
+                          }
+                      </script>
+                  </ul>
+              </div>
+              <div class="right col-md-5">
+                  <ul class="links">
+                      <li><a id="footer-support-link" href="https://support.serviceshub.microsoft.com/supportforbusiness/create?sapId=d66407ed-3967-b000-4cfb-2c318cad363d"
+                              target="_blank">Support</a></li>
+                      <li><a id="footer-privacy-link" href="https://privacy.microsoft.com/privacystatement"
+                              target="_blank">Privacy</a></li>
+                      <li style="display: none;"><a id="footer-cookie-link" style="cursor: pointer;" onclick="manageConsent()"
+                              target="_blank">Manage Cookies</a></li>
+                      <li><a id="footer-terms-link" href="https://www.microsoft.com/legal/terms-of-use"
+                              target="_blank">Terms of Use</a></li>
+                      <li><a id="footer-license-link" href="../../../../License.html">License</a></li>
+                  </ul>
+                  <div class="copyright">
+                      <a id="footer-microsoft-link" class="logo" href="https://www.microsoft.com/">
+                          <img class="microsoft-logo" src="../../../../assets/images/microsoft-logo.png" height="20" alt="Microsoft homepage"/>
+                          <img class="microsoft-logo-inverted" src="../../../../assets/images/microsoft-logo-inverted.png" height="20" alt="Microsoft homepage" />
+                      </a>
+                      <span>&copy; 2023 Microsoft</span>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </footer>
+  <script src="../../../../dist/index.js"></script>
+
+  
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "SoftwareApplication",
+      "name" : "Visual Studio Code",
+      "softwareVersion": "1.74",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "applicationCategory": "DeveloperApplication",
+      "applicationSubCategory": "Text Editor",
+      "alternateName": "VS Code",
+      "datePublished": "2021-11-03",
+      "operatingSystem": "Mac, Linux, Windows",
+      "logo": "https://code.visualstudio.com/assets/apple-touch-icon.png",
+      "screenshot": "https://code.visualstudio.com/assets/home/home-screenshot-win.png",
+      "releaseNotes": "https://code.visualstudio.com/updates",
+      "downloadUrl": "https://code.visualstudio.com/download",
+      "license": "https://code.visualstudio.com/license",
+      "softwareRequirements": "https://code.visualstudio.com/docs/supporting/requirements",
+      "url" : "https://code.visualstudio.com",
+      "author": {
+        "@type": "Organization",
+        "name": "Microsoft"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Microsoft"
+      },
+      "maintainer": {
+        "@type": "Organization",
+        "name": "Microsoft"
+      },
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://code.visualstudio.com/Search?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      },
+      "sameAs" : [
+        "https://en.wikipedia.org/wiki/Visual_Studio_Code",
+        "https://twitter.com/code",
+        "https://www.youtube.com/code",
+        "https://www.tiktok.com/@vscode",
+        "https://github.com/microsoft/vscode"
+      ]
+    }
+  </script>
+</body>
+
+<!-- Mirrored from code.visualstudio.com/blogs/2022/09/15/dev-container-features by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 04 Jan 2023 12:15:03 GMT -->
+</html>

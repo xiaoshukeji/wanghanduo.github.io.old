@@ -1,0 +1,1251 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Mirrored from code.visualstudio.com/api/extension-guides/web-extensions by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 04 Jan 2023 11:24:55 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="google-site-verification" content="hNs7DXrTySP_X-0P_AC0WulAXvUwgSXEmgfcO2r79dw" />
+
+  <!-- Twitter and Facebook OpenGraph Metadata-->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@code" />
+
+  <meta name="keywords" content="vscode API" />
+
+<meta name="description" content="Learn how to run extensions in Visual Studio Code for the web and the web extension host." />
+
+<meta name="ms.prod" content="vs-code" />
+<meta name="ms.TOCTitle" content="Web Extensions" />
+<meta name="ms.ContentId" content="282670bb-cc72-4b01-9b51-08bf8f5a13a1" />
+<meta name="ms.topic" content="conceptual" />
+<meta name="ms.date" content="12/7/2022" />
+<!-- Twitter and Facebook OpenGraph Metadata-->
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="og:url" content="web-extensions.html" />
+
+<meta property="og:description" content="Learn how to run extensions in Visual Studio Code for the web and the web extension host." />
+
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Web Extensions" />
+<meta property="og:image" content="../../opengraphimg/opengraph-docs.png" />
+
+
+  <link rel="shortcut icon" href="../../favicon.ico" sizes="128x128" />
+  <link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+
+  <title>Web Extensions | Visual Studio Code Extension
+API</title>
+
+  <link rel="stylesheet" href="../../vendor/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../../dist/style.css">
+
+  <script type="text/javascript" src="../../../js.monitor.azure.com/scripts/c/ms.analytics-web-3.min.js"></script>
+  <script>
+  window.appInsights = new oneDS.ApplicationInsights();
+  window.appInsights.initialize({
+    instrumentationKey: "1a3eb3104447440391ad5f2a6ee06a0a-62879566-bc58-4741-9650-302bf2af703f-7103",
+    webAnalyticsConfiguration:{ // Web Analytics Plugin configuration
+        urlCollectQuery:true, 
+        autoCapture: {
+          scroll: true,
+          pageView: true,
+          onLoad: true,
+          onUnload: true,
+          click: true,
+          resize: true,
+          jsError: true
+        }
+    }
+  }, []);
+  </script>
+  
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','../../../www.google-analytics.com/analytics.js','ga');
+  </script>  
+  <link rel="alternate" type="application/atom+xml" title="RSS Feed for code.visualstudio.com" href="../../feed.xml" />
+</head>
+
+<body>
+  <!-- EU Cookie Compliance JS -->
+  <script src="../../../wcpstatic.microsoft.com/mscc/lib/v2/wcp-consent.js"></script>
+
+  <div id="main">
+          <div class="navbar-fixed-container">
+              <div class="navbar navbar-inverse navbar-fixed-top ">
+                  <div id='cookie-banner'></div>        <nav role="navigation" aria-label="Top Level">
+                      <div class="container">
+                          <div class="nav navbar-header">
+                              <a role="button" id="skip-to-content" class="link-button" href="#main-content">Skip to content<i>&nbsp;</i><span class="glyphicon glyphicon-menu-down"></span></a>
+                              <a class="navbar-brand" id="navbar-brand" href="../../index.html">Visual Studio Code</a>
+                              <button type="button" class="navbar-toggle" role="navigation" data-toggle="collapse" data-target=".navbar-collapse" aria-label="Toggle Navigation Menu">
+                                  <span class="icon-bar"></span>
+                                  <span class="icon-bar"></span>
+                                  <span class="icon-bar"></span>
+                              </button>
+                          </div>
+                          <div class="navbar-collapse collapse" role="navigation">
+                              <ul class="nav navbar-nav navbar-left">
+                                  <li ><a id="nav-docs" href="../../docs.html">Docs</a></li>
+                                  <li ><a id="nav-updates" href="../../updates/v1_74.html">Updates</a></li>
+                                  <li ><a id="nav-blogs" href="../../blogs.html">Blog</a></li>
+                                  <li class="active" ><a id="nav-extend" href="../../api.html">API</a></li>
+                                  <li><a href="https://marketplace.visualstudio.com/VSCode" target="_blank" id="nav-extensions">Extensions</a></li>
+                                  <li ><a id="nav-faqs" href="../../docs/supporting/faq.html">FAQ</a></li>
+                                  <li ><a id="nav-learn" href="../../learn.html">Learn</a></li>
+                                  <li class='search visible-xs visible-sm'
+                                      ><a href="../../Search.html">Search</a></li>
+                              </ul>
+          
+                              <ul class="nav navbar-nav navbar-right" role="presentation">
+                                  <!-- Floating search icon -->
+                                  <li>
+                                      <a href="../../Search.html" title="Search" class="btn search-btn" id="nav-search">
+                                          <img class="search-icon" src="../../assets/icons/search.svg" width="16px" height="16px" alt="Search"/>
+                                          <img class="search-icon-inverted" src="../../assets/icons/search_dark.svg" width="16px" height="16px" alt="Search" />
+                                      </a>
+                                  </li>
+                                  <!-- Actual search icon -->
+                                  <li class="search" role="presentation">
+                                      <form class="nav-search search-form" role="search" aria-label="Search">
+                                          <div class="input-group" role="presentation">
+                                              <input type="text" name="q" class="search-box form-control" placeholder="Search Docs" aria-label="Search text"/>
+                                              <span class="input-group-btn">
+                                                  <button tabindex="0" class="btn" type="submit" aria-label="Search">
+                                                          <img class="search-icon" src="../../assets/icons/search.svg" width="16px" height="16px" alt="Search" />
+                                                          <img class="search-icon-inverted" src="../../assets/icons/search_dark.svg" width="16px" height="16px" alt="Search" />
+                                                  </button>
+                                              </span>
+                                          </div>
+                                      </form>                        </li>
+                                  <!-- this was hiden in the home and download page, keeping it for now -->
+                                  <li><a class="link-button" href="../../Download.html" id="nav-download">
+                                      <img class="download-icon" src="../../assets/icons/download.svg" width="16px" height="16px" alt="Download VS Code"/>
+                                      <img class="download-icon-inverted" src="../../assets/icons/download-black.svg" width="16px" height="16px" alt="Download VS Code" />
+                                      <span>Download</span>
+                                  </a></li>
+                              </ul>
+                          </div>
+                      </div>
+                  </nav>
+              </div>
+          </div>          <div class="updates-banner  ">
+              <div class="container">
+                  <p class="message"><a href="../../updates/v1_74.html" id="banner-link-updates">Version 1.74</a> is now available! Read about the new features and fixes from November.</p> 
+              </div>
+              <div tabindex="0" role="button" title="Dismiss this update" class="dismiss-btn" id="banner-dismiss-btn"><span class="sr-only">Dismiss this update</span><span aria-hidden="true" class="glyph-icon"></span></div>
+          </div>      <div role="main" id="main-content">
+        <div class="container body-content docs">
+	<div class="row">
+		<div class="col-md-2 docs-navbar-container">
+			<nav id="docs-navbar" class="docs-nav visible-md visible-lg">
+			  <ul class="nav" id="main-nav">
+			  <li >
+			    <a class="docs-home" href="../../api.html" >Overview</a>
+			  </li>
+			  
+			<li class="panel collapsed">
+			  <a class="area" role="button" href="#get-started-articles" data-parent="#main-nav" data-toggle="collapse">Get Started</a>
+			  <ul id="get-started-articles" class="collapse ">
+			
+			    <li >
+			      <a href="../get-started/your-first-extension.html" >Your First Extension</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../get-started/extension-anatomy.html" >Extension Anatomy</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../get-started/wrapping-up.html" >Wrapping Up</a>
+			    </li>
+			      
+			  </ul>
+			</li>
+			    
+			<li class="panel collapsed">
+			  <a class="area" role="button" href="#extension-capabilities-articles" data-parent="#main-nav" data-toggle="collapse">Extension Capabilities</a>
+			  <ul id="extension-capabilities-articles" class="collapse ">
+			
+			    <li >
+			      <a href="../extension-capabilities/overview.html" >Overview</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../extension-capabilities/common-capabilities.html" >Common Capabilities</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../extension-capabilities/theming.html" >Theming</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../extension-capabilities/extending-workbench.html" >Extending Workbench</a>
+			    </li>
+			      
+			  </ul>
+			</li>
+			    
+			<li class="panel active expanded">
+			  <a class="area" role="button" href="#extension-guides-articles" data-parent="#main-nav" data-toggle="collapse">Extension Guides</a>
+			  <ul id="extension-guides-articles" class="collapse in">
+			
+			    <li >
+			      <a href="overview.html" >Overview</a>
+			    </li>
+			      
+			    <li >
+			      <a href="command.html" >Command</a>
+			    </li>
+			      
+			    <li >
+			      <a href="color-theme.html" >Color Theme</a>
+			    </li>
+			      
+			    <li >
+			      <a href="file-icon-theme.html" >File Icon Theme</a>
+			    </li>
+			      
+			    <li >
+			      <a href="product-icon-theme.html" >Product Icon Theme</a>
+			    </li>
+			      
+			    <li >
+			      <a href="tree-view.html" >Tree View</a>
+			    </li>
+			      
+			    <li >
+			      <a href="webview.html" >Webview</a>
+			    </li>
+			      
+			    <li >
+			      <a href="notebook.html" >Notebook</a>
+			    </li>
+			      
+			    <li >
+			      <a href="custom-editors.html" >Custom Editors</a>
+			    </li>
+			      
+			    <li >
+			      <a href="virtual-documents.html" >Virtual Documents</a>
+			    </li>
+			      
+			    <li >
+			      <a href="virtual-workspaces.html" >Virtual Workspaces</a>
+			    </li>
+			      
+			    <li class="active">
+			      <a href="web-extensions.html" aria-label="Current Page: Web Extensions">Web Extensions</a>
+			    </li>
+			      
+			    <li >
+			      <a href="workspace-trust.html" >Workspace Trust</a>
+			    </li>
+			      
+			    <li >
+			      <a href="task-provider.html" >Task Provider</a>
+			    </li>
+			      
+			    <li >
+			      <a href="scm-provider.html" >Source Control</a>
+			    </li>
+			      
+			    <li >
+			      <a href="debugger-extension.html" >Debugger Extension</a>
+			    </li>
+			      
+			    <li >
+			      <a href="markdown-extension.html" >Markdown Extension</a>
+			    </li>
+			      
+			    <li >
+			      <a href="testing.html" >Test Extension</a>
+			    </li>
+			      
+			    <li >
+			      <a href="custom-data-extension.html" >Custom Data Extension</a>
+			    </li>
+			      
+			    <li >
+			      <a href="telemetry.html" >Telemetry</a>
+			    </li>
+			      
+			  </ul>
+			</li>
+			    
+			<li class="panel collapsed">
+			  <a class="area" role="button" href="#ux-guidelines-articles" data-parent="#main-nav" data-toggle="collapse">UX Guidelines</a>
+			  <ul id="ux-guidelines-articles" class="collapse ">
+			
+			    <li >
+			      <a href="../ux-guidelines/overview.html" >Overview</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../ux-guidelines/activity-bar.html" >Activity Bar</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../ux-guidelines/sidebars.html" >Sidebars</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../ux-guidelines/panel.html" >Panel</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../ux-guidelines/status-bar.html" >Status Bar</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../ux-guidelines/views.html" >Views</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../ux-guidelines/editor-actions.html" >Editor Actions</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../ux-guidelines/quick-picks.html" >Quick Picks</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../ux-guidelines/command-palette.html" >Command Palette</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../ux-guidelines/notifications.html" >Notifications</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../ux-guidelines/webviews.html" >Webviews</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../ux-guidelines/context-menus.html" >Context Menus</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../ux-guidelines/walkthroughs.html" >Walkthroughs</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../ux-guidelines/settings.html" >Settings</a>
+			    </li>
+			      
+			  </ul>
+			</li>
+			    
+			<li class="panel collapsed">
+			  <a class="area" role="button" href="#language-extensions-articles" data-parent="#main-nav" data-toggle="collapse">Language Extensions</a>
+			  <ul id="language-extensions-articles" class="collapse ">
+			
+			    <li >
+			      <a href="../language-extensions/overview.html" >Overview</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../language-extensions/syntax-highlight-guide.html" >Syntax Highlight Guide</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../language-extensions/semantic-highlight-guide.html" >Semantic Highlight Guide</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../language-extensions/snippet-guide.html" >Snippet Guide</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../language-extensions/language-configuration-guide.html" >Language Configuration Guide</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../language-extensions/programmatic-language-features.html" >Programmatic Language Features</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../language-extensions/language-server-extension-guide.html" >Language Server Extension Guide</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../language-extensions/embedded-languages.html" >Embedded Languages</a>
+			    </li>
+			      
+			  </ul>
+			</li>
+			    
+			<li class="panel collapsed">
+			  <a class="area" role="button" href="#working-with-extensions-articles" data-parent="#main-nav" data-toggle="collapse">Testing and Publishing</a>
+			  <ul id="working-with-extensions-articles" class="collapse ">
+			
+			    <li >
+			      <a href="../working-with-extensions/testing-extension.html" >Testing Extensions</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../working-with-extensions/publishing-extension.html" >Publishing Extensions</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../working-with-extensions/bundling-extension.html" >Bundling Extensions</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../working-with-extensions/continuous-integration.html" >Continuous Integration</a>
+			    </li>
+			      
+			  </ul>
+			</li>
+			    
+			<li class="panel collapsed">
+			  <a class="area" role="button" href="#advanced-topics-articles" data-parent="#main-nav" data-toggle="collapse">Advanced Topics</a>
+			  <ul id="advanced-topics-articles" class="collapse ">
+			
+			    <li >
+			      <a href="../advanced-topics/extension-host.html" >Extension Host</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../advanced-topics/remote-extensions.html" >Remote Development and Codespaces</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../advanced-topics/using-proposed-api.html" >Using Proposed API</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../advanced-topics/tslint-eslint-migration.html" >Migrate from TSLint to ESLint</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../advanced-topics/python-extension-template.html" >Python Extension Template</a>
+			    </li>
+			      
+			  </ul>
+			</li>
+			    
+			<li class="panel collapsed">
+			  <a class="area" role="button" href="#references-articles" data-parent="#main-nav" data-toggle="collapse">References</a>
+			  <ul id="references-articles" class="collapse ">
+			
+			    <li >
+			      <a href="../references/vscode-api.html" >VS Code API </a>
+			    </li>
+			      
+			    <li >
+			      <a href="../references/contribution-points.html" >Contribution Points</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../references/activation-events.html" >Activation Events</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../references/extension-manifest.html" >Extension Manifest</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../references/commands.html" >Built-in Commands</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../references/when-clause-contexts.html" >When clause contexts</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../references/theme-color.html" >Theme Color</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../references/icons-in-labels.html" >Product Icon Reference</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../references/document-selector.html" >Document Selector</a>
+			    </li>
+			      
+			  </ul>
+			</li>
+			    
+			  </ul>
+			</nav>
+			
+			<nav id="small-nav" aria-label="Topics" class="docs-nav hidden-md hidden-lg">
+				<h4>Topics</h4>
+				<select id="small-nav-dropdown" aria-label="topics">
+			    <option value="/api" >Overview</option>
+			
+			  <optgroup label="Get Started">
+			
+			    <option value="/api/get-started/your-first-extension" >Your First Extension</option>
+			    
+			    <option value="/api/get-started/extension-anatomy" >Extension Anatomy</option>
+			    
+			    <option value="/api/get-started/wrapping-up" >Wrapping Up</option>
+			    
+			  </optgroup>
+			  
+			  <optgroup label="Extension Capabilities">
+			
+			    <option value="/api/extension-capabilities/overview" >Overview</option>
+			    
+			    <option value="/api/extension-capabilities/common-capabilities" >Common Capabilities</option>
+			    
+			    <option value="/api/extension-capabilities/theming" >Theming</option>
+			    
+			    <option value="/api/extension-capabilities/extending-workbench" >Extending Workbench</option>
+			    
+			  </optgroup>
+			  
+			  <optgroup label="Extension Guides">
+			
+			    <option value="/api/extension-guides/overview" >Overview</option>
+			    
+			    <option value="/api/extension-guides/command" >Command</option>
+			    
+			    <option value="/api/extension-guides/color-theme" >Color Theme</option>
+			    
+			    <option value="/api/extension-guides/file-icon-theme" >File Icon Theme</option>
+			    
+			    <option value="/api/extension-guides/product-icon-theme" >Product Icon Theme</option>
+			    
+			    <option value="/api/extension-guides/tree-view" >Tree View</option>
+			    
+			    <option value="/api/extension-guides/webview" >Webview</option>
+			    
+			    <option value="/api/extension-guides/notebook" >Notebook</option>
+			    
+			    <option value="/api/extension-guides/custom-editors" >Custom Editors</option>
+			    
+			    <option value="/api/extension-guides/virtual-documents" >Virtual Documents</option>
+			    
+			    <option value="/api/extension-guides/virtual-workspaces" >Virtual Workspaces</option>
+			    
+			    <option value="/api/extension-guides/web-extensions" selected>Web Extensions</option>
+			    
+			    <option value="/api/extension-guides/workspace-trust" >Workspace Trust</option>
+			    
+			    <option value="/api/extension-guides/task-provider" >Task Provider</option>
+			    
+			    <option value="/api/extension-guides/scm-provider" >Source Control</option>
+			    
+			    <option value="/api/extension-guides/debugger-extension" >Debugger Extension</option>
+			    
+			    <option value="/api/extension-guides/markdown-extension" >Markdown Extension</option>
+			    
+			    <option value="/api/extension-guides/testing" >Test Extension</option>
+			    
+			    <option value="/api/extension-guides/custom-data-extension" >Custom Data Extension</option>
+			    
+			    <option value="/api/extension-guides/telemetry" >Telemetry</option>
+			    
+			  </optgroup>
+			  
+			  <optgroup label="UX Guidelines">
+			
+			    <option value="/api/ux-guidelines/overview" >Overview</option>
+			    
+			    <option value="/api/ux-guidelines/activity-bar" >Activity Bar</option>
+			    
+			    <option value="/api/ux-guidelines/sidebars" >Sidebars</option>
+			    
+			    <option value="/api/ux-guidelines/panel" >Panel</option>
+			    
+			    <option value="/api/ux-guidelines/status-bar" >Status Bar</option>
+			    
+			    <option value="/api/ux-guidelines/views" >Views</option>
+			    
+			    <option value="/api/ux-guidelines/editor-actions" >Editor Actions</option>
+			    
+			    <option value="/api/ux-guidelines/quick-picks" >Quick Picks</option>
+			    
+			    <option value="/api/ux-guidelines/command-palette" >Command Palette</option>
+			    
+			    <option value="/api/ux-guidelines/notifications" >Notifications</option>
+			    
+			    <option value="/api/ux-guidelines/webviews" >Webviews</option>
+			    
+			    <option value="/api/ux-guidelines/context-menus" >Context Menus</option>
+			    
+			    <option value="/api/ux-guidelines/walkthroughs" >Walkthroughs</option>
+			    
+			    <option value="/api/ux-guidelines/settings" >Settings</option>
+			    
+			  </optgroup>
+			  
+			  <optgroup label="Language Extensions">
+			
+			    <option value="/api/language-extensions/overview" >Overview</option>
+			    
+			    <option value="/api/language-extensions/syntax-highlight-guide" >Syntax Highlight Guide</option>
+			    
+			    <option value="/api/language-extensions/semantic-highlight-guide" >Semantic Highlight Guide</option>
+			    
+			    <option value="/api/language-extensions/snippet-guide" >Snippet Guide</option>
+			    
+			    <option value="/api/language-extensions/language-configuration-guide" >Language Configuration Guide</option>
+			    
+			    <option value="/api/language-extensions/programmatic-language-features" >Programmatic Language Features</option>
+			    
+			    <option value="/api/language-extensions/language-server-extension-guide" >Language Server Extension Guide</option>
+			    
+			    <option value="/api/language-extensions/embedded-languages" >Embedded Languages</option>
+			    
+			  </optgroup>
+			  
+			  <optgroup label="Testing and Publishing">
+			
+			    <option value="/api/working-with-extensions/testing-extension" >Testing Extensions</option>
+			    
+			    <option value="/api/working-with-extensions/publishing-extension" >Publishing Extensions</option>
+			    
+			    <option value="/api/working-with-extensions/bundling-extension" >Bundling Extensions</option>
+			    
+			    <option value="/api/working-with-extensions/continuous-integration" >Continuous Integration</option>
+			    
+			  </optgroup>
+			  
+			  <optgroup label="Advanced Topics">
+			
+			    <option value="/api/advanced-topics/extension-host" >Extension Host</option>
+			    
+			    <option value="/api/advanced-topics/remote-extensions" >Remote Development and Codespaces</option>
+			    
+			    <option value="/api/advanced-topics/using-proposed-api" >Using Proposed API</option>
+			    
+			    <option value="/api/advanced-topics/tslint-eslint-migration" >Migrate from TSLint to ESLint</option>
+			    
+			    <option value="/api/advanced-topics/python-extension-template" >Python Extension Template</option>
+			    
+			  </optgroup>
+			  
+			  <optgroup label="References">
+			
+			    <option value="/api/references/vscode-api" >VS Code API </option>
+			    
+			    <option value="/api/references/contribution-points" >Contribution Points</option>
+			    
+			    <option value="/api/references/activation-events" >Activation Events</option>
+			    
+			    <option value="/api/references/extension-manifest" >Extension Manifest</option>
+			    
+			    <option value="/api/references/commands" >Built-in Commands</option>
+			    
+			    <option value="/api/references/when-clause-contexts" >When clause contexts</option>
+			    
+			    <option value="/api/references/theme-color" >Theme Color</option>
+			    
+			    <option value="/api/references/icons-in-labels" >Product Icon Reference</option>
+			    
+			    <option value="/api/references/document-selector" >Document Selector</option>
+			    
+			  </optgroup>
+			  
+				</select>
+			</nav>		</div>
+		<div class="col-sm-9 col-md-8 body">
+			<div class="edit-github pull-right">
+				<a href="https://vscode.dev/github/microsoft/vscode-docs/blob/main/api/extension-guides/web-extensions.md"
+					class="btn btn-default" title="Edit this document in vscode.dev">
+					<span class="glyphicon glyphicon-pencil"></span>
+					<span class="hidden-xs">Edit</span>
+				</a>
+			</div>
+			<h1>Web Extensions</h1>
+<p>Visual Studio Code can run as an editor in the browser. One example is the <code>github.dev</code> user interface reached by pressing <code>.</code> (the period key) when browsing a repository or Pull Request in GitHub. When VS Code is used in the Web, installed extensions are run in an extension host in the browser, called the 'web extension host'. An extension that can run in a web extension host is called a 'web extension'.</p>
+<p>Web extensions share the same structure as regular extensions, but given the different runtime, don't run with the same code as extensions written for a Node.js runtime. Web extensions still have access to the full VS Code API, but no longer to the Node.js APIs and module loading. Instead, web extensions are restricted by the browser sandbox and therefore have <a href="#web-extension-main-file">limitations</a> compared to normal extensions.</p>
+<p>The web extension runtime is supported on VS Code desktop too. If you decide to create your extension as a web extension, it will be supported on <a href="../../docs/editor/vscode-web.html">VS Code for the Web</a> (including <code>vscode.dev</code> and <code>github.dev</code>) as well as on the desktop and in services like <a href="../../docs/remote/codespaces.html">GitHub Codespaces</a>.</p>
+<h2 id="web-extension-anatomy" data-needslink="web-extension-anatomy">Web extension anatomy</h2>
+<p>A web extension is <a href="../get-started/extension-anatomy.html">structured like a regular extension</a>. The extension manifest (<code>package.json</code>) defines the entry file for the extension's source code and declares extension contributions.</p>
+<p>For web extensions, the <a href="#web-extension-main-file">main entry file</a> is defined by the <code>browser</code> property, and not by the <code>main</code> property as with regular extensions.</p>
+<p>The <code>contributes</code> property works the same way for both web and regular extensions.</p>
+<p>The example below shows the <code>package.json</code> for a simple hello world extension, that runs in the web extension host only (it only has a <code>browser</code> entry point):</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #000000">{</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;name&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;helloworld-web-sample&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;displayName&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;helloworld-web-sample&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;description&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;HelloWorld example for VS Code in the browser&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;version&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;0.0.1&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;publisher&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;vscode-samples&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;repository&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;https://github.com/microsoft/vscode-extension-samples/helloworld-web-sample&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;engines&quot;</span><span style="color: #000000">: {</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #0451A5">&quot;vscode&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;^1.74.0&quot;</span></span>
+<span class="line"><span style="color: #000000">  },</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;categories&quot;</span><span style="color: #000000">: [</span><span style="color: #A31515">&quot;Other&quot;</span><span style="color: #000000">],</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;activationEvents&quot;</span><span style="color: #000000">: [],</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;browser&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;./dist/web/extension.js&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;contributes&quot;</span><span style="color: #000000">: {</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #0451A5">&quot;commands&quot;</span><span style="color: #000000">: [</span></span>
+<span class="line"><span style="color: #000000">      {</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #0451A5">&quot;command&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;helloworld-web-sample.helloWorld&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #0451A5">&quot;title&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;Hello World&quot;</span></span>
+<span class="line"><span style="color: #000000">      }</span></span>
+<span class="line"><span style="color: #000000">    ]</span></span>
+<span class="line"><span style="color: #000000">  },</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;scripts&quot;</span><span style="color: #000000">: {</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #0451A5">&quot;vscode:prepublish&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;npm run package-web&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #0451A5">&quot;compile-web&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;webpack&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #0451A5">&quot;watch-web&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;webpack --watch&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #0451A5">&quot;package-web&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;webpack --mode production --devtool hidden-source-map&quot;</span></span>
+<span class="line"><span style="color: #000000">  },</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;devDependencies&quot;</span><span style="color: #000000">: {</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #0451A5">&quot;@types/vscode&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;^1.59.0&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #0451A5">&quot;ts-loader&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;^9.2.2&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #0451A5">&quot;webpack&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;^5.38.1&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #0451A5">&quot;webpack-cli&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;^4.7.0&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #0451A5">&quot;@types/webpack-env&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;^1.16.0&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #0451A5">&quot;process&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;^0.11.10&quot;</span></span>
+<span class="line"><span style="color: #000000">  }</span></span>
+<span class="line"><span style="color: #000000">}</span></span>
+<span class="line"></span></code></pre>
+<blockquote>
+<p><strong>Note</strong>: If your extension targets a VS Code version prior to 1.74, you must explicitly list <code>onCommand:helloworld-web-sample.helloWorld</code> in <code>activationEvents</code>.</p>
+</blockquote>
+<p>Extensions that have only a <code>main</code> entry point, but no <code>browser</code> are not web extensions. They are ignored by the web extension host and not available for download in the Extensions view.</p>
+<p><img src="../../assets/api/extension-guides/web-extensions/extensions-view-item-disabled.png" alt="Extensions view" loading="lazy"></p>
+<p>Extensions with only declarative contributions (only <code>contributes</code>, no <code>main</code> or <code>browser</code>) can be web extensions. They can be installed and run in <a href="../../docs/editor/vscode-web.html">VS Code for the Web</a> without any modifications by the extension author. Examples of extensions with declarative contributions include themes, grammars, and snippets.</p>
+<p>Extensions can have both <code>browser</code> and <code>main</code> entry points in order to run in browser and in Node.js runtimes. The <a href="#update-existing-extensions-to-web-extensions">Update existing extensions to Web extensions</a> section shows how to migrate an extension to work in both runtimes.</p>
+<p>The <a href="#web-extension-enablement">web extension enablement</a> section lists the rules used to decide whether an extension can be loaded in a web extension host.</p>
+<h3 id="web-extension-main-file" data-needslink="web-extension-main-file">Web extension main file</h3>
+<p>The web extension's main file is defined by the <code>browser</code> property. The script runs in the web extension host in a <a href="https://developer.mozilla.org/docs/Web/API/Web_Workers_API" class="external-link" target="_blank">Browser WebWorker</a> environment. It is restricted by the browser worker sandbox and has limitations compared to normal extensions running in a Node.js runtime.</p>
+<ul>
+<li>Importing or requiring other modules is not supported. <code>importScripts</code> is not available as well. As a consequence, the code must be packaged to a single file.</li>
+<li>The <a href="../references/vscode-api.html">VS Code API</a> can be loaded via the pattern <code>require('vscode')</code>. This will work because there is a shim for <code>require</code>, but this shim cannot be used to load additional extension files or additional node modules. It only works with <code>require('vscode')</code>.</li>
+<li>Node.js globals and libraries such as <code>process</code>, <code>os</code>, <code>setImmediate</code>, <code>path</code>, <code>util</code>, <code>url</code> are not available at runtime. They can, however, be added with tools like webpack. The <a href="#webpack-configuration">webpack configuration</a> section explains how this is done.</li>
+<li>The opened workspace or folder is on a virtual file system. Access to workspace files needs to go through the VS Code <a href="../references/vscode-api.html#FileSystem">file system</a> API accessible at <code>vscode.workspace.fs</code>.</li>
+<li><a href="../references/vscode-api.html#ExtensionContext">Extension context</a> locations (<code>ExtensionContext.extensionUri</code>) and  storage locations (<code>ExtensionContext.storageUri</code>, <code>globalStorageUri</code>) are also on a virtual file system and need to go through <code>vscode.workspace.fs</code>.</li>
+<li>For accessing web resources, the <a href="https://developer.mozilla.org/docs/Web/API/Fetch_API" class="external-link" target="_blank">Fetch</a> API must be used. Accessed resources need to support <a href="https://developer.mozilla.org/docs/Web/HTTP/CORS" class="external-link" target="_blank">Cross-Origin Resource Sharing</a> (CORS)</li>
+<li>Creating child processes or running executables is not possible. However, web workers can be created through the <a href="https://developer.mozilla.org/en-US/docs/Web/API/Worker" class="external-link" target="_blank">Worker</a> API. This is used for running language servers as described in the <a href="#language-server-protocol-in-web-extensions">Language Server Protocol in web extensions</a> section.</li>
+<li>As with regular extensions, the extension's <code>activate/deactivate</code> functions need to be exported via the pattern <code>exports.activate = ...</code>.</li>
+</ul>
+<h2 id="develop-a-web-extension" data-needslink="develop-a-web-extension">Develop a web extension</h2>
+<p>Thankfully, tools like TypeScript and webpack can hide many of the browser runtime constraints and allow you to write web extensions the same way as regular extensions. Both a web extension and a regular extension can often be generated from the same source code.</p>
+<p>For example, the <code>Hello Web Extension</code> created by the <code>yo code</code> <a href="https://www.npmjs.com/package/generator-code" class="external-link" target="_blank">generator</a> only differs in the build scripts. You can run and debug the generated extension just like traditional Node.js extensions by using the provided launch configurations accessible using the <strong>Debug: Select and Start Debugging</strong> command.</p>
+<h2 id="create-a-web-extension" data-needslink="create-a-web-extension">Create a web extension</h2>
+<p>To scaffold a new web extension, use <code>yo code</code> and pick <strong>New Web Extension</strong>. Make sure to have the latest version of <a href="https://www.npmjs.com/package/generator-code" class="external-link" target="_blank">generator-code</a> (&gt;= generator-code@1.6) installed. To update the generator and yo, run <code>npm i -g yo generator-code</code>.</p>
+<p>The extension that is created consists of the extension's source code (a command showing a hello world notification), the <code>package.json</code> manifest file, and a webpack configuration file.</p>
+<ul>
+<li><code>src/web/extension.ts</code> is the extension's entry source code file. It's identical to the regular hello extension.</li>
+<li><code>package.json</code> is the extension manifest.
+<ul>
+<li>It points to the entry file using the <code>browser</code> property.</li>
+<li>It provides scripts: <code>compile-web</code>, <code>watch-web</code> and <code>package-web</code> to compile, watch, and package.</li>
+</ul>
+</li>
+<li><code>webpack.config.js</code> is the webpack config file that compiles and bundles the extension sources into a single file.</li>
+<li><code>.vscode/launch.json</code> contains the launch configurations that run the web extension and the tests in the VS Code desktop with a web extension host (setting <code>extensions.webWorker</code> is no longer needed).</li>
+<li><code>.vscode/task.json</code> contains the build task used by the launch configuration. It uses <code>npm run watch-web</code> and depends on the webpack specific <code>ts-webpack-watch</code> problem matcher.</li>
+<li><code>.vscode/extensions.json</code> contains the extensions that provide the problem matchers. These extensions need to be installed for the launch configurations to work.</li>
+<li><code>tsconfig.json</code> defines the compile options matching the <code>webworker</code> runtime.</li>
+</ul>
+<p>The source code in the <a href="https://github.com/microsoft/vscode-extension-samples/tree/main/helloworld-web-sample" class="external-link" target="_blank">helloworld-web-sample</a> is similar to what's created by the generator.</p>
+<h3 id="webpack-configuration" data-needslink="webpack-configuration">Webpack configuration</h3>
+<p>The webpack configuration file is automatically generated by <code>yo code</code>. It bundles the source code from your extension into a single JavaScript file to be loaded in the web extension host.</p>
+<p><a href="../../../github.com/microsoft/vscode-extension-samples/blob/main/helloworld-web-sample/webpack.config.js" class="external-link" target="_blank">webpack.config.js</a></p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">path</span><span style="color: #000000"> = </span><span style="color: #795E26">require</span><span style="color: #000000">(</span><span style="color: #A31515">&#39;path&#39;</span><span style="color: #000000">);</span></span>
+<span class="line"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">webpack</span><span style="color: #000000"> = </span><span style="color: #795E26">require</span><span style="color: #000000">(</span><span style="color: #A31515">&#39;webpack&#39;</span><span style="color: #000000">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #008000">/** </span><span style="color: #0000FF">@typedef</span><span style="color: #008000"> </span><span style="color: #267F99">{import(&#39;webpack&#39;).Configuration}</span><span style="color: #008000"> </span><span style="color: #267F99">WebpackConfig</span><span style="color: #008000"> **/</span></span>
+<span class="line"><span style="color: #008000">/** </span><span style="color: #0000FF">@type</span><span style="color: #008000"> WebpackConfig */</span></span>
+<span class="line"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">webExtensionConfig</span><span style="color: #000000"> = {</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #001080">mode:</span><span style="color: #000000"> </span><span style="color: #A31515">&#39;none&#39;</span><span style="color: #000000">, </span><span style="color: #008000">// this leaves the source code as close as possible to the original (when packaging we set this to &#39;production&#39;)</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #001080">target:</span><span style="color: #000000"> </span><span style="color: #A31515">&#39;webworker&#39;</span><span style="color: #000000">, </span><span style="color: #008000">// extensions run in a webworker context</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #001080">entry:</span><span style="color: #000000"> {</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #001080">extension:</span><span style="color: #000000"> </span><span style="color: #A31515">&#39;./src/web/extension.ts&#39;</span><span style="color: #000000">, </span><span style="color: #008000">// source of the web extension main file</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #A31515">&#39;test/suite/index&#39;</span><span style="color: #001080">:</span><span style="color: #000000"> </span><span style="color: #A31515">&#39;./src/web/test/suite/index.ts&#39;</span><span style="color: #000000"> </span><span style="color: #008000">// source of the web extension test runner</span></span>
+<span class="line"><span style="color: #000000">  },</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #001080">output:</span><span style="color: #000000"> {</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #001080">filename:</span><span style="color: #000000"> </span><span style="color: #A31515">&#39;[name].js&#39;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #001080">path:</span><span style="color: #000000"> </span><span style="color: #001080">path</span><span style="color: #000000">.</span><span style="color: #795E26">join</span><span style="color: #000000">(</span><span style="color: #001080">__dirname</span><span style="color: #000000">, </span><span style="color: #A31515">&#39;./dist/web&#39;</span><span style="color: #000000">),</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #001080">libraryTarget:</span><span style="color: #000000"> </span><span style="color: #A31515">&#39;commonjs&#39;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #001080">devtoolModuleFilenameTemplate:</span><span style="color: #000000"> </span><span style="color: #A31515">&#39;../../[resource-path]&#39;</span></span>
+<span class="line"><span style="color: #000000">  },</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #001080">resolve:</span><span style="color: #000000"> {</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #001080">mainFields:</span><span style="color: #000000"> [</span><span style="color: #A31515">&#39;browser&#39;</span><span style="color: #000000">, </span><span style="color: #A31515">&#39;module&#39;</span><span style="color: #000000">, </span><span style="color: #A31515">&#39;main&#39;</span><span style="color: #000000">], </span><span style="color: #008000">// look for `browser` entry point in imported node modules</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #001080">extensions:</span><span style="color: #000000"> [</span><span style="color: #A31515">&#39;.ts&#39;</span><span style="color: #000000">, </span><span style="color: #A31515">&#39;.js&#39;</span><span style="color: #000000">], </span><span style="color: #008000">// support ts-files and js-files</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #001080">alias:</span><span style="color: #000000"> {</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #008000">// provides alternate implementation for node module and source files</span></span>
+<span class="line"><span style="color: #000000">    },</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #001080">fallback:</span><span style="color: #000000"> {</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #008000">// Webpack 5 no longer polyfills Node.js core modules automatically.</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #008000">// see https://webpack.js.org/configuration/resolve/#resolvefallback</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #008000">// for the list of Node.js core module polyfills.</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #001080">assert:</span><span style="color: #000000"> </span><span style="color: #001080">require</span><span style="color: #000000">.</span><span style="color: #795E26">resolve</span><span style="color: #000000">(</span><span style="color: #A31515">&#39;assert&#39;</span><span style="color: #000000">)</span></span>
+<span class="line"><span style="color: #000000">    }</span></span>
+<span class="line"><span style="color: #000000">  },</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #001080">module:</span><span style="color: #000000"> {</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #001080">rules:</span><span style="color: #000000"> [</span></span>
+<span class="line"><span style="color: #000000">      {</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #001080">test:</span><span style="color: #811F3F"> /</span><span style="color: #EE0000">\.</span><span style="color: #811F3F">ts</span><span style="color: #EE0000">$</span><span style="color: #811F3F">/</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #001080">exclude:</span><span style="color: #811F3F"> /node_modules/</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #001080">use:</span><span style="color: #000000"> [</span></span>
+<span class="line"><span style="color: #000000">          {</span></span>
+<span class="line"><span style="color: #000000">            </span><span style="color: #001080">loader:</span><span style="color: #000000"> </span><span style="color: #A31515">&#39;ts-loader&#39;</span></span>
+<span class="line"><span style="color: #000000">          }</span></span>
+<span class="line"><span style="color: #000000">        ]</span></span>
+<span class="line"><span style="color: #000000">      }</span></span>
+<span class="line"><span style="color: #000000">    ]</span></span>
+<span class="line"><span style="color: #000000">  },</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #001080">plugins:</span><span style="color: #000000"> [</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #001080">webpack</span><span style="color: #000000">.</span><span style="color: #795E26">ProvidePlugin</span><span style="color: #000000">({</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #001080">process:</span><span style="color: #000000"> </span><span style="color: #A31515">&#39;process/browser&#39;</span><span style="color: #000000"> </span><span style="color: #008000">// provide a shim for the global `process` variable</span></span>
+<span class="line"><span style="color: #000000">    })</span></span>
+<span class="line"><span style="color: #000000">  ],</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #001080">externals:</span><span style="color: #000000"> {</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #001080">vscode:</span><span style="color: #000000"> </span><span style="color: #A31515">&#39;commonjs vscode&#39;</span><span style="color: #000000"> </span><span style="color: #008000">// ignored because it doesn&#39;t exist</span></span>
+<span class="line"><span style="color: #000000">  },</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #001080">performance:</span><span style="color: #000000"> {</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #001080">hints:</span><span style="color: #000000"> </span><span style="color: #0000FF">false</span></span>
+<span class="line"><span style="color: #000000">  },</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #001080">devtool:</span><span style="color: #000000"> </span><span style="color: #A31515">&#39;nosources-source-map&#39;</span><span style="color: #000000"> </span><span style="color: #008000">// create a source map that points to the original source file</span></span>
+<span class="line"><span style="color: #000000">};</span></span>
+<span class="line"><span style="color: #267F99">module</span><span style="color: #000000">.</span><span style="color: #267F99">exports</span><span style="color: #000000"> = [</span><span style="color: #001080">webExtensionConfig</span><span style="color: #000000">];</span></span>
+<span class="line"></span></code></pre>
+<p>Some important fields of <code>webpack.config.js</code> are:</p>
+<ul>
+<li>The <code>entry</code> field contains the main entry point into your extension and test suite.
+<ul>
+<li>You may need to adjust this path to appropriately point to the entry point of your extension.</li>
+<li>For an existing extension, you can start by pointing this path to the file you're using currently for <code>main</code> of your <code>package.json</code>.</li>
+<li>If you do not want to package your tests, you can omit the test suite field.</li>
+</ul>
+</li>
+<li>The <code>output</code> field indicates where the compiled file will be located.
+<ul>
+<li><code>[name]</code> will be replaced by the key used in <code>entry</code>. So in the generated config file, it will produce <code>dist/web/extension.js</code> and <code>dist/web/test/suite/index.js</code>.</li>
+</ul>
+</li>
+<li>The <code>target</code> field indicates which type of environment the compiled JavaScript file will run. For web extensions, you want this to be <code>webworker</code>.</li>
+<li>The <code>resolve</code> field contains the ability to add aliases and fallbacks for node libraries that don't work in the browser.
+<ul>
+<li>If you're using a library like <code>path</code>, you can specify how to resolve <code>path</code> in a web compiled context. For instance, you can point to a file in the project that defines <code>path</code> with <code>path: path.resolve(__dirname, 'src/my-path-implementation-for-web.js')</code>. Or you can use the Browserify node packaged version of the library called <code>path-browserify</code> and specify <code>path: require.resolve('path-browserify')</code>.</li>
+<li>See <a href="https://webpack.js.org/configuration/resolve/#resolvefallback" class="external-link" target="_blank">webpack resolve.fallback</a> for the list of Node.js core module polyfills.</li>
+</ul>
+</li>
+<li>The <code>plugins</code> section uses the <a href="https://webpack.js.org/plugins/define-plugin/" class="external-link" target="_blank">DefinePlugin plugin</a> to polyfill globals such as the <code>process</code> Node.js global.</li>
+</ul>
+<h2 id="test-your-web-extension" data-needslink="test-your-web-extension">Test your web extension</h2>
+<p>There are currently three ways to test a web extension before publishing it to the Marketplace.</p>
+<ul>
+<li>Use VS Code running on the desktop with the <code>--extensionDevelopmentKind=web</code> option to run your web extension in a web extension host running in VS Code.</li>
+<li>Use the <a href="https://github.com/microsoft/vscode-test-web" class="external-link" target="_blank">@vscode/test-web</a> node module to open a browser containing VS Code for the Web including your extension, served from a local server.</li>
+<li><a href="#test-your-web-extension-in-on-vscode.dev">Sideload</a> your extension onto <a href="https://vscode.dev/" class="external-link" target="_blank">vscode.dev</a> to see your extension in the actual environment.</li>
+</ul>
+<h3 id="test-your-web-extension-in-vs-code-running-on-desktop" data-needslink="test-your-web-extension-in-vs-code-running-on-desktop">Test your web extension in VS Code running on desktop</h3>
+<p>To use the existing VS Code extension development experience, VS Code running on the desktop supports running a web extension host along with the regular Node.js extension host.</p>
+<p>Use the <code>pwa-extensionhost</code> launch configuration provided by the <strong>New Web Extension</strong> generator:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #000000">{</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;version&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;0.2.0&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;configurations&quot;</span><span style="color: #000000">: [</span></span>
+<span class="line"><span style="color: #000000">    {</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #0451A5">&quot;name&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;Run Web Extension in VS Code&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #0451A5">&quot;type&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;pwa-extensionHost&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #0451A5">&quot;debugWebWorkerHost&quot;</span><span style="color: #000000">: </span><span style="color: #0000FF">true</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #0451A5">&quot;request&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;launch&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #0451A5">&quot;args&quot;</span><span style="color: #000000">: [</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #A31515">&quot;--extensionDevelopmentPath=${workspaceFolder}&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #A31515">&quot;--extensionDevelopmentKind=web&quot;</span></span>
+<span class="line"><span style="color: #000000">      ],</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #0451A5">&quot;outFiles&quot;</span><span style="color: #000000">: [</span><span style="color: #A31515">&quot;${workspaceFolder}/dist/web/**/*.js&quot;</span><span style="color: #000000">],</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #0451A5">&quot;preLaunchTask&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;npm: watch-web&quot;</span></span>
+<span class="line"><span style="color: #000000">    }</span></span>
+<span class="line"><span style="color: #000000">  ]</span></span>
+<span class="line"><span style="color: #000000">}</span></span>
+<span class="line"></span></code></pre>
+<p>It uses the task <code>npm: watch-web</code> to compile the extension by calling <code>npm run watch-web</code>. That task is expected in <code>tasks.json</code>:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #000000">{</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;version&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;2.0.0&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;tasks&quot;</span><span style="color: #000000">: [</span></span>
+<span class="line"><span style="color: #000000">    {</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #0451A5">&quot;type&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;npm&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #0451A5">&quot;script&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;watch-web&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #0451A5">&quot;group&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;build&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #0451A5">&quot;isBackground&quot;</span><span style="color: #000000">: </span><span style="color: #0000FF">true</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #0451A5">&quot;problemMatcher&quot;</span><span style="color: #000000">: [</span><span style="color: #A31515">&quot;$ts-webpack-watch&quot;</span><span style="color: #000000">]</span></span>
+<span class="line"><span style="color: #000000">    }</span></span>
+<span class="line"><span style="color: #000000">  ]</span></span>
+<span class="line"><span style="color: #000000">}</span></span>
+<span class="line"></span></code></pre>
+<p><code>$ts-webpack-watch</code> is a problem matcher that can parse the output from the webpack tool. It is provided by the <a href="https://marketplace.visualstudio.com/items?itemName=eamodio.tsl-problem-matcher" class="external-link" target="_blank">TypeScript + Webpack Problem Matchers</a> extension.</p>
+<p>In the <strong>Extension Development Host</strong> instance that launches, the web extension will be available and running in a web extension host. Run the <code>Hello World</code> command to activate the extension.</p>
+<p>Open the <strong>Running Extensions</strong> view (command: <strong>Developer: Show Running Extensions</strong>) to see which extensions are running in the web extension host.</p>
+<h3 id="test-your-web-extension-in-a-browser-using-vscodetestweb" data-needslink="test-your-web-extension-in-a-browser-using-vscodetestweb">Test your web extension in a browser using @vscode/test-web</h3>
+<p>The <a href="https://github.com/microsoft/vscode-test-web" class="external-link" target="_blank">@vscode/test-web</a> node module offers a CLI and API to test a web extension in a browser.</p>
+<p>The node module contributes an npm binary <code>vscode-test-web</code> that can open VS Code for the Web from the command line:</p>
+<ul>
+<li>It downloads the web bits of VS Code into <code>.vscode-test-web</code>.</li>
+<li>Starts a local server on <code>localhost:3000</code>.</li>
+<li>Opens a browser (Chromium, Firefox, or Webkit).</li>
+</ul>
+<p>You can run it from command line:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #000000">npx @vscode/test-web --extensionDevelopmentPath=</span><span style="color: #001080">$extensionFolderPath</span><span style="color: #000000"> </span><span style="color: #001080">$testDataPath</span></span>
+<span class="line"></span></code></pre>
+<p>Or better, add <code>@vscode/test-web</code> as a development dependency to your extension and invoke it in a script:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #000000">  </span><span style="color: #A31515">&quot;devDependencies&quot;</span><span style="color: #000000">: {</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #0451A5">&quot;@vscode/test-web&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;*&quot;</span></span>
+<span class="line"><span style="color: #000000">  },</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #A31515">&quot;scripts&quot;</span><span style="color: #000000">: {</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #0451A5">&quot;open-in-browser&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;vscode-test-web --extensionDevelopmentPath=. .&quot;</span></span>
+<span class="line"><span style="color: #000000">  }</span></span>
+<span class="line"></span></code></pre>
+<p>Check the <a href="https://www.npmjs.com/package/@vscode/test-web" class="external-link" target="_blank">@vscode/test-web README</a> for more CLI options:</p>
+<table class="table table-striped">
+<thead>
+<tr>
+<th>Option</th>
+<th>Argument Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>--browserType</td>
+<td>The browser to launch: <code>chromium</code> (default), <code>firefox</code> or <code>webkit</code></td>
+</tr>
+<tr>
+<td>--extensionDevelopmentPath</td>
+<td>A path pointing to an extension under development to include.</td>
+</tr>
+<tr>
+<td>--extensionTestsPath</td>
+<td>A path to a test module to run.</td>
+</tr>
+<tr>
+<td>--permission</td>
+<td>Permission granted to the opened browser: e.g. <code>clipboard-read</code>, <code>clipboard-write</code>.<br>See <a href="https://playwright.dev/docs/api/class-browsercontext#browser-context-grant-permissions" class="external-link" target="_blank">full list of options</a>. Argument can be provided multiple times.</td>
+</tr>
+<tr>
+<td>--folder-uri</td>
+<td>URI of the workspace to open VS Code on. Ignored when <code>folderPath</code> is provided</td>
+</tr>
+<tr>
+<td>--extensionPath</td>
+<td>A path pointing to a folder containing additional extensions to include.<br>Argument can be provided multiple times.</td>
+</tr>
+<tr>
+<td>folderPath</td>
+<td>A local folder to open VS Code on.<br>The folder content will be available as a virtual file system and opened as workspace.</td>
+</tr>
+</tbody>
+</table>
+<p>The web bits of VS Code are downloaded to a folder <code>.vscode-test-web</code>. You want to add this to your <code>.gitignore</code> file.</p>
+<h3 id="test-your-web-extension-in-on-vscode.dev" data-needslink="test-your-web-extension-in-on-vscode.dev">Test your web extension in on vscode.dev</h3>
+<p>Before you publish your extension for everyone to use on VS Code for the Web, you can verify how your extension behaves in the actual <a href="https://vscode.dev/" class="external-link" target="_blank">vscode.dev</a> environment.</p>
+<p>To see your extension on vscode.dev, you first need to host it from your machine for vscode.dev to download and run.</p>
+<p>From your extension's path, start an HTTP server by running <code>npx serve --cors -l 5000</code>:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #000000">$ npx serve --cors -l 5000</span></span>
+<span class="line"><span style="color: #000000">npx: installed 78 </span><span style="color: #AF00DB">in</span><span style="color: #000000"> 2.196s</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #000000">   ┌───────────────────────────────────────────────────┐</span></span>
+<span class="line"><span style="color: #000000">   │                                                   │</span></span>
+<span class="line"><span style="color: #000000">   │   Serving!                                        │</span></span>
+<span class="line"><span style="color: #000000">   │                                                   │</span></span>
+<span class="line"><span style="color: #000000">   │   - Local:            http://localhost:5000       │</span></span>
+<span class="line"><span style="color: #000000">   │   - On Your Network:  http://172.19.255.26:5000   │</span></span>
+<span class="line"><span style="color: #000000">   │                                                   │</span></span>
+<span class="line"><span style="color: #000000">   │   Copied </span><span style="color: #0000FF">local</span><span style="color: #000000"> address to clipboard!              │</span></span>
+<span class="line"><span style="color: #000000">   │                                                   │</span></span>
+<span class="line"><span style="color: #000000">   └───────────────────────────────────────────────────┘</span></span>
+<span class="line"></span>
+<span class="line"></span></code></pre>
+<p>Open another terminal and run <code>npx localtunnel -p 5000</code>:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #000000">$ npx localtunnel -p 5000</span></span>
+<span class="line"><span style="color: #000000">npx: installed 22 </span><span style="color: #AF00DB">in</span><span style="color: #000000"> 1.048s</span></span>
+<span class="line"><span style="color: #000000">your url is: https://hungry-mole-48.loca.lt/</span></span>
+<span class="line"></span>
+<span class="line"></span></code></pre>
+<p><strong>Important:</strong> Now click on the generated URL (<code>https://hungry-mole-48.loca.lt/</code> in this case) and select <strong>Click to Continue</strong>.</p>
+<p><img src="../../assets/api/extension-guides/web-extensions/localtunnel.png" alt="Screenshot showing button with the text &quot;Click to Continue&quot; highlighted to click." loading="lazy"></p>
+<p>Finally, open <a href="https://vscode.dev/" class="external-link" target="_blank">vscode.dev</a>, run <strong>Developer: Install Web Extension...</strong> from the Command Palette (<span class="dynamic-keybinding" data-commandId="workbench.action.showCommands" data-osx="⇧⌘P" data-win="Ctrl+Shift+P" data-linux="Ctrl+Shift+P"><span class="keybinding">⇧⌘P</span> (Windows, Linux <span class="keybinding">Ctrl+Shift+P</span>)</span>) and paste the generated URL shown above, <code>https://hungry-mole-48.loca.lt/</code> in the example, and select <strong>Install</strong>.</p>
+<p><strong>Check the logs</strong></p>
+<p>You can check the logs in the console of the Developer Tools of your browser to see any errors, status, and logs from your extension.</p>
+<p>You may see other logs from vscode.dev itself. In addition, you can't easily set breakpoints nor see the source code of your extension. These limitations make debugging in vscode.dev not the most pleasant experience so we recommend using the first two options for testing before sideloading onto vscode.dev. Sideloading is a good final sanity check before publishing your extension.</p>
+<h2 id="web-extension-tests" data-needslink="web-extension-tests">Web extension tests</h2>
+<p>Web extension tests are supported and can be implemented similar to regular extension tests. See the <a href="../working-with-extensions/testing-extension.html">Testing Extensions</a> article to learn the basic structure of extension tests.</p>
+<p>The <a href="https://github.com/microsoft/vscode-test-web" class="external-link" target="_blank">@vscode/test-web</a> node module is the equivalent to <a href="https://github.com/microsoft/vscode-test" class="external-link" target="_blank">@vscode/test-electron</a> (previously named <code>vscode-test</code>). It allows you to run extension tests from the command line on Chromium, Firefox, and Safari.</p>
+<p>The utility does the following steps:</p>
+<ol>
+<li>Starts a VS Code for the Web editor from a local web server.</li>
+<li>Opens the specified browser.</li>
+<li>Runs the provided test runner script.</li>
+</ol>
+<p>You can run the tests in continuous builds to ensure that the extension works on all browsers.</p>
+<p>The test runner script is running on the web extension host with the same restrictions as the <a href="#web-extension-main-file">web extension main file</a>:</p>
+<ul>
+<li>All files are bundled into a single file. It should contain the test runner (for example, Mocha) and all tests (typically <code>*.test.ts</code>).</li>
+<li>Only <code>require('vscode')</code> is supported.</li>
+</ul>
+<p>The <a href="../../../github.com/microsoft/vscode-extension-samples/blob/main/helloworld-web-sample/webpack.config.js" class="external-link" target="_blank">webpack config</a> that is created by the <code>yo code</code> web extension generator has a section for tests. It expects the test runner script at <code>./src/web/test/suite/index.ts</code>. The provided <a href="https://github.com/microsoft/vscode-extension-samples/blob/main/helloworld-web-sample/src/web/test/suite/index.ts" class="external-link" target="_blank">test runner script</a> uses the web version of Mocha and contains webpack-specific syntax to import all test files.</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #795E26">require</span><span style="color: #000000">(</span><span style="color: #A31515">&#39;mocha/mocha&#39;</span><span style="color: #000000">); </span><span style="color: #008000">// import the mocha web build</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #AF00DB">export</span><span style="color: #000000"> </span><span style="color: #0000FF">function</span><span style="color: #000000"> </span><span style="color: #795E26">run</span><span style="color: #000000">(): </span><span style="color: #267F99">Promise</span><span style="color: #000000">&lt;</span><span style="color: #267F99">void</span><span style="color: #000000">&gt; {</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #AF00DB">return</span><span style="color: #000000"> </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #267F99">Promise</span><span style="color: #000000">((</span><span style="color: #001080">c</span><span style="color: #000000">, </span><span style="color: #001080">e</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #001080">mocha</span><span style="color: #000000">.</span><span style="color: #795E26">setup</span><span style="color: #000000">({</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #001080">ui:</span><span style="color: #000000"> </span><span style="color: #A31515">&#39;tdd&#39;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #001080">reporter:</span><span style="color: #000000"> </span><span style="color: #0000FF">undefined</span></span>
+<span class="line"><span style="color: #000000">    });</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #008000">// bundles all files in the current directory matching `*.test`</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #795E26">importAll</span><span style="color: #000000"> = (</span><span style="color: #001080">r</span><span style="color: #000000">: </span><span style="color: #267F99">__WebpackModuleApi</span><span style="color: #000000">.</span><span style="color: #267F99">RequireContext</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> </span><span style="color: #001080">r</span><span style="color: #000000">.</span><span style="color: #795E26">keys</span><span style="color: #000000">().</span><span style="color: #795E26">forEach</span><span style="color: #000000">(</span><span style="color: #001080">r</span><span style="color: #000000">);</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #795E26">importAll</span><span style="color: #000000">(</span><span style="color: #001080">require</span><span style="color: #000000">.</span><span style="color: #795E26">context</span><span style="color: #000000">(</span><span style="color: #A31515">&#39;.&#39;</span><span style="color: #000000">, </span><span style="color: #0000FF">true</span><span style="color: #000000">,</span><span style="color: #811F3F"> /</span><span style="color: #EE0000">\.</span><span style="color: #811F3F">test</span><span style="color: #EE0000">$</span><span style="color: #811F3F">/</span><span style="color: #000000">));</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #AF00DB">try</span><span style="color: #000000"> {</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #008000">// Run the mocha test</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #001080">mocha</span><span style="color: #000000">.</span><span style="color: #795E26">run</span><span style="color: #000000">(</span><span style="color: #001080">failures</span><span style="color: #000000"> </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #AF00DB">if</span><span style="color: #000000"> (</span><span style="color: #001080">failures</span><span style="color: #000000"> &gt; </span><span style="color: #098658">0</span><span style="color: #000000">) {</span></span>
+<span class="line"><span style="color: #000000">          </span><span style="color: #795E26">e</span><span style="color: #000000">(</span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #795E26">Error</span><span style="color: #000000">(</span><span style="color: #A31515">`</span><span style="color: #0000FF">${</span><span style="color: #001080">failures</span><span style="color: #0000FF">}</span><span style="color: #A31515"> tests failed.`</span><span style="color: #000000">));</span></span>
+<span class="line"><span style="color: #000000">        } </span><span style="color: #AF00DB">else</span><span style="color: #000000"> {</span></span>
+<span class="line"><span style="color: #000000">          </span><span style="color: #795E26">c</span><span style="color: #000000">();</span></span>
+<span class="line"><span style="color: #000000">        }</span></span>
+<span class="line"><span style="color: #000000">      });</span></span>
+<span class="line"><span style="color: #000000">    } </span><span style="color: #AF00DB">catch</span><span style="color: #000000"> (</span><span style="color: #001080">err</span><span style="color: #000000">) {</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">error</span><span style="color: #000000">(</span><span style="color: #001080">err</span><span style="color: #000000">);</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #795E26">e</span><span style="color: #000000">(</span><span style="color: #001080">err</span><span style="color: #000000">);</span></span>
+<span class="line"><span style="color: #000000">    }</span></span>
+<span class="line"><span style="color: #000000">  });</span></span>
+<span class="line"><span style="color: #000000">}</span></span>
+<span class="line"></span></code></pre>
+<p>To run the web test from the command line, add the following to your <code>package.json</code> and run it with <code>npm test</code>.</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #000000">  </span><span style="color: #A31515">&quot;devDependencies&quot;</span><span style="color: #000000">: {</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #0451A5">&quot;@vscode/test-web&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;*&quot;</span></span>
+<span class="line"><span style="color: #000000">  },</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #A31515">&quot;scripts&quot;</span><span style="color: #000000">: {</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #0451A5">&quot;test&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;vscode-test-web --extensionDevelopmentPath=. --extensionTestsPath=dist/web/test/suite/index.js&quot;</span></span>
+<span class="line"><span style="color: #000000">  }</span></span>
+<span class="line"></span></code></pre>
+<p>To open VS Code on a folder with test data, pass a local folder path (<code>folderPath</code>) as the last parameter.</p>
+<p>To run (and debug) extension tests in VS Code (Insiders) desktop, use the <code>Extension Tests in VS Code</code> launch configuration:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #000000">{</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;version&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;0.2.0&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;configurations&quot;</span><span style="color: #000000">: [</span></span>
+<span class="line"><span style="color: #000000">    {</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #0451A5">&quot;name&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;Extension Tests in VS Code&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #0451A5">&quot;type&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;extensionHost&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #0451A5">&quot;debugWebWorkerHost&quot;</span><span style="color: #000000">: </span><span style="color: #0000FF">true</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #0451A5">&quot;request&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;launch&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #0451A5">&quot;args&quot;</span><span style="color: #000000">: [</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #A31515">&quot;--extensionDevelopmentPath=${workspaceFolder}&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #A31515">&quot;--extensionDevelopmentKind=web&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #A31515">&quot;--extensionTestsPath=${workspaceFolder}/dist/web/test/suite/index&quot;</span></span>
+<span class="line"><span style="color: #000000">      ],</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #0451A5">&quot;outFiles&quot;</span><span style="color: #000000">: [</span><span style="color: #A31515">&quot;${workspaceFolder}/dist/web/**/*.js&quot;</span><span style="color: #000000">],</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #0451A5">&quot;preLaunchTask&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;npm: watch-web&quot;</span></span>
+<span class="line"><span style="color: #000000">    }</span></span>
+<span class="line"><span style="color: #000000">  ]</span></span>
+<span class="line"><span style="color: #000000">}</span></span>
+<span class="line"></span></code></pre>
+<h2 id="publish-a-web-extension" data-needslink="publish-a-web-extension">Publish a web extension</h2>
+<p>Web extensions are hosted on the <a href="https://marketplace.visualstudio.com/vscode" class="external-link" target="_blank">Marketplace</a> along with other extensions.</p>
+<p>Make sure to use the latest version of <code>vsce</code> to publish your extension. <code>vsce</code> tags all extensions that are web extension. For that <code>vsce</code> is using the rules listed in the <a href="#web-extension-enablement">web extension enablement</a> section.</p>
+<h2 id="update-existing-extensions-to-web-extensions" data-needslink="update-existing-extensions-to-web-extensions">Update existing extensions to Web extensions</h2>
+<h3 id="extension-without-code" data-needslink="extension-without-code">Extension without code</h3>
+<p>Extensions that have no code, but only contribution points (for example, themes, snippets, and basic language extensions) don't need any modification. They can run in a web extension host and can be installed from the Extensions view.</p>
+<p>Republishing is not necessary, but when publishing a new version of the extension, make sure to use the most current version of <code>vsce</code>.</p>
+<h3 id="migrate-extension-with-code" data-needslink="migrate-extension-with-code">Migrate extension with code</h3>
+<p>Extensions with source code (defined by the <code>main</code> property) need to provide a <a href="#web-extension-main-file">web extension main file</a> and set the <code>browser</code> property in <code>package.json</code>.</p>
+<p>Use these steps to recompile your extension code for the browser environment:</p>
+<ul>
+<li>Add a webpack config file as shown in the <a href="#webpack-configuration">webpack configuration</a> section. If you already have a webpack file for your Node.js extension code, you can add a new section for web. Check out the <a href="../../../github.com/aeschli/vscode-css-formatter/blob/master/webpack.config.js" class="external-link" target="_blank">vscode-css-formatter</a> as an example.</li>
+<li>Add the <code>launch.json</code> and <code>tasks.json</code> files as shown in the <a href="#test-your-web-extension">Test your web extension</a> section.</li>
+<li>In the webpack config file, set the input file to the existing Node.js main file or create a new main file for the web extension.</li>
+<li>In <code>package.json</code>, add a <code>browser</code> and the <code>scripts</code> properties as shown in the <a href="#web-extension-anatomy">Web extension anatomy</a> section.</li>
+<li>Run <code>npm run compile-web</code> to invoke webpack and see where work is needed to make your extension run in the web.</li>
+</ul>
+<p>To make sure as much source code as possible can be reused, here are a few techniques:</p>
+<ul>
+<li>To polyfill a Node.js core module such as <code>path</code>, add an entry to <a href="https://webpack.js.org/configuration/resolve/#resolvefallback" class="external-link" target="_blank">resolve.fallback</a>.</li>
+<li>To provide a Node.js global such as <code>process</code> use the <a href="https://webpack.js.org/plugins/define-plugin" class="external-link" target="_blank">DefinePlugin plugin</a>.</li>
+<li>Use node modules that work in both browser and node runtime. Node modules can do that by defining both <code>browser</code> and <code>main</code> entry points. Webpack will automatically use the one matching its target. Examples of node modules that do this are <a href="https://github.com/microsoft/node-request-light" class="external-link" target="_blank">request-light</a> and <a href="https://github.com/Microsoft/vscode-nls" class="external-link" target="_blank">vscode-nls</a>.</li>
+<li>To provide an alternate implementation for a node module or source file, use <a href="https://webpack.js.org/configuration/resolve/#resolvealias" class="external-link" target="_blank">resolve.alias</a>.</li>
+<li>Separate your code in a browser part, Node.js part, and common part. In common, only use code that works in both the browser and Node.js runtime. Create abstractions for functionality that has different implementations in Node.js and the browser.</li>
+<li>Look out for usages of <code>path</code>, <code>URI.file</code>, <code>context.extensionPath</code>, <code>rootPath</code>. <code>uri.fsPath</code>. These will not work with virtual workspaces (non-file system) as they are used in VS Code for the Web. Instead use URIs with <code>URI.parse</code>, <code>context.extensionUri</code>. The <a href="https://www.npmjs.com/package/vscode-uri" class="external-link" target="_blank">vscode-uri</a> node module provides <code>joinPath</code>, <code>dirName</code>, <code>baseName</code>, <code>extName</code>, <code>resolvePath</code>.</li>
+<li>Look out for usages of <code>fs</code>. Replace by using vscode <code>workspace.fs</code>.</li>
+</ul>
+<p>It is fine to provide less functionality when your extension is running in the web. Use <a href="../references/when-clause-contexts.html">when clause contexts</a> to control which commands, views, and tasks are available or hidden with running in a virtual workspace on the web.</p>
+<ul>
+<li>Use the <code>virtualWorkspace</code> context variable to find out if the current workspace is a non-file system workspace.</li>
+<li>Use <code>resourceScheme</code> to check if the current resource is a <code>file</code> resource.</li>
+<li>Use <code>shellExecutionSupported</code> if there is a platform shell present.</li>
+<li>Implement alternative command handlers that show a dialog to explain why the command is not applicable.</li>
+</ul>
+<p>WebWorkers can be used as an alternative to forking processes. We have updated several language servers to run as web extensions, including the built-in <a href="https://github.com/microsoft/vscode/tree/main/extensions/json-language-features" class="external-link" target="_blank">JSON</a>, <a href="https://github.com/microsoft/vscode/tree/main/extensions/css-language-features" class="external-link" target="_blank">CSS</a>, and <a href="https://github.com/microsoft/vscode/tree/main/extensions/html-language-features" class="external-link" target="_blank">HTML</a> language servers. The <a href="#language-server-protocol-in-web-extensions">Language Server Protocol</a> section below gives more details.</p>
+<p>The browser runtime environment only supports the execution of JavaScript and <a href="https://webassembly.org/" class="external-link" target="_blank">WebAssembly</a>. Libraries written in other programming languages need to be cross-compiled, for instance there is tooling to compile <a href="https://developer.mozilla.org/en-US/docs/WebAssembly/C_to_wasm" class="external-link" target="_blank">C/C++</a> and <a href="https://developer.mozilla.org/en-US/docs/WebAssembly/Rust_to_wasm" class="external-link" target="_blank">Rust</a> to WebAssembly. The <a href="https://github.com/microsoft/vscode-anycode" class="external-link" target="_blank">vscode-anycode</a> extension, for example, uses <a href="https://www.npmjs.com/package/tree-sitter" class="external-link" target="_blank">tree-sitter</a>, which is C/C++ code compiled to WebAssembly.</p>
+<h3 id="language-server-protocol-in-web-extensions" data-needslink="language-server-protocol-in-web-extensions">Language Server Protocol in web extensions</h3>
+<p><a href="https://github.com/Microsoft/vscode-languageserver-node" class="external-link" target="_blank">vscode-languageserver-node</a> is an implementation of the <a href="https://microsoft.github.io/language-server-protocol" class="external-link" target="_blank">Language Server Protocol</a> (LSP) that is used as a foundation to language server implementations such as <a href="https://github.com/microsoft/vscode/tree/main/extensions/json-language-features" class="external-link" target="_blank">JSON</a>, <a href="https://github.com/microsoft/vscode/tree/main/extensions/css-language-features" class="external-link" target="_blank">CSS</a>, and <a href="https://github.com/microsoft/vscode/tree/main/extensions/html-language-features" class="external-link" target="_blank">HTML</a>.</p>
+<p>Since 3.16.0, the client and server now also provide a browser implementation. The server can run in a web worker and the connection is based on the webworkers <code>postMessage</code> protocol.</p>
+<p>The client for the browser can be found at 'vscode-languageclient/browser':</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #AF00DB">import</span><span style="color: #000000"> { </span><span style="color: #001080">LanguageClient</span><span style="color: #000000"> } </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">`vscode-languageclient/browser`</span><span style="color: #000000">;</span></span>
+<span class="line"></span></code></pre>
+<p>The server at <code>vscode-languageserver/browser</code>.</p>
+<p>The <a href="https://github.com/microsoft/vscode-extension-samples/tree/main/lsp-web-extension-sample" class="external-link" target="_blank">lsp-web-extension-sample</a> shows how this works.</p>
+<h2 id="web-extension-enablement" data-needslink="web-extension-enablement">Web extension enablement</h2>
+<p>VS Code automatically treats an extension as a web extension if:</p>
+<ul>
+<li>The extension manifest (<code>package.json</code>) has <code>browser</code> entry point.</li>
+<li>The extension manifest has no <code>main</code> entry point and none of the following contribution points: <code>localizations</code>, <code>debuggers</code>, <code>terminal</code>, <code>typescriptServerPlugins</code>.</li>
+</ul>
+<p>If an extension wants to provide a debugger or terminal that also work in the web extension host, a <code>browser</code> entry point needs to be defined.</p>
+<h2 id="samples" data-needslink="samples">Samples</h2>
+<ul>
+<li><a href="https://github.com/microsoft/vscode-extension-samples/tree/main/helloworld-web-sample" class="external-link" target="_blank">helloworld-web-sample</a></li>
+<li><a href="https://github.com/microsoft/vscode-extension-samples/tree/main/lsp-web-extension-sample" class="external-link" target="_blank">lsp-web-extension-sample</a></li>
+</ul>
+
+			<div class="feedback"></div>
+			
+			<div class="body-footer">12/7/2022</div>
+			
+		</div>
+		<div class="col-sm-3 col-md-2 docs-subnavbar-container">
+			<nav id="docs-subnavbar" aria-label="On Page" data-spy="affix" data-offset-top="20">
+				
+				<h4><span class="sr-only">In this article there are 9 sections</span><span
+						aria-hidden="true">In this article</span></h4>
+				<ul class="nav">
+					
+					<li><a href="#web-extension-anatomy">Web extension anatomy</a></li>
+					
+					<li><a href="#develop-a-web-extension">Develop a web extension</a></li>
+					
+					<li><a href="#create-a-web-extension">Create a web extension</a></li>
+					
+					<li><a href="#test-your-web-extension">Test your web extension</a></li>
+					
+					<li><a href="#web-extension-tests">Web extension tests</a></li>
+					
+					<li><a href="#publish-a-web-extension">Publish a web extension</a></li>
+					
+					<li><a href="#update-existing-extensions-to-web-extensions">Update existing extensions to Web extensions</a></li>
+					
+					<li><a href="#web-extension-enablement">Web extension enablement</a></li>
+					
+					<li><a href="#samples">Samples</a></li>
+					
+				</ul>
+				
+				<div class="connect-widget"></div>
+			</nav>
+		</div>
+	</div>
+</div>
+      </div>
+  </div>
+
+  <footer role="contentinfo">
+      <div class="container">
+          <div class="row">
+              <div class="left col-md-7">
+                  <ul class="links">
+                      <li>
+                          <span class="message">Hello from Seattle.</span>
+                      </li>
+                      <li>
+                          <a href="https://go.microsoft.com/fwlink/?LinkID=533687" onclick="followOnTwitter()" tabindex="0">Follow @code</a>
+                      </li>
+                      <li>
+                          <div class="github-star-button">
+                              <iframe src="../../assets/github-button29be.html?user=Microsoft&amp;repo=vscode&amp;type=star&amp;count=true"
+                                  frameborder="0" scrolling="0" width="130px" height="20px" title="GitHub follow button" loading="lazy"></iframe>
+                          </div>
+                      </li>
+  
+                      <script>
+                          function followOnTwitter() {
+                              var windowFeatures = "location=yes,height=600,width=550,scrollbars=yes,status=yes";
+                              var originalReferer = "&original_referer=" + document.URL;
+                              var screenName = "&screen_name=code";
+                              var URL = "https://twitter.com/intent/follow?" + originalReferer + screenName;
+                              window.open(URL, "_blank", windowFeatures);
+                          }
+  
+                          function manageConsent() {
+                              if(WcpConsent.siteConsent.isConsentRequired){
+                                  WcpConsent.siteConsent.manageConsent();
+                              }
+                          }
+                      </script>
+                  </ul>
+              </div>
+              <div class="right col-md-5">
+                  <ul class="links">
+                      <li><a id="footer-support-link" href="https://support.serviceshub.microsoft.com/supportforbusiness/create?sapId=d66407ed-3967-b000-4cfb-2c318cad363d"
+                              target="_blank">Support</a></li>
+                      <li><a id="footer-privacy-link" href="https://privacy.microsoft.com/privacystatement"
+                              target="_blank">Privacy</a></li>
+                      <li style="display: none;"><a id="footer-cookie-link" style="cursor: pointer;" onclick="manageConsent()"
+                              target="_blank">Manage Cookies</a></li>
+                      <li><a id="footer-terms-link" href="https://www.microsoft.com/legal/terms-of-use"
+                              target="_blank">Terms of Use</a></li>
+                      <li><a id="footer-license-link" href="../../License.html">License</a></li>
+                  </ul>
+                  <div class="copyright">
+                      <a id="footer-microsoft-link" class="logo" href="https://www.microsoft.com/">
+                          <img class="microsoft-logo" src="../../assets/images/microsoft-logo.png" height="20" alt="Microsoft homepage"/>
+                          <img class="microsoft-logo-inverted" src="../../assets/images/microsoft-logo-inverted.png" height="20" alt="Microsoft homepage" />
+                      </a>
+                      <span>&copy; 2023 Microsoft</span>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </footer>
+  <script src="../../dist/index.js"></script>
+
+  
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "SoftwareApplication",
+      "name" : "Visual Studio Code",
+      "softwareVersion": "1.74",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "applicationCategory": "DeveloperApplication",
+      "applicationSubCategory": "Text Editor",
+      "alternateName": "VS Code",
+      "datePublished": "2021-11-03",
+      "operatingSystem": "Mac, Linux, Windows",
+      "logo": "https://code.visualstudio.com/assets/apple-touch-icon.png",
+      "screenshot": "https://code.visualstudio.com/assets/home/home-screenshot-win.png",
+      "releaseNotes": "https://code.visualstudio.com/updates",
+      "downloadUrl": "https://code.visualstudio.com/download",
+      "license": "https://code.visualstudio.com/license",
+      "softwareRequirements": "https://code.visualstudio.com/docs/supporting/requirements",
+      "url" : "https://code.visualstudio.com",
+      "author": {
+        "@type": "Organization",
+        "name": "Microsoft"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Microsoft"
+      },
+      "maintainer": {
+        "@type": "Organization",
+        "name": "Microsoft"
+      },
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://code.visualstudio.com/Search?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      },
+      "sameAs" : [
+        "https://en.wikipedia.org/wiki/Visual_Studio_Code",
+        "https://twitter.com/code",
+        "https://www.youtube.com/code",
+        "https://www.tiktok.com/@vscode",
+        "https://github.com/microsoft/vscode"
+      ]
+    }
+  </script>
+</body>
+
+<!-- Mirrored from code.visualstudio.com/api/extension-guides/web-extensions by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 04 Jan 2023 11:25:40 GMT -->
+</html>

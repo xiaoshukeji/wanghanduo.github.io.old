@@ -1,0 +1,1763 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Mirrored from code.visualstudio.com/docs/cpp/launch-json-reference by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 04 Jan 2023 10:15:16 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="google-site-verification" content="hNs7DXrTySP_X-0P_AC0WulAXvUwgSXEmgfcO2r79dw" />
+
+  <!-- Twitter and Facebook OpenGraph Metadata-->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@code" />
+
+  <meta name="description" content="Configure launch.json for C/C++ debugging in Visual Studio Code" />
+<meta name="keywords" content="" />
+<meta name="ms.prod" content="vs-code" />
+<meta name="ms.TOCTitle" content="Configure debugging" />
+<meta name="ms.ContentId" content="8cb0c932-d5f2-41e7-b297-5fd100ce4e0c" />
+<meta name="ms.date" content="6/10/2021" />
+<meta name="ms.topic" content="conceptual" />
+<!-- Twitter and Facebook OpenGraph Metadata-->
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="og:url" content="launch-json-reference.html" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Configure launch.json for C/C++ debugging in Visual Studio Code" />
+<meta property="og:description" content="Configure launch.json for C/C++ debugging in Visual Studio Code" />
+
+<meta property="og:image" content="../../opengraphimg/opengraph-docs.png" />
+
+
+
+  <link rel="shortcut icon" href="../../favicon.ico" sizes="128x128" />
+  <link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+
+  <title>Configure launch.json for C/C++ debugging in Visual Studio Code</title>
+
+  <link rel="stylesheet" href="../../vendor/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../../dist/style.css">
+
+  <script type="text/javascript" src="../../../js.monitor.azure.com/scripts/c/ms.analytics-web-3.min.js"></script>
+  <script>
+  window.appInsights = new oneDS.ApplicationInsights();
+  window.appInsights.initialize({
+    instrumentationKey: "1a3eb3104447440391ad5f2a6ee06a0a-62879566-bc58-4741-9650-302bf2af703f-7103",
+    webAnalyticsConfiguration:{ // Web Analytics Plugin configuration
+        urlCollectQuery:true, 
+        autoCapture: {
+          scroll: true,
+          pageView: true,
+          onLoad: true,
+          onUnload: true,
+          click: true,
+          resize: true,
+          jsError: true
+        }
+    }
+  }, []);
+  </script>
+  
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','../../../www.google-analytics.com/analytics.js','ga');
+  </script>  
+  <link rel="alternate" type="application/atom+xml" title="RSS Feed for code.visualstudio.com" href="../../feed.xml" />
+</head>
+
+<body>
+  <!-- EU Cookie Compliance JS -->
+  <script src="../../../wcpstatic.microsoft.com/mscc/lib/v2/wcp-consent.js"></script>
+
+  <div id="main">
+          <div class="navbar-fixed-container">
+              <div class="navbar navbar-inverse navbar-fixed-top ">
+                  <div id='cookie-banner'></div>        <nav role="navigation" aria-label="Top Level">
+                      <div class="container">
+                          <div class="nav navbar-header">
+                              <a role="button" id="skip-to-content" class="link-button" href="#main-content">Skip to content<i>&nbsp;</i><span class="glyphicon glyphicon-menu-down"></span></a>
+                              <a class="navbar-brand" id="navbar-brand" href="../../index.html">Visual Studio Code</a>
+                              <button type="button" class="navbar-toggle" role="navigation" data-toggle="collapse" data-target=".navbar-collapse" aria-label="Toggle Navigation Menu">
+                                  <span class="icon-bar"></span>
+                                  <span class="icon-bar"></span>
+                                  <span class="icon-bar"></span>
+                              </button>
+                          </div>
+                          <div class="navbar-collapse collapse" role="navigation">
+                              <ul class="nav navbar-nav navbar-left">
+                                  <li class="active" ><a id="nav-docs" href="../../docs.html">Docs</a></li>
+                                  <li ><a id="nav-updates" href="../../updates/v1_74.html">Updates</a></li>
+                                  <li ><a id="nav-blogs" href="../../blogs.html">Blog</a></li>
+                                  <li ><a id="nav-extend" href="../../api.html">API</a></li>
+                                  <li><a href="https://marketplace.visualstudio.com/VSCode" target="_blank" id="nav-extensions">Extensions</a></li>
+                                  <li ><a id="nav-faqs" href="../supporting/faq.html">FAQ</a></li>
+                                  <li ><a id="nav-learn" href="../../learn.html">Learn</a></li>
+                                  <li class='search visible-xs visible-sm'
+                                      ><a href="../../Search.html">Search</a></li>
+                              </ul>
+          
+                              <ul class="nav navbar-nav navbar-right" role="presentation">
+                                  <!-- Floating search icon -->
+                                  <li>
+                                      <a href="../../Search.html" title="Search" class="btn search-btn" id="nav-search">
+                                          <img class="search-icon" src="../../assets/icons/search.svg" width="16px" height="16px" alt="Search"/>
+                                          <img class="search-icon-inverted" src="../../assets/icons/search_dark.svg" width="16px" height="16px" alt="Search" />
+                                      </a>
+                                  </li>
+                                  <!-- Actual search icon -->
+                                  <li class="search" role="presentation">
+                                      <form class="nav-search search-form" role="search" aria-label="Search">
+                                          <div class="input-group" role="presentation">
+                                              <input type="text" name="q" class="search-box form-control" placeholder="Search Docs" aria-label="Search text"/>
+                                              <span class="input-group-btn">
+                                                  <button tabindex="0" class="btn" type="submit" aria-label="Search">
+                                                          <img class="search-icon" src="../../assets/icons/search.svg" width="16px" height="16px" alt="Search" />
+                                                          <img class="search-icon-inverted" src="../../assets/icons/search_dark.svg" width="16px" height="16px" alt="Search" />
+                                                  </button>
+                                              </span>
+                                          </div>
+                                      </form>                        </li>
+                                  <!-- this was hiden in the home and download page, keeping it for now -->
+                                  <li><a class="link-button" href="../../Download.html" id="nav-download">
+                                      <img class="download-icon" src="../../assets/icons/download.svg" width="16px" height="16px" alt="Download VS Code"/>
+                                      <img class="download-icon-inverted" src="../../assets/icons/download-black.svg" width="16px" height="16px" alt="Download VS Code" />
+                                      <span>Download</span>
+                                  </a></li>
+                              </ul>
+                          </div>
+                      </div>
+                  </nav>
+              </div>
+          </div>          <div class="updates-banner  ">
+              <div class="container">
+                  <p class="message"><a href="../../updates/v1_74.html" id="banner-link-updates">Version 1.74</a> is now available! Read about the new features and fixes from November.</p> 
+              </div>
+              <div tabindex="0" role="button" title="Dismiss this update" class="dismiss-btn" id="banner-dismiss-btn"><span class="sr-only">Dismiss this update</span><span aria-hidden="true" class="glyph-icon"></span></div>
+          </div>      <div role="main" id="main-content">
+        <script>
+    function closeReportIssue() {
+        var element = document.getElementById('surveypopup');
+        element.parentElement.removeChild(element);
+    }
+
+    function reportIssue(tutorial, page) {
+        var div = document.createElement('div');
+        div.innerHTML = '<div id="surveypopup" class="overlay visible"><div class="surveypopup"><div id="surveytitle">Tell us more<a href="javascript:void(0)" onclick="closeReportIssue()">X</a></div><div id="surveydiv"><iframe frameBorder="0" scrolling="0" src="https://www.research.net/r/PWZWZ52?tutorial=' + tutorial + '&step=' + page + '"></iframe></div></div></div>';
+        document.body.appendChild(div.children[0]);
+    }
+
+    function pushCodingPackEvent(language, os) {
+        let id = `${language}-${os}-coding-pack`;
+        var analytics = window.vscodeAnalytics;
+
+        analytics && analytics.event(
+            'click',
+            'download',
+            id,
+        );
+    }
+</script>
+
+<div class="container body-content docs">
+    <div class="row">
+        <div class="col-md-2 docs-navbar-container">
+            <nav id="docs-navbar" aria-label="Topics" class="docs-nav visible-md visible-lg">
+            	<ul class="nav" id="main-nav">
+            		<li >
+            			<a class="docs-home" href="../../docs.html" >Overview</a>
+            		</li>
+            		
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#setup-articles" data-parent="#main-nav" data-toggle="collapse">Setup</a>
+            					<ul id="setup-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../setup/setup-overview.html" >Overview</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../setup/linux.html" >Linux</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../setup/mac.html" >macOS</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../setup/windows.html" >Windows</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../setup/raspberry-pi.html" >Raspberry Pi</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../setup/network.html" >Network</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../setup/additional-components.html" >Additional Components</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../setup/enterprise.html" >Enterprise</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../setup/uninstall.html" >Uninstall</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#getstarted-articles" data-parent="#main-nav" data-toggle="collapse">Get Started</a>
+            					<ul id="getstarted-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../getstarted/introvideos.html" >Intro Videos</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../getstarted/tips-and-tricks.html" >Tips and Tricks</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../getstarted/userinterface.html" >User Interface</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../getstarted/themes.html" >Themes</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../getstarted/settings.html" >Settings</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../getstarted/keybindings.html" >Key Bindings</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../getstarted/locales.html" >Display Language</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../getstarted/telemetry.html" >Telemetry</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#editor-articles" data-parent="#main-nav" data-toggle="collapse">User Guide</a>
+            					<ul id="editor-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../editor/codebasics.html" >Basic Editing</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../editor/extension-marketplace.html" >Extension Marketplace</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../editor/intellisense.html" >IntelliSense</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../editor/editingevolved.html" >Code Navigation</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../editor/refactoring.html" >Refactoring</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../editor/debugging.html" >Debugging</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../editor/vscode-web.html" >VS Code for the Web</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../editor/tasks.html" >Tasks</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../editor/settings-sync.html" >Settings Sync</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../editor/userdefinedsnippets.html" >Snippets</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../editor/emmet.html" >Emmet</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../editor/command-line.html" >Command Line Interface</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../editor/workspace-trust.html" >Workspace Trust</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../editor/multi-root-workspaces.html" >Multi-root Workspaces</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../editor/accessibility.html" >Accessibility</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#sourcecontrol-articles" data-parent="#main-nav" data-toggle="collapse">Source Control</a>
+            					<ul id="sourcecontrol-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../sourcecontrol/overview.html" >Overview</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../sourcecontrol/github.html" >Collaborate on GitHub</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../sourcecontrol/faq.html" >FAQ</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#terminal-articles" data-parent="#main-nav" data-toggle="collapse">Terminal</a>
+            					<ul id="terminal-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../terminal/basics.html" >Terminal Basics</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../terminal/profiles.html" >Terminal Profiles</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../terminal/shell-integration.html" >Shell Integration</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../terminal/appearance.html" >Appearance</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../terminal/advanced.html" >Advanced</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#languages-articles" data-parent="#main-nav" data-toggle="collapse">Languages</a>
+            					<ul id="languages-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../languages/overview.html" >Overview</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/javascript.html" >JavaScript</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/json.html" >JSON</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/html.html" >HTML</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/css.html" >CSS, SCSS and Less</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/typescript.html" >TypeScript</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/markdown.html" >Markdown</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/powershell.html" >PowerShell</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/cpp.html" >C++</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/java.html" >Java</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/php.html" >PHP</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/python.html" >Python</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/julia.html" >Julia</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/r.html" >R</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/rust.html" >Rust</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/go.html" >Go</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/tsql.html" >T-SQL</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/csharp.html" >C#</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/dotnet.html" >.NET</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#nodejs-articles" data-parent="#main-nav" data-toggle="collapse">Node.js / JavaScript</a>
+            					<ul id="nodejs-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../nodejs/working-with-javascript.html" >Working with JavaScript</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../nodejs/nodejs-tutorial.html" >Node.js Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../nodejs/nodejs-debugging.html" >Node.js Debugging</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../nodejs/nodejs-deployment.html" >Deploy Node.js Apps</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../nodejs/browser-debugging.html" >Browser Debugging</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../nodejs/angular-tutorial.html" >Angular Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../nodejs/reactjs-tutorial.html" >React Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../nodejs/vuejs-tutorial.html" >Vue Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../nodejs/emberjs-tutorial.html" >Ember Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../nodejs/debugging-recipes.html" >Debugging Recipes</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../nodejs/profiling.html" >Performance Profiling</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../nodejs/extensions.html" >Extensions</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#typescript-articles" data-parent="#main-nav" data-toggle="collapse">TypeScript</a>
+            					<ul id="typescript-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../typescript/typescript-tutorial.html" >Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../typescript/typescript-compiling.html" >Compiling</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../typescript/typescript-editing.html" >Editing</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../typescript/typescript-refactoring.html" >Refactoring</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../typescript/typescript-debugging.html" >Debugging</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#python-articles" data-parent="#main-nav" data-toggle="collapse">Python</a>
+            					<ul id="python-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../python/python-tutorial.html" >Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../python/editing.html" >Editing Code</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../python/linting.html" >Linting</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../python/debugging.html" >Debugging</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../python/environments.html" >Environments</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../python/testing.html" >Testing</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../datascience/overview.html" >Data Science</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../python/jupyter-support-py.html" >Python Interactive</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../python/tutorial-django.html" >Django Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../python/tutorial-flask.html" >Flask Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../containers/quickstart-python.html" >Create containers</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../python/python-on-azure.html" >Deploy Python Apps</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../python/python-web.html" >Python in the Web</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../python/settings-reference.html" >Settings Reference</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#java-articles" data-parent="#main-nav" data-toggle="collapse">Java</a>
+            					<ul id="java-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../java/java-tutorial.html" >Getting Started</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-editing.html" >Navigate and Edit</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-refactoring.html" >Refactoring</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-linting.html" >Formatting and Linting</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-project.html" >Project Management</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-build.html" >Build Tools</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-debugging.html" >Run and Debug</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-testing.html" >Testing</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-spring-boot.html" >Spring Boot</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-tomcat-jetty.html" >Application Servers</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-on-azure.html" >Deploy Java Apps</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-gui.html" >GUI Applications</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/extensions.html" >Extensions</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-faq.html" >FAQ</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel active expanded">
+            					<a class="area" role="button" href="#cpp-articles" data-parent="#main-nav" data-toggle="collapse">C++</a>
+            					<ul id="cpp-articles" class="collapse in">
+            					
+            						<li >
+            							<a href="introvideos-cpp.html" >Intro Videos</a>
+            						</li>
+            					
+            						<li >
+            							<a href="config-linux.html" >GCC on Linux</a>
+            						</li>
+            					
+            						<li >
+            							<a href="config-mingw.html" >GCC on Windows</a>
+            						</li>
+            					
+            						<li >
+            							<a href="config-wsl.html" >GCC on Windows Subsystem for Linux</a>
+            						</li>
+            					
+            						<li >
+            							<a href="config-clang-mac.html" >Clang on macOS</a>
+            						</li>
+            					
+            						<li >
+            							<a href="config-msvc.html" >Microsoft C++ on Windows</a>
+            						</li>
+            					
+            						<li >
+            							<a href="https://github.com/microsoft/vscode-cmake-tools/blob/main/docs/README.md" >Build with CMake</a>
+            						</li>
+            					
+            						<li >
+            							<a href="cmake-linux.html" >CMake Tools on Linux</a>
+            						</li>
+            					
+            						<li >
+            							<a href="cpp-ide.html" >Editing</a>
+            						</li>
+            					
+            						<li >
+            							<a href="cpp-debug.html" >Debugging</a>
+            						</li>
+            					
+            						<li class="active">
+            							<a href="launch-json-reference.html" aria-label="Current Page: Configure debugging">Configure debugging</a>
+            						</li>
+            					
+            						<li >
+            							<a href="customize-default-settings-cpp.html" >Settings</a>
+            						</li>
+            					
+            						<li >
+            							<a href="configure-intellisense-crosscompilation.html" >Configure IntelliSense for cross-compiling</a>
+            						</li>
+            					
+            						<li >
+            							<a href="faq-cpp.html" >FAQ</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#containers-articles" data-parent="#main-nav" data-toggle="collapse">Docker</a>
+            					<ul id="containers-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../containers/overview.html" >Overview</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../containers/quickstart-node.html" >Node.js</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../containers/quickstart-python.html" >Python</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../containers/quickstart-aspnet-core.html" >ASP.NET Core</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../containers/debug-common.html" >Debug</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../containers/docker-compose.html" >Docker Compose</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../containers/quickstart-container-registries.html" >Registries</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../containers/app-service.html" >Deploy to Azure</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../containers/choosing-dev-environment.html" >Choose a dev environment</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../containers/reference.html" >Customize</a>
+            						</li>
+            					
+            						<li >
+            							<a href="https://learn.microsoft.com/visualstudio/bridge/bridge-to-kubernetes-vs-code" >Develop with Kubernetes</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../containers/troubleshooting.html" >Tips and Tricks</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#datascience-articles" data-parent="#main-nav" data-toggle="collapse">Data Science</a>
+            					<ul id="datascience-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../datascience/overview.html" >Overview</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../datascience/jupyter-notebooks.html" >Jupyter Notebooks</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../datascience/data-science-tutorial.html" >Data Science Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../python/jupyter-support-py.html" >Python Interactive</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../datascience/pytorch-support.html" >PyTorch Support</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../datascience/azure-machine-learning.html" >Azure Machine Learning</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#azure-articles" data-parent="#main-nav" data-toggle="collapse">Azure</a>
+            					<ul id="azure-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../azure/extensions.html" >Extensions</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../azure/deployment.html" >Deployment</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../azure/remote-debugging.html" >Remote Debugging for Node.js</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../containers/overview.html" >Docker</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../azure/mongodb.html" >MongoDB</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../azure/kubernetes.html" >Kubernetes</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../azure/aksextensions.html" >Azure Kubernetes Service</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#remote-articles" data-parent="#main-nav" data-toggle="collapse">Remote</a>
+            					<ul id="remote-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../remote/remote-overview.html" >Overview</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../remote/ssh.html" >SSH</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../devcontainers/containers.html" >Dev Containers</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../remote/wsl.html" >Windows Subsystem for Linux</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../remote/codespaces.html" >GitHub Codespaces</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../remote/vscode-server.html" >VS Code Server</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../remote/tunnels.html" >Tunnels</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../remote/ssh-tutorial.html" >SSH Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../remote/wsl-tutorial.html" >WSL Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../remote/troubleshooting.html" >Tips and Tricks</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../remote/faq.html" >FAQ</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#devcontainers-articles" data-parent="#main-nav" data-toggle="collapse">Dev Containers</a>
+            					<ul id="devcontainers-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../devcontainers/containers.html" >Overview</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../devcontainers/tutorial.html" >Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../devcontainers/attach-container.html" >Attach to Container</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../devcontainers/create-dev-container.html" >Create a Dev Container</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../../remote/advancedcontainers/overview.html" >Advanced Containers</a>
+            						</li>
+            					
+            						<li >
+            							<a href="https://containers.dev/implementors/json_reference" >devcontainer.json</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../devcontainers/devcontainer-cli.html" >Dev Container CLI</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../devcontainers/tips-and-tricks.html" >Tips and Tricks</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../devcontainers/faq.html" >FAQ</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            		
+            	</ul>
+            </nav>
+            <nav id="small-nav" aria-label="Topics" class="docs-nav hidden-md hidden-lg">
+            	<h4>Topics</h4>
+            	<select id="small-nav-dropdown" aria-label="topics">
+            		<option value="/docs" >Overview</option>
+            		
+            			
+            		
+            			
+            				<optgroup label="Setup">
+            				
+            					<option value="/docs/setup/setup-overview" >Overview</option>
+            				
+            					<option value="/docs/setup/linux" >Linux</option>
+            				
+            					<option value="/docs/setup/mac" >macOS</option>
+            				
+            					<option value="/docs/setup/windows" >Windows</option>
+            				
+            					<option value="/docs/setup/raspberry-pi" >Raspberry Pi</option>
+            				
+            					<option value="/docs/setup/network" >Network</option>
+            				
+            					<option value="/docs/setup/additional-components" >Additional Components</option>
+            				
+            					<option value="/docs/setup/enterprise" >Enterprise</option>
+            				
+            					<option value="/docs/setup/uninstall" >Uninstall</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Get Started">
+            				
+            					<option value="/docs/getstarted/introvideos" >Intro Videos</option>
+            				
+            					<option value="/docs/getstarted/tips-and-tricks" >Tips and Tricks</option>
+            				
+            					<option value="/docs/getstarted/userinterface" >User Interface</option>
+            				
+            					<option value="/docs/getstarted/themes" >Themes</option>
+            				
+            					<option value="/docs/getstarted/settings" >Settings</option>
+            				
+            					<option value="/docs/getstarted/keybindings" >Key Bindings</option>
+            				
+            					<option value="/docs/getstarted/locales" >Display Language</option>
+            				
+            					<option value="/docs/getstarted/telemetry" >Telemetry</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="User Guide">
+            				
+            					<option value="/docs/editor/codebasics" >Basic Editing</option>
+            				
+            					<option value="/docs/editor/extension-marketplace" >Extension Marketplace</option>
+            				
+            					<option value="/docs/editor/intellisense" >IntelliSense</option>
+            				
+            					<option value="/docs/editor/editingevolved" >Code Navigation</option>
+            				
+            					<option value="/docs/editor/refactoring" >Refactoring</option>
+            				
+            					<option value="/docs/editor/debugging" >Debugging</option>
+            				
+            					<option value="/docs/editor/vscode-web" >VS Code for the Web</option>
+            				
+            					<option value="/docs/editor/tasks" >Tasks</option>
+            				
+            					<option value="/docs/editor/settings-sync" >Settings Sync</option>
+            				
+            					<option value="/docs/editor/userdefinedsnippets" >Snippets</option>
+            				
+            					<option value="/docs/editor/emmet" >Emmet</option>
+            				
+            					<option value="/docs/editor/command-line" >Command Line Interface</option>
+            				
+            					<option value="/docs/editor/workspace-trust" >Workspace Trust</option>
+            				
+            					<option value="/docs/editor/multi-root-workspaces" >Multi-root Workspaces</option>
+            				
+            					<option value="/docs/editor/accessibility" >Accessibility</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Source Control">
+            				
+            					<option value="/docs/sourcecontrol/overview" >Overview</option>
+            				
+            					<option value="/docs/sourcecontrol/github" >Collaborate on GitHub</option>
+            				
+            					<option value="/docs/sourcecontrol/faq" >FAQ</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Terminal">
+            				
+            					<option value="/docs/terminal/basics" >Terminal Basics</option>
+            				
+            					<option value="/docs/terminal/profiles" >Terminal Profiles</option>
+            				
+            					<option value="/docs/terminal/shell-integration" >Shell Integration</option>
+            				
+            					<option value="/docs/terminal/appearance" >Appearance</option>
+            				
+            					<option value="/docs/terminal/advanced" >Advanced</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Languages">
+            				
+            					<option value="/docs/languages/overview" >Overview</option>
+            				
+            					<option value="/docs/languages/javascript" >JavaScript</option>
+            				
+            					<option value="/docs/languages/json" >JSON</option>
+            				
+            					<option value="/docs/languages/html" >HTML</option>
+            				
+            					<option value="/docs/languages/css" >CSS, SCSS and Less</option>
+            				
+            					<option value="/docs/languages/typescript" >TypeScript</option>
+            				
+            					<option value="/docs/languages/markdown" >Markdown</option>
+            				
+            					<option value="/docs/languages/powershell" >PowerShell</option>
+            				
+            					<option value="/docs/languages/cpp" >C++</option>
+            				
+            					<option value="/docs/languages/java" >Java</option>
+            				
+            					<option value="/docs/languages/php" >PHP</option>
+            				
+            					<option value="/docs/languages/python" >Python</option>
+            				
+            					<option value="/docs/languages/julia" >Julia</option>
+            				
+            					<option value="/docs/languages/r" >R</option>
+            				
+            					<option value="/docs/languages/rust" >Rust</option>
+            				
+            					<option value="/docs/languages/go" >Go</option>
+            				
+            					<option value="/docs/languages/tsql" >T-SQL</option>
+            				
+            					<option value="/docs/languages/csharp" >C#</option>
+            				
+            					<option value="/docs/languages/dotnet" >.NET</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Node.js / JavaScript">
+            				
+            					<option value="/docs/nodejs/working-with-javascript" >Working with JavaScript</option>
+            				
+            					<option value="/docs/nodejs/nodejs-tutorial" >Node.js Tutorial</option>
+            				
+            					<option value="/docs/nodejs/nodejs-debugging" >Node.js Debugging</option>
+            				
+            					<option value="/docs/nodejs/nodejs-deployment" >Deploy Node.js Apps</option>
+            				
+            					<option value="/docs/nodejs/browser-debugging" >Browser Debugging</option>
+            				
+            					<option value="/docs/nodejs/angular-tutorial" >Angular Tutorial</option>
+            				
+            					<option value="/docs/nodejs/reactjs-tutorial" >React Tutorial</option>
+            				
+            					<option value="/docs/nodejs/vuejs-tutorial" >Vue Tutorial</option>
+            				
+            					<option value="/docs/nodejs/emberjs-tutorial" >Ember Tutorial</option>
+            				
+            					<option value="/docs/nodejs/debugging-recipes" >Debugging Recipes</option>
+            				
+            					<option value="/docs/nodejs/profiling" >Performance Profiling</option>
+            				
+            					<option value="/docs/nodejs/extensions" >Extensions</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="TypeScript">
+            				
+            					<option value="/docs/typescript/typescript-tutorial" >Tutorial</option>
+            				
+            					<option value="/docs/typescript/typescript-compiling" >Compiling</option>
+            				
+            					<option value="/docs/typescript/typescript-editing" >Editing</option>
+            				
+            					<option value="/docs/typescript/typescript-refactoring" >Refactoring</option>
+            				
+            					<option value="/docs/typescript/typescript-debugging" >Debugging</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Python">
+            				
+            					<option value="/docs/python/python-tutorial" >Tutorial</option>
+            				
+            					<option value="/docs/python/editing" >Editing Code</option>
+            				
+            					<option value="/docs/python/linting" >Linting</option>
+            				
+            					<option value="/docs/python/debugging" >Debugging</option>
+            				
+            					<option value="/docs/python/environments" >Environments</option>
+            				
+            					<option value="/docs/python/testing" >Testing</option>
+            				
+            					<option value="/docs/python/data-science" >Data Science</option>
+            				
+            					<option value="/docs/python/jupyter-support-py" >Python Interactive</option>
+            				
+            					<option value="/docs/python/tutorial-django" >Django Tutorial</option>
+            				
+            					<option value="/docs/python/tutorial-flask" >Flask Tutorial</option>
+            				
+            					<option value="/docs/python/tutorial-create-containers" >Create containers</option>
+            				
+            					<option value="/docs/python/python-on-azure" >Deploy Python Apps</option>
+            				
+            					<option value="/docs/python/python-web" >Python in the Web</option>
+            				
+            					<option value="/docs/python/settings-reference" >Settings Reference</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Java">
+            				
+            					<option value="/docs/java/java-tutorial" >Getting Started</option>
+            				
+            					<option value="/docs/java/java-editing" >Navigate and Edit</option>
+            				
+            					<option value="/docs/java/java-refactoring" >Refactoring</option>
+            				
+            					<option value="/docs/java/java-linting" >Formatting and Linting</option>
+            				
+            					<option value="/docs/java/java-project" >Project Management</option>
+            				
+            					<option value="/docs/java/java-build" >Build Tools</option>
+            				
+            					<option value="/docs/java/java-debugging" >Run and Debug</option>
+            				
+            					<option value="/docs/java/java-testing" >Testing</option>
+            				
+            					<option value="/docs/java/java-spring-boot" >Spring Boot</option>
+            				
+            					<option value="/docs/java/java-tomcat-jetty" >Application Servers</option>
+            				
+            					<option value="/docs/java/java-on-azure" >Deploy Java Apps</option>
+            				
+            					<option value="/docs/java/java-gui" >GUI Applications</option>
+            				
+            					<option value="/docs/java/extensions" >Extensions</option>
+            				
+            					<option value="/docs/java/java-faq" >FAQ</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="C++">
+            				
+            					<option value="/docs/cpp/introvideos-cpp" >Intro Videos</option>
+            				
+            					<option value="/docs/cpp/config-linux" >GCC on Linux</option>
+            				
+            					<option value="/docs/cpp/config-mingw" >GCC on Windows</option>
+            				
+            					<option value="/docs/cpp/config-wsl" >GCC on Windows Subsystem for Linux</option>
+            				
+            					<option value="/docs/cpp/config-clang-mac" >Clang on macOS</option>
+            				
+            					<option value="/docs/cpp/config-msvc" >Microsoft C++ on Windows</option>
+            				
+            					<option value="/docs/cpp/build-with-cmake" >Build with CMake</option>
+            				
+            					<option value="/docs/cpp/cmake-linux" >CMake Tools on Linux</option>
+            				
+            					<option value="/docs/cpp/cpp-ide" >Editing</option>
+            				
+            					<option value="/docs/cpp/cpp-debug" >Debugging</option>
+            				
+            					<option value="/docs/cpp/launch-json-reference" selected>Configure debugging</option>
+            				
+            					<option value="/docs/cpp/customize-default-settings-cpp" >Settings</option>
+            				
+            					<option value="/docs/cpp/configure-intellisense-crosscompilation" >Configure IntelliSense for cross-compiling</option>
+            				
+            					<option value="/docs/cpp/faq-cpp" >FAQ</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Docker">
+            				
+            					<option value="/docs/containers/overview" >Overview</option>
+            				
+            					<option value="/docs/containers/quickstart-node" >Node.js</option>
+            				
+            					<option value="/docs/containers/quickstart-python" >Python</option>
+            				
+            					<option value="/docs/containers/quickstart-aspnet-core" >ASP.NET Core</option>
+            				
+            					<option value="/docs/containers/debug-common" >Debug</option>
+            				
+            					<option value="/docs/containers/docker-compose" >Docker Compose</option>
+            				
+            					<option value="/docs/containers/quickstart-container-registries" >Registries</option>
+            				
+            					<option value="/docs/containers/app-service" >Deploy to Azure</option>
+            				
+            					<option value="/docs/containers/choosing-dev-environment" >Choose a dev environment</option>
+            				
+            					<option value="/docs/containers/reference" >Customize</option>
+            				
+            					<option value="/docs/containers/bridge-to-kubernetes" >Develop with Kubernetes</option>
+            				
+            					<option value="/docs/containers/troubleshooting" >Tips and Tricks</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Data Science">
+            				
+            					<option value="/docs/datascience/overview" >Overview</option>
+            				
+            					<option value="/docs/datascience/jupyter-notebooks" >Jupyter Notebooks</option>
+            				
+            					<option value="/docs/datascience/data-science-tutorial" >Data Science Tutorial</option>
+            				
+            					<option value="/docs/datascience/python-interactive" >Python Interactive</option>
+            				
+            					<option value="/docs/datascience/pytorch-support" >PyTorch Support</option>
+            				
+            					<option value="/docs/datascience/azure-machine-learning" >Azure Machine Learning</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Azure">
+            				
+            					<option value="/docs/azure/extensions" >Extensions</option>
+            				
+            					<option value="/docs/azure/deployment" >Deployment</option>
+            				
+            					<option value="/docs/azure/remote-debugging" >Remote Debugging for Node.js</option>
+            				
+            					<option value="/docs/azure/docker" >Docker</option>
+            				
+            					<option value="/docs/azure/mongodb" >MongoDB</option>
+            				
+            					<option value="/docs/azure/kubernetes" >Kubernetes</option>
+            				
+            					<option value="/docs/azure/aksextensions" >Azure Kubernetes Service</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Remote">
+            				
+            					<option value="/docs/remote/remote-overview" >Overview</option>
+            				
+            					<option value="/docs/remote/ssh" >SSH</option>
+            				
+            					<option value="/docs/remote/dev-containers" >Dev Containers</option>
+            				
+            					<option value="/docs/remote/wsl" >Windows Subsystem for Linux</option>
+            				
+            					<option value="/docs/remote/codespaces" >GitHub Codespaces</option>
+            				
+            					<option value="/docs/remote/vscode-server" >VS Code Server</option>
+            				
+            					<option value="/docs/remote/tunnels" >Tunnels</option>
+            				
+            					<option value="/docs/remote/ssh-tutorial" >SSH Tutorial</option>
+            				
+            					<option value="/docs/remote/wsl-tutorial" >WSL Tutorial</option>
+            				
+            					<option value="/docs/remote/troubleshooting" >Tips and Tricks</option>
+            				
+            					<option value="/docs/remote/faq" >FAQ</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Dev Containers">
+            				
+            					<option value="/docs/devcontainers/containers" >Overview</option>
+            				
+            					<option value="/docs/devcontainers/tutorial" >Tutorial</option>
+            				
+            					<option value="/docs/devcontainers/attach-container" >Attach to Container</option>
+            				
+            					<option value="/docs/devcontainers/create-dev-container" >Create a Dev Container</option>
+            				
+            					<option value="/docs/devcontainers/containers-advanced" >Advanced Containers</option>
+            				
+            					<option value="/docs/devcontainers/devcontainerjson-reference" >devcontainer.json</option>
+            				
+            					<option value="/docs/devcontainers/devcontainer-cli" >Dev Container CLI</option>
+            				
+            					<option value="/docs/devcontainers/tips-and-tricks" >Tips and Tricks</option>
+            				
+            					<option value="/docs/devcontainers/faq" >FAQ</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            		
+            	</select>
+            </nav>        </div>
+        <div class="col-sm-9 col-md-8 body">
+            <div class="edit-github pull-right">
+                <a href="https://vscode.dev/github/microsoft/vscode-docs/blob/main/docs/cpp/launch-json-reference.md"
+                    class="btn btn-default" title="Edit this document in vscode.dev">
+                    <span class="glyphicon glyphicon-pencil"></span>
+                    <span class="hidden-xs">Edit</span>
+                </a>
+            </div>
+            <h1>Configure C/C++ debugging</h1>
+<p>A <code>launch.json</code> file is used to configure the <a href="../editor/debugging.html">debugger</a> in Visual Studio Code.</p>
+<p>Visual Studio Code generates a <code>launch.json</code> (under a <code>.vscode</code> folder in your project) with almost all of the required information. To get started with debugging you need to fill in the <code>program</code> field with the path to the executable you plan to debug. This must be specified for both the launch and attach (if you plan to attach to a running instance at any point) configurations.</p>
+<p>The generated file contains two sections, one that configures debugging for launch and a second that configures debugging for attach.</p>
+<h2 id="_configure-vs-codes-debugging-behavior" data-needslink="_configure-vs-codes-debugging-behavior">Configure VS Code's debugging behavior</h2>
+<p>Set or change the following options to control VS Code's behavior during debugging:</p>
+<h3 id="_program-required" data-needslink="_program-required">program (required)</h3>
+<p>Specifies the full path to the executable the debugger will launch or attach to. The debugger requires this location in order to load debug symbols.</p>
+<h3 id="_symbolsearchpath" data-needslink="_symbolsearchpath">symbolSearchPath</h3>
+<p>Tells the Visual Studio Windows Debugger what paths to search for symbol (.pdb) files. Separate multiple paths with a semicolon. For example: <code>&quot;C:\\Symbols;C:\\SymbolDir2&quot;</code>.</p>
+<h3 id="_requireexactsource" data-needslink="_requireexactsource">requireExactSource</h3>
+<p>An optional flag that tells the Visual Studio Windows Debugger to require current source code to match the pdb.</p>
+<h3 id="_additionalsolibsearchpath" data-needslink="_additionalsolibsearchpath">additionalSOLibSearchPath</h3>
+<p>Tells GDB or LLDB what paths to search for .so files. Separate multiple paths with a semicolon. For example: <code>&quot;/Users/user/dir1;/Users/user/dir2&quot;</code>.</p>
+<h3 id="_externalconsole" data-needslink="_externalconsole">externalConsole</h3>
+<p>Used only when launching the debuggee. For <code>attach</code>, this parameter does not change the debuggee's behavior.</p>
+<ul>
+<li><strong>Windows</strong>: When set to true, it will spawn an external console. When set to false, it will use VS Code's integratedTerminal.</li>
+<li><strong>Linux</strong>: When set to true, it will notify VS Code to spawn an external console. When set to false, it will use VS Code's integratedTerminal.</li>
+<li><strong>macOS</strong>: When set to true, it will spawn an external console through <code>lldb-mi</code>. When set to false, the output can be seen in VS Code's debugConsole. Due to limitations within <code>lldb-mi</code>, integratedTerminal support is not available.</li>
+</ul>
+<h3 id="_avoidwindowsconsoleredirection" data-needslink="_avoidwindowsconsoleredirection">avoidWindowsConsoleRedirection</h3>
+<p>In order to support VS Code's Integrated Terminal with gdb on Windows, the extension adds console redirection commands to the debuggee's arguments to have console input and output show up in the integrated terminal. Setting this option to <code>true</code> will disable it.</p>
+<h3 id="_logging" data-needslink="_logging">logging</h3>
+<p>Optional flags to determine what types of messages should be logged to the Debug Console.</p>
+<ul>
+<li><strong>exceptions</strong>: Optional flag to determine whether exception messages should be logged to the Debug Console. Defaults to true.</li>
+<li><strong>moduleLoad</strong>: Optional flag to determine whether module load events should be logged to the Debug Console. Defaults to true.</li>
+<li><strong>programOutput</strong>: Optional flag to determine whether program output should be logged to the Debug Console. Defaults to true.</li>
+<li><strong>engineLogging</strong>: Optional flag to determine whether diagnostic engine logs should be logged to the Debug Console. Defaults to false.</li>
+<li><strong>trace</strong>: Optional flag to determine whether diagnostic adapter command tracing should be logged to the Debug Console. Defaults to false.</li>
+<li><strong>traceResponse</strong>: Optional flag to determine whether diagnostic adapter command and response tracing should be logged to the Debug Console. Defaults to false.</li>
+</ul>
+<h3 id="_visualizerfile" data-needslink="_visualizerfile">visualizerFile</h3>
+<p><code>.natvis</code> file to be used when debugging. See <a href="https://learn.microsoft.com/visualstudio/debugger/create-custom-views-of-native-objects" class="external-link" target="_blank">Create custom views of native objects</a> for information on how to create Natvis files.</p>
+<h3 id="_showdisplaystring" data-needslink="_showdisplaystring">showDisplayString</h3>
+<p>When a <code>visualizerFile</code> is specified, <code>showDisplayString</code> will enable the display string. Turning on this option can cause slower performance during debugging.</p>
+<p><strong>Example:</strong></p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #000000">{</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;name&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;C++ Launch (Windows)&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;type&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;cppvsdbg&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;request&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;launch&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;program&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;C:</span><span style="color: #EE0000">\\</span><span style="color: #A31515">app1</span><span style="color: #EE0000">\\</span><span style="color: #A31515">Debug</span><span style="color: #EE0000">\\</span><span style="color: #A31515">app1.exe&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;symbolSearchPath&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;C:</span><span style="color: #EE0000">\\</span><span style="color: #A31515">Symbols;C:</span><span style="color: #EE0000">\\</span><span style="color: #A31515">SymbolDir2&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;externalConsole&quot;</span><span style="color: #000000">: </span><span style="color: #0000FF">true</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;logging&quot;</span><span style="color: #000000">: {</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #0451A5">&quot;moduleLoad&quot;</span><span style="color: #000000">: </span><span style="color: #0000FF">false</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #0451A5">&quot;trace&quot;</span><span style="color: #000000">: </span><span style="color: #0000FF">true</span></span>
+<span class="line"><span style="color: #000000">  },</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;visualizerFile&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;${workspaceFolder}/my.natvis&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;showDisplayString&quot;</span><span style="color: #000000">: </span><span style="color: #0000FF">true</span></span>
+<span class="line"><span style="color: #000000">}</span></span>
+<span class="line"></span></code></pre>
+<h2 id="_configure-the-target-application" data-needslink="_configure-the-target-application">Configure the target application</h2>
+<p>The following options enable you to modify the state of the target application when it is launched:</p>
+<h3 id="_args" data-needslink="_args">args</h3>
+<p>JSON array of command-line arguments to pass to the program when it is launched. Example <code>[&quot;arg1&quot;, &quot;arg2&quot;]</code>. If you are escaping characters, you will need to double escape them. For example, <code>[&quot;{\\\&quot;arg1\\\&quot;: true}&quot;]</code> will send <code>{&quot;arg1&quot;: true}</code> to your application.</p>
+<h3 id="_cwd" data-needslink="_cwd">cwd</h3>
+<p>Sets the working directory of the application launched by the debugger.</p>
+<h3 id="_environment" data-needslink="_environment">environment</h3>
+<p>Environment variables to add to the environment for the program. Example: <code>[ { &quot;name&quot;: &quot;config&quot;, &quot;value&quot;: &quot;Debug&quot; } ]</code>, not <code>[ { &quot;config&quot;: &quot;Debug&quot; } ]</code>.</p>
+<p><strong>Example:</strong></p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #000000">{</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;name&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;C++ Launch&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;type&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;cppdbg&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;request&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;launch&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;program&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;${workspaceFolder}/a.out&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;args&quot;</span><span style="color: #000000">: [</span><span style="color: #A31515">&quot;arg1&quot;</span><span style="color: #000000">, </span><span style="color: #A31515">&quot;arg2&quot;</span><span style="color: #000000">],</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;environment&quot;</span><span style="color: #000000">: [{ </span><span style="color: #0451A5">&quot;name&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;config&quot;</span><span style="color: #000000">, </span><span style="color: #0451A5">&quot;value&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;Debug&quot;</span><span style="color: #000000"> }],</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;cwd&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;${workspaceFolder}&quot;</span></span>
+<span class="line"><span style="color: #000000">}</span></span>
+<span class="line"></span></code></pre>
+<h2 id="_customizing-gdb-or-lldb" data-needslink="_customizing-gdb-or-lldb">Customizing GDB or LLDB</h2>
+<p>You can change the behavior of GDB or LLDB by setting the following options:</p>
+<h3 id="_mimode" data-needslink="_mimode">MIMode</h3>
+<p>Indicates the debugger that VS Code will connect to. Must be set to <code>gdb</code> or <code>lldb</code>. This is pre-configured on a per-operating system basis and can be changed as needed.</p>
+<h3 id="_midebuggerpath" data-needslink="_midebuggerpath">miDebuggerPath</h3>
+<p>The path to the debugger (such as gdb). When only the executable is specified, it will search the operating system's PATH variable for a debugger (GDB on Linux and Windows, LLDB on OS X).</p>
+<h3 id="_midebuggerargs" data-needslink="_midebuggerargs">miDebuggerArgs</h3>
+<p>Additional arguments to pass to the debugger (such as gdb).</p>
+<h3 id="_stopatentry" data-needslink="_stopatentry">stopAtEntry</h3>
+<p>If set to true, the debugger should stop at the entry-point of the target (ignored on attach). Default value is <code>false</code>.</p>
+<h3 id="_stopatconnect" data-needslink="_stopatconnect">stopAtConnect</h3>
+<p>If set to true, the debugger should stop after connecting to the target. If set to false, the debugger will continue after connecting. Default value is <code>false</code>.</p>
+<h3 id="_setupcommands" data-needslink="_setupcommands">setupCommands</h3>
+<p>JSON array of commands to execute in order to set up the GDB or LLDB. Example: <code>&quot;setupCommands&quot;: [ { &quot;text&quot;: &quot;target-run&quot;, &quot;description&quot;: &quot;run target&quot;, &quot;ignoreFailures&quot;: false }]</code>.</p>
+<h3 id="_customlaunchsetupcommands" data-needslink="_customlaunchsetupcommands">customLaunchSetupCommands</h3>
+<p>If provided, this replaces the default commands used to launch a target with some other commands. For example, this can be &quot;-target-attach&quot; in order to attach to a target process. An empty command list replaces the launch commands with nothing, which can be useful if the debugger is being provided launch options as command-line options. Example: <code>&quot;customLaunchSetupCommands&quot;: [ { &quot;text&quot;: &quot;target-run&quot;, &quot;description&quot;: &quot;run target&quot;, &quot;ignoreFailures&quot;: false }]</code>.</p>
+<h3 id="_launchcompletecommand" data-needslink="_launchcompletecommand">launchCompleteCommand</h3>
+<p>The command to execute after the debugger is fully set up in order to cause the target process to run. Allowed values are &quot;exec-run&quot;, &quot;exec-continue&quot;, &quot;None&quot;. The default value is &quot;exec-run&quot;.</p>
+<p><strong>Example:</strong></p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #000000">{</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;name&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;C++ Launch&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;type&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;cppdbg&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;request&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;launch&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;program&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;${workspaceFolder}/a.out&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;stopAtEntry&quot;</span><span style="color: #000000">: </span><span style="color: #0000FF">false</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;customLaunchSetupCommands&quot;</span><span style="color: #000000">: [</span></span>
+<span class="line"><span style="color: #000000">    { </span><span style="color: #0451A5">&quot;text&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;target-run&quot;</span><span style="color: #000000">, </span><span style="color: #0451A5">&quot;description&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;run target&quot;</span><span style="color: #000000">, </span><span style="color: #0451A5">&quot;ignoreFailures&quot;</span><span style="color: #000000">: </span><span style="color: #0000FF">false</span><span style="color: #000000"> }</span></span>
+<span class="line"><span style="color: #000000">  ],</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;launchCompleteCommand&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;exec-run&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;linux&quot;</span><span style="color: #000000">: {</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #0451A5">&quot;MIMode&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;gdb&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #0451A5">&quot;miDebuggerPath&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;/usr/bin/gdb&quot;</span></span>
+<span class="line"><span style="color: #000000">  },</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;osx&quot;</span><span style="color: #000000">: {</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #0451A5">&quot;MIMode&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;lldb&quot;</span></span>
+<span class="line"><span style="color: #000000">  },</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;windows&quot;</span><span style="color: #000000">: {</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #0451A5">&quot;MIMode&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;gdb&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #0451A5">&quot;miDebuggerPath&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;C:</span><span style="color: #EE0000">\\</span><span style="color: #A31515">MinGw</span><span style="color: #EE0000">\\</span><span style="color: #A31515">bin</span><span style="color: #EE0000">\\</span><span style="color: #A31515">gdb.exe&quot;</span></span>
+<span class="line"><span style="color: #000000">  }</span></span>
+<span class="line"><span style="color: #000000">}</span></span>
+<span class="line"></span></code></pre>
+<h3 id="_symbolloadinfo" data-needslink="_symbolloadinfo">symbolLoadInfo</h3>
+<ul>
+<li><strong>loadAll</strong>: If true, symbols for all libs will be loaded, otherwise no solib symbols will be loaded. Modified by ExceptionList. Default value is true.</li>
+<li><strong>exceptionList</strong>: List of filenames (wildcards allowed) separated by semicolons <code>;</code>. Modifies behavior of LoadAll. If LoadAll is true then don't load symbols for libs that match any name in the list. Otherwise only load symbols for libs that match. Example: <code>&quot;foo.so;bar.so&quot;</code></li>
+</ul>
+<h2 id="_debugging-dump-files" data-needslink="_debugging-dump-files">Debugging dump files</h2>
+<p>The C/C++ extension enables debugging dump files on Windows and core dump files Linux and OS X.</p>
+<h3 id="_dumppath" data-needslink="_dumppath">dumpPath</h3>
+<p>If you want to debug a Windows dump file, set this to the path to the dump file to start debugging in the <code>launch</code> configuration.</p>
+<h3 id="_coredumppath" data-needslink="_coredumppath">coreDumpPath</h3>
+<p>Full path to a core dump file to debug for the specified program. Set this to the path to the core dump file to start debugging in the <code>launch</code> configuration.
+<em>Note: core dump debugging is not supported with MinGw.</em></p>
+<h2 id="_remote-debugging-or-debugging-with-a-local-debugger-server" data-needslink="_remote-debugging-or-debugging-with-a-local-debugger-server">Remote debugging or debugging with a local debugger server</h2>
+<h3 id="_midebuggerserveraddress" data-needslink="_midebuggerserveraddress">miDebuggerServerAddress</h3>
+<p>Network address of the debugger server (for example, gdbserver) to connect to for remote debugging (example: <code>localhost:1234</code>).</p>
+<h3 id="_debugserverpath" data-needslink="_debugserverpath">debugServerPath</h3>
+<p>Full path to debug server to launch.</p>
+<h3 id="_debugserverargs" data-needslink="_debugserverargs">debugServerArgs</h3>
+<p>Arguments for the debugger server.</p>
+<h3 id="_serverstarted" data-needslink="_serverstarted">serverStarted</h3>
+<p>Server-started pattern to look for in the debug server output. Regular expressions are supported.</p>
+<h3 id="_filterstdout" data-needslink="_filterstdout">filterStdout</h3>
+<p>If set to true, search <code>stdout</code> stream for server-started pattern and log stdout to debug output. Default value is <code>true</code>.</p>
+<h3 id="_filterstderr" data-needslink="_filterstderr">filterStderr</h3>
+<p>If set to true, search <code>stderr</code> stream for server-started pattern and log stderr to debug output. Default value is <code>false</code>.</p>
+<h3 id="_serverlaunchtimeout" data-needslink="_serverlaunchtimeout">serverLaunchTimeout</h3>
+<p>Time in milliseconds, for the debugger to wait for the debugServer to start up. Default is 10000.</p>
+<h3 id="_pipetransport" data-needslink="_pipetransport">pipeTransport</h3>
+<p>For information about attaching to a remote process, such as debugging a process in a Docker container, see the <a href="pipe-transport.html">Pipe transport</a> settings article.</p>
+<h3 id="_hardwarebreakpoints" data-needslink="_hardwarebreakpoints">hardwareBreakpoints</h3>
+<p>If provided, this explicitly controls hardware breakpoint behavior for remote targets. If <code>require</code> is set to true, always use hardware breakpoints. Default value is <code>false</code>. <code>limit</code> is an optional limit on the number of available hardware breakpoints to use which is only enforced when <code>require</code> is true and <code>limit</code> is greater than 0. Defaults value is 0. Example: <code>&quot;hardwareBreakpoints&quot;: { require: true, limit: 6 }</code>.</p>
+<h2 id="_additional-properties" data-needslink="_additional-properties">Additional properties</h2>
+<h3 id="_processid" data-needslink="_processid">processId</h3>
+<p>Defaults to <code>${command:pickProcess}</code> which will display a list of available processes the debugger can attach to. We recommend that you leave this default, but the property can be explicitly set to a specific process ID for the debugger to attach to.</p>
+<h3 id="_request" data-needslink="_request">request</h3>
+<p>Indicates whether the configuration section is intended to <code>launch</code> the program or <code>attach</code> to an already running instance.</p>
+<h3 id="_targetarchitecture" data-needslink="_targetarchitecture">targetArchitecture</h3>
+<p><code>Deprecated</code> This option is no longer needed as the target architecture is automatically detected.</p>
+<h3 id="_type" data-needslink="_type">type</h3>
+<p>Indicates the underlying debugger being used. Must be <code>cppvsdbg</code> when using the Visual Studio Windows debugger, and <code>cppdbg</code> when using GDB or LLDB. This is automatically set to the correct value when the
+<code>launch.json</code> file is created.</p>
+<h3 id="_sourcefilemap" data-needslink="_sourcefilemap">sourceFileMap</h3>
+<p>This allows mapping of the compile-time paths for source to local source locations. It is an object of key/value pairs and will resolve the first string-matched path. (example: <code>&quot;sourceFileMap&quot;: { &quot;/mnt/c&quot;: &quot;c:\\&quot; }</code> will map any path returned by the debugger that begins with <code>/mnt/c</code> and convert it to <code>c:\\</code>. You can have multiple mappings in the object but they will be handled in the order provided.)</p>
+<h2 id="_environment-variable-definitions-file" data-needslink="_environment-variable-definitions-file">Environment variable definitions file</h2>
+<p>An environment variable definitions file is a simple text file containing key-value pairs in the form of <code>environment_variable=value</code>, with <code>#</code> used for comments. Multiline values are not supported.</p>
+<p>The <code>cppvsdbg</code> debugger configuration also contains an <code>envFile</code> property that allows you to easily set variables for debugging purposes.</p>
+<p>For example:</p>
+<p><strong>project.env file</strong>:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #008000"># project.env</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #008000"># Example environment with key as &#39;MYENVRIONMENTPATH&#39; and value as C:\\Users\\USERNAME\\Project</span></span>
+<span class="line"><span style="color: #000000">MYENVRIONMENTPATH=C:</span><span style="color: #EE0000">\\</span><span style="color: #000000">Users</span><span style="color: #EE0000">\\</span><span style="color: #000000">USERNAME</span><span style="color: #EE0000">\\</span><span style="color: #000000">Project</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #008000"># Variables with spaces</span></span>
+<span class="line"><span style="color: #000000">SPACED_OUT_PATH=</span><span style="color: #A31515">&quot;C:</span><span style="color: #EE0000">\\</span><span style="color: #A31515">This Has Spaces</span><span style="color: #EE0000">\\</span><span style="color: #A31515">Project&quot;</span></span>
+<span class="line"></span></code></pre>
+<h2 id="_symbol-options" data-needslink="_symbol-options">Symbol Options</h2>
+<p>The <code>symbolOptions</code> element allows customization of how the debugger searches for symbols. Example:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #000000">    </span><span style="color: #A31515">&quot;symbolOptions&quot;</span><span style="color: #000000">: {</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #0451A5">&quot;searchPaths&quot;</span><span style="color: #000000">: [</span></span>
+<span class="line"><span style="color: #000000">            </span><span style="color: #A31515">&quot;C:</span><span style="color: #EE0000">\\</span><span style="color: #A31515">src</span><span style="color: #EE0000">\\</span><span style="color: #A31515">MyOtherProject</span><span style="color: #EE0000">\\</span><span style="color: #A31515">bin</span><span style="color: #EE0000">\\</span><span style="color: #A31515">debug&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">            </span><span style="color: #A31515">&quot;https://my-companies-symbols-server&quot;</span></span>
+<span class="line"><span style="color: #000000">        ],</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #0451A5">&quot;searchMicrosoftSymbolServer&quot;</span><span style="color: #000000">: </span><span style="color: #0000FF">true</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #0451A5">&quot;cachePath&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;%TEMP%</span><span style="color: #EE0000">\\</span><span style="color: #A31515">symcache&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #0451A5">&quot;moduleFilter&quot;</span><span style="color: #000000">: {</span></span>
+<span class="line"><span style="color: #000000">            </span><span style="color: #0451A5">&quot;mode&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;loadAllButExcluded&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">            </span><span style="color: #0451A5">&quot;excludedModules&quot;</span><span style="color: #000000">: [ </span><span style="color: #A31515">&quot;DoNotLookForThisOne*.dll&quot;</span><span style="color: #000000"> ]</span></span>
+<span class="line"><span style="color: #000000">        }</span></span>
+<span class="line"><span style="color: #000000">    }</span></span>
+<span class="line"></span></code></pre>
+<h3 id="_properties" data-needslink="_properties">Properties</h3>
+<p><strong>searchPaths</strong>: Array of symbol server URLs (example: https://msdl.microsoft.com/download/symbols) or directories (example: /build/symbols) to search for .pdb files. These directories will be searched in addition to the default locations -- next to the module and the path where the pdb was originally dropped to.</p>
+<p><strong>searchMicrosoftSymbolServer</strong>: If <code>true</code> the Microsoft Symbol server (https://msdl.microsoft.com/download/symbols) is added to the symbols search path. If unspecified, this option defaults to <code>false</code>.</p>
+<p><strong>cachePath</strong>&quot;: Directory where symbols downloaded from symbol servers should be cached. If unspecified, the debugger will default to %TEMP%\SymbolCache..</p>
+<p><strong>moduleFilter.mode</strong>: This value is either <code>&quot;loadAllButExcluded&quot;</code> or <code>&quot;loadOnlyIncluded&quot;</code>. In <code>&quot;loadAllButExcluded&quot;</code> mode, the debugger loads symbols for all modules unless the module is in the 'excludedModules' array. In <code>&quot;loadOnlyIncluded&quot;</code> mode, the debugger will not attempt to load symbols for ANY module unless it is in the 'includedModules' array, or it is included through the 'includeSymbolsNextToModules' setting.</p>
+<h4>Properties for <code>&quot;loadAllButExcluded&quot;</code> mode</h4>
+<p><strong>moduleFilter.excludedModules</strong>: Array of modules that the debugger should NOT load symbols for. Wildcards (example: MyCompany.*.dll) are supported.</p>
+<h4>Properties for <code>&quot;loadOnlyIncluded&quot;</code> mode</h4>
+<p><strong>moduleFilter.includedModules</strong>: Array of modules that the debugger should load symbols for. Wildcards (example: MyCompany.*.dll) are supported.</p>
+<p><strong>moduleFilter.includeSymbolsNextToModules</strong>: If true, for any module NOT in the 'includedModules' array, the debugger will still check next to the module itself and the launching executable, but it will not check paths on the symbol search list. This option defaults to 'true'.</p>
+
+            <div class="feedback"></div>
+            
+            <div class="body-footer">6/10/2021</div>
+            
+        </div>
+        <div class="col-sm-3 col-md-2 docs-subnavbar-container">
+            <nav id="docs-subnavbar" aria-label="On Page" data-spy="affix" data-offset-top="20">
+                
+                <h4><span class="sr-only">In this article there are 8 sections</span><span
+                        aria-hidden="true">In this article</span></h4>
+                <ul class="nav">
+                    
+                    <li><a href="#_configure-vs-codes-debugging-behavior">Configure VS Code's debugging behavior</a></li>
+                    
+                    <li><a href="#_configure-the-target-application">Configure the target application</a></li>
+                    
+                    <li><a href="#_customizing-gdb-or-lldb">Customizing GDB or LLDB</a></li>
+                    
+                    <li><a href="#_debugging-dump-files">Debugging dump files</a></li>
+                    
+                    <li><a href="#_remote-debugging-or-debugging-with-a-local-debugger-server">Remote debugging or debugging with a local debugger server</a></li>
+                    
+                    <li><a href="#_additional-properties">Additional properties</a></li>
+                    
+                    <li><a href="#_environment-variable-definitions-file">Environment variable definitions file</a></li>
+                    
+                    <li><a href="#_symbol-options">Symbol Options</a></li>
+                    
+                </ul>
+                
+                <div class="connect-widget"></div>
+            </nav>
+        </div>
+    </div>
+</div>
+      </div>
+  </div>
+
+  <footer role="contentinfo">
+      <div class="container">
+          <div class="row">
+              <div class="left col-md-7">
+                  <ul class="links">
+                      <li>
+                          <span class="message">Hello from Seattle.</span>
+                      </li>
+                      <li>
+                          <a href="https://go.microsoft.com/fwlink/?LinkID=533687" onclick="followOnTwitter()" tabindex="0">Follow @code</a>
+                      </li>
+                      <li>
+                          <div class="github-star-button">
+                              <iframe src="../../assets/github-button29be.html?user=Microsoft&amp;repo=vscode&amp;type=star&amp;count=true"
+                                  frameborder="0" scrolling="0" width="130px" height="20px" title="GitHub follow button" loading="lazy"></iframe>
+                          </div>
+                      </li>
+  
+                      <script>
+                          function followOnTwitter() {
+                              var windowFeatures = "location=yes,height=600,width=550,scrollbars=yes,status=yes";
+                              var originalReferer = "&original_referer=" + document.URL;
+                              var screenName = "&screen_name=code";
+                              var URL = "https://twitter.com/intent/follow?" + originalReferer + screenName;
+                              window.open(URL, "_blank", windowFeatures);
+                          }
+  
+                          function manageConsent() {
+                              if(WcpConsent.siteConsent.isConsentRequired){
+                                  WcpConsent.siteConsent.manageConsent();
+                              }
+                          }
+                      </script>
+                  </ul>
+              </div>
+              <div class="right col-md-5">
+                  <ul class="links">
+                      <li><a id="footer-support-link" href="https://support.serviceshub.microsoft.com/supportforbusiness/create?sapId=d66407ed-3967-b000-4cfb-2c318cad363d"
+                              target="_blank">Support</a></li>
+                      <li><a id="footer-privacy-link" href="https://privacy.microsoft.com/privacystatement"
+                              target="_blank">Privacy</a></li>
+                      <li style="display: none;"><a id="footer-cookie-link" style="cursor: pointer;" onclick="manageConsent()"
+                              target="_blank">Manage Cookies</a></li>
+                      <li><a id="footer-terms-link" href="https://www.microsoft.com/legal/terms-of-use"
+                              target="_blank">Terms of Use</a></li>
+                      <li><a id="footer-license-link" href="../../License.html">License</a></li>
+                  </ul>
+                  <div class="copyright">
+                      <a id="footer-microsoft-link" class="logo" href="https://www.microsoft.com/">
+                          <img class="microsoft-logo" src="../../assets/images/microsoft-logo.png" height="20" alt="Microsoft homepage"/>
+                          <img class="microsoft-logo-inverted" src="../../assets/images/microsoft-logo-inverted.png" height="20" alt="Microsoft homepage" />
+                      </a>
+                      <span>&copy; 2023 Microsoft</span>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </footer>
+  <script src="../../dist/index.js"></script>
+
+  
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "SoftwareApplication",
+      "name" : "Visual Studio Code",
+      "softwareVersion": "1.74",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "applicationCategory": "DeveloperApplication",
+      "applicationSubCategory": "Text Editor",
+      "alternateName": "VS Code",
+      "datePublished": "2021-11-03",
+      "operatingSystem": "Mac, Linux, Windows",
+      "logo": "https://code.visualstudio.com/assets/apple-touch-icon.png",
+      "screenshot": "https://code.visualstudio.com/assets/home/home-screenshot-win.png",
+      "releaseNotes": "https://code.visualstudio.com/updates",
+      "downloadUrl": "https://code.visualstudio.com/download",
+      "license": "https://code.visualstudio.com/license",
+      "softwareRequirements": "https://code.visualstudio.com/docs/supporting/requirements",
+      "url" : "https://code.visualstudio.com",
+      "author": {
+        "@type": "Organization",
+        "name": "Microsoft"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Microsoft"
+      },
+      "maintainer": {
+        "@type": "Organization",
+        "name": "Microsoft"
+      },
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://code.visualstudio.com/Search?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      },
+      "sameAs" : [
+        "https://en.wikipedia.org/wiki/Visual_Studio_Code",
+        "https://twitter.com/code",
+        "https://www.youtube.com/code",
+        "https://www.tiktok.com/@vscode",
+        "https://github.com/microsoft/vscode"
+      ]
+    }
+  </script>
+</body>
+
+<!-- Mirrored from code.visualstudio.com/docs/cpp/launch-json-reference by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 04 Jan 2023 10:15:16 GMT -->
+</html>

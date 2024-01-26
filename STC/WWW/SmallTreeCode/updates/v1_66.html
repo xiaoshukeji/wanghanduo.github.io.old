@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Mirrored from code.visualstudio.com/updates/v1_66 by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 04 Jan 2023 10:36:49 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="google-site-verification" content="hNs7DXrTySP_X-0P_AC0WulAXvUwgSXEmgfcO2r79dw" />
+
+  <!-- Twitter and Facebook OpenGraph Metadata-->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@code" />
+
+  <meta name="description" content="Learn what is new in the Visual Studio Code March 2022 Release (1.66)" />
+<meta name="keywords" content="" />
+<!-- Twitter and Facebook OpenGraph Metadata-->
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="og:url" content="v1_66.html" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Visual Studio Code March 2022" />
+<meta property="og:description" content="Learn what is new in the Visual Studio Code March 2022 Release (1.66)" />
+
+<meta property="og:image" content="../assets/updates/1_66/release-highlights.png" />
+
+
+
+  <link rel="shortcut icon" href="../favicon.ico" sizes="128x128" />
+  <link rel="apple-touch-icon" href="../apple-touch-icon.png">
+
+  <title>Visual Studio Code March 2022</title>
+
+  <link rel="stylesheet" href="../vendor/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../dist/style.css">
+
+  <script type="text/javascript" src="../../js.monitor.azure.com/scripts/c/ms.analytics-web-3.min.js"></script>
+  <script>
+  window.appInsights = new oneDS.ApplicationInsights();
+  window.appInsights.initialize({
+    instrumentationKey: "1a3eb3104447440391ad5f2a6ee06a0a-62879566-bc58-4741-9650-302bf2af703f-7103",
+    webAnalyticsConfiguration:{ // Web Analytics Plugin configuration
+        urlCollectQuery:true, 
+        autoCapture: {
+          scroll: true,
+          pageView: true,
+          onLoad: true,
+          onUnload: true,
+          click: true,
+          resize: true,
+          jsError: true
+        }
+    }
+  }, []);
+  </script>
+  
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','../../www.google-analytics.com/analytics.js','ga');
+  </script>  
+  <link rel="alternate" type="application/atom+xml" title="RSS Feed for code.visualstudio.com" href="../feed.xml" />
+</head>
+
+<body>
+  <!-- EU Cookie Compliance JS -->
+  <script src="../../wcpstatic.microsoft.com/mscc/lib/v2/wcp-consent.js"></script>
+
+  <div id="main">
+          <div class="navbar-fixed-container">
+              <div class="navbar navbar-inverse navbar-fixed-top ">
+                  <div id='cookie-banner'></div>        <nav role="navigation" aria-label="Top Level">
+                      <div class="container">
+                          <div class="nav navbar-header">
+                              <a role="button" id="skip-to-content" class="link-button" href="#main-content">Skip to content<i>&nbsp;</i><span class="glyphicon glyphicon-menu-down"></span></a>
+                              <a class="navbar-brand" id="navbar-brand" href="../index.html">Visual Studio Code</a>
+                              <button type="button" class="navbar-toggle" role="navigation" data-toggle="collapse" data-target=".navbar-collapse" aria-label="Toggle Navigation Menu">
+                                  <span class="icon-bar"></span>
+                                  <span class="icon-bar"></span>
+                                  <span class="icon-bar"></span>
+                              </button>
+                          </div>
+                          <div class="navbar-collapse collapse" role="navigation">
+                              <ul class="nav navbar-nav navbar-left">
+                                  <li ><a id="nav-docs" href="../docs.html">Docs</a></li>
+                                  <li class="active" ><a id="nav-updates" href="v1_74.html">Updates</a></li>
+                                  <li ><a id="nav-blogs" href="../blogs.html">Blog</a></li>
+                                  <li ><a id="nav-extend" href="../api.html">API</a></li>
+                                  <li><a href="https://marketplace.visualstudio.com/VSCode" target="_blank" id="nav-extensions">Extensions</a></li>
+                                  <li ><a id="nav-faqs" href="../docs/supporting/faq.html">FAQ</a></li>
+                                  <li ><a id="nav-learn" href="../learn.html">Learn</a></li>
+                                  <li class='search visible-xs visible-sm'
+                                      ><a href="../Search.html">Search</a></li>
+                              </ul>
+          
+                              <ul class="nav navbar-nav navbar-right" role="presentation">
+                                  <!-- Floating search icon -->
+                                  <li>
+                                      <a href="../Search.html" title="Search" class="btn search-btn" id="nav-search">
+                                          <img class="search-icon" src="../assets/icons/search.svg" width="16px" height="16px" alt="Search"/>
+                                          <img class="search-icon-inverted" src="../assets/icons/search_dark.svg" width="16px" height="16px" alt="Search" />
+                                      </a>
+                                  </li>
+                                  <!-- Actual search icon -->
+                                  <li class="search" role="presentation">
+                                      <form class="nav-search search-form" role="search" aria-label="Search">
+                                          <div class="input-group" role="presentation">
+                                              <input type="text" name="q" class="search-box form-control" placeholder="Search Docs" aria-label="Search text"/>
+                                              <span class="input-group-btn">
+                                                  <button tabindex="0" class="btn" type="submit" aria-label="Search">
+                                                          <img class="search-icon" src="../assets/icons/search.svg" width="16px" height="16px" alt="Search" />
+                                                          <img class="search-icon-inverted" src="../assets/icons/search_dark.svg" width="16px" height="16px" alt="Search" />
+                                                  </button>
+                                              </span>
+                                          </div>
+                                      </form>                        </li>
+                                  <!-- this was hiden in the home and download page, keeping it for now -->
+                                  <li><a class="link-button" href="../Download.html" id="nav-download">
+                                      <img class="download-icon" src="../assets/icons/download.svg" width="16px" height="16px" alt="Download VS Code"/>
+                                      <img class="download-icon-inverted" src="../assets/icons/download-black.svg" width="16px" height="16px" alt="Download VS Code" />
+                                      <span>Download</span>
+                                  </a></li>
+                              </ul>
+                          </div>
+                      </div>
+                  </nav>
+              </div>
+          </div>          <div class="updates-banner  ">
+              <div class="container">
+                  <p class="message"><a href="v1_74.html" id="banner-link-updates">Version 1.74</a> is now available! Read about the new features and fixes from November.</p> 
+              </div>
+              <div tabindex="0" role="button" title="Dismiss this update" class="dismiss-btn" id="banner-dismiss-btn"><span class="sr-only">Dismiss this update</span><span aria-hidden="true" class="glyph-icon"></span></div>
+          </div>      <div role="main" id="main-content">
+        <div class="container body-content docs releases">
+    <div class="row">
+        <div class="col-md-2 docs-navbar-container">
+            <nav id="docs-navbar" aria-label="Updates" class="docs-nav updates-nav visible-md visible-lg">
+            	<h4>Updates</h4>
+            	<ul class="nav">
+            		
+            			<li >
+            				<a href="v1_74.html" >November 2022</a>
+            			</li>
+            		
+            			<li >
+            				<a href="v1_73.html" >October 2022</a>
+            			</li>
+            		
+            			<li >
+            				<a href="v1_72.html" >September 2022</a>
+            			</li>
+            		
+            			<li >
+            				<a href="v1_71.html" >August 2022</a>
+            			</li>
+            		
+            			<li >
+            				<a href="v1_70.html" >July 2022</a>
+            			</li>
+            		
+            			<li >
+            				<a href="v1_69.html" >June 2022</a>
+            			</li>
+            		
+            			<li >
+            				<a href="v1_68.html" >May 2022</a>
+            			</li>
+            		
+            			<li >
+            				<a href="v1_67.html" >April 2022</a>
+            			</li>
+            		
+            			<li class="active">
+            				<a href="v1_66.html" aria-label="Current Page: March 2022">March 2022</a>
+            			</li>
+            		
+            			<li >
+            				<a href="v1_65.html" >February 2022</a>
+            			</li>
+            		
+            			<li >
+            				<a href="v1_64.html" >January 2022</a>
+            			</li>
+            		
+            			<li >
+            				<a href="v1_63.html" >November 2021</a>
+            			</li>
+            		
+            			<li >
+            				<a href="v1_62.html" >October 2021</a>
+            			</li>
+            		
+            			<li >
+            				<a href="v1_61.html" >September 2021</a>
+            			</li>
+            		
+            			<li >
+            				<a href="v1_60.html" >August 2021</a>
+            			</li>
+            		
+            			<li >
+            				<a href="v1_59.html" >July 2021</a>
+            			</li>
+            		
+            			<li >
+            				<a href="v1_58.html" >June 2021</a>
+            			</li>
+            		
+            			<li >
+            				<a href="v1_57.html" >May 2021</a>
+            			</li>
+            		
+            			<li >
+            				<a href="v1_56.html" >April 2021</a>
+            			</li>
+            		
+            			<li >
+            				<a href="v1_55.html" >March 2021</a>
+            			</li>
+            		
+            			<li >
+            				<a href="v1_54.html" >February 2021</a>
+            			</li>
+            		
+            			<li >
+            				<a href="v1_53.html" >January 2021</a>
+            			</li>
+            		
+            	</ul>
+            </nav>
+            <nav id="small-nav" aria-label="Updates" class="docs-nav updates-nav hidden-md hidden-lg">
+            	<h4>Updates</h4>
+            	<select id="small-nav-dropdown" aria-label="updates">
+            		
+            			<option value="/updates/v1_74" >November 2022</option>
+            		
+            			<option value="/updates/v1_73" >October 2022</option>
+            		
+            			<option value="/updates/v1_72" >September 2022</option>
+            		
+            			<option value="/updates/v1_71" >August 2022</option>
+            		
+            			<option value="/updates/v1_70" >July 2022</option>
+            		
+            			<option value="/updates/v1_69" >June 2022</option>
+            		
+            			<option value="/updates/v1_68" >May 2022</option>
+            		
+            			<option value="/updates/v1_67" >April 2022</option>
+            		
+            			<option value="/updates/v1_66" selected>March 2022</option>
+            		
+            			<option value="/updates/v1_65" >February 2022</option>
+            		
+            			<option value="/updates/v1_64" >January 2022</option>
+            		
+            			<option value="/updates/v1_63" >November 2021</option>
+            		
+            			<option value="/updates/v1_62" >October 2021</option>
+            		
+            			<option value="/updates/v1_61" >September 2021</option>
+            		
+            			<option value="/updates/v1_60" >August 2021</option>
+            		
+            			<option value="/updates/v1_59" >July 2021</option>
+            		
+            			<option value="/updates/v1_58" >June 2021</option>
+            		
+            			<option value="/updates/v1_57" >May 2021</option>
+            		
+            			<option value="/updates/v1_56" >April 2021</option>
+            		
+            			<option value="/updates/v1_55" >March 2021</option>
+            		
+            			<option value="/updates/v1_54" >February 2021</option>
+            		
+            			<option value="/updates/v1_53" >January 2021</option>
+            		
+            	</select>
+            </nav>        </div>
+        <div class="col-sm-9 col-md-8 body">
+            <h1>March 2022 (version 1.66)</h1>
+<p><strong>Update 1.66.1</strong>: The update addresses these <a href="https://github.com/microsoft/vscode/issues?q=is%3Aissue+milestone%3A%22March+2022+Recovery%22+is%3Aclosed" class="external-link" target="_blank">issues</a>.</p>
+<p><strong>Update 1.66.2</strong>: The update addresses these security <a href="https://github.com/microsoft/vscode/issues?q=is%3Aissue+milestone%3A%22March+2022+Recovery+2%22+is%3Aclosed" class="external-link" target="_blank">issues</a>.</p>
+<p>Downloads: Windows: <a href="https://update.code.visualstudio.com/1.66.2/win32-x64-user/stable">User</a> <a href="https://update.code.visualstudio.com/1.66.2/win32-x64/stable">System</a> <a href="https://update.code.visualstudio.com/1.66.2/win32-arm64-user/stable">Arm64</a> | Mac: <a href="https://update.code.visualstudio.com/1.66.2/darwin-universal/stable">Universal</a> <a href="https://update.code.visualstudio.com/1.66.2/darwin/stable">Intel</a> <a href="https://update.code.visualstudio.com/1.66.2/darwin-arm64/stable">silicon</a> | Linux: <a href="https://update.code.visualstudio.com/1.66.2/linux-deb-x64/stable">deb</a> <a href="https://update.code.visualstudio.com/1.66.2/linux-rpm-x64/stable">rpm</a> <a href="https://update.code.visualstudio.com/1.66.2/linux-x64/stable">tarball</a> <a href="../docs/supporting/faq.html#_previous-release-versions">Arm</a> <a href="https://update.code.visualstudio.com/1.66.2/linux-snap-x64/stable">snap</a></p>
+<hr>
+<p>Welcome to the March 2022 release of Visual Studio Code. There are many updates in this version that we hope you'll like, some of the key highlights include:</p>
+<ul>
+<li><strong><a href="#_local-history">Local history</a></strong> - Keep track of local file changes independent of source control.</li>
+<li><strong><a href="#_settings-editor">Settings editor language filter</a></strong> - Displays available language-specific settings.</li>
+<li><strong><a href="#_terminal">Terminal find improvements</a></strong> - Matches are highlighted in the terminal panel and scroll bar.</li>
+<li><strong><a href="#_css-formatter">Built-in CSS/LESS/SCSS formatters</a></strong> - Code formatting for CSS, LESS, and SCSS.</li>
+<li><strong><a href="#_javascript-debugging">JavaScript heap profiles</a></strong> - Collect and view JS memory allocations while debugging.</li>
+<li><strong><a href="#_vs-code-for-the-web">VS Code for the Web</a></strong> - Drag and drop files and folders into vscode.dev.</li>
+<li><strong><a href="#_remote-development">Remote - SSH support for Mac</a></strong> - Connect via SSH to Apple Silicon/M1/ARM64 machines.</li>
+<li><strong><a href="#_r-in-vs-code">New R language topic</a></strong> - Learn how to use R for data science in VS Code.</li>
+</ul>
+<blockquote>
+<p>If you'd like to read these release notes online, go to <a href="v1_74.html">Updates</a> on <a href="../index.html">code.visualstudio.com</a>.</p>
+</blockquote>
+<p><strong>Watch the release party:</strong> Listen in as the VS Code team discusses some of the new features. You can find the <a href="https://www.youtube.com/watch?v=JNc3jfOeYRY" class="external-link" target="_blank">recording of the event</a> on our YouTube channel.</p>
+<p><strong>Highlights short:</strong> If you just have 60 seconds, check out the <a href="https://www.youtube.com/shorts/72BD7rCn820" class="external-link" target="_blank">March VS Code release highlights</a> video to quickly see what's new.</p>
+<p><strong>Insiders:</strong> Want to try new features as soon as possible? You can download the nightly <a href="../insiders/index.html">Insiders</a> build and try the latest updates as soon as they are available.</p>
+<h2 id="_accessibility" data-needslink="_accessibility">Accessibility</h2>
+<p>The team works hard to make VS Code one of the most accessible editors available. This release contains several improvements to help usability and accessibility:</p>
+<ul>
+<li><strong><a href="#_reduce-motion-mode">Reduce motion mode</a></strong> - Limit animations used in the VS Code UI.</li>
+<li><strong><a href="#_updated-source-control-decorators">More visible source control decorators</a></strong> - Higher visibility using patterns and color contrast.</li>
+<li><strong><a href="#_audio-cue-improvements">Audio cues volume control</a></strong> - You can now adjust the editor audio cue volume.</li>
+<li><strong><a href="#_comment-accessibility-improvements">Comment UI accessibility</a></strong> - New commands and keyboard shortcuts.</li>
+<li><strong><a href="#_high-contrast-light-theme-for-color-contributions">High Contrast Light color theme</a></strong> - Theme authors can now contribute colors to High Contrast Light.</li>
+</ul>
+<h2 id="_workbench" data-needslink="_workbench">Workbench</h2>
+<h3 id="_local-history" data-needslink="_local-history">Local history</h3>
+<p>Local history of files is now available in the <strong>Timeline</strong> view. Depending on the configured settings, every time you save an editor, a new entry is added to the list:</p>
+<p><img src="../assets/updates/1_66/local-history.gif" alt="Local history showing file saves, a rename, and undo entries" loading="lazy"></p>
+<p>Each local history entry contains the full contents of the file at the time the entry was created and in certain cases, can provide more semantic information (for example, indicate a refactoring).</p>
+<p>From an entry you can:</p>
+<ul>
+<li>Compare the changes to the local file or previous entry.</li>
+<li>Restore the contents.</li>
+<li>Delete or rename the entry.</li>
+</ul>
+<p>There are new global commands to work with local history:</p>
+<ul>
+<li><code>workbench.action.localHistory.create</code> - Create a new history entry for the active file with a custom name.</li>
+<li><code>workbench.action.localHistory.deleteAll</code> - Delete all history entries across all files.</li>
+<li><code>workbench.action.localHistory.restoreViaPicker</code> - Find a history entry to restore across all files.</li>
+</ul>
+<p>These commands don't have default keybindings but you can add your own <a href="../docs/getstarted/keybindings.html">keyboard shortcuts</a>.</p>
+<p>There are also new settings to work with local history:</p>
+<ul>
+<li><code>workbench.localHistory.enabled</code> - Enable or disable local history (default: <code>true</code>).</li>
+<li><code>workbench.localHistory.maxFileSize</code> - File size limit when creating a local history entry (default: <code>256 KB</code>).</li>
+<li><code>workbench.localHistory.maxFileEntries</code> - Local history entries limit per file (default: <code>50</code>).</li>
+<li><code>workbench.localHistory.exclude</code> - Glob patterns for excluding certain files from local history.</li>
+<li><code>workbench.localHistory.mergeWindow</code> - Interval in seconds during which further changes are added to the last entry in local file history (default <code>10s</code>).</li>
+</ul>
+<p>A new filter action in the Timeline view toolbar allows you to enable or disable individual providers:</p>
+<p><img src="../assets/updates/1_66/timeline-filter.png" alt="Timeline filter drop down with Git History unchecked and Local History checked" loading="lazy"></p>
+<p><strong>Note:</strong> Local history entries are stored in different locations depending on your use of VS Code. When opening local files, the entries are persisted in the local user data folder and when opening remote files, they will be stored on the remote user data folder. When no file system is available (for example, in certain cases when using VS Code for Web), entries are stored into IndexedDB.</p>
+<h3 id="_settings-editor" data-needslink="_settings-editor">Settings editor</h3>
+<p><strong>Language filter</strong></p>
+<p>Users can now type <code>@lang:languageId</code> in the Settings editor search box to view and edit all settings that can be configured for the language with ID <code>languageId</code>. This way, users can view language-specific settings, also known as language overrides.</p>
+<p>Note that these overrides remain configured until explicitly reset by clicking in the gear icon and resetting the setting.</p>
+<p>The short video below has the language filter set to <code>@lang:css</code> to display all possible CSS language override settings.</p>
+<p><img src="../assets/updates/1_66/settings-editor-lang-css-settings.gif" alt="Modification of a boolean CSS language-specific setting to turn off CodeLens in the Diff editor" loading="lazy"></p>
+<p><em>Theme: <a href="https://marketplace.visualstudio.com/items?itemName=mgwg.light-pink-theme" class="external-link" target="_blank">Light Pink</a></em></p>
+<p><strong>Workspace and Folder settings preservation</strong></p>
+<p>Workspace and folder settings in the Settings editor are now preserved until manually reset by the user. This change helps the case where the user wants to explicitly specify a workspace setting value that is equal to the default value of a setting, but is different from the user setting value. Previously, users had to open the workspace settings JSON file to set this value.</p>
+<p>Below the editor tab size is set in Settings editor <strong>Workspace</strong> tab and it is automatically added to the workspace's <code>settings.json</code> file.</p>
+<p><img src="../assets/updates/1_66/settings-editor-workspace-override.gif" alt="The editor tab size being set and reset via the Settings editor Workspace tab item" loading="lazy"></p>
+<p><em>Theme: <a href="https://marketplace.visualstudio.com/items?itemName=mgwg.light-pink-theme" class="external-link" target="_blank">Light Pink</a></em></p>
+<h3 id="_primary-notification-buttons" data-needslink="_primary-notification-buttons">Primary notification buttons</h3>
+<p>The first button of a notification now appears with a primary color to distinguish from other buttons. This follows the same patterns as dialogs.</p>
+<p><img src="../assets/updates/1_66/notification.png" alt="Notification where first button is displayed as green primary color" loading="lazy"></p>
+<p><em>Theme: <a href="https://marketplace.visualstudio.com/items?itemName=GitHub.github-vscode-theme" class="external-link" target="_blank">GitHub Dark</a></em></p>
+<h3 id="_new-context-keys-for-editors" data-needslink="_new-context-keys-for-editors">New context keys for editors</h3>
+<p>There are new context keys indicating whether an editor is the first or last in an editor group:</p>
+<ul>
+<li><code>activeEditorIsFirstInGroup</code>- Whether the active editor is the first one in its group.</li>
+<li><code>activeEditorIsLastInGroup</code>- Whether the active editor is the last one in its group.</li>
+</ul>
+<p>These context keys can be used to conditionally enable keyboard shortcuts using <a href="../docs/getstarted/keybindings.html#_when-clause-contexts">when clauses</a>.</p>
+<h3 id="_default-binary-editor" data-needslink="_default-binary-editor">Default binary editor</h3>
+<p>A new setting, <code>workbench.editor.defaultBinaryEditor</code>, lets you circumvent the binary file warning and automatically open the editor type of your choosing when a binary file is detected. You can select the default binary editor ID from a dropdown in the Settings editor or via IntelliSense in <code>settings.json</code>.</p>
+<h3 id="_smoother-authentication-experiences" data-needslink="_smoother-authentication-experiences">Smoother authentication experiences</h3>
+<p>You may notice smoother authentication flows of both GitHub and Microsoft.</p>
+<ul>
+<li>For GitHub authentication, we've removed the initial <strong>Continue</strong> page so your log in experience requires one less step.</li>
+<li>For Microsoft authentication, we try to minimize the number of times you are sent out of VS Code to log in, if you've already logged in with Microsoft for Settings Sync or another extension.</li>
+</ul>
+<h3 id="_install-prerelease-and-normal-extensions-together-from-cli" data-needslink="_install-prerelease-and-normal-extensions-together-from-cli">Install pre-release and normal extensions together from CLI</h3>
+<p>VS Code now supports installing pre-release and normal extensions together from the command line. For example, the following command line instruction will install the pre-release version of <code>GitHub.vscode-pull-request-github</code> extension and release version of <code>GitHub.remotehub</code> extension:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #000000">code --install-extension GitHub.vscode-pull-request-github@prerelease --install-extension GitHub.remotehub</span></span>
+<span class="line"></span></code></pre>
+<h3 id="_improved-platform-specific-extension-updates" data-needslink="_improved-platform-specific-extension-updates">Improved platform specific extension updates</h3>
+<p>VS Code now supports updating a platform specific extension to a more specific target platform version. For example, if you are on Windows 64-bit and have installed the <strong>C/C++</strong> extension for Windows 32-bit and the Marketplace has the extension with same version for Windows 64-bit, VS Code will automatically update the extension to the 64-bit version.</p>
+<h3 id="_audio-cue-improvements" data-needslink="_audio-cue-improvements">Audio cue improvements</h3>
+<p>The new setting <code>audioCues.volume</code> (0-100, default is 50) can be used to control the volume of audio cues. There is also an updated audio cue for folded regions.</p>
+<h3 id="_new-names-for-side-panel-and-side-bar" data-needslink="_new-names-for-side-panel-and-side-bar">New names for Side Panel and Side Bar</h3>
+<p>Two releases ago, we introduced the <a href="v1_64.html#_new-side-panel">Side Panel</a>. At that time, we removed the capability to move the bottom panel that contains the terminal to the side in favor of new coherent commands. After listening to user feedback, we determined that there were important workflows that this decision broke and we decided to revert that change.</p>
+<p>This left us with two panels, the panel and side panel, both of which could live on the side of the workbench. To account for this and better reflect the direction of the new side panel, we have decided to update the naming of both the Side Bar and Side Panel. The Side Bar will now be referred to as the Primary Side Bar in the UI, while the Side Panel will now be referred to as the Secondary Side Bar.</p>
+<ul>
+<li><strong>Side Bar</strong> -&gt; <strong>Primary Side Bar</strong></li>
+<li><strong>Side Panel</strong> -&gt; <strong>Secondary Side Bar</strong></li>
+</ul>
+<p>These names will be reflected in menus and commands throughout the editor; however, no command IDs have been changed to prevent breaking existing keybindings.</p>
+<p><img src="../assets/updates/1_66/focus-side-bar-commands.png" alt="Command Palette drop down displaying both primary and secondary focus side bar commands" loading="lazy"></p>
+<h3 id="_reduce-motion-mode" data-needslink="_reduce-motion-mode">Reduce motion mode</h3>
+<p>The workbench now supports rendering with reduced animations when the OS reduced motion setting is enabled. This can be overridden or disabled with the <code>workbench.reduceMotion</code> setting (values are <code>on</code>, <code>off</code>, or the default <code>auto</code>).</p>
+<h2 id="_comments" data-needslink="_comments">Comments</h2>
+<p>The Comments UI is used extensively by the <a href="https://marketplace.visualstudio.com/items?itemName=GitHub.vscode-pull-request-github" class="external-link" target="_blank">GitHub Pull Requests and Issues</a> extension to add comments to issues and pull requests but can be adopted by any extension.</p>
+<h3 id="_comments-view-discoverability" data-needslink="_comments-view-discoverability">Comments view discoverability</h3>
+<p>When you open a file that has comments in it, the <strong>Comments</strong> view will show. This can be controlled with the setting <code>comments.openView</code>.</p>
+<h3 id="_add-a-comment-discoverability" data-needslink="_add-a-comment-discoverability">Add a comment discoverability</h3>
+<p>Now, when you hover over any part of a line where a comment can be added on, the <strong>&quot;+&quot;</strong> symbol is shown in the left gutter.</p>
+<p><img src="../assets/updates/1_66/comment-plus.gif" alt="Line hover showing comment plus button" loading="lazy"></p>
+<h3 id="_comment-accessibility-improvements" data-needslink="_comment-accessibility-improvements">Comment accessibility improvements</h3>
+<p>There are several comments accessibility improvements:</p>
+<ul>
+<li>A command <strong>Add Comment on Current Line</strong> for creating a comment if you're in a commentable range.</li>
+<li>An aria label for comment threads, which includes the number of comments and the label of the thread.</li>
+<li>The <strong>Go to Next Comment Thread</strong> command focuses into the comment thread control.</li>
+<li>A new <strong>Go to Previous Comment Thread</strong> command.</li>
+<li>Keyboard shortcuts for the next and previous commands: <code>Alt+F9</code> and <code>Shift+Alt+F9</code>.</li>
+</ul>
+<h2 id="_terminal" data-needslink="_terminal">Terminal</h2>
+<h3 id="_display-all-find-matches" data-needslink="_display-all-find-matches">Display all find matches</h3>
+<p>When searching in the terminal, all instances of the search term will now be highlighted. The currently selected match also has a specific highlight, which can be customized separately.</p>
+<p>You can fine tune the appearance of highlight colors via the color customizations prefixed by <code>terminal.findMatch</code>.</p>
+<p><img src="../assets/updates/1_66/find-matches.png" alt="A yellow border is shown around all matches except for the currently selected one, which has a red border." loading="lazy"></p>
+<h3 id="_scroll-bar-annotations" data-needslink="_scroll-bar-annotations">Scroll bar annotations</h3>
+<p>Annotations now appear in the scroll bar of the terminal to indicate points of interest in the buffer.</p>
+<p>For example, find results have corresponding annotations in the scroll bar.</p>
+<p><img src="../assets/updates/1_66/find-scrollbar.png" alt="The terminal scroll bar displaying brown annotations for find matches within a file" loading="lazy"></p>
+<p>When the preview feature of <a href="#_terminal-shell-integration">shell integration</a> is enabled, an annotation is displayed in the scroll bar for each command that gets run.</p>
+<p><img src="../assets/updates/1_66/command-annotations.png" alt="Commands are run and corresponding annotations appear in the scroll bar" loading="lazy"></p>
+<h3 id="_command-navigation-improvements" data-needslink="_command-navigation-improvements">Command navigation improvements</h3>
+<p>A little known feature that's been around for a while is the ability to quickly navigate between commands in the terminal. Originally this was based on when <code>Enter</code> was pressed but now when shell integration is enabled, it will be upgraded to use the shell integration knowledge to more reliably identify the correct lines. Additionally, UI feedback is now shown when jumping between commands.</p>
+<p><img src="../assets/updates/1_66/command-navigation.gif" alt="A rectangle is briefly displayed around the command being navigated to" loading="lazy"></p>
+<p>This feature can be accessed via the following keybindings:</p>
+<ul>
+<li>macOS: <code>Cmd+Up/Down</code></li>
+<li>Linux/Windows: <code>Ctrl+Up/Down</code> (new)</li>
+</ul>
+<p>The <code>Shift</code> key can be held down to make selections between commands in the terminal.</p>
+<h3 id="_copied-text-retains-html-styling" data-needslink="_copied-text-retains-html-styling">Copied text retains HTML styling</h3>
+<p>To copy rich text from the terminal, run the <strong>Terminal: Copy Selection as HTML</strong> command or use the terminal context menu entry <strong>Copy as HTML</strong>.</p>
+<h3 id="_minimum-contrast-ratio-default-changed" data-needslink="_minimum-contrast-ratio-default-changed">Minimum contrast ratio default changed</h3>
+<p>The <code>terminal.integrated.minimumContrastRatio</code> setting has been around for a while and dynamically changes the foreground color in the terminal based on the background color. This release, we changed the default to <code>4.5</code> (WCAG AA) to make sure the terminal is accessible regardless of the theme. If this ends up causing problems with your colors, you can disable the feature by setting <code>&quot;terminal.integrated.minimumContrastRatio&quot;: 1</code>.</p>
+<h2 id="_source-control" data-needslink="_source-control">Source Control</h2>
+<h3 id="_source-control-repositories-view" data-needslink="_source-control-repositories-view">Source Control Repositories view</h3>
+<p>Previously, the repositories in the <strong>Source Control Repositories</strong> view have been sorted as they were being discovered when opening a folder/workspace with multiple repositories. This was problematic as the discovery order can vary and repositories appeared to be in random order. This milestone, repositories are always sorted by name in the <strong>Source Control Repositories</strong> view.</p>
+<h2 id="_editor" data-needslink="_editor">Editor</h2>
+<h3 id="_quick-suggestions-as-inline-completions" data-needslink="_quick-suggestions-as-inline-completions">Quick suggestions as inline completions</h3>
+<p>The <code>editor.quickSuggestions</code> setting now accepts <code>inline</code> as configuration value. When set to <code>inline</code>, quick suggestions (IntelliSense) don't display the suggestions widget when you type but show completions as ghosted text.</p>
+<p><img src="../assets/updates/1_66/inline-quick-suggest.gif" alt="Inline completions show and update as you type" loading="lazy"></p>
+<p><em>Theme: <a href="https://marketplace.visualstudio.com/items?itemName=GitHub.github-vscode-theme" class="external-link" target="_blank">GitHub Light</a></em></p>
+<h3 id="_snippet-variables-for-cursor-index" data-needslink="_snippet-variables-for-cursor-index">Snippet variables for cursor index</h3>
+<p>There are new snippet variables: <code>$CURSOR_INDEX</code> and <code>$CURSOR_NUMBER</code>. They evaluate to the index of the respective cursor. The latter starts at 1, the former at 0. The power of these variables is in its combination with multiple cursors.</p>
+<p>For example, the snippet below will add an ordered list item for each cursor:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #A31515">&quot;ordered_list&quot;</span><span style="color: #000000">: {</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;scope&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;markdown&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;prefix&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;ol&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;body&quot;</span><span style="color: #000000">: [</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #A31515">&quot;$CURSOR_NUMBER. $0&quot;</span></span>
+<span class="line"><span style="color: #000000">  ],</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;description&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;Add ordered list&quot;</span></span>
+<span class="line"><span style="color: #000000">}</span></span>
+<span class="line"></span></code></pre>
+<h3 id="_updated-source-control-decorators" data-needslink="_updated-source-control-decorators">Updated source control decorators</h3>
+<p>In order to make the source control decorators more visible for accessibility, we've added a new pattern for modified lines and increased the contrast for all decorators.</p>
+<p><img src="../assets/updates/1_66/scm.gif" alt="Example of the modified decorator for source control" loading="lazy"></p>
+<h3 id="_bracket-pair-colorization" data-needslink="_bracket-pair-colorization">Bracket pair colorization</h3>
+<p>There is a new setting <code>editor.bracketPairColorization.independentColorPoolPerBracketType</code>. When set to <code>true</code>, each bracket type (<code>{</code> ... <code>}</code> or <code>(</code> ... <code>)</code>) will use its own color pool for colorization. Thus, nested brackets of different types will have the same color.</p>
+<p><img src="../assets/updates/1_66/independentColorPoolPerBracketTypeEnabled.png" alt="A screenshot that demonstrates independent color pools turned on" loading="lazy"></p>
+<p><img src="../assets/updates/1_66/independentColorPoolPerBracketTypeDisabled.png" alt="A screenshot that demonstrates independent color pools turned off" loading="lazy"></p>
+<h3 id="_improved-language-detection" data-needslink="_improved-language-detection">Improved language detection</h3>
+<p>Last iteration we added the setting <code>workbench.editor.historyBasedLanguageDetection</code> to configure whether to make use of a new language detection strategy that takes into consideration the file types you have opened. This setting is now enabled by default, and a new setting <code>workbench.editor.preferHistoryBasedLanguageDetection</code> was added to give more priority to the results from this strategy.</p>
+<h2 id="_vs-code-for-the-web" data-needslink="_vs-code-for-the-web">VS Code for the Web</h2>
+<h3 id="_drag-and-drop-folders" data-needslink="_drag-and-drop-folders">Drag and drop folders</h3>
+<p>You can now drag and drop local files and folders into a browser window opened on <a href="https://vscode.dev/" class="external-link" target="_blank">vscode.dev</a> or <a href="https://insiders.vscode.dev/" class="external-link" target="_blank">insiders.vscode.dev</a> with a browser that supports the <a href="https://developer.mozilla.org/docs/Web/API/File_System_Access_API" class="external-link" target="_blank">web file system access API</a> to access the contents. This works both when dropping over the editor area as well as the File Explorer.</p>
+<p><img src="../assets/updates/1_66/web-dnd.gif" alt="Drop folder into vscode.dev" loading="lazy"></p>
+<h3 id="_remote-repositories" data-needslink="_remote-repositories">Remote Repositories</h3>
+<p><strong>Extension refactoring</strong></p>
+<p>Previously, the Azure Repos extension depended directly on the GitHub Repositories extension. Azure Repos and GitHub Repositories now depend on a common extension, <a href="https://marketplace.visualstudio.com/items?itemName=ms-vscode.remote-repositories" class="external-link" target="_blank">Remote Repositories</a>, which supports common workflows across GitHub and Azure Repos. All APIs previously exposed by the GitHub Repositories extension are now exposed by Remote Repositories.</p>
+<p><strong>Reminder to sync repository</strong></p>
+<p>When you reopen a repository with uncommitted changes, by default Remote Repositories does not display the latest version of your repository. We now display a dialog to manually sync your repository so that your repository stays up to date with what's on GitHub or Azure Repos. You can control this dialog using the <code>remoteHub.uncommittedChangesOnEntry</code> setting.</p>
+<p><img src="../assets/updates/1_66/sync-dialog.png" alt="Reminder to sync your repository" loading="lazy"></p>
+<p><em>Theme: <a href="https://marketplace.visualstudio.com/items?itemName=azemoh.one-monokai" class="external-link" target="_blank">One Monokai</a></em></p>
+<p><strong>Azure Repos</strong></p>
+<p>This milestone we are enabling the capability to edit and commit changes to repositories that are hosted in <a href="https://learn.microsoft.com/azure/devops/repos" class="external-link" target="_blank">Azure Repos</a>. We have also added basic functionality to create, update, and open pull requests for Azure Repos.</p>
+<h2 id="_notebooks" data-needslink="_notebooks">Notebooks</h2>
+<h3 id="_find-decorations-on-scroll-bar" data-needslink="_find-decorations-on-scroll-bar">Find decorations on scroll bar</h3>
+<p>The Find results in notebooks will now be rendered in the scroll bar:</p>
+<p><img src="../assets/updates/1_66/notebook-find-scrollbar.gif" alt="Find decorations rendered in the scroll bar" loading="lazy"></p>
+<h3 id="_move-focus-to-the-interactive-window" data-needslink="_move-focus-to-the-interactive-window">Move focus to the interactive window</h3>
+<p>There are two new commands for placing focus in the interactive window.</p>
+<ul>
+<li><code>interactive.input.focus</code> - Move focus to the input editor in the interactive window.</li>
+<li><code>interactive.history.focus</code> - Move focus to history in interactive window.</li>
+</ul>
+<p>These commands don't have default keybindings but you can add your own <a href="../docs/getstarted/keybindings.html">keyboard shortcuts</a>.</p>
+<h2 id="_debugging" data-needslink="_debugging">Debugging</h2>
+<h3 id="_javascript-debugging" data-needslink="_javascript-debugging">JavaScript debugging</h3>
+<p>The JavaScript debugger now supports collecting and visualizing heap profiles. Heap profiles allow you to see where and how much memory is allocated over time. These have been added as an option in the <strong>Debug: Take Performance Profile</strong> command, which is also accessible via a record ⏺ button in the CALL STACK view.</p>
+<p><img src="../assets/updates/1_66/js-debug-memory-profile.png" alt="Example of the Flame Chart visualizer showing a memory profile for vscode. One cell is hovered over, showing that 33KB of memory was allocated in &quot;ipc.ts&quot;." loading="lazy"></p>
+<h2 id="_languages" data-needslink="_languages">Languages</h2>
+<h3 id="_css-formatter" data-needslink="_css-formatter">CSS formatter</h3>
+<p>The built-in CSS extension now ships with a formatter. The formatter works with CSS, LESS and SCSS. It is implemented by the <a href="https://github.com/beautify-web/js-beautify" class="external-link" target="_blank">JS Beautify library</a> and comes with the following settings:</p>
+<ul>
+<li><code>css.format.enable</code> - Enable/disable default CSS formatter.</li>
+<li><code>css.format.newlineBetweenRules</code> - Separate rulesets by a blank line.</li>
+<li><code>css.format.newlineBetweenSelectors</code> - Separate selectors with a new line.</li>
+<li><code>css.format.spaceAroundSelectorSeparator</code> - Ensure a space character around selector separators '&gt;', '+', '~' (for example, <code>a &gt; b</code>).</li>
+</ul>
+<p>The same settings also exist for <code>less</code> and <code>scss</code>.</p>
+<h3 id="_javascript-semantic-highlighting-in-html" data-needslink="_javascript-semantic-highlighting-in-html">JavaScript semantic highlighting in HTML</h3>
+<p>We've aligned the semantic highlighting of JavaScript source in HTML files with what you see in normal <code>.js</code> files.</p>
+<p>Not only does this make code colors more consistent, it also adds some important semantic information that was missing before, such as highlighting readonly types.</p>
+<h3 id="_typescript-463" data-needslink="_typescript-463">TypeScript 4.6.3</h3>
+<p>VS Code now bundles TypeScript 4.6.3. This minor update fixes a <a href="https://github.com/microsoft/TypeScript/issues?q=is%3Aissue+milestone%3A%22TypeScript+4.6.3%22+is%3Aclosed" class="external-link" target="_blank">few important bugs</a>.</p>
+<h3 id="_markdown-shorthand-reference-links-are-now-clickable" data-needslink="_markdown-shorthand-reference-links-are-now-clickable">Markdown shorthand reference links are now clickable</h3>
+<p>Markdown lets you can create links using a shorthand syntax in cases where the link text matches the link definition ID. For example, <code>[my fancy link]</code>, uses the <code>my fancy link</code> link definition (for example, <code>[my fancy link]: https://example.com</code>). These shorthand links are now clickable in VS Code's editor:</p>
+<p><img src="../assets/updates/1_66/markdown-ref-link.gif" alt="Clicking a shorthand link in a Markdown file" loading="lazy"></p>
+<p>In the editor, clicking these links navigates to the link definition. In the Markdown preview, the links instead navigate to the link destination.</p>
+<h3 id="_restructuredtext-grammar" data-needslink="_restructuredtext-grammar">reStructuredText grammar</h3>
+<p>There is now a built-in extension for <a href="https://docutils.sourceforge.io/rst.html" class="external-link" target="_blank">reStructuredText</a> (rst) file syntax highlighting.</p>
+<p><img src="../assets/updates/1_66/rst-sample.png" alt="reStructuredText example showing syntax highlighting" loading="lazy"></p>
+<h2 id="_contributions-to-extensions" data-needslink="_contributions-to-extensions">Contributions to extensions</h2>
+<h3 id="_python" data-needslink="_python">Python</h3>
+<p><strong>Changes to the interpreter display in the Status bar</strong></p>
+<p>The <a href="https://marketplace.visualstudio.com/items?itemName=ms-python.python" class="external-link" target="_blank">Python</a> extension, in order to be consistent with other languages, moved the selected Python interpreter information towards the right side in the Status bar beside the <strong>Python</strong> language status item. With the intention of cleaning up the Status bar, it's now only displayed when a Python or a <code>settings.json</code> file is currently open.</p>
+<p><img src="../assets/updates/1_66/active-interpreter-display.png" alt="Python interpreter information displayed towards the right of the Status bar" loading="lazy"></p>
+<p><strong>New Python File command</strong></p>
+<p>There's now two faster ways to create empty Python files: through a new command called <strong>Python: New Python File</strong>, or through the <strong>New File...</strong> item on the <a href="../docs/getstarted/tips-and-tricks.html#_getting-started">Get Started page</a>.</p>
+<p><strong>Pylint extension</strong></p>
+<p>There is now a new Microsoft <a href="https://marketplace.visualstudio.com/items?itemName=ms-python.pylint" class="external-link" target="_blank">Pylint</a> extension for linting using <a href="https://pypi.org/project/pylint" class="external-link" target="_blank">pylint</a>. This extension utilizes the <a href="https://microsoft.github.io/language-server-protocol" class="external-link" target="_blank">Language Server Protocol</a> to provide linting support.</p>
+<p>The Pylint extension provides additional configuration to adjust the severity levels of the issues reported via <code>pylint</code>.</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #000000">{</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #A31515">&quot;convention&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;Information&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #A31515">&quot;error&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;Error&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #A31515">&quot;fatal&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;Error&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #A31515">&quot;refactor&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;Hint&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #A31515">&quot;warning&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;Warning&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #A31515">&quot;info&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;Information&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #A31515">&quot;W0611&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;Error&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #A31515">&quot;unused-import&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;Error&quot;</span></span>
+<span class="line"><span style="color: #000000">}</span></span>
+<span class="line"></span></code></pre>
+<p>Note: You may see two entries for the same problem in the <strong>Problems</strong> panel if you also have Pylint enabled in the Python extension. You can disable the built-in linting functionality by setting <code>&quot;python.linting.pylintEnabled&quot;: false</code>.</p>
+<h3 id="_jupyter" data-needslink="_jupyter">Jupyter</h3>
+<p>There were several improvements to the <a href="https://marketplace.visualstudio.com/items?itemName=ms-toolsai.jupyter" class="external-link" target="_blank">Jupyter</a> extension this milestone.</p>
+<p><strong>Kernel Support</strong></p>
+<p>Kernel startup was improved with:</p>
+<ul>
+<li>Support for more <a href="https://docs.conda.io/" class="external-link" target="_blank">conda</a> environments.</li>
+<li>Support for <code>.env</code> files on all platforms.</li>
+</ul>
+<p><strong>Data Viewer</strong></p>
+<p>Named indexes for DataFrames and Series are now supported in the Data Viewer.</p>
+<p><img src="../assets/updates/1_66/named-index.png" alt="Named indexes support in Jupyter extension Data Viewer" loading="lazy"></p>
+<p><strong>New Jupyter notebook</strong></p>
+<p>Creation of new Jupyter notebooks is now consolidated in the <strong>New File...</strong> menu.</p>
+<p><img src="../assets/updates/1_66/new-notebook.png" alt="New File... drop down with option to create a new Jupyter notebook" loading="lazy"></p>
+<h3 id="_remote-development" data-needslink="_remote-development">Remote Development</h3>
+<p>Work continues on the <a href="https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.vscode-remote-extensionpack" class="external-link" target="_blank">Remote Development extensions</a>, which allow you to use a container, remote machine, or the <a href="https://learn.microsoft.com/windows/wsl" class="external-link" target="_blank">Windows Subsystem for Linux</a> (WSL) as a full-featured development environment.</p>
+<p>Feature highlights in 1.66 include:</p>
+<ul>
+<li>&quot;Open in Dev Container&quot; badge - Direct users of your repo to reopen in a custom development container.</li>
+<li>The Remote - SSH extension can now connect to remote Apple Silicon/M1/ARM64 machines.</li>
+</ul>
+<p>You can learn about new extension features and bug fixes in the <a href="https://github.com/microsoft/vscode-docs/blob/main/remote-release-notes/v1_66.md" class="external-link" target="_blank">Remote Development release notes</a>.</p>
+<h3 id="_github-pull-requests-and-issues" data-needslink="_github-pull-requests-and-issues">GitHub Pull Requests and Issues</h3>
+<p>Work continues on the <a href="https://marketplace.visualstudio.com/items?itemName=GitHub.vscode-pull-request-github" class="external-link" target="_blank">GitHub Pull Requests and Issues</a> extension, which allows you to work on, create, and manage pull requests and issues. Check out the <a href="https://github.com/microsoft/vscode-pull-request-github/blob/main/CHANGELOG.md#0400" class="external-link" target="_blank">changelog for the 0.40.0</a> release of the extension to see the highlights.</p>
+<h2 id="_preview-features" data-needslink="_preview-features">Preview features</h2>
+<h3 id="_terminal-shell-integration" data-needslink="_terminal-shell-integration">Terminal shell integration</h3>
+<p>Shell integration continued to see more improvements this release mainly in the form of reliability and improvements to the decorations described in the <a href="#_terminal">Terminal</a> section above.</p>
+<p>Here are the highlights:</p>
+<ul>
+<li>Command decorations are now shown in the scroll bar, similar to the editor.</li>
+<li>Command decorations should be restored across window reloads (or detach/attach).</li>
+<li>Better tracking of commands when resizing the terminal on Windows.</li>
+<li>Improved handling of the <strong>Terminal: Clear</strong> VS Code command and <code>clear</code> shell command.</li>
+<li><code>zsh</code> right prompt support.</li>
+<li>Handle more formats of bash's <code>$PROMPT_COMMAND</code> variable.</li>
+<li>Support <code>pwsh</code> when PSReadLine is not enabled.</li>
+<li>Shell initialization scripts can now opt out of shell integration by unsetting the <code>$VSCODE_SHELL_INTEGRATION</code> variable if there are known issues or they need special handling, even when the setting is enabled.</li>
+</ul>
+<h3 id="_typescript-47-support" data-needslink="_typescript-47-support">TypeScript 4.7 support</h3>
+<p>This update includes initial support for the upcoming TypeScript 4.7 release. See the <a href="https://github.com/microsoft/TypeScript/issues/48027" class="external-link" target="_blank">TypeScript 4.7 iteration plan</a> for more details on what the TypeScript team is currently working on.</p>
+<p>To start using the TypeScript 4.7 nightly builds, install the <a href="https://marketplace.visualstudio.com/items?itemName=ms-vscode.vscode-typescript-next" class="external-link" target="_blank">TypeScript Nightly extension</a>.</p>
+<h3 id="_explorer-file-nesting" data-needslink="_explorer-file-nesting">Explorer file nesting</h3>
+<p>This iteration we continued to work on support for file nesting in the Explorer. As part of this work, we polished support for moving, renaming, and deleting nested files, and added the setting <code>explorer.experimental.fileNesting.operateAsGroup</code> to configure whether edits to a nesting parent should be applied to its children as well.</p>
+<p>Additionally, we extended the configuration language for file nesting to include more expansion patterns. Previously <code>$(capture)</code> in a child pattern would be expanded to the text consumed by a <code>*</code> in the parent pattern. Now, there is additional support for <code>$(basename)</code>, <code>$(extname)</code>, and <code>$(dirname)</code> in patterns. This enables patterns such as <code>* -&gt; $(basename).*.$(dirname)</code> to nest all files with &quot;added segments&quot; under a single base file.</p>
+<h2 id="_extension-authoring" data-needslink="_extension-authoring">Extension authoring</h2>
+<h3 id="_notebookaware-document-selectors" data-needslink="_notebookaware-document-selectors">Notebook-aware document selectors</h3>
+<p>We have finalized an addition to the <code>vscode.DocumentSelector</code> type. This type allows you to associate language features like <strong>Go to Definition</strong> to specific documents, it drives the UI, and also decides if the corresponding provider is asked for results. We have added a new property that allows extensions to narrow down on notebook types. For example, <code>{ language: 'python', notebookType: 'jupyter-notebook'}</code> targets all python documents that are embedded in Jupyter notebooks.</p>
+<h3 id="_inlay-hints-can-have-edits" data-needslink="_inlay-hints-can-have-edits">Inlay hints can have edits</h3>
+<p>The <code>InlayHint</code> type can now have an optional, lazy <a href="https://github.com/microsoft/vscode/blob/a4aa4127986fb44c52732ef85e6224093e2d8b0a/src/vscode-dts/vscode.d.ts#L4700-L4710" class="external-link" target="_blank">textEdits</a> property. Inlay hints that have edits set to them will apply them on double-click. The <code>textEdits</code> should be used to make the edits that are needed to make the inlay hint obsolete. For example, double clicking a hint representing an inferred type should insert that type annotation.</p>
+<h3 id="_output-channel-with-custom-language-id" data-needslink="_output-channel-with-custom-language-id">Output channel with custom language ID</h3>
+<p>In this milestone, we have finalized the <a href="https://github.com/microsoft/vscode/blob/dc2f5d8dd1790ac4fc6054e11b44e36884caa4be/src/vscode-dts/vscode.d.ts#L9415" class="external-link" target="_blank">createOutputChannel API</a> to create an output channel with custom language ID. This will allow you to contribute token or syntax coloring and CodeLens features to your Output channel by passing a language ID.</p>
+<h3 id="_color-theme-kind-high-contrast-light" data-needslink="_color-theme-kind-high-contrast-light">Color theme kind: High Contrast Light</h3>
+<p><a href="../api/references/contribution-points.html#contributes.themes">Color themes</a> can now specify <code>hc-light</code> as base theme (<code>uiTheme</code>). The base theme is used for all colors not defined by the color theme.</p>
+<p>In the VS Code API, <a href="../api/references/vscode-api.html#ColorTheme">ColorTheme.kind</a> can now also have value <code>HighContrastLight</code>.</p>
+<h3 id="_high-contrast-light-theme-for-color-contributions" data-needslink="_high-contrast-light-theme-for-color-contributions">High Contrast Light theme for color contributions</h3>
+<p><a href="../api/references/contribution-points.html#contributes.colors">Color contributions</a> can now also define a High Contrast Light theme (<code>highContrastLight</code>). If not specified, the <code>light</code> color will be used as default.</p>
+<h3 id="_nodemoduleversion-and-nodejs-api-update" data-needslink="_nodemoduleversion-and-nodejs-api-update">NODE_MODULE_VERSION and Node.js API update</h3>
+<p>For extension authors using native node modules, this release bumps the Node.js version from <code>14.16.0</code> to <code>16.13.0</code>, which might have an impact on your module compilation depending on which API abstraction layer is used.</p>
+<table class="table table-striped">
+<thead>
+<tr>
+<th></th>
+<th>Desktop</th>
+<th>Remote</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NODE_MODULE_VERSION / process.versions.modules</td>
+<td>101</td>
+<td>93</td>
+</tr>
+<tr>
+<td>Node-API / process.versions.napi</td>
+<td>8</td>
+<td>8</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_tree-drag-and-drop-api" data-needslink="_tree-drag-and-drop-api">Tree drag and drop API</h3>
+<p>With the newly finalized <a href="https://github.com/microsoft/vscode/blob/dc2f5d8dd1790ac4fc6054e11b44e36884caa4be/src/vscode-dts/vscode.d.ts#L9813-L9871" class="external-link" target="_blank">TreeDragAndDropController</a> API, extension-contributed tree views can support drag and drop. The <a href="https://github.com/microsoft/vscode-extension-samples/blob/main/tree-view-sample/src/testViewDragAndDrop.ts" class="external-link" target="_blank">tree view sample</a> has an example of how to use this API.</p>
+<h2 id="_debugger-extension-authoring" data-needslink="_debugger-extension-authoring">Debugger extension authoring</h2>
+<h3 id="_support-for-completionitemdetail" data-needslink="_support-for-completionitemdetail">Support for CompletionItem.detail</h3>
+<p>Last month, the Debug Adapter Protocol added a <code>detail</code> property to the <code>CompletionItem</code> object. This property is now supported in VS Code. You will see the detail in the suggest widget in the Debug Console.</p>
+<p><img src="../assets/updates/1_66/debug-detail.png" alt="Debug Console example displaying detail field" loading="lazy"></p>
+<h2 id="_language-server-protocol" data-needslink="_language-server-protocol">Language Server Protocol</h2>
+<p>Type Hierarchy, inline values, and inlay hints support has been moved out of the proposed state to prepare for the 3.17 release. A new next version of the libraries has been published.</p>
+<p>There is also a first version of a <a href="https://github.dev/microsoft/vscode-languageserver-node/blob/6a33b75c3520ad66d437c33ec9fc10d49a4675b8/protocol/metaModel.json#L1" class="external-link" target="_blank">meta model for LSP</a> together with the corresponding schema as a <a href="https://github.dev/microsoft/vscode-languageserver-node/blob/6a33b75c3520ad66d437c33ec9fc10d49a4675b8/protocol/metaModel.schema.json#L1" class="external-link" target="_blank">JSON schema</a> or as <a href="https://github.dev/microsoft/vscode-languageserver-node/blob/6a33b75c3520ad66d437c33ec9fc10d49a4675b8/tools/src/metaModel.ts#L1" class="external-link" target="_blank">TypeScript type definitions</a>. The meta model contains the following information: specified requests and notifications together with their parameter types, return types, partial return types, and registration options. It also contains all defined structures and enums.</p>
+<h2 id="_debug-adapter-protocol" data-needslink="_debug-adapter-protocol">Debug Adapter Protocol</h2>
+<p>We have addressed several documentation issues of the <a href="https://microsoft.github.io/debug-adapter-protocol" class="external-link" target="_blank">Debug Adapter Protocol</a>:</p>
+<ul>
+<li>In order to disambiguate the <a href="https://microsoft.github.io/debug-adapter-protocol/specification#Requests_Terminate" class="external-link" target="_blank">terminate</a> and <a href="https://microsoft.github.io/debug-adapter-protocol/specification#Requests_Disconnect" class="external-link" target="_blank">disconnect</a> requests, we have improved their documentation.</li>
+<li>The value <code>variables</code> has been documented for the <code>context</code> argument of the <code>evaluate</code> request. VS Code was using this undocumented value whenever the <code>evaluate</code> request was called in the context of the <strong>VARIABLES</strong> view. No changes are required for clients and debug adapters because the <code>context</code> argument is of type <code>string</code> and the <code>variables</code> value is only mentioned in the documentation.</li>
+</ul>
+<h2 id="_proposed-extension-apis" data-needslink="_proposed-extension-apis">Proposed extension APIs</h2>
+<p>Every milestone comes with new proposed APIs and extension authors can try them out. As always, we want your feedback. Here are the steps to try out a proposed API:</p>
+<ol>
+<li><a href="https://github.com/microsoft/vscode/tree/main/src/vscode-dts" class="external-link" target="_blank">Find a proposal that you want to try</a> and add its name to <code>package.json#enabledApiProposals</code>.</li>
+<li>Use the latest <a href="https://www.npmjs.com/package/vscode-dts" class="external-link" target="_blank">vscode-dts</a> and run <code>vscode-dts dev</code>. It will download the corresponding <code>d.ts</code> files into your workspace.</li>
+<li>You can now program against the proposal.</li>
+</ol>
+<p>You cannot publish an extension that uses a proposed API. There may be breaking changes in the next release and we never want to break existing extensions.</p>
+<h3 id="_inputbox-validation-message-severity" data-needslink="_inputbox-validation-message-severity">InputBox validation message severity</h3>
+<p>Our InputBox APIs (via <code>window.showInputBox</code> and <code>window.createInputBox</code>) provide mechanisms for validating the user's input. This iteration we are extending it with a proposed API to show severity.</p>
+<p>For example, if you wanted to show the user an information message based on their input, your validation message can return:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #000000">{</span></span>
+<span class="line"><span style="color: #000000">  content: </span><span style="color: #A31515">&#39;this is an info message&#39;</span><span style="color: #000000">;</span></span>
+<span class="line"><span style="color: #000000">  severity: </span><span style="color: #001080">InputBoxValidationSeverity</span><span style="color: #000000">.</span><span style="color: #001080">Info</span><span style="color: #000000">;</span></span>
+<span class="line"><span style="color: #000000">}</span></span>
+<span class="line"></span></code></pre>
+<p>which would look like this:</p>
+<p><img src="../assets/updates/1_66/inputboxseverity.png" alt="Input box with 'this is an info message' severity message" loading="lazy"></p>
+<p>Details of this proposal can be found in <a href="https://github.com/microsoft/vscode/blob/68802ccc44e21661aa426bfd211c6e94788aa42b/src/vscode-dts/vscode.proposed.inputBoxSeverity.d.ts" class="external-link" target="_blank">inputBoxSeverity</a>.</p>
+<h3 id="_notebook-document-change-events" data-needslink="_notebook-document-change-events">Notebook document change events</h3>
+<p>There is a new proposal for notebook document change events: it is available as <a href="https://github.com/microsoft/vscode/blob/9d2324412916035d7a955150ac1774d5b25e265a/src/vscode-dts/vscode.proposed.notebookDocumentEvents.d.ts" class="external-link" target="_blank">notebookDocumentEvents</a> and contains two events:</p>
+<ul>
+<li><code>vscode.workspace.onDidSaveNotebookDocument</code> fires whenever a notebook has been saved.</li>
+<li><code>vscode.workspace.onDidChangeNotebookDocument</code> fires whenever a notebook has changed. For example, when cells were added or removed, cells themselves changed, or metadata changed.</li>
+</ul>
+<h3 id="_tabs-api-shape-finalization" data-needslink="_tabs-api-shape-finalization">Tabs API shape finalization</h3>
+<p>The <a href="https://github.com/microsoft/vscode/blob/e0df95f34b340211e6d6375c603d16e61b34129b/src/vscode-dts/vscode.proposed.tabs.d.ts" class="external-link" target="_blank">tabs API</a> is approaching finalization next milestone and is currently in a state where the shape will remain stable with little to no changes. The April 2022 iteration will be the last chance to provide feedback regarding the shape and features of this API. Feedback can be provided via GitHub <a href="https://github.com/microsoft/vscode/issues" class="external-link" target="_blank">issues</a>. The tabs API allows for the reading of open tabs, their locations, and closing them.</p>
+<h3 id="_inline-completions" data-needslink="_inline-completions">Inline Completions</h3>
+<p>We continued working on inline completions to prepare for finalization in the next couple of releases.
+Inline completions can now be used to suggest snippets or text-replacements (previously, only text-insertions were supported).</p>
+<h3 id="_drop-into-editor" data-needslink="_drop-into-editor">Drop into editor</h3>
+<p>The proposed <a href="https://github.com/microsoft/vscode/blob/bfc026b97a1c28d8288aa2510c066d03e5bcde54/src/vscode-dts/vscode.proposed.textEditorDrop.d.ts" class="external-link" target="_blank">text editor drop API</a> lets extensions handle drops into text editors. These drop events can come from within VS Code—such as dragging a file from VS Code's Explorer into a text editor—or can be generated by dropping a file from your operating system into VS Code.</p>
+<p><img src="../assets/updates/1_66/proposal-drop-into-editor.gif" alt="Creating a link in a Markdown file using the proposed drop into editor API" loading="lazy"></p>
+<p>To try the new API, you must set <code>&quot;workbench.experimental.editor.dragAndDropIntoEditor.enabled&quot;: true</code>. After enabling this, you can then drop into the editor by holding down <code>Shift</code> while dragging and dropping.</p>
+<p>We've included experimental support for generating links when you drop into a Markdown file. You can also <a href="https://github.com/microsoft/vscode/blob/e6e907e721131329dad0d4327605ed356a381d44/extensions/markdown-language-features/src/features/dropIntoEditor.ts#L11" class="external-link" target="_blank">see the Markdown extension's source</a> for an example of the API in use.</p>
+<h3 id="_resolvedunresolved-comments" data-needslink="_resolvedunresolved-comments">Resolved/unresolved comments</h3>
+<p>There is a new proposal for setting a <a href="https://github.com/microsoft/vscode/blob/cc00f75d029dad12694b355578a31720619ec7d1/src/vscode-dts/vscode.proposed.commentsResolvedState.d.ts#L10-L17" class="external-link" target="_blank">resolved or unresolved state</a> on comment threads. Comment threads that specify a state will be given additional UX treatment.</p>
+<h2 id="_engineering" data-needslink="_engineering">Engineering</h2>
+<h3 id="_electron-17-update" data-needslink="_electron-17-update">Electron 17 update</h3>
+<p>In this milestone, we are excited to ship with Electron v17 in VS Code. This is a major update from our previous adoption of Electron v13 and takes advantage of the <a href="https://github.com/electron/electron/issues/18397" class="external-link" target="_blank">process reuse architecture</a> from Electron. Over the past year, we have been reimplementing and gradually rolling out changes to some of our core services with respect to their interaction and lifetime associated with the workbench in preparation for this new architecture:</p>
+<ul>
+<li><a href="https://github.com/microsoft/vscode/issues/132282" class="external-link" target="_blank">File Watcher</a></li>
+<li><a href="https://github.com/microsoft/vscode/issues/117257" class="external-link" target="_blank">Integrated Terminal</a></li>
+<li><a href="https://github.com/microsoft/vscode/issues/123592" class="external-link" target="_blank">Extension host</a></li>
+<li><a href="https://github.com/microsoft/vscode/issues/118200" class="external-link" target="_blank">Search</a></li>
+</ul>
+<p>Special thanks to everyone involved with this effort, also thanks to the community for self-hosting on Insiders and providing feedback so we can confidently ship this update.</p>
+<p><strong>What does this change mean for VS Code users?</strong></p>
+<p>Operations like switching workspaces and reloading workspaces should now be faster. With this update, we also bump our Chromium version to 98.0.4758.109 and Nodejs version to 16.13.0.</p>
+<p><strong>What's next?</strong></p>
+<p>We will continue Electron version adoption under their new <a href="https://www.electronjs.org/blog/8-week-cadence" class="external-link" target="_blank">release cadence</a>. We are also actively working towards <a href="https://github.com/microsoft/vscode/issues/92164" class="external-link" target="_blank">sandboxing the workbench</a> and the next step is to improve the communication channel between the <a href="https://github.com/microsoft/vscode/issues/131798" class="external-link" target="_blank">Node.js hosted service and a sandboxed workbench</a>, which will allow us to further simplify the new architecture.</p>
+<h3 id="_rpm-package-requirements-list-improvement" data-needslink="_rpm-package-requirements-list-improvement">RPM package requirements list improvement</h3>
+<p>We now calculate the dependencies needed for the rpm packages as part of our <a href="https://github.com/microsoft/vscode/issues/17142" class="external-link" target="_blank">build process</a> inspired by the work done in <a href="https://chromium.googlesource.com/chromium/src/+/master/chrome/installer/linux/rpm" class="external-link" target="_blank">Chromium</a>. This allows us to provide an up-to-date dependency list when adopting newer runtimes or native modules. We will also introduce a similar change to our debian packages in the upcoming milestone.</p>
+<h3 id="_support-outofband-releases-for-builtin-extensions" data-needslink="_support-outofband-releases-for-builtin-extensions">Support out-of-band releases for built-in extensions</h3>
+<p>Those built-in extensions that are available in the Marketplace can now be released out-of-band and VS Code will detect the new version and update the extension. This will enable these extensions to support pre-releases as well.</p>
+<h2 id="_documentation" data-needslink="_documentation">Documentation</h2>
+<h3 id="_r-in-vs-code" data-needslink="_r-in-vs-code">R in VS Code</h3>
+<p>There is a new <a href="../docs/languages/r.html">R in Visual Studio Code</a> topic describing <a href="https://www.r-project.org/" class="external-link" target="_blank">R programming language</a> support in VS Code with the <a href="https://marketplace.visualstudio.com/items?itemName=REditorSupport.r" class="external-link" target="_blank">R extension</a>. The R extension includes rich language features such as code completions and linting as well as integrated R terminals and dedicated workspace, data, and plot viewers.</p>
+<p><img src="../assets/updates/1_66/r-extension.png" alt="R Extension for Visual Studio Code details pane" loading="lazy"></p>
+<h3 id="_development-containers-blog-post" data-needslink="_development-containers-blog-post">Development containers blog post</h3>
+<p>In case you missed Burke Holland's recent blog post on using dev containers to create easy to use programming environments, check out <a href="../blogs/2022/03/08/the-tutorial-problem.html">&quot;The problem with tutorials&quot;</a>. The blog post describes how <a href="https://laravel.com/" class="external-link" target="_blank">Laravel</a> uses pre-configured Docker containers to provide the runtime and dependencies for their PHP framework tutorials.</p>
+<h2 id="_notable-fixes" data-needslink="_notable-fixes">Notable fixes</h2>
+<ul>
+<li><a href="https://github.com/microsoft/vscode/issues/117674" class="external-link" target="_blank">117674</a> Debug console stops automatically scrolling sometimes when contents wrap</li>
+<li><a href="https://github.com/microsoft/vscode/issues/138963" class="external-link" target="_blank">138963</a> When debugging is started, the debug console does not work properly</li>
+<li><a href="https://github.com/microsoft/vscode/issues/142754" class="external-link" target="_blank">142754</a> Emacs usage in VS Code terminal is broken</li>
+<li><a href="https://github.com/microsoft/vscode/issues/143513" class="external-link" target="_blank">143513</a> contributes.configuration items respects &quot;order&quot; attribute in views only if search box empty</li>
+<li><a href="https://github.com/microsoft/vscode/issues/144458" class="external-link" target="_blank">144458</a> Glob patterns <code>**/p*</code> incorrectly match on <code>/foo/ap</code></li>
+<li><a href="https://github.com/microsoft/vscode/issues/144783" class="external-link" target="_blank">144783</a> Settings list widget items that are not being edited don't seem to have a max width</li>
+<li><a href="https://github.com/microsoft/vscode/issues/145243" class="external-link" target="_blank">145243</a> Settings toc unable to be resized in smaller screens</li>
+<li><a href="https://github.com/microsoft/vscode/issues/145572" class="external-link" target="_blank">145572</a> Settings box can overlap setting</li>
+</ul>
+<h2 id="_thank-you" data-needslink="_thank-you">Thank you</h2>
+<p>Last but certainly not least, a big <em><strong>Thank You</strong></em> to the contributors of VS Code.</p>
+<h3 id="_web-extensions" data-needslink="_web-extensions">Web extensions</h3>
+<p>Extension authors for enabling extensions that run code as <a href="../api/extension-guides/web-extensions.html">web extensions</a> (the list below is between March 1 2022 and March 27 2022):</p>
+<ul>
+<li><a href="https://marketplace.visualstudio.com/items?itemName=alefragnani.rtf" class="external-link" target="_blank">RTF</a> (<a href="https://marketplace.visualstudio.com/publishers/alefragnani" class="external-link" target="_blank">Alessandro Fragnani</a>)</li>
+<li><a href="https://marketplace.visualstudio.com/items?itemName=mblet.highlight-cpp-parameters" class="external-link" target="_blank">Highlight - C/C++ Parameters</a> (<a href="https://marketplace.visualstudio.com/publishers/mblet" class="external-link" target="_blank">BLET Mickaël</a>)</li>
+<li><a href="https://marketplace.visualstudio.com/items?itemName=mblet.highlight-regex" class="external-link" target="_blank">Highlight - Regex</a> (<a href="https://marketplace.visualstudio.com/publishers/mblet" class="external-link" target="_blank">BLET Mickaël</a>)</li>
+<li><a href="https://marketplace.visualstudio.com/items?itemName=Dancheg97.material-icon-theme-gopher-fork" class="external-link" target="_blank">Material Icon Theme</a> (<a href="https://marketplace.visualstudio.com/publishers/Dancheg97" class="external-link" target="_blank">Dancheg97</a>)</li>
+<li><a href="https://marketplace.visualstudio.com/items?itemName=davidfreer.go-to-character-position" class="external-link" target="_blank">Go to Character Position</a> (<a href="https://marketplace.visualstudio.com/publishers/davidfreer" class="external-link" target="_blank">davidfreer</a>)</li>
+<li><a href="https://marketplace.visualstudio.com/items?itemName=eliostruyf.vscode-extension-panel" class="external-link" target="_blank">Extension panel</a> (<a href="https://marketplace.visualstudio.com/publishers/eliostruyf" class="external-link" target="_blank">Elio Struyf</a>)</li>
+<li><a href="https://marketplace.visualstudio.com/items?itemName=eliostruyf.vscode-microsoft-writingstyleguide" class="external-link" target="_blank">Writing Style Guide</a> (<a href="https://marketplace.visualstudio.com/publishers/eliostruyf" class="external-link" target="_blank">Elio Struyf</a>)</li>
+<li><a href="https://marketplace.visualstudio.com/items?itemName=florin-bratan.bravato-icons" class="external-link" target="_blank">Bravato Icons</a> (<a href="https://marketplace.visualstudio.com/publishers/florin-bratan" class="external-link" target="_blank">Florin Bratan</a>)</li>
+<li><a href="https://marketplace.visualstudio.com/items?itemName=gera2ld.markmap-vscode" class="external-link" target="_blank">Markmap</a> (<a href="https://marketplace.visualstudio.com/publishers/gera2ld" class="external-link" target="_blank">Gerald Liu</a>)</li>
+<li><a href="https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens" class="external-link" target="_blank">GitLens — Git supercharged</a> (<a href="https://marketplace.visualstudio.com/publishers/eamodio" class="external-link" target="_blank">GitKraken</a>)</li>
+<li><a href="https://marketplace.visualstudio.com/items?itemName=infosec-intern.yara" class="external-link" target="_blank">YARA</a> (<a href="https://marketplace.visualstudio.com/publishers/infosec-intern" class="external-link" target="_blank">infosec-intern</a>)</li>
+<li><a href="https://marketplace.visualstudio.com/items?itemName=spadin.zmk-tools" class="external-link" target="_blank">ZMK Tools</a> (<a href="https://marketplace.visualstudio.com/publishers/spadin" class="external-link" target="_blank">Joel Spadin</a>)</li>
+<li><a href="https://marketplace.visualstudio.com/items?itemName=JSPM.jspm-vscode" class="external-link" target="_blank">JSPM Generator</a> (<a href="https://marketplace.visualstudio.com/publishers/JSPM" class="external-link" target="_blank">JSPM</a>)</li>
+<li><a href="https://marketplace.visualstudio.com/items?itemName=killerbees-devops.gcs-sync-vs-ext" class="external-link" target="_blank">gcs-sync-vs-ext</a> (<a href="https://marketplace.visualstudio.com/publishers/killerbees-devops" class="external-link" target="_blank">killerbees-devops</a>)</li>
+<li><a href="https://marketplace.visualstudio.com/items?itemName=mateusz-d-421.faster-para-word-movement" class="external-link" target="_blank">Faster paragraph/word movement</a> (<a href="https://marketplace.visualstudio.com/publishers/mateusz-d-421" class="external-link" target="_blank">Mateusz Dudzinski</a>)</li>
+<li><a href="https://marketplace.visualstudio.com/items?itemName=narumincho.definy" class="external-link" target="_blank">narumincho.definy</a> (<a href="https://marketplace.visualstudio.com/publishers/narumincho" class="external-link" target="_blank">narumincho</a>)</li>
+<li><a href="https://marketplace.visualstudio.com/items?itemName=OrangeX4.better-markdown-latex-shortcuts" class="external-link" target="_blank">Better Markdown &amp; Latex Shortcuts</a> (<a href="https://marketplace.visualstudio.com/publishers/OrangeX4" class="external-link" target="_blank">OrangeX4</a>)</li>
+<li><a href="https://marketplace.visualstudio.com/items?itemName=OrangeX4.python-brackets" class="external-link" target="_blank">Python Brackets</a> (<a href="https://marketplace.visualstudio.com/publishers/OrangeX4" class="external-link" target="_blank">OrangeX4</a>)</li>
+<li><a href="https://marketplace.visualstudio.com/items?itemName=quarto.quarto" class="external-link" target="_blank">Quarto</a> (<a href="https://marketplace.visualstudio.com/publishers/quarto" class="external-link" target="_blank">Quarto</a>)</li>
+<li><a href="https://marketplace.visualstudio.com/items?itemName=qufiwefefwoyn.inline-sql-syntax" class="external-link" target="_blank">Inline SQL</a> (<a href="https://marketplace.visualstudio.com/publishers/qufiwefefwoyn" class="external-link" target="_blank">qufiwefefwoyn</a>)</li>
+<li><a href="https://marketplace.visualstudio.com/items?itemName=react-sidekick.react-hierarchy-explorer" class="external-link" target="_blank">React Hierarchy Explorer</a> (<a href="https://marketplace.visualstudio.com/publishers/react-sidekick" class="external-link" target="_blank">React Sidekick</a>)</li>
+<li><a href="https://marketplace.visualstudio.com/items?itemName=redhat.vscode-extension-serverless-workflow-editor" class="external-link" target="_blank">Serverless Workflow Editor</a> (<a href="https://marketplace.visualstudio.com/publishers/redhat" class="external-link" target="_blank">Red Hat</a>)</li>
+<li><a href="https://marketplace.visualstudio.com/items?itemName=RedstoneWizard08.gitlab" class="external-link" target="_blank">gitlab</a> (<a href="https://marketplace.visualstudio.com/publishers/RedstoneWizard08" class="external-link" target="_blank">RedstoneWizard08</a>)</li>
+<li><a href="https://marketplace.visualstudio.com/items?itemName=revng.llvm-ir" class="external-link" target="_blank">LLVM IR Language Support</a> (<a href="https://marketplace.visualstudio.com/publishers/revng" class="external-link" target="_blank">rev.ng Labs</a>)</li>
+<li><a href="https://marketplace.visualstudio.com/items?itemName=rioj7.vscode-behave" class="external-link" target="_blank">Behave</a> (<a href="https://marketplace.visualstudio.com/publishers/rioj7" class="external-link" target="_blank">rioj7</a>)</li>
+<li><a href="https://marketplace.visualstudio.com/items?itemName=rioj7.line-completion" class="external-link" target="_blank">Line Completion</a> (<a href="https://marketplace.visualstudio.com/publishers/rioj7" class="external-link" target="_blank">rioj7</a>)</li>
+<li><a href="https://marketplace.visualstudio.com/items?itemName=runthoser.vscode-web-extension-emulator" class="external-link" target="_blank">vscode_web_extension_emulator</a> (<a href="https://marketplace.visualstudio.com/publishers/runthoser" class="external-link" target="_blank">runthoser</a>)</li>
+<li><a href="https://marketplace.visualstudio.com/items?itemName=stateful.marquee" class="external-link" target="_blank">Marquee</a> (<a href="https://marketplace.visualstudio.com/publishers/stateful" class="external-link" target="_blank">stateful</a>)</li>
+<li><a href="https://marketplace.visualstudio.com/items?itemName=Thomka.painandsufferingforjaredsstuff" class="external-link" target="_blank">painandsufferingforjaredsstuff</a> (<a href="https://marketplace.visualstudio.com/publishers/Thomka" class="external-link" target="_blank">Thomka</a>)</li>
+<li><a href="https://marketplace.visualstudio.com/items?itemName=watware.tofu-vscode" class="external-link" target="_blank">Tofu (Alpha)</a> (<a href="https://marketplace.visualstudio.com/publishers/watware" class="external-link" target="_blank">Watware</a>)</li>
+</ul>
+<h3 id="_issue-tracking" data-needslink="_issue-tracking">Issue tracking</h3>
+<p>Contributions to our issue tracking:</p>
+<ul>
+<li><a href="https://github.com/gjsjohnmurray" class="external-link" target="_blank">John Murray (@gjsjohnmurray)</a></li>
+<li><a href="https://github.com/IllusionMH" class="external-link" target="_blank">Andrii Dieiev (@IllusionMH)</a></li>
+<li><a href="https://github.com/Lemmingh" class="external-link" target="_blank">Lemmingh (@Lemmingh)</a></li>
+<li><a href="https://github.com/yume-chan" class="external-link" target="_blank">Simon Chan (@yume-chan)</a></li>
+</ul>
+<h3 id="_pull-requests" data-needslink="_pull-requests">Pull requests</h3>
+<p>Contributions to <code>vscode</code>:</p>
+<ul>
+<li><a href="https://github.com/a-stewart" class="external-link" target="_blank">@a-stewart (Anthony Stewart)</a>: Add match media change listener in browser ts <a href="https://github.com/microsoft/vscode/pull/143287" class="external-link" target="_blank">PR #143287</a></li>
+<li><a href="https://github.com/AkatQuas" class="external-link" target="_blank">@AkatQuas (Akat)</a>: feat(jsonc): more interactive completion for &quot;path&quot; property <a href="https://github.com/microsoft/vscode/pull/144136" class="external-link" target="_blank">PR #144136</a></li>
+<li><a href="https://github.com/babakks" class="external-link" target="_blank">@babakks (Babak K. Shandiz)</a>: Add jsonc to markdown embedded languages <a href="https://github.com/microsoft/vscode/pull/144003" class="external-link" target="_blank">PR #144003</a></li>
+<li><a href="https://github.com/Backfighter" class="external-link" target="_blank">@Backfighter</a>: Do not overwrite users environment variables <a href="https://github.com/microsoft/vscode/pull/115455" class="external-link" target="_blank">PR #115455</a></li>
+<li><a href="https://github.com/BamBamboozled" class="external-link" target="_blank">@BamBamboozled</a>: Add support for references when no [] exists <a href="https://github.com/microsoft/vscode/pull/144781" class="external-link" target="_blank">PR #144781</a></li>
+<li><a href="https://github.com/cbliard" class="external-link" target="_blank">@cbliard (Christophe Bliard)</a>: Add expected type for selectionLines property of editor.fold command <a href="https://github.com/microsoft/vscode/pull/144732" class="external-link" target="_blank">PR #144732</a></li>
+<li><a href="https://github.com/Charles-Gagnon" class="external-link" target="_blank">@Charles-Gagnon (Charles Gagnon)</a>: Update coverage folder location <a href="https://github.com/microsoft/vscode/pull/145597" class="external-link" target="_blank">PR #145597</a></li>
+<li><a href="https://github.com/eltociear" class="external-link" target="_blank">@eltociear (Ikko Ashimine)</a>: Update README.md <a href="https://github.com/microsoft/vscode/pull/145132" class="external-link" target="_blank">PR #145132</a></li>
+<li><a href="https://github.com/gabritto" class="external-link" target="_blank">@gabritto (Gabriela Araujo Britto)</a>: [typescript-language-features] Add includeCompletionsWithObjectLiteralMethodSnippets preference <a href="https://github.com/microsoft/vscode/pull/145941" class="external-link" target="_blank">PR #145941</a></li>
+<li><a href="https://github.com/gjsjohnmurray" class="external-link" target="_blank">@gjsjohnmurray (John Murray)</a>: Fix configure keybinding action buttons on New File quickpick (#_145422) <a href="https://github.com/microsoft/vscode/pull/145429" class="external-link" target="_blank">PR #145429</a></li>
+<li><a href="https://github.com/hermannloose" class="external-link" target="_blank">@hermannloose (Hermann Loose)</a>: Introduce themable colors for resolved and unresolved comments <a href="https://github.com/microsoft/vscode/pull/145230" class="external-link" target="_blank">PR #145230</a></li>
+<li><a href="https://github.com/jeanp413" class="external-link" target="_blank">@jeanp413 (Jean Pierre)</a>
+<ul>
+<li>Fixes glob patterns <code>**/p*</code> incorrectly match on <code>/foo/ap</code> <a href="https://github.com/microsoft/vscode/pull/144473" class="external-link" target="_blank">PR #144473</a></li>
+<li>Fixes cannot install web extension using remote cli <a href="https://github.com/microsoft/vscode/pull/144522" class="external-link" target="_blank">PR #144522</a></li>
+<li>Fixes wrong extension running location shown in running extension editor <a href="https://github.com/microsoft/vscode/pull/144528" class="external-link" target="_blank">PR #144528</a></li>
+</ul>
+</li>
+<li><a href="https://github.com/kkakroo" class="external-link" target="_blank">@kkakroo (Karan Kakroo)</a>
+<ul>
+<li>only exit zen mode by workbench.action.exitZenMode if its already in zen mode <a href="https://github.com/microsoft/vscode/pull/144217" class="external-link" target="_blank">PR #144217</a></li>
+<li>Scroll to top button not getting themed <a href="https://github.com/microsoft/vscode/pull/144224" class="external-link" target="_blank">PR #144224</a></li>
+</ul>
+</li>
+<li><a href="https://github.com/kkocdko" class="external-link" target="_blank">@kkocdko (kkocdko)</a>: Fix infinite recursion in <code>getDirectoryHandle</code> <a href="https://github.com/microsoft/vscode/pull/145972" class="external-link" target="_blank">PR #145972</a></li>
+<li><a href="https://github.com/matthewjamesadam" class="external-link" target="_blank">@matthewjamesadam (Matt Adam)</a>: Add badges extension API <a href="https://github.com/microsoft/vscode/pull/139225" class="external-link" target="_blank">PR #139225</a></li>
+<li><a href="https://github.com/mifopen" class="external-link" target="_blank">@mifopen (Slava Mostovoy)</a>: fix: Hovering fixed positioned hover widget will hide them <a href="https://github.com/microsoft/vscode/pull/142160" class="external-link" target="_blank">PR #142160</a></li>
+<li><a href="https://github.com/pjknkda" class="external-link" target="_blank">@pjknkda (Jungkook Park)</a>: Skip reading file content for undo when deleting a large file <a href="https://github.com/microsoft/vscode/pull/144890" class="external-link" target="_blank">PR #144890</a></li>
+<li><a href="https://github.com/quanzhuo" class="external-link" target="_blank">@quanzhuo (Quan Zhuo)</a>
+<ul>
+<li>Fix issue #144453, extension's lastUpdated time exceed 24:00:00 <a href="https://github.com/microsoft/vscode/pull/144454" class="external-link" target="_blank">PR #144454</a></li>
+<li>#144671, fix some non localized strings in git extension <a href="https://github.com/microsoft/vscode/pull/144712" class="external-link" target="_blank">PR #144712</a></li>
+</ul>
+</li>
+<li><a href="https://github.com/rounaksingh557" class="external-link" target="_blank">@rounaksingh557 (Rounak singh)</a>: This will look for Visual Studio in the Correct directory. <a href="https://github.com/microsoft/vscode/pull/143479" class="external-link" target="_blank">PR #143479</a></li>
+<li><a href="https://github.com/sbresin" class="external-link" target="_blank">@sbresin (Sebastian Bresin)</a>: feat: gitExtension API also expose repository.revert() <a href="https://github.com/microsoft/vscode/pull/145029" class="external-link" target="_blank">PR #145029</a></li>
+<li><a href="https://github.com/Semphriss" class="external-link" target="_blank">@Semphriss</a>: Update Seti theme <a href="https://github.com/microsoft/vscode/pull/145004" class="external-link" target="_blank">PR #145004</a></li>
+<li><a href="https://github.com/ShafinKhadem" class="external-link" target="_blank">@ShafinKhadem (Nafiur Rahman Khadem)</a>: Respect searchScope column in multicursor selectAll <a href="https://github.com/microsoft/vscode/pull/142312" class="external-link" target="_blank">PR #142312</a></li>
+<li><a href="https://github.com/sumneko" class="external-link" target="_blank">@sumneko (最萌小汐)</a>
+<ul>
+<li>Update Lua grammar <a href="https://github.com/microsoft/vscode/pull/144544" class="external-link" target="_blank">PR #144544</a></li>
+<li>update Lua-grammar <a href="https://github.com/microsoft/vscode/pull/144975" class="external-link" target="_blank">PR #144975</a></li>
+</ul>
+</li>
+<li><a href="https://github.com/UltiRequiem" class="external-link" target="_blank">@UltiRequiem (Eliaz Bobadilla)</a>: chore: bump actions/checkout <a href="https://github.com/microsoft/vscode/pull/145891" class="external-link" target="_blank">PR #145891</a></li>
+<li><a href="https://github.com/weartist" class="external-link" target="_blank">@weartist (Han)</a>: Fix the #143392 <a href="https://github.com/microsoft/vscode/pull/143498" class="external-link" target="_blank">PR #143498</a></li>
+<li><a href="https://github.com/xisui-MSFT" class="external-link" target="_blank">@xisui-MSFT</a>
+<ul>
+<li>Allow stack frame without source as top stack frame when using disassembly view <a href="https://github.com/microsoft/vscode/pull/143649" class="external-link" target="_blank">PR #143649</a></li>
+<li>Fix disabled breakpoint icon in disassembly view <a href="https://github.com/microsoft/vscode/pull/143925" class="external-link" target="_blank">PR #143925</a></li>
+</ul>
+</li>
+<li><a href="https://github.com/xmedeko" class="external-link" target="_blank">@xmedeko (Ondrej Medek)</a>: fix markdownDescription for javascript.suggest.jsdoc.generateReturns <a href="https://github.com/microsoft/vscode/pull/144486" class="external-link" target="_blank">PR #144486</a></li>
+<li><a href="https://github.com/yume-chan" class="external-link" target="_blank">@yume-chan (Simon Chan)</a>: Wait for extension contributions in <code>welcome.showAllWalkthroughs</code> <a href="https://github.com/microsoft/vscode/pull/135632" class="external-link" target="_blank">PR #135632</a></li>
+</ul>
+<p>Contributions to <code>vscode-css-languageservice</code>:</p>
+<ul>
+<li><a href="https://github.com/marknn3" class="external-link" target="_blank">@marknn3 (Mark Langezaal)</a>: Fix vscode #142516 [css] support unicode-range wildcard <a href="https://github.com/microsoft/vscode-css-languageservice/pull/264" class="external-link" target="_blank">PR #264</a></li>
+</ul>
+<p>Contributions to <code>vscode-js-debug</code>:</p>
+<ul>
+<li><a href="https://github.com/zjffun" class="external-link" target="_blank">@zjffun (JuFeng Zhang)</a>: feat: heap profiling <a href="https://github.com/microsoft/vscode-js-debug/pull/1187" class="external-link" target="_blank">PR #1187</a></li>
+</ul>
+<p>Contributions to <code>vscode-languageserver-node</code>:</p>
+<ul>
+<li><a href="https://github.com/razzeee" class="external-link" target="_blank">@razzeee (Kolja Lampe)</a>: Fix typo <a href="https://github.com/microsoft/vscode-languageserver-node/pull/903" class="external-link" target="_blank">PR #903</a></li>
+</ul>
+<p>Contributions to <code>vscode-vsce</code>:</p>
+<ul>
+<li><a href="https://github.com/felipecrs" class="external-link" target="_blank">@felipecrs (Felipe Santos)</a>: docs: add configuration tips to readme
+<a href="https://github.com/microsoft/vscode-vsce/pull/704" class="external-link" target="_blank">PR #704</a></li>
+</ul>
+<p>Contributions to <code>debug-adapter-protocol</code>:</p>
+<ul>
+<li><a href="https://github.com/eshelyaron" class="external-link" target="_blank">@eshelyaron (Eshel Yaron)</a>: Fix a small mistake in <code>ExceptionFilterOptions</code> <a href="https://github.com/microsoft/debug-adapter-protocol/pull/250" class="external-link" target="_blank">PR #250</a></li>
+<li><a href="https://github.com/haneefdm" class="external-link" target="_blank">@haneefdm (Haneef Mohammed)</a>: Added Cortex-Debug which used to be in this list <a href="https://github.com/microsoft/debug-adapter-protocol/pull/257" class="external-link" target="_blank">PR #257</a></li>
+<li><a href="https://github.com/renkun-ken" class="external-link" target="_blank">@renkun-ken (Kun Ren)</a>: Add R Debugger <a href="https://github.com/microsoft/debug-adapter-protocol/pull/255" class="external-link" target="_blank">PR #255</a></li>
+</ul>
+<p>Contributions to <code>language-server-protocol</code>:</p>
+<ul>
+<li><a href="https://github.com/KamasamaK" class="external-link" target="_blank">@KamasamaK</a>
+<ul>
+<li>Recommend WorkspaceSymbol <a href="https://github.com/microsoft/language-server-protocol/pull/1428" class="external-link" target="_blank">PR #1428</a></li>
+<li>Add <code>workspace.inlayHint</code> to capabilities <a href="https://github.com/microsoft/language-server-protocol/pull/1429" class="external-link" target="_blank">PR #1429</a></li>
+</ul>
+</li>
+<li><a href="https://github.com/sno2" class="external-link" target="_blank">@sno2 (Carter Snook)</a>: fix(inlayHint): type reference typo <a href="https://github.com/microsoft/language-server-protocol/pull/1425" class="external-link" target="_blank">PR #1425</a></li>
+</ul>
+<!-- In-product release notes styles.  Do not modify without also modifying regex in gulpfile.common.js -->
+<p><a id="scroll-to-top" role="button" title="Scroll to top" aria-label="scroll to top" href="#"><span class="icon"></span></a></p>
+
+            <div class="feedback"></div>
+        </div>
+        <div class="col-sm-3 col-md-2 docs-subnavbar-container">
+            <nav id="docs-subnavbar" aria-label="On Page" data-spy="affix" data-offset-top="20">
+                <h4><span class="sr-only">In this update, there are 21
+                        sections</span><span aria-hidden="true">In this update</span></h4>
+                <ul class="nav">
+                    
+                    <li><a href="#_accessibility">Accessibility</a></li>
+                    
+                    <li><a href="#_workbench">Workbench</a></li>
+                    
+                    <li><a href="#_comments">Comments</a></li>
+                    
+                    <li><a href="#_terminal">Terminal</a></li>
+                    
+                    <li><a href="#_source-control">Source Control</a></li>
+                    
+                    <li><a href="#_editor">Editor</a></li>
+                    
+                    <li><a href="#_vs-code-for-the-web">VS Code for the Web</a></li>
+                    
+                    <li><a href="#_notebooks">Notebooks</a></li>
+                    
+                    <li><a href="#_debugging">Debugging</a></li>
+                    
+                    <li><a href="#_languages">Languages</a></li>
+                    
+                    <li><a href="#_contributions-to-extensions">Contributions to extensions</a></li>
+                    
+                    <li><a href="#_preview-features">Preview features</a></li>
+                    
+                    <li><a href="#_extension-authoring">Extension authoring</a></li>
+                    
+                    <li><a href="#_debugger-extension-authoring">Debugger extension authoring</a></li>
+                    
+                    <li><a href="#_language-server-protocol">Language Server Protocol</a></li>
+                    
+                    <li><a href="#_debug-adapter-protocol">Debug Adapter Protocol</a></li>
+                    
+                    <li><a href="#_proposed-extension-apis">Proposed extension APIs</a></li>
+                    
+                    <li><a href="#_engineering">Engineering</a></li>
+                    
+                    <li><a href="#_documentation">Documentation</a></li>
+                    
+                    <li><a href="#_notable-fixes">Notable fixes</a></li>
+                    
+                    <li><a href="#_thank-you">Thank you</a></li>
+                    
+                </ul>
+                <div class="connect-widget"></div>
+            </nav>
+        </div>
+    </div>
+</div>
+      </div>
+  </div>
+
+  <footer role="contentinfo">
+      <div class="container">
+          <div class="row">
+              <div class="left col-md-7">
+                  <ul class="links">
+                      <li>
+                          <span class="message">Hello from Seattle.</span>
+                      </li>
+                      <li>
+                          <a href="https://go.microsoft.com/fwlink/?LinkID=533687" onclick="followOnTwitter()" tabindex="0">Follow @code</a>
+                      </li>
+                      <li>
+                          <div class="github-star-button">
+                              <iframe src="../assets/github-button29be.html?user=Microsoft&amp;repo=vscode&amp;type=star&amp;count=true"
+                                  frameborder="0" scrolling="0" width="130px" height="20px" title="GitHub follow button" loading="lazy"></iframe>
+                          </div>
+                      </li>
+  
+                      <script>
+                          function followOnTwitter() {
+                              var windowFeatures = "location=yes,height=600,width=550,scrollbars=yes,status=yes";
+                              var originalReferer = "&original_referer=" + document.URL;
+                              var screenName = "&screen_name=code";
+                              var URL = "https://twitter.com/intent/follow?" + originalReferer + screenName;
+                              window.open(URL, "_blank", windowFeatures);
+                          }
+  
+                          function manageConsent() {
+                              if(WcpConsent.siteConsent.isConsentRequired){
+                                  WcpConsent.siteConsent.manageConsent();
+                              }
+                          }
+                      </script>
+                  </ul>
+              </div>
+              <div class="right col-md-5">
+                  <ul class="links">
+                      <li><a id="footer-support-link" href="https://support.serviceshub.microsoft.com/supportforbusiness/create?sapId=d66407ed-3967-b000-4cfb-2c318cad363d"
+                              target="_blank">Support</a></li>
+                      <li><a id="footer-privacy-link" href="https://privacy.microsoft.com/privacystatement"
+                              target="_blank">Privacy</a></li>
+                      <li style="display: none;"><a id="footer-cookie-link" style="cursor: pointer;" onclick="manageConsent()"
+                              target="_blank">Manage Cookies</a></li>
+                      <li><a id="footer-terms-link" href="https://www.microsoft.com/legal/terms-of-use"
+                              target="_blank">Terms of Use</a></li>
+                      <li><a id="footer-license-link" href="../License.html">License</a></li>
+                  </ul>
+                  <div class="copyright">
+                      <a id="footer-microsoft-link" class="logo" href="https://www.microsoft.com/">
+                          <img class="microsoft-logo" src="../assets/images/microsoft-logo.png" height="20" alt="Microsoft homepage"/>
+                          <img class="microsoft-logo-inverted" src="../assets/images/microsoft-logo-inverted.png" height="20" alt="Microsoft homepage" />
+                      </a>
+                      <span>&copy; 2023 Microsoft</span>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </footer>
+  <script src="../dist/index.js"></script>
+
+  
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "SoftwareApplication",
+      "name" : "Visual Studio Code",
+      "softwareVersion": "1.74",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "applicationCategory": "DeveloperApplication",
+      "applicationSubCategory": "Text Editor",
+      "alternateName": "VS Code",
+      "datePublished": "2021-11-03",
+      "operatingSystem": "Mac, Linux, Windows",
+      "logo": "https://code.visualstudio.com/assets/apple-touch-icon.png",
+      "screenshot": "https://code.visualstudio.com/assets/home/home-screenshot-win.png",
+      "releaseNotes": "https://code.visualstudio.com/updates",
+      "downloadUrl": "https://code.visualstudio.com/download",
+      "license": "https://code.visualstudio.com/license",
+      "softwareRequirements": "https://code.visualstudio.com/docs/supporting/requirements",
+      "url" : "https://code.visualstudio.com",
+      "author": {
+        "@type": "Organization",
+        "name": "Microsoft"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Microsoft"
+      },
+      "maintainer": {
+        "@type": "Organization",
+        "name": "Microsoft"
+      },
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://code.visualstudio.com/Search?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      },
+      "sameAs" : [
+        "https://en.wikipedia.org/wiki/Visual_Studio_Code",
+        "https://twitter.com/code",
+        "https://www.youtube.com/code",
+        "https://www.tiktok.com/@vscode",
+        "https://github.com/microsoft/vscode"
+      ]
+    }
+  </script>
+</body>
+
+<!-- Mirrored from code.visualstudio.com/updates/v1_66 by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 04 Jan 2023 10:37:23 GMT -->
+</html>

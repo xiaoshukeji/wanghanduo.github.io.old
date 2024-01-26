@@ -1,0 +1,1637 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Mirrored from code.visualstudio.com/docs/editor/workspaces by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 04 Jan 2023 11:29:07 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="google-site-verification" content="hNs7DXrTySP_X-0P_AC0WulAXvUwgSXEmgfcO2r79dw" />
+
+  <!-- Twitter and Facebook OpenGraph Metadata-->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@code" />
+
+  <meta name="description" content="Learn about Visual Studio Code workspaces" />
+<meta name="keywords" content="" />
+<meta name="ms.prod" content="vs-code" />
+<meta name="ms.TOCTitle" content="" />
+<meta name="ms.ContentId" content="0144ad9a-14df-41b5-9629-cbba7dbfc396" />
+<meta name="ms.date" content="12/7/2022" />
+<meta name="ms.topic" content="conceptual" />
+<!-- Twitter and Facebook OpenGraph Metadata-->
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="og:url" content="workspaces.html" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Workspaces in Visual Studio Code" />
+<meta property="og:description" content="Learn about Visual Studio Code workspaces" />
+
+<meta property="og:image" content="../../opengraphimg/opengraph-docs.png" />
+
+
+
+  <link rel="shortcut icon" href="../../favicon.ico" sizes="128x128" />
+  <link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+
+  <title>Workspaces in Visual Studio Code</title>
+
+  <link rel="stylesheet" href="../../vendor/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../../dist/style.css">
+
+  <script type="text/javascript" src="../../../js.monitor.azure.com/scripts/c/ms.analytics-web-3.min.js"></script>
+  <script>
+  window.appInsights = new oneDS.ApplicationInsights();
+  window.appInsights.initialize({
+    instrumentationKey: "1a3eb3104447440391ad5f2a6ee06a0a-62879566-bc58-4741-9650-302bf2af703f-7103",
+    webAnalyticsConfiguration:{ // Web Analytics Plugin configuration
+        urlCollectQuery:true, 
+        autoCapture: {
+          scroll: true,
+          pageView: true,
+          onLoad: true,
+          onUnload: true,
+          click: true,
+          resize: true,
+          jsError: true
+        }
+    }
+  }, []);
+  </script>
+  
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','../../../www.google-analytics.com/analytics.js','ga');
+  </script>  
+  <link rel="alternate" type="application/atom+xml" title="RSS Feed for code.visualstudio.com" href="../../feed.xml" />
+</head>
+
+<body>
+  <!-- EU Cookie Compliance JS -->
+  <script src="../../../wcpstatic.microsoft.com/mscc/lib/v2/wcp-consent.js"></script>
+
+  <div id="main">
+          <div class="navbar-fixed-container">
+              <div class="navbar navbar-inverse navbar-fixed-top ">
+                  <div id='cookie-banner'></div>        <nav role="navigation" aria-label="Top Level">
+                      <div class="container">
+                          <div class="nav navbar-header">
+                              <a role="button" id="skip-to-content" class="link-button" href="#main-content">Skip to content<i>&nbsp;</i><span class="glyphicon glyphicon-menu-down"></span></a>
+                              <a class="navbar-brand" id="navbar-brand" href="../../index.html">Visual Studio Code</a>
+                              <button type="button" class="navbar-toggle" role="navigation" data-toggle="collapse" data-target=".navbar-collapse" aria-label="Toggle Navigation Menu">
+                                  <span class="icon-bar"></span>
+                                  <span class="icon-bar"></span>
+                                  <span class="icon-bar"></span>
+                              </button>
+                          </div>
+                          <div class="navbar-collapse collapse" role="navigation">
+                              <ul class="nav navbar-nav navbar-left">
+                                  <li class="active" ><a id="nav-docs" href="../../docs.html">Docs</a></li>
+                                  <li ><a id="nav-updates" href="../../updates/v1_74.html">Updates</a></li>
+                                  <li ><a id="nav-blogs" href="../../blogs.html">Blog</a></li>
+                                  <li ><a id="nav-extend" href="../../api.html">API</a></li>
+                                  <li><a href="https://marketplace.visualstudio.com/VSCode" target="_blank" id="nav-extensions">Extensions</a></li>
+                                  <li ><a id="nav-faqs" href="../supporting/faq.html">FAQ</a></li>
+                                  <li ><a id="nav-learn" href="../../learn.html">Learn</a></li>
+                                  <li class='search visible-xs visible-sm'
+                                      ><a href="../../Search.html">Search</a></li>
+                              </ul>
+          
+                              <ul class="nav navbar-nav navbar-right" role="presentation">
+                                  <!-- Floating search icon -->
+                                  <li>
+                                      <a href="../../Search.html" title="Search" class="btn search-btn" id="nav-search">
+                                          <img class="search-icon" src="../../assets/icons/search.svg" width="16px" height="16px" alt="Search"/>
+                                          <img class="search-icon-inverted" src="../../assets/icons/search_dark.svg" width="16px" height="16px" alt="Search" />
+                                      </a>
+                                  </li>
+                                  <!-- Actual search icon -->
+                                  <li class="search" role="presentation">
+                                      <form class="nav-search search-form" role="search" aria-label="Search">
+                                          <div class="input-group" role="presentation">
+                                              <input type="text" name="q" class="search-box form-control" placeholder="Search Docs" aria-label="Search text"/>
+                                              <span class="input-group-btn">
+                                                  <button tabindex="0" class="btn" type="submit" aria-label="Search">
+                                                          <img class="search-icon" src="../../assets/icons/search.svg" width="16px" height="16px" alt="Search" />
+                                                          <img class="search-icon-inverted" src="../../assets/icons/search_dark.svg" width="16px" height="16px" alt="Search" />
+                                                  </button>
+                                              </span>
+                                          </div>
+                                      </form>                        </li>
+                                  <!-- this was hiden in the home and download page, keeping it for now -->
+                                  <li><a class="link-button" href="../../Download.html" id="nav-download">
+                                      <img class="download-icon" src="../../assets/icons/download.svg" width="16px" height="16px" alt="Download VS Code"/>
+                                      <img class="download-icon-inverted" src="../../assets/icons/download-black.svg" width="16px" height="16px" alt="Download VS Code" />
+                                      <span>Download</span>
+                                  </a></li>
+                              </ul>
+                          </div>
+                      </div>
+                  </nav>
+              </div>
+          </div>          <div class="updates-banner  ">
+              <div class="container">
+                  <p class="message"><a href="../../updates/v1_74.html" id="banner-link-updates">Version 1.74</a> is now available! Read about the new features and fixes from November.</p> 
+              </div>
+              <div tabindex="0" role="button" title="Dismiss this update" class="dismiss-btn" id="banner-dismiss-btn"><span class="sr-only">Dismiss this update</span><span aria-hidden="true" class="glyph-icon"></span></div>
+          </div>      <div role="main" id="main-content">
+        <script>
+    function closeReportIssue() {
+        var element = document.getElementById('surveypopup');
+        element.parentElement.removeChild(element);
+    }
+
+    function reportIssue(tutorial, page) {
+        var div = document.createElement('div');
+        div.innerHTML = '<div id="surveypopup" class="overlay visible"><div class="surveypopup"><div id="surveytitle">Tell us more<a href="javascript:void(0)" onclick="closeReportIssue()">X</a></div><div id="surveydiv"><iframe frameBorder="0" scrolling="0" src="https://www.research.net/r/PWZWZ52?tutorial=' + tutorial + '&step=' + page + '"></iframe></div></div></div>';
+        document.body.appendChild(div.children[0]);
+    }
+
+    function pushCodingPackEvent(language, os) {
+        let id = `${language}-${os}-coding-pack`;
+        var analytics = window.vscodeAnalytics;
+
+        analytics && analytics.event(
+            'click',
+            'download',
+            id,
+        );
+    }
+</script>
+
+<div class="container body-content docs">
+    <div class="row">
+        <div class="col-md-2 docs-navbar-container">
+            <nav id="docs-navbar" aria-label="Topics" class="docs-nav visible-md visible-lg">
+            	<ul class="nav" id="main-nav">
+            		<li >
+            			<a class="docs-home" href="../../docs.html" >Overview</a>
+            		</li>
+            		
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#setup-articles" data-parent="#main-nav" data-toggle="collapse">Setup</a>
+            					<ul id="setup-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../setup/setup-overview.html" >Overview</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../setup/linux.html" >Linux</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../setup/mac.html" >macOS</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../setup/windows.html" >Windows</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../setup/raspberry-pi.html" >Raspberry Pi</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../setup/network.html" >Network</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../setup/additional-components.html" >Additional Components</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../setup/enterprise.html" >Enterprise</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../setup/uninstall.html" >Uninstall</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#getstarted-articles" data-parent="#main-nav" data-toggle="collapse">Get Started</a>
+            					<ul id="getstarted-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../getstarted/introvideos.html" >Intro Videos</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../getstarted/tips-and-tricks.html" >Tips and Tricks</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../getstarted/userinterface.html" >User Interface</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../getstarted/themes.html" >Themes</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../getstarted/settings.html" >Settings</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../getstarted/keybindings.html" >Key Bindings</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../getstarted/locales.html" >Display Language</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../getstarted/telemetry.html" >Telemetry</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel active expanded">
+            					<a class="area" role="button" href="#editor-articles" data-parent="#main-nav" data-toggle="collapse">User Guide</a>
+            					<ul id="editor-articles" class="collapse in">
+            					
+            						<li >
+            							<a href="codebasics.html" >Basic Editing</a>
+            						</li>
+            					
+            						<li >
+            							<a href="extension-marketplace.html" >Extension Marketplace</a>
+            						</li>
+            					
+            						<li >
+            							<a href="intellisense.html" >IntelliSense</a>
+            						</li>
+            					
+            						<li >
+            							<a href="editingevolved.html" >Code Navigation</a>
+            						</li>
+            					
+            						<li >
+            							<a href="refactoring.html" >Refactoring</a>
+            						</li>
+            					
+            						<li >
+            							<a href="debugging.html" >Debugging</a>
+            						</li>
+            					
+            						<li >
+            							<a href="vscode-web.html" >VS Code for the Web</a>
+            						</li>
+            					
+            						<li >
+            							<a href="tasks.html" >Tasks</a>
+            						</li>
+            					
+            						<li >
+            							<a href="settings-sync.html" >Settings Sync</a>
+            						</li>
+            					
+            						<li >
+            							<a href="userdefinedsnippets.html" >Snippets</a>
+            						</li>
+            					
+            						<li >
+            							<a href="emmet.html" >Emmet</a>
+            						</li>
+            					
+            						<li >
+            							<a href="command-line.html" >Command Line Interface</a>
+            						</li>
+            					
+            						<li >
+            							<a href="workspace-trust.html" >Workspace Trust</a>
+            						</li>
+            					
+            						<li >
+            							<a href="multi-root-workspaces.html" >Multi-root Workspaces</a>
+            						</li>
+            					
+            						<li >
+            							<a href="accessibility.html" >Accessibility</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#sourcecontrol-articles" data-parent="#main-nav" data-toggle="collapse">Source Control</a>
+            					<ul id="sourcecontrol-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../sourcecontrol/overview.html" >Overview</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../sourcecontrol/github.html" >Collaborate on GitHub</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../sourcecontrol/faq.html" >FAQ</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#terminal-articles" data-parent="#main-nav" data-toggle="collapse">Terminal</a>
+            					<ul id="terminal-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../terminal/basics.html" >Terminal Basics</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../terminal/profiles.html" >Terminal Profiles</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../terminal/shell-integration.html" >Shell Integration</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../terminal/appearance.html" >Appearance</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../terminal/advanced.html" >Advanced</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#languages-articles" data-parent="#main-nav" data-toggle="collapse">Languages</a>
+            					<ul id="languages-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../languages/overview.html" >Overview</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/javascript.html" >JavaScript</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/json.html" >JSON</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/html.html" >HTML</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/css.html" >CSS, SCSS and Less</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/typescript.html" >TypeScript</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/markdown.html" >Markdown</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/powershell.html" >PowerShell</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/cpp.html" >C++</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/java.html" >Java</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/php.html" >PHP</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/python.html" >Python</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/julia.html" >Julia</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/r.html" >R</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/rust.html" >Rust</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/go.html" >Go</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/tsql.html" >T-SQL</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/csharp.html" >C#</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/dotnet.html" >.NET</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#nodejs-articles" data-parent="#main-nav" data-toggle="collapse">Node.js / JavaScript</a>
+            					<ul id="nodejs-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../nodejs/working-with-javascript.html" >Working with JavaScript</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../nodejs/nodejs-tutorial.html" >Node.js Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../nodejs/nodejs-debugging.html" >Node.js Debugging</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../nodejs/nodejs-deployment.html" >Deploy Node.js Apps</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../nodejs/browser-debugging.html" >Browser Debugging</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../nodejs/angular-tutorial.html" >Angular Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../nodejs/reactjs-tutorial.html" >React Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../nodejs/vuejs-tutorial.html" >Vue Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../nodejs/emberjs-tutorial.html" >Ember Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../nodejs/debugging-recipes.html" >Debugging Recipes</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../nodejs/profiling.html" >Performance Profiling</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../nodejs/extensions.html" >Extensions</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#typescript-articles" data-parent="#main-nav" data-toggle="collapse">TypeScript</a>
+            					<ul id="typescript-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../typescript/typescript-tutorial.html" >Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../typescript/typescript-compiling.html" >Compiling</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../typescript/typescript-editing.html" >Editing</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../typescript/typescript-refactoring.html" >Refactoring</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../typescript/typescript-debugging.html" >Debugging</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#python-articles" data-parent="#main-nav" data-toggle="collapse">Python</a>
+            					<ul id="python-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../python/python-tutorial.html" >Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../python/editing.html" >Editing Code</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../python/linting.html" >Linting</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../python/debugging.html" >Debugging</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../python/environments.html" >Environments</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../python/testing.html" >Testing</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../datascience/overview.html" >Data Science</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../python/jupyter-support-py.html" >Python Interactive</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../python/tutorial-django.html" >Django Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../python/tutorial-flask.html" >Flask Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../containers/quickstart-python.html" >Create containers</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../python/python-on-azure.html" >Deploy Python Apps</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../python/python-web.html" >Python in the Web</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../python/settings-reference.html" >Settings Reference</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#java-articles" data-parent="#main-nav" data-toggle="collapse">Java</a>
+            					<ul id="java-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../java/java-tutorial.html" >Getting Started</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-editing.html" >Navigate and Edit</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-refactoring.html" >Refactoring</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-linting.html" >Formatting and Linting</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-project.html" >Project Management</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-build.html" >Build Tools</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-debugging.html" >Run and Debug</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-testing.html" >Testing</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-spring-boot.html" >Spring Boot</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-tomcat-jetty.html" >Application Servers</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-on-azure.html" >Deploy Java Apps</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-gui.html" >GUI Applications</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/extensions.html" >Extensions</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-faq.html" >FAQ</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#cpp-articles" data-parent="#main-nav" data-toggle="collapse">C++</a>
+            					<ul id="cpp-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../cpp/introvideos-cpp.html" >Intro Videos</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../cpp/config-linux.html" >GCC on Linux</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../cpp/config-mingw.html" >GCC on Windows</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../cpp/config-wsl.html" >GCC on Windows Subsystem for Linux</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../cpp/config-clang-mac.html" >Clang on macOS</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../cpp/config-msvc.html" >Microsoft C++ on Windows</a>
+            						</li>
+            					
+            						<li >
+            							<a href="https://github.com/microsoft/vscode-cmake-tools/blob/main/docs/README.md" >Build with CMake</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../cpp/cmake-linux.html" >CMake Tools on Linux</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../cpp/cpp-ide.html" >Editing</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../cpp/cpp-debug.html" >Debugging</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../cpp/launch-json-reference.html" >Configure debugging</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../cpp/customize-default-settings-cpp.html" >Settings</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../cpp/configure-intellisense-crosscompilation.html" >Configure IntelliSense for cross-compiling</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../cpp/faq-cpp.html" >FAQ</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#containers-articles" data-parent="#main-nav" data-toggle="collapse">Docker</a>
+            					<ul id="containers-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../containers/overview.html" >Overview</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../containers/quickstart-node.html" >Node.js</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../containers/quickstart-python.html" >Python</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../containers/quickstart-aspnet-core.html" >ASP.NET Core</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../containers/debug-common.html" >Debug</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../containers/docker-compose.html" >Docker Compose</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../containers/quickstart-container-registries.html" >Registries</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../containers/app-service.html" >Deploy to Azure</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../containers/choosing-dev-environment.html" >Choose a dev environment</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../containers/reference.html" >Customize</a>
+            						</li>
+            					
+            						<li >
+            							<a href="https://learn.microsoft.com/visualstudio/bridge/bridge-to-kubernetes-vs-code" >Develop with Kubernetes</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../containers/troubleshooting.html" >Tips and Tricks</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#datascience-articles" data-parent="#main-nav" data-toggle="collapse">Data Science</a>
+            					<ul id="datascience-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../datascience/overview.html" >Overview</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../datascience/jupyter-notebooks.html" >Jupyter Notebooks</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../datascience/data-science-tutorial.html" >Data Science Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../python/jupyter-support-py.html" >Python Interactive</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../datascience/pytorch-support.html" >PyTorch Support</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../datascience/azure-machine-learning.html" >Azure Machine Learning</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#azure-articles" data-parent="#main-nav" data-toggle="collapse">Azure</a>
+            					<ul id="azure-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../azure/extensions.html" >Extensions</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../azure/deployment.html" >Deployment</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../azure/remote-debugging.html" >Remote Debugging for Node.js</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../containers/overview.html" >Docker</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../azure/mongodb.html" >MongoDB</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../azure/kubernetes.html" >Kubernetes</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../azure/aksextensions.html" >Azure Kubernetes Service</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#remote-articles" data-parent="#main-nav" data-toggle="collapse">Remote</a>
+            					<ul id="remote-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../remote/remote-overview.html" >Overview</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../remote/ssh.html" >SSH</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../devcontainers/containers.html" >Dev Containers</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../remote/wsl.html" >Windows Subsystem for Linux</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../remote/codespaces.html" >GitHub Codespaces</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../remote/vscode-server.html" >VS Code Server</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../remote/tunnels.html" >Tunnels</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../remote/ssh-tutorial.html" >SSH Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../remote/wsl-tutorial.html" >WSL Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../remote/troubleshooting.html" >Tips and Tricks</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../remote/faq.html" >FAQ</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#devcontainers-articles" data-parent="#main-nav" data-toggle="collapse">Dev Containers</a>
+            					<ul id="devcontainers-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../devcontainers/containers.html" >Overview</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../devcontainers/tutorial.html" >Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../devcontainers/attach-container.html" >Attach to Container</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../devcontainers/create-dev-container.html" >Create a Dev Container</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../../remote/advancedcontainers/overview.html" >Advanced Containers</a>
+            						</li>
+            					
+            						<li >
+            							<a href="https://containers.dev/implementors/json_reference" >devcontainer.json</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../devcontainers/devcontainer-cli.html" >Dev Container CLI</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../devcontainers/tips-and-tricks.html" >Tips and Tricks</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../devcontainers/faq.html" >FAQ</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            		
+            	</ul>
+            </nav>
+            <nav id="small-nav" aria-label="Topics" class="docs-nav hidden-md hidden-lg">
+            	<h4>Topics</h4>
+            	<select id="small-nav-dropdown" aria-label="topics">
+            		<option value="/docs" >Overview</option>
+            		
+            			
+            		
+            			
+            				<optgroup label="Setup">
+            				
+            					<option value="/docs/setup/setup-overview" >Overview</option>
+            				
+            					<option value="/docs/setup/linux" >Linux</option>
+            				
+            					<option value="/docs/setup/mac" >macOS</option>
+            				
+            					<option value="/docs/setup/windows" >Windows</option>
+            				
+            					<option value="/docs/setup/raspberry-pi" >Raspberry Pi</option>
+            				
+            					<option value="/docs/setup/network" >Network</option>
+            				
+            					<option value="/docs/setup/additional-components" >Additional Components</option>
+            				
+            					<option value="/docs/setup/enterprise" >Enterprise</option>
+            				
+            					<option value="/docs/setup/uninstall" >Uninstall</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Get Started">
+            				
+            					<option value="/docs/getstarted/introvideos" >Intro Videos</option>
+            				
+            					<option value="/docs/getstarted/tips-and-tricks" >Tips and Tricks</option>
+            				
+            					<option value="/docs/getstarted/userinterface" >User Interface</option>
+            				
+            					<option value="/docs/getstarted/themes" >Themes</option>
+            				
+            					<option value="/docs/getstarted/settings" >Settings</option>
+            				
+            					<option value="/docs/getstarted/keybindings" >Key Bindings</option>
+            				
+            					<option value="/docs/getstarted/locales" >Display Language</option>
+            				
+            					<option value="/docs/getstarted/telemetry" >Telemetry</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="User Guide">
+            				
+            					<option value="/docs/editor/codebasics" >Basic Editing</option>
+            				
+            					<option value="/docs/editor/extension-marketplace" >Extension Marketplace</option>
+            				
+            					<option value="/docs/editor/intellisense" >IntelliSense</option>
+            				
+            					<option value="/docs/editor/editingevolved" >Code Navigation</option>
+            				
+            					<option value="/docs/editor/refactoring" >Refactoring</option>
+            				
+            					<option value="/docs/editor/debugging" >Debugging</option>
+            				
+            					<option value="/docs/editor/vscode-web" >VS Code for the Web</option>
+            				
+            					<option value="/docs/editor/tasks" >Tasks</option>
+            				
+            					<option value="/docs/editor/settings-sync" >Settings Sync</option>
+            				
+            					<option value="/docs/editor/userdefinedsnippets" >Snippets</option>
+            				
+            					<option value="/docs/editor/emmet" >Emmet</option>
+            				
+            					<option value="/docs/editor/command-line" >Command Line Interface</option>
+            				
+            					<option value="/docs/editor/workspace-trust" >Workspace Trust</option>
+            				
+            					<option value="/docs/editor/multi-root-workspaces" >Multi-root Workspaces</option>
+            				
+            					<option value="/docs/editor/accessibility" >Accessibility</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Source Control">
+            				
+            					<option value="/docs/sourcecontrol/overview" >Overview</option>
+            				
+            					<option value="/docs/sourcecontrol/github" >Collaborate on GitHub</option>
+            				
+            					<option value="/docs/sourcecontrol/faq" >FAQ</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Terminal">
+            				
+            					<option value="/docs/terminal/basics" >Terminal Basics</option>
+            				
+            					<option value="/docs/terminal/profiles" >Terminal Profiles</option>
+            				
+            					<option value="/docs/terminal/shell-integration" >Shell Integration</option>
+            				
+            					<option value="/docs/terminal/appearance" >Appearance</option>
+            				
+            					<option value="/docs/terminal/advanced" >Advanced</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Languages">
+            				
+            					<option value="/docs/languages/overview" >Overview</option>
+            				
+            					<option value="/docs/languages/javascript" >JavaScript</option>
+            				
+            					<option value="/docs/languages/json" >JSON</option>
+            				
+            					<option value="/docs/languages/html" >HTML</option>
+            				
+            					<option value="/docs/languages/css" >CSS, SCSS and Less</option>
+            				
+            					<option value="/docs/languages/typescript" >TypeScript</option>
+            				
+            					<option value="/docs/languages/markdown" >Markdown</option>
+            				
+            					<option value="/docs/languages/powershell" >PowerShell</option>
+            				
+            					<option value="/docs/languages/cpp" >C++</option>
+            				
+            					<option value="/docs/languages/java" >Java</option>
+            				
+            					<option value="/docs/languages/php" >PHP</option>
+            				
+            					<option value="/docs/languages/python" >Python</option>
+            				
+            					<option value="/docs/languages/julia" >Julia</option>
+            				
+            					<option value="/docs/languages/r" >R</option>
+            				
+            					<option value="/docs/languages/rust" >Rust</option>
+            				
+            					<option value="/docs/languages/go" >Go</option>
+            				
+            					<option value="/docs/languages/tsql" >T-SQL</option>
+            				
+            					<option value="/docs/languages/csharp" >C#</option>
+            				
+            					<option value="/docs/languages/dotnet" >.NET</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Node.js / JavaScript">
+            				
+            					<option value="/docs/nodejs/working-with-javascript" >Working with JavaScript</option>
+            				
+            					<option value="/docs/nodejs/nodejs-tutorial" >Node.js Tutorial</option>
+            				
+            					<option value="/docs/nodejs/nodejs-debugging" >Node.js Debugging</option>
+            				
+            					<option value="/docs/nodejs/nodejs-deployment" >Deploy Node.js Apps</option>
+            				
+            					<option value="/docs/nodejs/browser-debugging" >Browser Debugging</option>
+            				
+            					<option value="/docs/nodejs/angular-tutorial" >Angular Tutorial</option>
+            				
+            					<option value="/docs/nodejs/reactjs-tutorial" >React Tutorial</option>
+            				
+            					<option value="/docs/nodejs/vuejs-tutorial" >Vue Tutorial</option>
+            				
+            					<option value="/docs/nodejs/emberjs-tutorial" >Ember Tutorial</option>
+            				
+            					<option value="/docs/nodejs/debugging-recipes" >Debugging Recipes</option>
+            				
+            					<option value="/docs/nodejs/profiling" >Performance Profiling</option>
+            				
+            					<option value="/docs/nodejs/extensions" >Extensions</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="TypeScript">
+            				
+            					<option value="/docs/typescript/typescript-tutorial" >Tutorial</option>
+            				
+            					<option value="/docs/typescript/typescript-compiling" >Compiling</option>
+            				
+            					<option value="/docs/typescript/typescript-editing" >Editing</option>
+            				
+            					<option value="/docs/typescript/typescript-refactoring" >Refactoring</option>
+            				
+            					<option value="/docs/typescript/typescript-debugging" >Debugging</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Python">
+            				
+            					<option value="/docs/python/python-tutorial" >Tutorial</option>
+            				
+            					<option value="/docs/python/editing" >Editing Code</option>
+            				
+            					<option value="/docs/python/linting" >Linting</option>
+            				
+            					<option value="/docs/python/debugging" >Debugging</option>
+            				
+            					<option value="/docs/python/environments" >Environments</option>
+            				
+            					<option value="/docs/python/testing" >Testing</option>
+            				
+            					<option value="/docs/python/data-science" >Data Science</option>
+            				
+            					<option value="/docs/python/jupyter-support-py" >Python Interactive</option>
+            				
+            					<option value="/docs/python/tutorial-django" >Django Tutorial</option>
+            				
+            					<option value="/docs/python/tutorial-flask" >Flask Tutorial</option>
+            				
+            					<option value="/docs/python/tutorial-create-containers" >Create containers</option>
+            				
+            					<option value="/docs/python/python-on-azure" >Deploy Python Apps</option>
+            				
+            					<option value="/docs/python/python-web" >Python in the Web</option>
+            				
+            					<option value="/docs/python/settings-reference" >Settings Reference</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Java">
+            				
+            					<option value="/docs/java/java-tutorial" >Getting Started</option>
+            				
+            					<option value="/docs/java/java-editing" >Navigate and Edit</option>
+            				
+            					<option value="/docs/java/java-refactoring" >Refactoring</option>
+            				
+            					<option value="/docs/java/java-linting" >Formatting and Linting</option>
+            				
+            					<option value="/docs/java/java-project" >Project Management</option>
+            				
+            					<option value="/docs/java/java-build" >Build Tools</option>
+            				
+            					<option value="/docs/java/java-debugging" >Run and Debug</option>
+            				
+            					<option value="/docs/java/java-testing" >Testing</option>
+            				
+            					<option value="/docs/java/java-spring-boot" >Spring Boot</option>
+            				
+            					<option value="/docs/java/java-tomcat-jetty" >Application Servers</option>
+            				
+            					<option value="/docs/java/java-on-azure" >Deploy Java Apps</option>
+            				
+            					<option value="/docs/java/java-gui" >GUI Applications</option>
+            				
+            					<option value="/docs/java/extensions" >Extensions</option>
+            				
+            					<option value="/docs/java/java-faq" >FAQ</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="C++">
+            				
+            					<option value="/docs/cpp/introvideos-cpp" >Intro Videos</option>
+            				
+            					<option value="/docs/cpp/config-linux" >GCC on Linux</option>
+            				
+            					<option value="/docs/cpp/config-mingw" >GCC on Windows</option>
+            				
+            					<option value="/docs/cpp/config-wsl" >GCC on Windows Subsystem for Linux</option>
+            				
+            					<option value="/docs/cpp/config-clang-mac" >Clang on macOS</option>
+            				
+            					<option value="/docs/cpp/config-msvc" >Microsoft C++ on Windows</option>
+            				
+            					<option value="/docs/cpp/build-with-cmake" >Build with CMake</option>
+            				
+            					<option value="/docs/cpp/cmake-linux" >CMake Tools on Linux</option>
+            				
+            					<option value="/docs/cpp/cpp-ide" >Editing</option>
+            				
+            					<option value="/docs/cpp/cpp-debug" >Debugging</option>
+            				
+            					<option value="/docs/cpp/launch-json-reference" >Configure debugging</option>
+            				
+            					<option value="/docs/cpp/customize-default-settings-cpp" >Settings</option>
+            				
+            					<option value="/docs/cpp/configure-intellisense-crosscompilation" >Configure IntelliSense for cross-compiling</option>
+            				
+            					<option value="/docs/cpp/faq-cpp" >FAQ</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Docker">
+            				
+            					<option value="/docs/containers/overview" >Overview</option>
+            				
+            					<option value="/docs/containers/quickstart-node" >Node.js</option>
+            				
+            					<option value="/docs/containers/quickstart-python" >Python</option>
+            				
+            					<option value="/docs/containers/quickstart-aspnet-core" >ASP.NET Core</option>
+            				
+            					<option value="/docs/containers/debug-common" >Debug</option>
+            				
+            					<option value="/docs/containers/docker-compose" >Docker Compose</option>
+            				
+            					<option value="/docs/containers/quickstart-container-registries" >Registries</option>
+            				
+            					<option value="/docs/containers/app-service" >Deploy to Azure</option>
+            				
+            					<option value="/docs/containers/choosing-dev-environment" >Choose a dev environment</option>
+            				
+            					<option value="/docs/containers/reference" >Customize</option>
+            				
+            					<option value="/docs/containers/bridge-to-kubernetes" >Develop with Kubernetes</option>
+            				
+            					<option value="/docs/containers/troubleshooting" >Tips and Tricks</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Data Science">
+            				
+            					<option value="/docs/datascience/overview" >Overview</option>
+            				
+            					<option value="/docs/datascience/jupyter-notebooks" >Jupyter Notebooks</option>
+            				
+            					<option value="/docs/datascience/data-science-tutorial" >Data Science Tutorial</option>
+            				
+            					<option value="/docs/datascience/python-interactive" >Python Interactive</option>
+            				
+            					<option value="/docs/datascience/pytorch-support" >PyTorch Support</option>
+            				
+            					<option value="/docs/datascience/azure-machine-learning" >Azure Machine Learning</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Azure">
+            				
+            					<option value="/docs/azure/extensions" >Extensions</option>
+            				
+            					<option value="/docs/azure/deployment" >Deployment</option>
+            				
+            					<option value="/docs/azure/remote-debugging" >Remote Debugging for Node.js</option>
+            				
+            					<option value="/docs/azure/docker" >Docker</option>
+            				
+            					<option value="/docs/azure/mongodb" >MongoDB</option>
+            				
+            					<option value="/docs/azure/kubernetes" >Kubernetes</option>
+            				
+            					<option value="/docs/azure/aksextensions" >Azure Kubernetes Service</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Remote">
+            				
+            					<option value="/docs/remote/remote-overview" >Overview</option>
+            				
+            					<option value="/docs/remote/ssh" >SSH</option>
+            				
+            					<option value="/docs/remote/dev-containers" >Dev Containers</option>
+            				
+            					<option value="/docs/remote/wsl" >Windows Subsystem for Linux</option>
+            				
+            					<option value="/docs/remote/codespaces" >GitHub Codespaces</option>
+            				
+            					<option value="/docs/remote/vscode-server" >VS Code Server</option>
+            				
+            					<option value="/docs/remote/tunnels" >Tunnels</option>
+            				
+            					<option value="/docs/remote/ssh-tutorial" >SSH Tutorial</option>
+            				
+            					<option value="/docs/remote/wsl-tutorial" >WSL Tutorial</option>
+            				
+            					<option value="/docs/remote/troubleshooting" >Tips and Tricks</option>
+            				
+            					<option value="/docs/remote/faq" >FAQ</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Dev Containers">
+            				
+            					<option value="/docs/devcontainers/containers" >Overview</option>
+            				
+            					<option value="/docs/devcontainers/tutorial" >Tutorial</option>
+            				
+            					<option value="/docs/devcontainers/attach-container" >Attach to Container</option>
+            				
+            					<option value="/docs/devcontainers/create-dev-container" >Create a Dev Container</option>
+            				
+            					<option value="/docs/devcontainers/containers-advanced" >Advanced Containers</option>
+            				
+            					<option value="/docs/devcontainers/devcontainerjson-reference" >devcontainer.json</option>
+            				
+            					<option value="/docs/devcontainers/devcontainer-cli" >Dev Container CLI</option>
+            				
+            					<option value="/docs/devcontainers/tips-and-tricks" >Tips and Tricks</option>
+            				
+            					<option value="/docs/devcontainers/faq" >FAQ</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            		
+            	</select>
+            </nav>        </div>
+        <div class="col-sm-9 col-md-8 body">
+            <div class="edit-github pull-right">
+                <a href="https://vscode.dev/github/microsoft/vscode-docs/blob/main/docs/editor/workspaces.md"
+                    class="btn btn-default" title="Edit this document in vscode.dev">
+                    <span class="glyphicon glyphicon-pencil"></span>
+                    <span class="hidden-xs">Edit</span>
+                </a>
+            </div>
+            <h1>What is a VS Code &quot;workspace&quot;?</h1>
+<p>A Visual Studio Code &quot;workspace&quot; is the collection of one or more folders that are opened in a VS Code window (instance). In most cases, you will have a single folder opened as the workspace but, depending on your development workflow, you can include more than one folder, using an advanced configuration called <a href="#_multiroot-workspaces">Multi-root workspaces</a>.</p>
+<p>The concept of a workspace enables VS Code to:</p>
+<ul>
+<li>Configure settings that only apply to a specific folder or folders but not others.</li>
+<li>Persist <a href="tasks.html">task</a> and <a href="debugging.html">debugger launch</a> configurations that are only valid in the context of that workspace.</li>
+<li>Store and restore UI state associated with that workspace (for example, the files that are opened).</li>
+<li>Selectively enable or disable extensions only for that workspace.</li>
+</ul>
+<p>You may see the terms &quot;folder&quot; and &quot;workspace&quot; used interchangeably in VS Code documentation, issues, and community discussions. Think of a workspace as the root of a project that has extra VS Code knowledge and capabilities.</p>
+<blockquote>
+<p><strong>Note:</strong> It is also possible to open VS Code without a workspace. For example, when you open a new VS Code window by selecting a file from your platform's <strong>File</strong> menu, you will not be inside a workspace. In this mode, some of VS Code's capabilities are reduced but you can still open text files and edit them.</p>
+</blockquote>
+<h2 id="_how-do-i-open-a-vs-code-workspace" data-needslink="_how-do-i-open-a-vs-code-workspace">How do I open a VS Code &quot;workspace&quot;?</h2>
+<p>The easiest way to open a workspace is using the <strong>File</strong> menu and selecting one of the available folder entries for opening. Alternatively if you launch VS Code from a terminal, you can pass the path to a folder as the first argument to the <code>code</code> command for opening.</p>
+<h2 id="_singlefolder-workspaces" data-needslink="_singlefolder-workspaces">Single-folder workspaces</h2>
+<p>You don't have to do anything for a folder to become a VS Code workspace other than open the folder with VS Code. Once a folder has been opened, VS Code will automatically keep track of things such as your open files and editor layout so the editor will be as you left it when you reopen that folder. You can also add other folder-specific configurations such as workspace-specific <a href="../getstarted/settings.html">settings</a> (versus global user settings), <a href="tasks.html">task definitions</a>, and <a href="debugging.html">debugging launch</a> files (see below in the <a href="#_workspace-settings">workspace settings</a> section).</p>
+<p><img src="../../assets/docs/editor/workspaces/single-folder-workspace.png" alt="Single-folder workspace" loading="lazy"></p>
+<p><em>A single-folder workspace opened inside VS Code</em></p>
+<h2 id="_multiroot-workspaces" data-needslink="_multiroot-workspaces">Multi-root workspaces</h2>
+<p><a href="multi-root-workspaces.html">Multi-root workspaces</a> are an advanced capability of VS Code that allows you to configure multiple distinct folders to be part of the workspace. Instead of opening a folder as workspace, you will open a <code>&lt;name&gt;.code-workspace</code> JSON file that lists the folders of the workspace. For example:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #000000">{</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;folders&quot;</span><span style="color: #000000">: [</span></span>
+<span class="line"><span style="color: #000000">    {</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #0451A5">&quot;path&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;my-folder-a&quot;</span></span>
+<span class="line"><span style="color: #000000">    },</span></span>
+<span class="line"><span style="color: #000000">    {</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #0451A5">&quot;path&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;my-folder-b&quot;</span></span>
+<span class="line"><span style="color: #000000">    }</span></span>
+<span class="line"><span style="color: #000000">  ]</span></span>
+<span class="line"><span style="color: #000000">}</span></span>
+<span class="line"></span></code></pre>
+<p><img src="../../assets/docs/editor/workspaces/multi-root-workspace.png" alt="Multi-root workspace" loading="lazy"></p>
+<p><em>A multi-root workspace opened in VS Code</em></p>
+<blockquote>
+<p><strong>Note:</strong> The visual difference of having a folder opened versus opening a <code>.code-workspace</code> file can be subtle. To give you a hint that a <code>.code-workspace</code> file has been opened, some areas of the user interface (for example, the root of the File Explorer) show an extra <strong>(Workspace)</strong> suffix next to the name.</p>
+</blockquote>
+<h3 id="_untitled-multiroot-workspaces" data-needslink="_untitled-multiroot-workspaces">Untitled multi-root workspaces</h3>
+<p>It is easy to add or remove folders in your workspace. You can start off by opening a folder in VS Code and then later add more folders as you see fit. Unless you already have opened a <code>.code-workspace</code> file, the first time you add a second folder to a workspace, VS Code will automatically create an &quot;untitled&quot; workspace. In the background, VS Code automatically maintains a <code>untitled.code-workspace</code> file for you that contains all of the folders and workspace settings from your current session. The workspace will remain &quot;untitled&quot; until you decide to save it to disk.</p>
+<p><img src="../../assets/docs/editor/workspaces/untitled-workspace.png" alt="Untitled multi-root workspace" loading="lazy"></p>
+<p><em>An untitled multi-root workspace opened in VS Code</em></p>
+<blockquote>
+<p><strong>Note:</strong> There is really no difference between an untitled workspace and a saved workspace other than the fact that an untitled workspace is automatically created for you for your convenience and will always restore until you save it. We automatically delete untitled workspaces (after asking you for confirmation) when you close a window in which an untitled workspace is opened.</p>
+</blockquote>
+<h2 id="_workspace-settings" data-needslink="_workspace-settings">Workspace settings</h2>
+<p>Workspace settings enable you to configure settings in the context of the workspace you have opened and always override global user settings. They are physically stored in a JSON file and their location depends on whether you opened a folder as a workspace or you opened a <code>.code-workspace</code> file.</p>
+<p>Refer to the <a href="../getstarted/settings.html">settings</a> documentation for a comprehensive explanation of setting scopes and their file locations.</p>
+<h3 id="_singlefolder-workspace-settings" data-needslink="_singlefolder-workspace-settings">Single-folder workspace settings</h3>
+<p>Workspace settings will be stored in <code>.vscode/settings.json</code> when you open a folder as workspace.</p>
+<p><img src="../../assets/docs/editor/workspaces/single-folder-settings.png" alt="Single-folder workspace settings" loading="lazy"></p>
+<p><em>The Settings editor when a folder is opened as workspace</em></p>
+<h3 id="_multiroot-workspace-settings" data-needslink="_multiroot-workspace-settings">Multi-root workspace settings</h3>
+<p>When you open a <code>.code-workspace</code> as workspace, all workspace settings will be added into the <code>.code-workspace</code> file.</p>
+<p>You can still configure settings per root folder and the Settings editor will present a third setting scope called <strong>Folder Settings</strong>:</p>
+<p><img src="../../assets/docs/editor/workspaces/multi-root-settings.png" alt="Multi-root settings" loading="lazy"></p>
+<p><em>The Settings editor when a multi-root workspace is opened</em></p>
+<p>Settings configured per folder will override settings defined in the <code>.code-workspace</code>.</p>
+<h2 id="_workspace-tasks-and-launch-configurations" data-needslink="_workspace-tasks-and-launch-configurations">Workspace tasks and launch configurations</h2>
+<p>Similar to how <a href="#_workspace-settings">workspace settings</a> are specific to a workspace, tasks and launch configurations can also be scoped to a workspace. Depending on whether you have a folder opened as workspace or a <code>.code-workspace</code> file, the location of workspace task and launch configurations will either be inside the <code>.vscode</code> folder or inside the <code>.code-workspace</code> file. In addition, task and launch configurations can always be defined at the level of a folder, even when you have opened a <code>.code-workspace</code> file.</p>
+<p>Refer to <a href="tasks.html">tasks</a> and <a href="debugging.html">debugging</a> chapters for a more comprehensive overview of how to use tasks and launch configurations in VS Code.</p>
+<h2 id="_common-questions" data-needslink="_common-questions">Common questions</h2>
+<h3 id="_what-is-the-benefit-of-multiroot-workspace-over-a-folder" data-needslink="_what-is-the-benefit-of-multiroot-workspace-over-a-folder">What is the benefit of multi-root workspace over a folder?</h3>
+<p>The most obvious advantage is that a multi-root workspace allows you to work with multiple projects that may not be stored inside the same parent folder on disk. You can pick folders from anywhere to add to the workspace.</p>
+<p>Even if you are mainly working in a single-folder-based project, you can benefit from using <code>.code-workspace</code> files. You can store multiple <code>.code-workspace</code> files inside the folder to provide a scoped folder-view of certain aspects of the project depending on the scenario (for example <code>client.code-workspace</code>, <code>server.code-workspace</code> to filter out unrelated folders from the File Explorer). Since <code>.code-workspace</code> files support relative paths for the <code>folders</code> section, these workspace files will work for everyone independent of where the folder is stored.</p>
+<p>Finally, if for some projects you want to apply the same set of workspace settings or tasks/launch configurations, consider adding these into a <code>.code-workspace</code> file and add/remove these folders from that workspace.</p>
+<h3 id="_why-is-vs-code-restoring-all-untitled-workspaces-on-a-restart" data-needslink="_why-is-vs-code-restoring-all-untitled-workspaces-on-a-restart">Why is VS Code restoring all untitled workspaces on a restart?</h3>
+<p>Untitled workspaces are designed to be something you must explicitly decide to keep or not. The first time an untitled workspace is created, VS Code adds the specified folders into the workspace file and also all existing workspace settings. This user data is always restored and displayed in a VS Code window until the untitled workspace is saved or deleted.</p>
+<h3 id="_how-do-i-delete-an-untitled-workspace" data-needslink="_how-do-i-delete-an-untitled-workspace">How do I delete an untitled workspace?</h3>
+<p>You can delete an untitled workspace by closing its window and dismissing the prompt to save the untitled workspace.</p>
+<h3 id="_can-i-use-a-multiroot-workspace-without-folders" data-needslink="_can-i-use-a-multiroot-workspace-without-folders">Can I use a multi-root workspace without folders</h3>
+<p>It is possible to leave the <code>folders</code> section of a <code>.code-workspace</code> file empty so that you end up with an instance of VS Code that does not show any root folders. You can still store workspace settings and even tasks or launch configurations in this case.</p>
+<h3 id="_does-vs-code-support-projects-or-solutions" data-needslink="_does-vs-code-support-projects-or-solutions">Does VS Code support projects or solutions?</h3>
+<p>VS Code doesn't have the concept of a &quot;project&quot; or &quot;solution&quot; as they are sometimes defined in other development tools, for example Visual Studio IDE. You may see the term &quot;project&quot; used in VS Code documentation but it usually means &quot;the thing you're working on&quot;. Depending on your programming language or framework, the toolset itself may support something called a &quot;project&quot; to help define build configurations or enumerate included files.</p>
+
+            <div class="feedback"></div>
+            
+            <div class="body-footer">12/7/2022</div>
+            
+        </div>
+        <div class="col-sm-3 col-md-2 docs-subnavbar-container">
+            <nav id="docs-subnavbar" aria-label="On Page" data-spy="affix" data-offset-top="20">
+                
+                <h4><span class="sr-only">In this article there are 6 sections</span><span
+                        aria-hidden="true">In this article</span></h4>
+                <ul class="nav">
+                    
+                    <li><a href="#_how-do-i-open-a-vs-code-workspace">How do I open a VS Code "workspace"?</a></li>
+                    
+                    <li><a href="#_singlefolder-workspaces">Single-folder workspaces</a></li>
+                    
+                    <li><a href="#_multiroot-workspaces">Multi-root workspaces</a></li>
+                    
+                    <li><a href="#_workspace-settings">Workspace settings</a></li>
+                    
+                    <li><a href="#_workspace-tasks-and-launch-configurations">Workspace tasks and launch configurations</a></li>
+                    
+                    <li><a href="#_common-questions">Common questions</a></li>
+                    
+                </ul>
+                
+                <div class="connect-widget"></div>
+            </nav>
+        </div>
+    </div>
+</div>
+      </div>
+  </div>
+
+  <footer role="contentinfo">
+      <div class="container">
+          <div class="row">
+              <div class="left col-md-7">
+                  <ul class="links">
+                      <li>
+                          <span class="message">Hello from Seattle.</span>
+                      </li>
+                      <li>
+                          <a href="https://go.microsoft.com/fwlink/?LinkID=533687" onclick="followOnTwitter()" tabindex="0">Follow @code</a>
+                      </li>
+                      <li>
+                          <div class="github-star-button">
+                              <iframe src="../../assets/github-button29be.html?user=Microsoft&amp;repo=vscode&amp;type=star&amp;count=true"
+                                  frameborder="0" scrolling="0" width="130px" height="20px" title="GitHub follow button" loading="lazy"></iframe>
+                          </div>
+                      </li>
+  
+                      <script>
+                          function followOnTwitter() {
+                              var windowFeatures = "location=yes,height=600,width=550,scrollbars=yes,status=yes";
+                              var originalReferer = "&original_referer=" + document.URL;
+                              var screenName = "&screen_name=code";
+                              var URL = "https://twitter.com/intent/follow?" + originalReferer + screenName;
+                              window.open(URL, "_blank", windowFeatures);
+                          }
+  
+                          function manageConsent() {
+                              if(WcpConsent.siteConsent.isConsentRequired){
+                                  WcpConsent.siteConsent.manageConsent();
+                              }
+                          }
+                      </script>
+                  </ul>
+              </div>
+              <div class="right col-md-5">
+                  <ul class="links">
+                      <li><a id="footer-support-link" href="https://support.serviceshub.microsoft.com/supportforbusiness/create?sapId=d66407ed-3967-b000-4cfb-2c318cad363d"
+                              target="_blank">Support</a></li>
+                      <li><a id="footer-privacy-link" href="https://privacy.microsoft.com/privacystatement"
+                              target="_blank">Privacy</a></li>
+                      <li style="display: none;"><a id="footer-cookie-link" style="cursor: pointer;" onclick="manageConsent()"
+                              target="_blank">Manage Cookies</a></li>
+                      <li><a id="footer-terms-link" href="https://www.microsoft.com/legal/terms-of-use"
+                              target="_blank">Terms of Use</a></li>
+                      <li><a id="footer-license-link" href="../../License.html">License</a></li>
+                  </ul>
+                  <div class="copyright">
+                      <a id="footer-microsoft-link" class="logo" href="https://www.microsoft.com/">
+                          <img class="microsoft-logo" src="../../assets/images/microsoft-logo.png" height="20" alt="Microsoft homepage"/>
+                          <img class="microsoft-logo-inverted" src="../../assets/images/microsoft-logo-inverted.png" height="20" alt="Microsoft homepage" />
+                      </a>
+                      <span>&copy; 2023 Microsoft</span>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </footer>
+  <script src="../../dist/index.js"></script>
+
+  
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "SoftwareApplication",
+      "name" : "Visual Studio Code",
+      "softwareVersion": "1.74",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "applicationCategory": "DeveloperApplication",
+      "applicationSubCategory": "Text Editor",
+      "alternateName": "VS Code",
+      "datePublished": "2021-11-03",
+      "operatingSystem": "Mac, Linux, Windows",
+      "logo": "https://code.visualstudio.com/assets/apple-touch-icon.png",
+      "screenshot": "https://code.visualstudio.com/assets/home/home-screenshot-win.png",
+      "releaseNotes": "https://code.visualstudio.com/updates",
+      "downloadUrl": "https://code.visualstudio.com/download",
+      "license": "https://code.visualstudio.com/license",
+      "softwareRequirements": "https://code.visualstudio.com/docs/supporting/requirements",
+      "url" : "https://code.visualstudio.com",
+      "author": {
+        "@type": "Organization",
+        "name": "Microsoft"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Microsoft"
+      },
+      "maintainer": {
+        "@type": "Organization",
+        "name": "Microsoft"
+      },
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://code.visualstudio.com/Search?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      },
+      "sameAs" : [
+        "https://en.wikipedia.org/wiki/Visual_Studio_Code",
+        "https://twitter.com/code",
+        "https://www.youtube.com/code",
+        "https://www.tiktok.com/@vscode",
+        "https://github.com/microsoft/vscode"
+      ]
+    }
+  </script>
+</body>
+
+<!-- Mirrored from code.visualstudio.com/docs/editor/workspaces by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 04 Jan 2023 11:29:17 GMT -->
+</html>

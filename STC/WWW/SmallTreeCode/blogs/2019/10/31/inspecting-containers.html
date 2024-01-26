@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Mirrored from code.visualstudio.com/blogs/2019/10/31/inspecting-containers by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 04 Jan 2023 12:15:15 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="google-site-verification" content="hNs7DXrTySP_X-0P_AC0WulAXvUwgSXEmgfcO2r79dw" />
+
+  <!-- Twitter and Facebook OpenGraph Metadata-->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@code" />
+
+  <meta name="description" content="Inspecting Docker Containers with Visual Studio Code" />
+<meta name="keywords" content="" />
+<!-- Twitter and Facebook OpenGraph Metadata-->
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="og:url" content="inspecting-containers.html" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Inspecting Docker Containers with Visual Studio Code" />
+<meta property="og:description" content="Inspecting Docker Containers with Visual Studio Code" />
+
+<meta property="og:image" content="../../../../assets/blogs/2019/10/31/social-remote-containers.png" />
+
+
+
+  <link rel="shortcut icon" href="../../../../favicon.ico" sizes="128x128" />
+  <link rel="apple-touch-icon" href="../../../../apple-touch-icon.png">
+
+  <title>Inspecting Docker Containers with Visual Studio Code</title>
+
+  <link rel="stylesheet" href="../../../../vendor/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../../../../dist/style.css">
+
+  <script type="text/javascript" src="../../../../../js.monitor.azure.com/scripts/c/ms.analytics-web-3.min.js"></script>
+  <script>
+  window.appInsights = new oneDS.ApplicationInsights();
+  window.appInsights.initialize({
+    instrumentationKey: "1a3eb3104447440391ad5f2a6ee06a0a-62879566-bc58-4741-9650-302bf2af703f-7103",
+    webAnalyticsConfiguration:{ // Web Analytics Plugin configuration
+        urlCollectQuery:true, 
+        autoCapture: {
+          scroll: true,
+          pageView: true,
+          onLoad: true,
+          onUnload: true,
+          click: true,
+          resize: true,
+          jsError: true
+        }
+    }
+  }, []);
+  </script>
+  
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','../../../../../www.google-analytics.com/analytics.js','ga');
+  </script>  
+  <link rel="alternate" type="application/atom+xml" title="RSS Feed for code.visualstudio.com" href="../../../../feed.xml" />
+</head>
+
+<body>
+  <!-- EU Cookie Compliance JS -->
+  <script src="../../../../../wcpstatic.microsoft.com/mscc/lib/v2/wcp-consent.js"></script>
+
+  <div id="main">
+          <div class="navbar-fixed-container">
+              <div class="navbar navbar-inverse navbar-fixed-top ">
+                  <div id='cookie-banner'></div>        <nav role="navigation" aria-label="Top Level">
+                      <div class="container">
+                          <div class="nav navbar-header">
+                              <a role="button" id="skip-to-content" class="link-button" href="#main-content">Skip to content<i>&nbsp;</i><span class="glyphicon glyphicon-menu-down"></span></a>
+                              <a class="navbar-brand" id="navbar-brand" href="../../../../index.html">Visual Studio Code</a>
+                              <button type="button" class="navbar-toggle" role="navigation" data-toggle="collapse" data-target=".navbar-collapse" aria-label="Toggle Navigation Menu">
+                                  <span class="icon-bar"></span>
+                                  <span class="icon-bar"></span>
+                                  <span class="icon-bar"></span>
+                              </button>
+                          </div>
+                          <div class="navbar-collapse collapse" role="navigation">
+                              <ul class="nav navbar-nav navbar-left">
+                                  <li ><a id="nav-docs" href="../../../../docs.html">Docs</a></li>
+                                  <li ><a id="nav-updates" href="../../../../updates/v1_74.html">Updates</a></li>
+                                  <li class="active" ><a id="nav-blogs" href="../../../../blogs.html">Blog</a></li>
+                                  <li ><a id="nav-extend" href="../../../../api.html">API</a></li>
+                                  <li><a href="https://marketplace.visualstudio.com/VSCode" target="_blank" id="nav-extensions">Extensions</a></li>
+                                  <li ><a id="nav-faqs" href="../../../../docs/supporting/faq.html">FAQ</a></li>
+                                  <li ><a id="nav-learn" href="../../../../learn.html">Learn</a></li>
+                                  <li class='search visible-xs visible-sm'
+                                      ><a href="../../../../Search.html">Search</a></li>
+                              </ul>
+          
+                              <ul class="nav navbar-nav navbar-right" role="presentation">
+                                  <!-- Floating search icon -->
+                                  <li>
+                                      <a href="../../../../Search.html" title="Search" class="btn search-btn" id="nav-search">
+                                          <img class="search-icon" src="../../../../assets/icons/search.svg" width="16px" height="16px" alt="Search"/>
+                                          <img class="search-icon-inverted" src="../../../../assets/icons/search_dark.svg" width="16px" height="16px" alt="Search" />
+                                      </a>
+                                  </li>
+                                  <!-- Actual search icon -->
+                                  <li class="search" role="presentation">
+                                      <form class="nav-search search-form" role="search" aria-label="Search">
+                                          <div class="input-group" role="presentation">
+                                              <input type="text" name="q" class="search-box form-control" placeholder="Search Docs" aria-label="Search text"/>
+                                              <span class="input-group-btn">
+                                                  <button tabindex="0" class="btn" type="submit" aria-label="Search">
+                                                          <img class="search-icon" src="../../../../assets/icons/search.svg" width="16px" height="16px" alt="Search" />
+                                                          <img class="search-icon-inverted" src="../../../../assets/icons/search_dark.svg" width="16px" height="16px" alt="Search" />
+                                                  </button>
+                                              </span>
+                                          </div>
+                                      </form>                        </li>
+                                  <!-- this was hiden in the home and download page, keeping it for now -->
+                                  <li><a class="link-button" href="../../../../Download.html" id="nav-download">
+                                      <img class="download-icon" src="../../../../assets/icons/download.svg" width="16px" height="16px" alt="Download VS Code"/>
+                                      <img class="download-icon-inverted" src="../../../../assets/icons/download-black.svg" width="16px" height="16px" alt="Download VS Code" />
+                                      <span>Download</span>
+                                  </a></li>
+                              </ul>
+                          </div>
+                      </div>
+                  </nav>
+              </div>
+          </div>          <div class="updates-banner  ">
+              <div class="container">
+                  <p class="message"><a href="../../../../updates/v1_74.html" id="banner-link-updates">Version 1.74</a> is now available! Read about the new features and fixes from November.</p> 
+              </div>
+              <div tabindex="0" role="button" title="Dismiss this update" class="dismiss-btn" id="banner-dismiss-btn"><span class="sr-only">Dismiss this update</span><span aria-hidden="true" class="glyph-icon"></span></div>
+          </div>      <div role="main" id="main-content">
+        <div class="container body-content docs blog">
+    <div class="row">
+        <div class="col-md-2 docs-navbar-container">
+            <nav id="docs-navbar" aria-label="Blog posts" class="docs-nav updates-nav visible-md visible-lg">
+            	<h4>Blog posts</h4>
+            	<ul class="nav">
+            		
+            			<li >
+            				<a href="../../../2022/12/07/remote-even-better.html" >Remote Development Even Better</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2022/11/28/vscode-sandbox.html" >VS Code Sandboxing</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2022/10/04/vscode-community-discussions.html" >VS Code Community Discussions</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2022/09/15/dev-container-features.html" >Dev Container Features</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2022/08/16/markdown-language-server.html" >Markdown Language Server</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2022/07/07/vscode-server.html" >The VS Code Server</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2022/05/18/dev-container-cli.html" >Dev container CLI</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2022/04/04/increase-productivity-with-containers.html" >Moving from Local to Remote Development</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2022/03/08/the-tutorial-problem.html" >The problem with tutorials</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2021/11/08/custom-notebooks.html" >Custom Notebooks</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2021/10/20/vscode-dev.html" >vscode.dev</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2021/10/11/webview-ui-toolkit.html" >Webview UI Toolkit</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2021/09/29/bracket-pair-colorization.html" >Bracket Pair Colorization</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2021/08/05/notebooks.html" >Notebooks</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2021/07/06/workspace-trust.html" >Workspace Trust</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2021/06/10/remote-repositories.html" >Remote Repositories</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2021/06/02/build-2021.html" >Build 2021</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2021/02/16/extension-bisect.html" >Extension bisect</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2020/12/03/chromebook-get-started.html" >VS Code on Chromebook</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2020/07/27/containers-edu.html" >Development Containers in Education</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2020/07/01/containers-wsl.html" >Dev Containers in WSL 2</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2020/06/09/go-extension.html" >The Go experience</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2020/05/14/vscode-build-2020.html" >VS Code at Build</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2020/05/06/github-issues-integration.html" >GitHub Issues Integration</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2020/03/02/docker-in-wsl2.html" >Docker in WSL 2</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2020/02/24/custom-data-format.html" >Custom Data Format</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2020/02/18/optimizing-ci.html" >Improving CI Build Times</a>
+            			</li>
+            		
+            			<li class="active">
+            				<a href="inspecting-containers.html" aria-label="Current Page: Inspecting Containers">Inspecting Containers</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../03/remote-ssh-tips-and-tricks.html" >SSH Tips and Tricks</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../09/03/wsl2.html" >WSL 2</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../07/25/remote-ssh.html" >Remote SSH</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../05/23/strict-null.html" >Strict null checking</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../05/02/remote-development.html" >Remote Development</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../02/19/lsif.html" >Language Server Index Format</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2018/12/04/rich-navigation.html" >Rich Code Navigation</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2018/11/26/event-stream.html" >Event-Stream Package Security Update</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2018/09/12/engineering-with-azure-pipelines.html" >Using Azure Pipelines</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2018/09/10/introducing-github-pullrequests.html" >GitHub Pull Requests</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2018/08/07/debug-adapter-protocol-website.html" >New home for Debug Adapter Protocol</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2018/07/12/introducing-logpoints-and-auto-attach.html" >Logpoints and auto-attach</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2018/05/07/live-share-public-preview.html" >Live Share Preview</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2018/04/25/bing-settings-search.html" >Settings Search</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2018/03/23/text-buffer-reimplementation.html" >Text Buffer Reimplementation</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/12/20/chrome-debugging.html" >What's New for Chrome Debugging</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/11/16/connect.html" >Connect 2017</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/11/15/live-share.html" >Introducing Live Share</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/10/24/theicon.html" >The Icon Journey</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/10/03/terminal-renderer.html" >Integrated Terminal Performance</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/09/28/java-debug.html" >Java Debugging</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/08/07/emmet-2.html" >Emmet 2.0</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/06/20/great-looking-editor-roundup.html" >Fresh Paint</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/05/10/build-2017-demo.html" >Build 2017 Demo</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/04/10/sublime-text-roundup.html" >Sublime Text Extension Roundup</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/03/07/extension-pack-roundup.html" >Extension Packs</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/02/12/code-lens-roundup.html" >Extensions using CodeLens</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/02/08/syntax-highlighting-optimizations.html" >Optimizations in Syntax Highlighting</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/01/15/connect-nina-e2e.html" >Node.js Development with Visual Studio Code and Azure</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2016/12/12/roundup-customize.html" >Customize VS Code Extension Roundup</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2016/11/30/hot-exit-in-insiders.html" >Hot Exit Comes to Insiders</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2016/11/15/formatters-best-practices.html" >Creating a Formatter Extension</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2016/10/31/js_roundup_2.html" >JavaScript Extensions Part 2</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2016/09/14/js_roundup_1.html" >JavaScript Extensions Part 1</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2016/09/08/icon-themes.html" >File Icon Themes</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2016/07/29/extensions-roundup-git.html" >Extensions Roundup - Fun with Git</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2016/06/27/common-language-protocol.html" >The Language Server Protocol</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2016/05/04/extension-roundup-may.html" >Extensions Roundup</a>
+            			</li>
+            		
+            	</ul>
+            </nav>
+            <nav id="small-nav" aria-label="Blog posts" class="docs-nav updates-nav hidden-md hidden-lg">
+            	<h4>Blogs</h4>
+            	<select id="small-nav-dropdown" aria-label="blog posts">
+            		
+            			<option value="/blogs/2022/12/07/remote-even-better" >Remote Development Even Better</option>
+            		
+            			<option value="/blogs/2022/11/28/vscode-sandbox" >VS Code Sandboxing</option>
+            		
+            			<option value="/blogs/2022/10/04/vscode-community-discussions" >VS Code Community Discussions</option>
+            		
+            			<option value="/blogs/2022/09/15/dev-container-features" >Dev Container Features</option>
+            		
+            			<option value="/blogs/2022/08/16/markdown-language-server" >Markdown Language Server</option>
+            		
+            			<option value="/blogs/2022/07/07/vscode-server" >The VS Code Server</option>
+            		
+            			<option value="/blogs/2022/05/18/dev-container-cli" >Dev container CLI</option>
+            		
+            			<option value="/blogs/2022/04/04/increase-productivity-with-containers" >Moving from Local to Remote Development</option>
+            		
+            			<option value="/blogs/2022/03/08/the-tutorial-problem" >The problem with tutorials</option>
+            		
+            			<option value="/blogs/2021/11/08/custom-notebooks" >Custom Notebooks</option>
+            		
+            			<option value="/blogs/2021/10/20/vscode-dev" >vscode.dev</option>
+            		
+            			<option value="/blogs/2021/10/11/webview-ui-toolkit" >Webview UI Toolkit</option>
+            		
+            			<option value="/blogs/2021/09/29/bracket-pair-colorization" >Bracket Pair Colorization</option>
+            		
+            			<option value="/blogs/2021/08/05/notebooks" >Notebooks</option>
+            		
+            			<option value="/blogs/2021/07/06/workspace-trust" >Workspace Trust</option>
+            		
+            			<option value="/blogs/2021/06/10/remote-repositories" >Remote Repositories</option>
+            		
+            			<option value="/blogs/2021/06/02/build-2021" >Build 2021</option>
+            		
+            			<option value="/blogs/2021/02/16/extension-bisect" >Extension bisect</option>
+            		
+            			<option value="/blogs/2020/12/03/chromebook-get-started" >VS Code on Chromebook</option>
+            		
+            			<option value="/blogs/2020/07/27/containers-edu" >Development Containers in Education</option>
+            		
+            			<option value="/blogs/2020/07/01/containers-wsl" >Dev Containers in WSL 2</option>
+            		
+            			<option value="/blogs/2020/06/09/go-extension" >The Go experience</option>
+            		
+            			<option value="/blogs/2020/05/14/vscode-build-2020" >VS Code at Build</option>
+            		
+            			<option value="/blogs/2020/05/06/github-issues-integration" >GitHub Issues Integration</option>
+            		
+            			<option value="/blogs/2020/03/02/docker-in-wsl2" >Docker in WSL 2</option>
+            		
+            			<option value="/blogs/2020/02/24/custom-data-format" >Custom Data Format</option>
+            		
+            			<option value="/blogs/2020/02/18/optimizing-ci" >Improving CI Build Times</option>
+            		
+            			<option value="/blogs/2019/10/31/inspecting-containers" selected>Inspecting Containers</option>
+            		
+            			<option value="/blogs/2019/10/03/remote-ssh-tips-and-tricks" >SSH Tips and Tricks</option>
+            		
+            			<option value="/blogs/2019/09/03/wsl2" >WSL 2</option>
+            		
+            			<option value="/blogs/2019/07/25/remote-ssh" >Remote SSH</option>
+            		
+            			<option value="/blogs/2019/05/23/strict-null" >Strict null checking</option>
+            		
+            			<option value="/blogs/2019/05/02/remote-development" >Remote Development</option>
+            		
+            			<option value="/blogs/2019/02/19/lsif" >Language Server Index Format</option>
+            		
+            			<option value="/blogs/2018/12/04/rich-navigation" >Rich Code Navigation</option>
+            		
+            			<option value="/blogs/2018/11/26/event-stream" >Event-Stream Package Security Update</option>
+            		
+            			<option value="/blogs/2018/09/12/engineering-with-azure-pipelines" >Using Azure Pipelines</option>
+            		
+            			<option value="/blogs/2018/09/10/introducing-github-pullrequests" >GitHub Pull Requests</option>
+            		
+            			<option value="/blogs/2018/08/07/debug-adapter-protocol-website" >New home for Debug Adapter Protocol</option>
+            		
+            			<option value="/blogs/2018/07/12/introducing-logpoints-and-auto-attach" >Logpoints and auto-attach</option>
+            		
+            			<option value="/blogs/2018/05/07/live-share-public-preview" >Live Share Preview</option>
+            		
+            			<option value="/blogs/2018/04/25/bing-settings-search" >Settings Search</option>
+            		
+            			<option value="/blogs/2018/03/23/text-buffer-reimplementation" >Text Buffer Reimplementation</option>
+            		
+            			<option value="/blogs/2017/12/20/chrome-debugging" >What's New for Chrome Debugging</option>
+            		
+            			<option value="/blogs/2017/11/16/connect" >Connect 2017</option>
+            		
+            			<option value="/blogs/2017/11/15/live-share" >Introducing Live Share</option>
+            		
+            			<option value="/blogs/2017/10/24/theicon" >The Icon Journey</option>
+            		
+            			<option value="/blogs/2017/10/03/terminal-renderer" >Integrated Terminal Performance</option>
+            		
+            			<option value="/blogs/2017/09/28/java-debug" >Java Debugging</option>
+            		
+            			<option value="/blogs/2017/08/07/emmet-2.0" >Emmet 2.0</option>
+            		
+            			<option value="/blogs/2017/06/20/great-looking-editor-roundup" >Fresh Paint</option>
+            		
+            			<option value="/blogs/2017/05/10/build-2017-demo" >Build 2017 Demo</option>
+            		
+            			<option value="/blogs/2017/04/10/sublime-text-roundup" >Sublime Text Extension Roundup</option>
+            		
+            			<option value="/blogs/2017/03/07/extension-pack-roundup" >Extension Packs</option>
+            		
+            			<option value="/blogs/2017/02/12/code-lens-roundup" >Extensions using CodeLens</option>
+            		
+            			<option value="/blogs/2017/02/08/syntax-highlighting-optimizations" >Optimizations in Syntax Highlighting</option>
+            		
+            			<option value="/blogs/2017/01/15/connect-nina-e2e" >Node.js Development with Visual Studio Code and Azure</option>
+            		
+            			<option value="/blogs/2016/12/12/roundup-customize" >Customize VS Code Extension Roundup</option>
+            		
+            			<option value="/blogs/2016/11/30/hot-exit-in-insiders" >Hot Exit Comes to Insiders</option>
+            		
+            			<option value="/blogs/2016/11/15/formatters-best-practices" >Creating a Formatter Extension</option>
+            		
+            			<option value="/blogs/2016/10/31/js_roundup_2" >JavaScript Extensions Part 2</option>
+            		
+            			<option value="/blogs/2016/09/14/js_roundup_1" >JavaScript Extensions Part 1</option>
+            		
+            			<option value="/blogs/2016/09/08/icon-themes" >File Icon Themes</option>
+            		
+            			<option value="/blogs/2016/07/29/extensions-roundup-git" >Extensions Roundup - Fun with Git</option>
+            		
+            			<option value="/blogs/2016/06/27/common-language-protocol" >The Language Server Protocol</option>
+            		
+            			<option value="/blogs/2016/05/04/extension-roundup-may" >Extensions Roundup</option>
+            		
+            	</select>
+            </nav>        </div>
+        <div class="col-sm-9 col-md-8 body">
+            <h1>Inspecting Containers with VS Code</h1>
+<p>October 31, 2019 by Bowden Kelly, <a href="https://twitter.com/bowdenk7" class="external-link" target="_blank">@bowdenk7</a></p>
+<p>When developing containerized applications, it is common to try to debug build and runtime issues by attaching a shell to the running container using <code>docker exec --it {containerID} /bin/sh</code>.</p>
+<p><img src="../../../../assets/blogs/2019/10/31/docker-exec.png" alt="Running docker exec command" loading="lazy"></p>
+<p>This technique allows you to inspect the container environment via the command line, but it doesn't give you a rich set of tools to diagnose issues.</p>
+<p>In this post, we'll look at how you can attach Visual Studio Code to your container so that you can use the full power of VS Code, including debugging, to inspect the container, figure out what is going wrong, and fix it.</p>
+<p>The <a href="https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers" class="external-link" target="_blank">Dev Containers</a> extension, which launched in May of this year, allows you to connect your local VS Code to a container host while maintaining all of your personalized settings, themes, and key bindings.</p>
+<h2 id="_prerequisites" data-needslink="_prerequisites">Prerequisites</h2>
+<p>This blog post presumes you have <a href="https://www.docker.com/products/docker-desktop" class="external-link" target="_blank">Docker Desktop</a> and <a href="../../../../download-2.html">Visual Studio Code</a> installed. You will also need the <a href="https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers" class="external-link" target="_blank">Dev Containers</a> extension. To install the Dev Containers extension, open the Extensions view (<span class="dynamic-keybinding" data-commandId="workbench.view.extensions" data-osx="⇧⌘X" data-win="Ctrl+Shift+X" data-linux="Ctrl+Shift+X"><span class="keybinding">⇧⌘X</span> (Windows, Linux <span class="keybinding">Ctrl+Shift+X</span>)</span>), search for &quot;Dev Containers&quot;, select <strong>Install</strong>, and restart VS Code if prompted.</p>
+<h2 id="_the-application" data-needslink="_the-application">The application</h2>
+<p>The first thing we need is an application that we can run in a container. If you've got one, great! You can skip this step. If not, you can clone this simple Node.js <a href="https://expressjs.com/" class="external-link" target="_blank">Express</a> application.</p>
+<blockquote>
+<p><strong>Note</strong>: You do not need Node.js installed locally, we will run this application in the container!</p>
+</blockquote>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #000000">git clone https://github.com/microsoft/vscode-express-sample.git</span></span>
+<span class="line"></span></code></pre>
+<p>This application has a simple Dockerfile that is based off the Node 10 image, as well as a <code>docker-compose.yml</code> file that we will use to run the image, expose the appropriate ports, and map in the local file system. We are running Node with the <code>–inspect</code> flag so that we can debug the app as we would when running locally. In a real application, you would probably want a separate Docker Compose file for your production deployment.</p>
+<blockquote>
+<p><strong>Note</strong>: You don't need a Docker Compose file, you can also attach to containers created with a single Dockerfile.</p>
+</blockquote>
+<h2 id="_build-and-run" data-needslink="_build-and-run">Build and run</h2>
+<p>To build and run the application, we'll first install the dependencies and then run <code>docker-compose up</code> from the terminal/command prompt. This will download the Node base image, copy over dependencies, and start the container:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #000000">docker-compose up</span></span>
+<span class="line"></span></code></pre>
+<p>If everything worked, you should see output like this:</p>
+<p><img src="../../../../assets/blogs/2019/10/31/docker-compose-output.png" alt="docker-compose up output" loading="lazy"></p>
+<p>And, you should be able to navigate to <a href="http://localhost:3000/" class="external-link" target="_blank">http://localhost:3000</a> and see the following:</p>
+<p><img src="../../../../assets/blogs/2019/10/31/welcome-express.png" alt="Welcome to Express web page" loading="lazy"></p>
+<h2 id="_attach-to-the-container" data-needslink="_attach-to-the-container">Attach to the container</h2>
+<p>We can now use the Dev Containers extension to attach to our running container, inspect the environment, and debug the application.</p>
+<p>Select the Remote Explorer in the Activity Bar to see a list of running containers that you can attach to in the <strong>Other Containers</strong> section. Find the container we just started, it has the name 'express_server_1', and then attach to it by using the <strong>Connect to Container</strong> button. That container should now be displayed in the <strong>Attached Containers</strong> section of the Remote Explorer.</p>
+<p><img src="../../../../assets/blogs/2019/10/31/attached-containers.png" alt="Attached Containers in the Remote Explorer" loading="lazy"></p>
+<p>This will launch a new VS Code window (instance) that has the following notification in the bottom right.</p>
+<p><img src="../../../../assets/blogs/2019/10/31/installing-dev-container.png" alt="Installing Dev Container notification" loading="lazy"></p>
+<p>During this time, VS Code is installing an instance of the VS Code <strong>Server</strong> inside the container where your app is running. To see more details and progress about this installation step, you can select the <strong>details</strong> link that is shown in the notification. Once the VS Code server is installed, your local VS Code client will connect to the remote VS Code server. The result is your local instance of VS Code, with all your settings, themes, and key bindings, is connected to a &quot;back-end&quot; running inside the container alongside your application.</p>
+<p><img src="../../../../assets/blogs/2019/10/31/remote-container-architecture.png" alt="Dev Containers architecture diagram" loading="lazy"></p>
+<p>Once the connection is complete, you should have a new VS Code window with a green indicator in the bottom left that shows this instance of VS Code is running in a remote context. If you click on the indicator, you see will see a dropdown of commands relevant to the current remote context.</p>
+<p><img src="../../../../assets/blogs/2019/10/31/remote-context-status-bar.png" alt="Remote context shown in the Status bar" loading="lazy"></p>
+<p>Let's go ahead and open our app by selecting the <strong>Open Folder</strong> button and navigating to <code>/usr/src/app</code>. Notice that the Open Folder dialog shows the file system from the running container, <strong>not the local file system</strong>.</p>
+<p><img src="../../../../assets/blogs/2019/10/31/open-folder-dialog.png" alt="Open Folder dialog show container file system" loading="lazy"></p>
+<p>Once you have opened your source folder, you'll notice that a file has been opened in your editor with the file name <code>express-server.json</code>. This name is derived from the container image name that you have attached to. In our example, docker-compose creates the image name 'express_server', which is derived from the folder name <code>express</code> and the service name <code>server</code> defined in the <code>docker-compose.yml</code> file.  This file is a configuration file associated with your image that will remember configuration settings when you attach to containers based on this image. If you don't have Auto Save on, you'll need to make sure to save this file. Now in future sessions, VS Code will reopen this source folder when you attach to this image.</p>
+<blockquote>
+<p><strong>Note</strong>: You can view this file for the current dev container by running the command <strong>Open Container Configuration File</strong> from the Command Palette (<span class="dynamic-keybinding" data-commandId="workbench.action.showCommands" data-osx="⇧⌘P" data-win="Ctrl+Shift+P" data-linux="Ctrl+Shift+P"><span class="keybinding">⇧⌘P</span> (Windows, Linux <span class="keybinding">Ctrl+Shift+P</span>)</span>).</p>
+</blockquote>
+<p><img src="../../../../assets/blogs/2019/10/31/express-server-json.png" alt="express-server.json file contents" loading="lazy"></p>
+<p>At this point, VS Code looks the same as a normal local VS Code window.</p>
+<p><img src="../../../../assets/blogs/2019/10/31/vscode-ui-in-container.png" alt="VS Code running in a container" loading="lazy"></p>
+<p>You can do anything that you can do in a normal local VS Code context.</p>
+<p>For example, open <code>app.js</code>. Right click on line 8 and execute <strong>Find All References</strong> to find all usages of <code>usersRouter</code>. Any edits are persisted to the local disk, because we mounted the local file system into the container using the docker-compose file.</p>
+<h2 id="_debug-inside-the-container" data-needslink="_debug-inside-the-container">Debug inside the container</h2>
+<p>To further show how similar the dev container is to a local environment, let's attach a debugger. We started our Node app with the <code>–inspect</code> parameter in <code>docker-compose.yaml</code>, so all we have to do is attach a debugger to that process.</p>
+<p>In the Command Palette (<span class="dynamic-keybinding" data-commandId="workbench.action.showCommands" data-osx="⇧⌘P" data-win="Ctrl+Shift+P" data-linux="Ctrl+Shift+P"><span class="keybinding">⇧⌘P</span> (Windows, Linux <span class="keybinding">Ctrl+Shift+P</span>)</span>), search for and select <strong>Debug: Attach to Node Process</strong>. There will probably be several Node processes running inside the container. We want the process that is running our application, so select the one that shows <code>bin/www</code>.</p>
+<p><img src="../../../../assets/blogs/2019/10/31/node-process-picker.png" alt="Node process picker list" loading="lazy"></p>
+<p>Next, open <code>index.js</code> and place a breakpoint on line 6 by clicking on the gutter or pressing <span class="dynamic-keybinding" data-commandId="editor.debug.action.toggleBreakpoint" data-osx="F9" data-win="F9" data-linux="F9"><span class="keybinding">F9</span></span> on:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #001080">res</span><span style="color: #000000">.</span><span style="color: #795E26">render</span><span style="color: #000000">(</span><span style="color: #A31515">&#39;index&#39;</span><span style="color: #000000">, { </span><span style="color: #001080">title:</span><span style="color: #000000"> </span><span style="color: #A31515">&#39;Express&#39;</span><span style="color: #000000"> });</span></span>
+<span class="line"></span></code></pre>
+<p>Now go to <a href="http://localhost:3000/" class="external-link" target="_blank">http://localhost:3000</a> in your browser and see the breakpoint trigger as expected!</p>
+<h2 id="_install-extensions" data-needslink="_install-extensions">Install extensions</h2>
+<p>Just like a normal instance of VS Code, you can install and use extensions while attached to a dev container.</p>
+<p>Depending on the type of extension, it can either run on the client side or in the container on the remote VS Code server. Extensions that are primarily UI-based such as themes and snippets stay on the client side, while all other extensions are installed in the container. This allows you to have only the extensions you need when working in each environment while maintaining a consist UI across all environments.</p>
+<p>If you open the Extensions view (<span class="dynamic-keybinding" data-commandId="workbench.view.extensions" data-osx="⇧⌘X" data-win="Ctrl+Shift+X" data-linux="Ctrl+Shift+X"><span class="keybinding">⇧⌘X</span> (Windows, Linux <span class="keybinding">Ctrl+Shift+X</span>)</span>), you will see the list of extensions that you have installed locally and extensions you have installed in your current container instance. Locally installed extensions that need to be installed in the container (like the Azure Account extension below) will appear grayed out.</p>
+<p><img src="../../../../assets/blogs/2019/10/31/remote-extensions-view.png" alt="Remote Extensions view" loading="lazy"></p>
+<p>Let's install the <a href="https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens" class="external-link" target="_blank">GitLens</a> extension by typing 'gitlens' in the Extensions view and then selecting <strong>Install in Attached Container</strong>.</p>
+<p><img src="../../../../assets/blogs/2019/10/31/search-for-gitlens.png" alt="Search for GitLens" loading="lazy"></p>
+<p>This will prompt you to restart VS Code, and upon doing so, you will briefly see the <strong>Installing Dev Container</strong> notification as the container and VS Code server are restarted with our newly installed extension.</p>
+<p>You'll also notice that the container configuration file we saw earlier has opened again and updated with a new property listing the extensions we want installed each time we attach to this image.</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #000000">{</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;workspace&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;/usr/src/app&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;extensions&quot;</span><span style="color: #000000">: [</span><span style="color: #A31515">&quot;eamodio.gitlens&quot;</span><span style="color: #000000">]</span></span>
+<span class="line"><span style="color: #000000">}</span></span>
+<span class="line"></span></code></pre>
+<p>Now open any file, select a line of code, and notice you have inline Git information provided by GitLens!</p>
+<p><img src="../../../../assets/blogs/2019/10/31/gitlens-information.png" alt="GitLens information shown in the editor" loading="lazy"></p>
+<h2 id="_clean-up" data-needslink="_clean-up">Clean up</h2>
+<p>When you're done, you can either run the <strong>Close Remote Connection</strong> command from the Command Palette or simply close the VS Code window to terminate the remote connection.</p>
+<p>Now from the terminal/command prompt, run <code>docker-compose down</code> to stop the running container. This will free up memory and release any used ports.</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #000000">docker-compose down</span></span>
+<span class="line"></span></code></pre>
+<p>Now you're ready to spin up another container and work on another project!</p>
+<h2 id="_next-steps" data-needslink="_next-steps">Next steps</h2>
+<p>In this blog post, we covered how you can use the Dev Containers extension to attach to your existing containerized applications.</p>
+<p>You can also create a <a href="../../../../docs/devcontainers/containers.html#_create-a-devcontainerjson-file">devcontainer.json</a>, which describes the development environment you want to create or attach to and lives with your project to share with your team members.</p>
+<p>Other useful resources include the full <a href="../../../../docs/devcontainers/containers.html">Developing inside a Container</a> documentation, <a href="../../../../remote/advancedcontainers/overview.html">Advanced container configuration</a>, and our <a href="../../../../docs/devcontainers/tutorial.html">Introductory tutorial</a> on building isolated development environments with the Dev Containers extension.</p>
+<p>Happy Remote Coding,</p>
+<p>Bowden Kelly, VS Code Program Manager
+<a href="https://twitter.com/bowdenk7" class="external-link" target="_blank">@bowdenk7</a></p>
+
+        </div>
+        <div class="col-sm-3 col-md-2 docs-subnavbar-container">
+            <nav id="docs-subnavbar" aria-label="On Page" data-spy="affix" data-offset-top="20">
+                
+                <h4><span class="sr-only">In this blog post, there are 8
+                        sections</span><span aria-hidden="true">In this blog post</span></h4>
+                
+                <ul class="nav">
+                    
+                    <li><a href="#_prerequisites">Prerequisites</a></li>
+                    
+                    <li><a href="#_the-application">The application</a></li>
+                    
+                    <li><a href="#_build-and-run">Build and run</a></li>
+                    
+                    <li><a href="#_attach-to-the-container">Attach to the container</a></li>
+                    
+                    <li><a href="#_debug-inside-the-container">Debug inside the container</a></li>
+                    
+                    <li><a href="#_install-extensions">Install extensions</a></li>
+                    
+                    <li><a href="#_clean-up">Clean up</a></li>
+                    
+                    <li><a href="#_next-steps">Next steps</a></li>
+                    
+                </ul>
+                <div class="connect-widget"></div>
+            </nav>
+        </div>
+    </div>
+</div>
+      </div>
+  </div>
+
+  <footer role="contentinfo">
+      <div class="container">
+          <div class="row">
+              <div class="left col-md-7">
+                  <ul class="links">
+                      <li>
+                          <span class="message">Hello from Seattle.</span>
+                      </li>
+                      <li>
+                          <a href="https://go.microsoft.com/fwlink/?LinkID=533687" onclick="followOnTwitter()" tabindex="0">Follow @code</a>
+                      </li>
+                      <li>
+                          <div class="github-star-button">
+                              <iframe src="../../../../assets/github-button29be.html?user=Microsoft&amp;repo=vscode&amp;type=star&amp;count=true"
+                                  frameborder="0" scrolling="0" width="130px" height="20px" title="GitHub follow button" loading="lazy"></iframe>
+                          </div>
+                      </li>
+  
+                      <script>
+                          function followOnTwitter() {
+                              var windowFeatures = "location=yes,height=600,width=550,scrollbars=yes,status=yes";
+                              var originalReferer = "&original_referer=" + document.URL;
+                              var screenName = "&screen_name=code";
+                              var URL = "https://twitter.com/intent/follow?" + originalReferer + screenName;
+                              window.open(URL, "_blank", windowFeatures);
+                          }
+  
+                          function manageConsent() {
+                              if(WcpConsent.siteConsent.isConsentRequired){
+                                  WcpConsent.siteConsent.manageConsent();
+                              }
+                          }
+                      </script>
+                  </ul>
+              </div>
+              <div class="right col-md-5">
+                  <ul class="links">
+                      <li><a id="footer-support-link" href="https://support.serviceshub.microsoft.com/supportforbusiness/create?sapId=d66407ed-3967-b000-4cfb-2c318cad363d"
+                              target="_blank">Support</a></li>
+                      <li><a id="footer-privacy-link" href="https://privacy.microsoft.com/privacystatement"
+                              target="_blank">Privacy</a></li>
+                      <li style="display: none;"><a id="footer-cookie-link" style="cursor: pointer;" onclick="manageConsent()"
+                              target="_blank">Manage Cookies</a></li>
+                      <li><a id="footer-terms-link" href="https://www.microsoft.com/legal/terms-of-use"
+                              target="_blank">Terms of Use</a></li>
+                      <li><a id="footer-license-link" href="../../../../License.html">License</a></li>
+                  </ul>
+                  <div class="copyright">
+                      <a id="footer-microsoft-link" class="logo" href="https://www.microsoft.com/">
+                          <img class="microsoft-logo" src="../../../../assets/images/microsoft-logo.png" height="20" alt="Microsoft homepage"/>
+                          <img class="microsoft-logo-inverted" src="../../../../assets/images/microsoft-logo-inverted.png" height="20" alt="Microsoft homepage" />
+                      </a>
+                      <span>&copy; 2023 Microsoft</span>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </footer>
+  <script src="../../../../dist/index.js"></script>
+
+  
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "SoftwareApplication",
+      "name" : "Visual Studio Code",
+      "softwareVersion": "1.74",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "applicationCategory": "DeveloperApplication",
+      "applicationSubCategory": "Text Editor",
+      "alternateName": "VS Code",
+      "datePublished": "2021-11-03",
+      "operatingSystem": "Mac, Linux, Windows",
+      "logo": "https://code.visualstudio.com/assets/apple-touch-icon.png",
+      "screenshot": "https://code.visualstudio.com/assets/home/home-screenshot-win.png",
+      "releaseNotes": "https://code.visualstudio.com/updates",
+      "downloadUrl": "https://code.visualstudio.com/download",
+      "license": "https://code.visualstudio.com/license",
+      "softwareRequirements": "https://code.visualstudio.com/docs/supporting/requirements",
+      "url" : "https://code.visualstudio.com",
+      "author": {
+        "@type": "Organization",
+        "name": "Microsoft"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Microsoft"
+      },
+      "maintainer": {
+        "@type": "Organization",
+        "name": "Microsoft"
+      },
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://code.visualstudio.com/Search?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      },
+      "sameAs" : [
+        "https://en.wikipedia.org/wiki/Visual_Studio_Code",
+        "https://twitter.com/code",
+        "https://www.youtube.com/code",
+        "https://www.tiktok.com/@vscode",
+        "https://github.com/microsoft/vscode"
+      ]
+    }
+  </script>
+</body>
+
+<!-- Mirrored from code.visualstudio.com/blogs/2019/10/31/inspecting-containers by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 04 Jan 2023 12:15:15 GMT -->
+</html>

@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Mirrored from code.visualstudio.com/blogs/2018/12/04/rich-navigation by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 04 Jan 2023 12:15:16 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="google-site-verification" content="hNs7DXrTySP_X-0P_AC0WulAXvUwgSXEmgfcO2r79dw" />
+
+  <!-- Twitter and Facebook OpenGraph Metadata-->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@code" />
+
+  <meta name="description" content="First look at a rich code navigation experience in Visual Studio" />
+<meta name="keywords" content="" />
+<!-- Twitter and Facebook OpenGraph Metadata-->
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="og:url" content="rich-navigation.html" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Rich Code Navigation" />
+<meta property="og:description" content="First look at a rich code navigation experience in Visual Studio" />
+
+<meta property="og:image" content="../../../../opengraphimg/opengraph-blog.png" />
+
+
+
+  <link rel="shortcut icon" href="../../../../favicon.ico" sizes="128x128" />
+  <link rel="apple-touch-icon" href="../../../../apple-touch-icon.png">
+
+  <title>Rich Code Navigation</title>
+
+  <link rel="stylesheet" href="../../../../vendor/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../../../../dist/style.css">
+
+  <script type="text/javascript" src="../../../../../js.monitor.azure.com/scripts/c/ms.analytics-web-3.min.js"></script>
+  <script>
+  window.appInsights = new oneDS.ApplicationInsights();
+  window.appInsights.initialize({
+    instrumentationKey: "1a3eb3104447440391ad5f2a6ee06a0a-62879566-bc58-4741-9650-302bf2af703f-7103",
+    webAnalyticsConfiguration:{ // Web Analytics Plugin configuration
+        urlCollectQuery:true, 
+        autoCapture: {
+          scroll: true,
+          pageView: true,
+          onLoad: true,
+          onUnload: true,
+          click: true,
+          resize: true,
+          jsError: true
+        }
+    }
+  }, []);
+  </script>
+  
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','../../../../../www.google-analytics.com/analytics.js','ga');
+  </script>  
+  <link rel="alternate" type="application/atom+xml" title="RSS Feed for code.visualstudio.com" href="../../../../feed.xml" />
+</head>
+
+<body>
+  <!-- EU Cookie Compliance JS -->
+  <script src="../../../../../wcpstatic.microsoft.com/mscc/lib/v2/wcp-consent.js"></script>
+
+  <div id="main">
+          <div class="navbar-fixed-container">
+              <div class="navbar navbar-inverse navbar-fixed-top ">
+                  <div id='cookie-banner'></div>        <nav role="navigation" aria-label="Top Level">
+                      <div class="container">
+                          <div class="nav navbar-header">
+                              <a role="button" id="skip-to-content" class="link-button" href="#main-content">Skip to content<i>&nbsp;</i><span class="glyphicon glyphicon-menu-down"></span></a>
+                              <a class="navbar-brand" id="navbar-brand" href="../../../../index.html">Visual Studio Code</a>
+                              <button type="button" class="navbar-toggle" role="navigation" data-toggle="collapse" data-target=".navbar-collapse" aria-label="Toggle Navigation Menu">
+                                  <span class="icon-bar"></span>
+                                  <span class="icon-bar"></span>
+                                  <span class="icon-bar"></span>
+                              </button>
+                          </div>
+                          <div class="navbar-collapse collapse" role="navigation">
+                              <ul class="nav navbar-nav navbar-left">
+                                  <li ><a id="nav-docs" href="../../../../docs.html">Docs</a></li>
+                                  <li ><a id="nav-updates" href="../../../../updates/v1_74.html">Updates</a></li>
+                                  <li class="active" ><a id="nav-blogs" href="../../../../blogs.html">Blog</a></li>
+                                  <li ><a id="nav-extend" href="../../../../api.html">API</a></li>
+                                  <li><a href="https://marketplace.visualstudio.com/VSCode" target="_blank" id="nav-extensions">Extensions</a></li>
+                                  <li ><a id="nav-faqs" href="../../../../docs/supporting/faq.html">FAQ</a></li>
+                                  <li ><a id="nav-learn" href="../../../../learn.html">Learn</a></li>
+                                  <li class='search visible-xs visible-sm'
+                                      ><a href="../../../../Search.html">Search</a></li>
+                              </ul>
+          
+                              <ul class="nav navbar-nav navbar-right" role="presentation">
+                                  <!-- Floating search icon -->
+                                  <li>
+                                      <a href="../../../../Search.html" title="Search" class="btn search-btn" id="nav-search">
+                                          <img class="search-icon" src="../../../../assets/icons/search.svg" width="16px" height="16px" alt="Search"/>
+                                          <img class="search-icon-inverted" src="../../../../assets/icons/search_dark.svg" width="16px" height="16px" alt="Search" />
+                                      </a>
+                                  </li>
+                                  <!-- Actual search icon -->
+                                  <li class="search" role="presentation">
+                                      <form class="nav-search search-form" role="search" aria-label="Search">
+                                          <div class="input-group" role="presentation">
+                                              <input type="text" name="q" class="search-box form-control" placeholder="Search Docs" aria-label="Search text"/>
+                                              <span class="input-group-btn">
+                                                  <button tabindex="0" class="btn" type="submit" aria-label="Search">
+                                                          <img class="search-icon" src="../../../../assets/icons/search.svg" width="16px" height="16px" alt="Search" />
+                                                          <img class="search-icon-inverted" src="../../../../assets/icons/search_dark.svg" width="16px" height="16px" alt="Search" />
+                                                  </button>
+                                              </span>
+                                          </div>
+                                      </form>                        </li>
+                                  <!-- this was hiden in the home and download page, keeping it for now -->
+                                  <li><a class="link-button" href="../../../../Download.html" id="nav-download">
+                                      <img class="download-icon" src="../../../../assets/icons/download.svg" width="16px" height="16px" alt="Download VS Code"/>
+                                      <img class="download-icon-inverted" src="../../../../assets/icons/download-black.svg" width="16px" height="16px" alt="Download VS Code" />
+                                      <span>Download</span>
+                                  </a></li>
+                              </ul>
+                          </div>
+                      </div>
+                  </nav>
+              </div>
+          </div>          <div class="updates-banner  ">
+              <div class="container">
+                  <p class="message"><a href="../../../../updates/v1_74.html" id="banner-link-updates">Version 1.74</a> is now available! Read about the new features and fixes from November.</p> 
+              </div>
+              <div tabindex="0" role="button" title="Dismiss this update" class="dismiss-btn" id="banner-dismiss-btn"><span class="sr-only">Dismiss this update</span><span aria-hidden="true" class="glyph-icon"></span></div>
+          </div>      <div role="main" id="main-content">
+        <div class="container body-content docs blog">
+    <div class="row">
+        <div class="col-md-2 docs-navbar-container">
+            <nav id="docs-navbar" aria-label="Blog posts" class="docs-nav updates-nav visible-md visible-lg">
+            	<h4>Blog posts</h4>
+            	<ul class="nav">
+            		
+            			<li >
+            				<a href="../../../2022/12/07/remote-even-better.html" >Remote Development Even Better</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2022/11/28/vscode-sandbox.html" >VS Code Sandboxing</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2022/10/04/vscode-community-discussions.html" >VS Code Community Discussions</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2022/09/15/dev-container-features.html" >Dev Container Features</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2022/08/16/markdown-language-server.html" >Markdown Language Server</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2022/07/07/vscode-server.html" >The VS Code Server</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2022/05/18/dev-container-cli.html" >Dev container CLI</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2022/04/04/increase-productivity-with-containers.html" >Moving from Local to Remote Development</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2022/03/08/the-tutorial-problem.html" >The problem with tutorials</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2021/11/08/custom-notebooks.html" >Custom Notebooks</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2021/10/20/vscode-dev.html" >vscode.dev</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2021/10/11/webview-ui-toolkit.html" >Webview UI Toolkit</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2021/09/29/bracket-pair-colorization.html" >Bracket Pair Colorization</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2021/08/05/notebooks.html" >Notebooks</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2021/07/06/workspace-trust.html" >Workspace Trust</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2021/06/10/remote-repositories.html" >Remote Repositories</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2021/06/02/build-2021.html" >Build 2021</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2021/02/16/extension-bisect.html" >Extension bisect</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2020/12/03/chromebook-get-started.html" >VS Code on Chromebook</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2020/07/27/containers-edu.html" >Development Containers in Education</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2020/07/01/containers-wsl.html" >Dev Containers in WSL 2</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2020/06/09/go-extension.html" >The Go experience</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2020/05/14/vscode-build-2020.html" >VS Code at Build</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2020/05/06/github-issues-integration.html" >GitHub Issues Integration</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2020/03/02/docker-in-wsl2.html" >Docker in WSL 2</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2020/02/24/custom-data-format.html" >Custom Data Format</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2020/02/18/optimizing-ci.html" >Improving CI Build Times</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2019/10/31/inspecting-containers.html" >Inspecting Containers</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2019/10/03/remote-ssh-tips-and-tricks.html" >SSH Tips and Tricks</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2019/09/03/wsl2.html" >WSL 2</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2019/07/25/remote-ssh.html" >Remote SSH</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2019/05/23/strict-null.html" >Strict null checking</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2019/05/02/remote-development.html" >Remote Development</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2019/02/19/lsif.html" >Language Server Index Format</a>
+            			</li>
+            		
+            			<li class="active">
+            				<a href="rich-navigation.html" aria-label="Current Page: Rich Code Navigation">Rich Code Navigation</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../11/26/event-stream.html" >Event-Stream Package Security Update</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../09/12/engineering-with-azure-pipelines.html" >Using Azure Pipelines</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../09/10/introducing-github-pullrequests.html" >GitHub Pull Requests</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../08/07/debug-adapter-protocol-website.html" >New home for Debug Adapter Protocol</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../07/12/introducing-logpoints-and-auto-attach.html" >Logpoints and auto-attach</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../05/07/live-share-public-preview.html" >Live Share Preview</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../04/25/bing-settings-search.html" >Settings Search</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../03/23/text-buffer-reimplementation.html" >Text Buffer Reimplementation</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/12/20/chrome-debugging.html" >What's New for Chrome Debugging</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/11/16/connect.html" >Connect 2017</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/11/15/live-share.html" >Introducing Live Share</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/10/24/theicon.html" >The Icon Journey</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/10/03/terminal-renderer.html" >Integrated Terminal Performance</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/09/28/java-debug.html" >Java Debugging</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/08/07/emmet-2.html" >Emmet 2.0</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/06/20/great-looking-editor-roundup.html" >Fresh Paint</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/05/10/build-2017-demo.html" >Build 2017 Demo</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/04/10/sublime-text-roundup.html" >Sublime Text Extension Roundup</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/03/07/extension-pack-roundup.html" >Extension Packs</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/02/12/code-lens-roundup.html" >Extensions using CodeLens</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/02/08/syntax-highlighting-optimizations.html" >Optimizations in Syntax Highlighting</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/01/15/connect-nina-e2e.html" >Node.js Development with Visual Studio Code and Azure</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2016/12/12/roundup-customize.html" >Customize VS Code Extension Roundup</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2016/11/30/hot-exit-in-insiders.html" >Hot Exit Comes to Insiders</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2016/11/15/formatters-best-practices.html" >Creating a Formatter Extension</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2016/10/31/js_roundup_2.html" >JavaScript Extensions Part 2</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2016/09/14/js_roundup_1.html" >JavaScript Extensions Part 1</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2016/09/08/icon-themes.html" >File Icon Themes</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2016/07/29/extensions-roundup-git.html" >Extensions Roundup - Fun with Git</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2016/06/27/common-language-protocol.html" >The Language Server Protocol</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2016/05/04/extension-roundup-may.html" >Extensions Roundup</a>
+            			</li>
+            		
+            	</ul>
+            </nav>
+            <nav id="small-nav" aria-label="Blog posts" class="docs-nav updates-nav hidden-md hidden-lg">
+            	<h4>Blogs</h4>
+            	<select id="small-nav-dropdown" aria-label="blog posts">
+            		
+            			<option value="/blogs/2022/12/07/remote-even-better" >Remote Development Even Better</option>
+            		
+            			<option value="/blogs/2022/11/28/vscode-sandbox" >VS Code Sandboxing</option>
+            		
+            			<option value="/blogs/2022/10/04/vscode-community-discussions" >VS Code Community Discussions</option>
+            		
+            			<option value="/blogs/2022/09/15/dev-container-features" >Dev Container Features</option>
+            		
+            			<option value="/blogs/2022/08/16/markdown-language-server" >Markdown Language Server</option>
+            		
+            			<option value="/blogs/2022/07/07/vscode-server" >The VS Code Server</option>
+            		
+            			<option value="/blogs/2022/05/18/dev-container-cli" >Dev container CLI</option>
+            		
+            			<option value="/blogs/2022/04/04/increase-productivity-with-containers" >Moving from Local to Remote Development</option>
+            		
+            			<option value="/blogs/2022/03/08/the-tutorial-problem" >The problem with tutorials</option>
+            		
+            			<option value="/blogs/2021/11/08/custom-notebooks" >Custom Notebooks</option>
+            		
+            			<option value="/blogs/2021/10/20/vscode-dev" >vscode.dev</option>
+            		
+            			<option value="/blogs/2021/10/11/webview-ui-toolkit" >Webview UI Toolkit</option>
+            		
+            			<option value="/blogs/2021/09/29/bracket-pair-colorization" >Bracket Pair Colorization</option>
+            		
+            			<option value="/blogs/2021/08/05/notebooks" >Notebooks</option>
+            		
+            			<option value="/blogs/2021/07/06/workspace-trust" >Workspace Trust</option>
+            		
+            			<option value="/blogs/2021/06/10/remote-repositories" >Remote Repositories</option>
+            		
+            			<option value="/blogs/2021/06/02/build-2021" >Build 2021</option>
+            		
+            			<option value="/blogs/2021/02/16/extension-bisect" >Extension bisect</option>
+            		
+            			<option value="/blogs/2020/12/03/chromebook-get-started" >VS Code on Chromebook</option>
+            		
+            			<option value="/blogs/2020/07/27/containers-edu" >Development Containers in Education</option>
+            		
+            			<option value="/blogs/2020/07/01/containers-wsl" >Dev Containers in WSL 2</option>
+            		
+            			<option value="/blogs/2020/06/09/go-extension" >The Go experience</option>
+            		
+            			<option value="/blogs/2020/05/14/vscode-build-2020" >VS Code at Build</option>
+            		
+            			<option value="/blogs/2020/05/06/github-issues-integration" >GitHub Issues Integration</option>
+            		
+            			<option value="/blogs/2020/03/02/docker-in-wsl2" >Docker in WSL 2</option>
+            		
+            			<option value="/blogs/2020/02/24/custom-data-format" >Custom Data Format</option>
+            		
+            			<option value="/blogs/2020/02/18/optimizing-ci" >Improving CI Build Times</option>
+            		
+            			<option value="/blogs/2019/10/31/inspecting-containers" >Inspecting Containers</option>
+            		
+            			<option value="/blogs/2019/10/03/remote-ssh-tips-and-tricks" >SSH Tips and Tricks</option>
+            		
+            			<option value="/blogs/2019/09/03/wsl2" >WSL 2</option>
+            		
+            			<option value="/blogs/2019/07/25/remote-ssh" >Remote SSH</option>
+            		
+            			<option value="/blogs/2019/05/23/strict-null" >Strict null checking</option>
+            		
+            			<option value="/blogs/2019/05/02/remote-development" >Remote Development</option>
+            		
+            			<option value="/blogs/2019/02/19/lsif" >Language Server Index Format</option>
+            		
+            			<option value="/blogs/2018/12/04/rich-navigation" selected>Rich Code Navigation</option>
+            		
+            			<option value="/blogs/2018/11/26/event-stream" >Event-Stream Package Security Update</option>
+            		
+            			<option value="/blogs/2018/09/12/engineering-with-azure-pipelines" >Using Azure Pipelines</option>
+            		
+            			<option value="/blogs/2018/09/10/introducing-github-pullrequests" >GitHub Pull Requests</option>
+            		
+            			<option value="/blogs/2018/08/07/debug-adapter-protocol-website" >New home for Debug Adapter Protocol</option>
+            		
+            			<option value="/blogs/2018/07/12/introducing-logpoints-and-auto-attach" >Logpoints and auto-attach</option>
+            		
+            			<option value="/blogs/2018/05/07/live-share-public-preview" >Live Share Preview</option>
+            		
+            			<option value="/blogs/2018/04/25/bing-settings-search" >Settings Search</option>
+            		
+            			<option value="/blogs/2018/03/23/text-buffer-reimplementation" >Text Buffer Reimplementation</option>
+            		
+            			<option value="/blogs/2017/12/20/chrome-debugging" >What's New for Chrome Debugging</option>
+            		
+            			<option value="/blogs/2017/11/16/connect" >Connect 2017</option>
+            		
+            			<option value="/blogs/2017/11/15/live-share" >Introducing Live Share</option>
+            		
+            			<option value="/blogs/2017/10/24/theicon" >The Icon Journey</option>
+            		
+            			<option value="/blogs/2017/10/03/terminal-renderer" >Integrated Terminal Performance</option>
+            		
+            			<option value="/blogs/2017/09/28/java-debug" >Java Debugging</option>
+            		
+            			<option value="/blogs/2017/08/07/emmet-2.0" >Emmet 2.0</option>
+            		
+            			<option value="/blogs/2017/06/20/great-looking-editor-roundup" >Fresh Paint</option>
+            		
+            			<option value="/blogs/2017/05/10/build-2017-demo" >Build 2017 Demo</option>
+            		
+            			<option value="/blogs/2017/04/10/sublime-text-roundup" >Sublime Text Extension Roundup</option>
+            		
+            			<option value="/blogs/2017/03/07/extension-pack-roundup" >Extension Packs</option>
+            		
+            			<option value="/blogs/2017/02/12/code-lens-roundup" >Extensions using CodeLens</option>
+            		
+            			<option value="/blogs/2017/02/08/syntax-highlighting-optimizations" >Optimizations in Syntax Highlighting</option>
+            		
+            			<option value="/blogs/2017/01/15/connect-nina-e2e" >Node.js Development with Visual Studio Code and Azure</option>
+            		
+            			<option value="/blogs/2016/12/12/roundup-customize" >Customize VS Code Extension Roundup</option>
+            		
+            			<option value="/blogs/2016/11/30/hot-exit-in-insiders" >Hot Exit Comes to Insiders</option>
+            		
+            			<option value="/blogs/2016/11/15/formatters-best-practices" >Creating a Formatter Extension</option>
+            		
+            			<option value="/blogs/2016/10/31/js_roundup_2" >JavaScript Extensions Part 2</option>
+            		
+            			<option value="/blogs/2016/09/14/js_roundup_1" >JavaScript Extensions Part 1</option>
+            		
+            			<option value="/blogs/2016/09/08/icon-themes" >File Icon Themes</option>
+            		
+            			<option value="/blogs/2016/07/29/extensions-roundup-git" >Extensions Roundup - Fun with Git</option>
+            		
+            			<option value="/blogs/2016/06/27/common-language-protocol" >The Language Server Protocol</option>
+            		
+            			<option value="/blogs/2016/05/04/extension-roundup-may" >Extensions Roundup</option>
+            		
+            	</select>
+            </nav>        </div>
+        <div class="col-sm-9 col-md-8 body">
+            <h1>First look at a rich code navigation experience</h1>
+<p>December 4, 2018 Jonathan Carter, <a href="https://twitter.com/LostInTangent" class="external-link" target="_blank">@lostintangent</a></p>
+<p>Pull requests are a critical collaboration tool for millions of developers every day, facilitating asynchronous code reviews and the distribution of knowledge amongst teams and open-source communities. Because of this widespread utility and adoption, any advancement to the PR review workflow can have a significant impact on developer productivity, product quality and release velocity.</p>
+<p>In September, along with GitHub, <a href="../../09/10/introducing-github-pullrequests.html">we announced the GitHub Pull Requests extension</a>, which enabled developers to review source code in the same place they write it: inside their familiar and highly-customized editor. Today, we're excited to share a sneak peek of a new experience that will further enhance in-editor PR reviews with support for <strong>rich, multi-repository code navigations</strong>.</p>
+<iframe src="https://www.youtube.com/embed/DAqDEi0fGco?rel=0&amp;disablekb=0&amp;modestbranding=1&amp;showinfo=0" frameborder="0" allowfullscreen title="First look at a rich code navigation experience"></iframe>
+<h2 id="_say-goodbye-to-superficial-reviews" data-needslink="_say-goodbye-to-superficial-reviews">Say goodbye to superficial reviews</h2>
+<p>To thoroughly review a pull request, you need to understand the context of its changes and how they impact the broader codebase. Today, many developers do &quot;lightweight reviews&quot; in their browser, which provides an extremely convenient workflow, but makes it easy to miss much-needed context (for example, &quot;Does this change break any consumers of the API?&quot;). The <a href="https://marketplace.visualstudio.com/items?itemName=GitHub.vscode-pull-request-github" class="external-link" target="_blank">GitHub Pull Requests</a> extension improved that experience by allowing you to leverage the capabilities of your developer environment to build and navigate the source code under review, but still requires you to checkout branches locally, and have the necessary platform SDKs and language extensions installed. Doing this for every PR can require a significant amount of time and context switches, which leaves you with the choice between the convenience of quickly reviewing remote PRs, or the power of reviewing them in your local editor. <strong>We think developers should have both</strong>.</p>
+<p>The rich code navigation experience we're building helps developers keep track of the pull requests they're interested in from within their development environment (via the <a href="https://marketplace.visualstudio.com/items?itemName=GitHub.GitHubExtensionforVisualStudio" class="external-link" target="_blank">Visual Studio</a> and <a href="https://marketplace.visualstudio.com/items?itemName=GitHub.vscode-pull-request-github" class="external-link" target="_blank">Visual Studio Code</a> extensions), and at any time, begin seamlessly navigating changes across remotely-hosted PRs, without needing to checkout those topic branches locally. Specifically, it enhances files that you open from the <em>GitHub Pull Requests</em> view with the same code navigation capabilities that drives other editor experiences (e.g. hover info, go to definition, find all references), but in this case, <strong>powered entirely by the cloud</strong>. We believe this can enable teams to be more productive, and make superficial reviews a thing of the past.</p>
+<p><img src="../../../../assets/blogs/2018/12/04/CSharp.gif" alt="Navigating a csharp PR" loading="lazy"></p>
+<p><em>Navigating a C#-based PR on macOS, without even having the C# extension or .NET installed.</em></p>
+<p><img src="../../../../assets/blogs/2018/12/04/CPlusPlus.gif" alt="Navigating a C++ PR" loading="lazy"></p>
+<p><em>Navigating a C++-based PR on macOS, without even having the C++ extension installed.</em></p>
+<p><img src="../../../../assets/blogs/2018/12/04/Java.gif" alt="Navigating a Java PR" loading="lazy"></p>
+<p><em>Navigating a Java-based PR on macOS, without even having the Java Language Support (redhat.java) extension installed.</em></p>
+<h2 id="_navigate-all-the-things" data-needslink="_navigate-all-the-things">Navigate all the things</h2>
+<p>With this experience, you can navigate to symbols (e.g. classes, functions, properties) defined within the file you’re reviewing, within other files that were changed as part of the PR, as well as within arbitrary files in the same repository. This way, your ability to understand changes within the context of the entire codebase isn’t limited by the scope of the PR or your local environment.</p>
+<p>Additionally, if the PR you're reviewing makes use of dependencies in external repos, or includes APIs that are consumed by code in external repos, you can directly navigate to those sources as well! This way, you can fully—and more importantly, quickly—assess the impact of a change, <strong>regardless how your application is organized in version control</strong>. We believe this is an extremely powerful capability, especially as more teams are building multi-repository applications/microservices and relying heavily on OSS.</p>
+<p><img src="../../../../assets/blogs/2018/12/04/CrossRepoJump.gif" alt="Navigating into a Mobx repo" loading="lazy"></p>
+<p><em>Navigating directly into the <a href="https://github.com/mobxjs/mobx" class="external-link" target="_blank">MobX repo</a> on GitHub from an <a href="https://github.com/lostintangent/vsls-guestbook/pull/11/files#diff-babc63cbfdb83a46e935f16e3eb9066fR20" class="external-link" target="_blank">external</a> reference to its <a href="https://github.com/mobxjs/mobx/blob/master/src/api/observable.ts#L183" class="external-link" target="_blank">observable</a> function.</em></p>
+<h2 id="_communityfocused-design" data-needslink="_communityfocused-design">Community-focused design</h2>
+<p>Behind the scenes, this experience is powered by an addition to the <a href="https://microsoft.github.io/language-server-protocol" class="external-link" target="_blank">Language Server Protocol</a> (LSP), which is already the foundation for language support across a number of <a href="https://microsoft.github.io/language-server-protocol/implementors/tools" class="external-link" target="_blank">tools</a>, such as Visual Studio and Visual Studio Code. This proposal, called the Language Server Index Format (LSIF, pronounce like &quot;else if&quot;), provides a means for language servers to persist their runtime intelligence, so that it can be subsequently used to answer LSP requests at-scale (for example, hover and go to definition). Additionally, the data model that LSIF defines enables repositories to be represented via rich graphs of source code, and the relationships that code has with external repositories.</p>
+<p>As part of building out this service, we've begun implementing LSIF support for various languages (<a href="https://github.com/microsoft/lsif-node" class="external-link" target="_blank">TypeScript</a>, <a href="https://github.com/microsoft/lsif-java" class="external-link" target="_blank">Java</a>, C++, and C#), and we're extremely excited with the results so far. However, in order for this effort to be successful, it's critical that we partner with the community on both the standard, as well as additional language implementations. To learn more about LSIF, and contribute to this conversation moving forward, check out the <a href="https://aka.ms/lsif-spec" class="external-link" target="_blank">the draft LSIF specification</a>.</p>
+<h2 id="_we-need-your-feedback" data-needslink="_we-need-your-feedback">We need your feedback!</h2>
+<p>We're excited to share this first look of the rich code navigation experience! We've got a lot of work left to do before this becomes something you can try out, but we wanted to start an open conversation with the community about what we're working on. If you're interested in chatting with our team, and taking part in a potential preview, you can sign-up <a href="https://aka.ms/vsfutures-signup" class="external-link" target="_blank">here</a>. We look forward to sharing more updates in the near future!</p>
+<p>Happy reviewing!</p>
+<p>Jonathan, <a href="https://twitter.com/LostInTangent" class="external-link" target="_blank">@lostintangent</a></p>
+
+        </div>
+        <div class="col-sm-3 col-md-2 docs-subnavbar-container">
+            <nav id="docs-subnavbar" aria-label="On Page" data-spy="affix" data-offset-top="20">
+                
+                <h4><span class="sr-only">In this blog post, there are 4
+                        sections</span><span aria-hidden="true">In this blog post</span></h4>
+                
+                <ul class="nav">
+                    
+                    <li><a href="#_say-goodbye-to-superficial-reviews">Say goodbye to superficial reviews</a></li>
+                    
+                    <li><a href="#_navigate-all-the-things">Navigate all the things</a></li>
+                    
+                    <li><a href="#_communityfocused-design">Community-focused design</a></li>
+                    
+                    <li><a href="#_we-need-your-feedback">We need your feedback!</a></li>
+                    
+                </ul>
+                <div class="connect-widget"></div>
+            </nav>
+        </div>
+    </div>
+</div>
+      </div>
+  </div>
+
+  <footer role="contentinfo">
+      <div class="container">
+          <div class="row">
+              <div class="left col-md-7">
+                  <ul class="links">
+                      <li>
+                          <span class="message">Hello from Seattle.</span>
+                      </li>
+                      <li>
+                          <a href="https://go.microsoft.com/fwlink/?LinkID=533687" onclick="followOnTwitter()" tabindex="0">Follow @code</a>
+                      </li>
+                      <li>
+                          <div class="github-star-button">
+                              <iframe src="../../../../assets/github-button29be.html?user=Microsoft&amp;repo=vscode&amp;type=star&amp;count=true"
+                                  frameborder="0" scrolling="0" width="130px" height="20px" title="GitHub follow button" loading="lazy"></iframe>
+                          </div>
+                      </li>
+  
+                      <script>
+                          function followOnTwitter() {
+                              var windowFeatures = "location=yes,height=600,width=550,scrollbars=yes,status=yes";
+                              var originalReferer = "&original_referer=" + document.URL;
+                              var screenName = "&screen_name=code";
+                              var URL = "https://twitter.com/intent/follow?" + originalReferer + screenName;
+                              window.open(URL, "_blank", windowFeatures);
+                          }
+  
+                          function manageConsent() {
+                              if(WcpConsent.siteConsent.isConsentRequired){
+                                  WcpConsent.siteConsent.manageConsent();
+                              }
+                          }
+                      </script>
+                  </ul>
+              </div>
+              <div class="right col-md-5">
+                  <ul class="links">
+                      <li><a id="footer-support-link" href="https://support.serviceshub.microsoft.com/supportforbusiness/create?sapId=d66407ed-3967-b000-4cfb-2c318cad363d"
+                              target="_blank">Support</a></li>
+                      <li><a id="footer-privacy-link" href="https://privacy.microsoft.com/privacystatement"
+                              target="_blank">Privacy</a></li>
+                      <li style="display: none;"><a id="footer-cookie-link" style="cursor: pointer;" onclick="manageConsent()"
+                              target="_blank">Manage Cookies</a></li>
+                      <li><a id="footer-terms-link" href="https://www.microsoft.com/legal/terms-of-use"
+                              target="_blank">Terms of Use</a></li>
+                      <li><a id="footer-license-link" href="../../../../License.html">License</a></li>
+                  </ul>
+                  <div class="copyright">
+                      <a id="footer-microsoft-link" class="logo" href="https://www.microsoft.com/">
+                          <img class="microsoft-logo" src="../../../../assets/images/microsoft-logo.png" height="20" alt="Microsoft homepage"/>
+                          <img class="microsoft-logo-inverted" src="../../../../assets/images/microsoft-logo-inverted.png" height="20" alt="Microsoft homepage" />
+                      </a>
+                      <span>&copy; 2023 Microsoft</span>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </footer>
+  <script src="../../../../dist/index.js"></script>
+
+  
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "SoftwareApplication",
+      "name" : "Visual Studio Code",
+      "softwareVersion": "1.74",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "applicationCategory": "DeveloperApplication",
+      "applicationSubCategory": "Text Editor",
+      "alternateName": "VS Code",
+      "datePublished": "2021-11-03",
+      "operatingSystem": "Mac, Linux, Windows",
+      "logo": "https://code.visualstudio.com/assets/apple-touch-icon.png",
+      "screenshot": "https://code.visualstudio.com/assets/home/home-screenshot-win.png",
+      "releaseNotes": "https://code.visualstudio.com/updates",
+      "downloadUrl": "https://code.visualstudio.com/download",
+      "license": "https://code.visualstudio.com/license",
+      "softwareRequirements": "https://code.visualstudio.com/docs/supporting/requirements",
+      "url" : "https://code.visualstudio.com",
+      "author": {
+        "@type": "Organization",
+        "name": "Microsoft"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Microsoft"
+      },
+      "maintainer": {
+        "@type": "Organization",
+        "name": "Microsoft"
+      },
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://code.visualstudio.com/Search?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      },
+      "sameAs" : [
+        "https://en.wikipedia.org/wiki/Visual_Studio_Code",
+        "https://twitter.com/code",
+        "https://www.youtube.com/code",
+        "https://www.tiktok.com/@vscode",
+        "https://github.com/microsoft/vscode"
+      ]
+    }
+  </script>
+</body>
+
+<!-- Mirrored from code.visualstudio.com/blogs/2018/12/04/rich-navigation by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 04 Jan 2023 12:15:16 GMT -->
+</html>

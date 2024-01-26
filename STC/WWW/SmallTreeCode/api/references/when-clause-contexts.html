@@ -1,0 +1,1412 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Mirrored from code.visualstudio.com/api/references/when-clause-contexts by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 04 Jan 2023 11:28:24 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="google-site-verification" content="hNs7DXrTySP_X-0P_AC0WulAXvUwgSXEmgfcO2r79dw" />
+
+  <!-- Twitter and Facebook OpenGraph Metadata-->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@code" />
+
+  <meta name="keywords" content="vscode API" />
+
+<meta name="description" content="Visual Studio Code when clause context reference." />
+
+<meta name="ms.prod" content="vs-code" />
+<meta name="ms.TOCTitle" content="when clause contexts" />
+<meta name="ms.ContentId" content="38af73fd-ca95-48e3-9965-81f4cfe29996" />
+<meta name="ms.topic" content="conceptual" />
+<meta name="ms.date" content="12/7/2022" />
+<!-- Twitter and Facebook OpenGraph Metadata-->
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="og:url" content="when-clause-contexts.html" />
+
+<meta property="og:description" content="Visual Studio Code when clause context reference." />
+
+<meta property="og:type" content="article" />
+<meta property="og:title" content="when clause contexts" />
+<meta property="og:image" content="../../opengraphimg/opengraph-docs.png" />
+
+
+  <link rel="shortcut icon" href="../../favicon.ico" sizes="128x128" />
+  <link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+
+  <title>when clause contexts | Visual Studio Code Extension
+API</title>
+
+  <link rel="stylesheet" href="../../vendor/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../../dist/style.css">
+
+  <script type="text/javascript" src="../../../js.monitor.azure.com/scripts/c/ms.analytics-web-3.min.js"></script>
+  <script>
+  window.appInsights = new oneDS.ApplicationInsights();
+  window.appInsights.initialize({
+    instrumentationKey: "1a3eb3104447440391ad5f2a6ee06a0a-62879566-bc58-4741-9650-302bf2af703f-7103",
+    webAnalyticsConfiguration:{ // Web Analytics Plugin configuration
+        urlCollectQuery:true, 
+        autoCapture: {
+          scroll: true,
+          pageView: true,
+          onLoad: true,
+          onUnload: true,
+          click: true,
+          resize: true,
+          jsError: true
+        }
+    }
+  }, []);
+  </script>
+  
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','../../../www.google-analytics.com/analytics.js','ga');
+  </script>  
+  <link rel="alternate" type="application/atom+xml" title="RSS Feed for code.visualstudio.com" href="../../feed.xml" />
+</head>
+
+<body>
+  <!-- EU Cookie Compliance JS -->
+  <script src="../../../wcpstatic.microsoft.com/mscc/lib/v2/wcp-consent.js"></script>
+
+  <div id="main">
+          <div class="navbar-fixed-container">
+              <div class="navbar navbar-inverse navbar-fixed-top ">
+                  <div id='cookie-banner'></div>        <nav role="navigation" aria-label="Top Level">
+                      <div class="container">
+                          <div class="nav navbar-header">
+                              <a role="button" id="skip-to-content" class="link-button" href="#main-content">Skip to content<i>&nbsp;</i><span class="glyphicon glyphicon-menu-down"></span></a>
+                              <a class="navbar-brand" id="navbar-brand" href="../../index.html">Visual Studio Code</a>
+                              <button type="button" class="navbar-toggle" role="navigation" data-toggle="collapse" data-target=".navbar-collapse" aria-label="Toggle Navigation Menu">
+                                  <span class="icon-bar"></span>
+                                  <span class="icon-bar"></span>
+                                  <span class="icon-bar"></span>
+                              </button>
+                          </div>
+                          <div class="navbar-collapse collapse" role="navigation">
+                              <ul class="nav navbar-nav navbar-left">
+                                  <li ><a id="nav-docs" href="../../docs.html">Docs</a></li>
+                                  <li ><a id="nav-updates" href="../../updates/v1_74.html">Updates</a></li>
+                                  <li ><a id="nav-blogs" href="../../blogs.html">Blog</a></li>
+                                  <li class="active" ><a id="nav-extend" href="../../api.html">API</a></li>
+                                  <li><a href="https://marketplace.visualstudio.com/VSCode" target="_blank" id="nav-extensions">Extensions</a></li>
+                                  <li ><a id="nav-faqs" href="../../docs/supporting/faq.html">FAQ</a></li>
+                                  <li ><a id="nav-learn" href="../../learn.html">Learn</a></li>
+                                  <li class='search visible-xs visible-sm'
+                                      ><a href="../../Search.html">Search</a></li>
+                              </ul>
+          
+                              <ul class="nav navbar-nav navbar-right" role="presentation">
+                                  <!-- Floating search icon -->
+                                  <li>
+                                      <a href="../../Search.html" title="Search" class="btn search-btn" id="nav-search">
+                                          <img class="search-icon" src="../../assets/icons/search.svg" width="16px" height="16px" alt="Search"/>
+                                          <img class="search-icon-inverted" src="../../assets/icons/search_dark.svg" width="16px" height="16px" alt="Search" />
+                                      </a>
+                                  </li>
+                                  <!-- Actual search icon -->
+                                  <li class="search" role="presentation">
+                                      <form class="nav-search search-form" role="search" aria-label="Search">
+                                          <div class="input-group" role="presentation">
+                                              <input type="text" name="q" class="search-box form-control" placeholder="Search Docs" aria-label="Search text"/>
+                                              <span class="input-group-btn">
+                                                  <button tabindex="0" class="btn" type="submit" aria-label="Search">
+                                                          <img class="search-icon" src="../../assets/icons/search.svg" width="16px" height="16px" alt="Search" />
+                                                          <img class="search-icon-inverted" src="../../assets/icons/search_dark.svg" width="16px" height="16px" alt="Search" />
+                                                  </button>
+                                              </span>
+                                          </div>
+                                      </form>                        </li>
+                                  <!-- this was hiden in the home and download page, keeping it for now -->
+                                  <li><a class="link-button" href="../../Download.html" id="nav-download">
+                                      <img class="download-icon" src="../../assets/icons/download.svg" width="16px" height="16px" alt="Download VS Code"/>
+                                      <img class="download-icon-inverted" src="../../assets/icons/download-black.svg" width="16px" height="16px" alt="Download VS Code" />
+                                      <span>Download</span>
+                                  </a></li>
+                              </ul>
+                          </div>
+                      </div>
+                  </nav>
+              </div>
+          </div>          <div class="updates-banner  ">
+              <div class="container">
+                  <p class="message"><a href="../../updates/v1_74.html" id="banner-link-updates">Version 1.74</a> is now available! Read about the new features and fixes from November.</p> 
+              </div>
+              <div tabindex="0" role="button" title="Dismiss this update" class="dismiss-btn" id="banner-dismiss-btn"><span class="sr-only">Dismiss this update</span><span aria-hidden="true" class="glyph-icon"></span></div>
+          </div>      <div role="main" id="main-content">
+        <div class="container body-content docs">
+	<div class="row">
+		<div class="col-md-2 docs-navbar-container">
+			<nav id="docs-navbar" class="docs-nav visible-md visible-lg">
+			  <ul class="nav" id="main-nav">
+			  <li >
+			    <a class="docs-home" href="../../api.html" >Overview</a>
+			  </li>
+			  
+			<li class="panel collapsed">
+			  <a class="area" role="button" href="#get-started-articles" data-parent="#main-nav" data-toggle="collapse">Get Started</a>
+			  <ul id="get-started-articles" class="collapse ">
+			
+			    <li >
+			      <a href="../get-started/your-first-extension.html" >Your First Extension</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../get-started/extension-anatomy.html" >Extension Anatomy</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../get-started/wrapping-up.html" >Wrapping Up</a>
+			    </li>
+			      
+			  </ul>
+			</li>
+			    
+			<li class="panel collapsed">
+			  <a class="area" role="button" href="#extension-capabilities-articles" data-parent="#main-nav" data-toggle="collapse">Extension Capabilities</a>
+			  <ul id="extension-capabilities-articles" class="collapse ">
+			
+			    <li >
+			      <a href="../extension-capabilities/overview.html" >Overview</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../extension-capabilities/common-capabilities.html" >Common Capabilities</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../extension-capabilities/theming.html" >Theming</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../extension-capabilities/extending-workbench.html" >Extending Workbench</a>
+			    </li>
+			      
+			  </ul>
+			</li>
+			    
+			<li class="panel collapsed">
+			  <a class="area" role="button" href="#extension-guides-articles" data-parent="#main-nav" data-toggle="collapse">Extension Guides</a>
+			  <ul id="extension-guides-articles" class="collapse ">
+			
+			    <li >
+			      <a href="../extension-guides/overview.html" >Overview</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../extension-guides/command.html" >Command</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../extension-guides/color-theme.html" >Color Theme</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../extension-guides/file-icon-theme.html" >File Icon Theme</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../extension-guides/product-icon-theme.html" >Product Icon Theme</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../extension-guides/tree-view.html" >Tree View</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../extension-guides/webview.html" >Webview</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../extension-guides/notebook.html" >Notebook</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../extension-guides/custom-editors.html" >Custom Editors</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../extension-guides/virtual-documents.html" >Virtual Documents</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../extension-guides/virtual-workspaces.html" >Virtual Workspaces</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../extension-guides/web-extensions.html" >Web Extensions</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../extension-guides/workspace-trust.html" >Workspace Trust</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../extension-guides/task-provider.html" >Task Provider</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../extension-guides/scm-provider.html" >Source Control</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../extension-guides/debugger-extension.html" >Debugger Extension</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../extension-guides/markdown-extension.html" >Markdown Extension</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../extension-guides/testing.html" >Test Extension</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../extension-guides/custom-data-extension.html" >Custom Data Extension</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../extension-guides/telemetry.html" >Telemetry</a>
+			    </li>
+			      
+			  </ul>
+			</li>
+			    
+			<li class="panel collapsed">
+			  <a class="area" role="button" href="#ux-guidelines-articles" data-parent="#main-nav" data-toggle="collapse">UX Guidelines</a>
+			  <ul id="ux-guidelines-articles" class="collapse ">
+			
+			    <li >
+			      <a href="../ux-guidelines/overview.html" >Overview</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../ux-guidelines/activity-bar.html" >Activity Bar</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../ux-guidelines/sidebars.html" >Sidebars</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../ux-guidelines/panel.html" >Panel</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../ux-guidelines/status-bar.html" >Status Bar</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../ux-guidelines/views.html" >Views</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../ux-guidelines/editor-actions.html" >Editor Actions</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../ux-guidelines/quick-picks.html" >Quick Picks</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../ux-guidelines/command-palette.html" >Command Palette</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../ux-guidelines/notifications.html" >Notifications</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../ux-guidelines/webviews.html" >Webviews</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../ux-guidelines/context-menus.html" >Context Menus</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../ux-guidelines/walkthroughs.html" >Walkthroughs</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../ux-guidelines/settings.html" >Settings</a>
+			    </li>
+			      
+			  </ul>
+			</li>
+			    
+			<li class="panel collapsed">
+			  <a class="area" role="button" href="#language-extensions-articles" data-parent="#main-nav" data-toggle="collapse">Language Extensions</a>
+			  <ul id="language-extensions-articles" class="collapse ">
+			
+			    <li >
+			      <a href="../language-extensions/overview.html" >Overview</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../language-extensions/syntax-highlight-guide.html" >Syntax Highlight Guide</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../language-extensions/semantic-highlight-guide.html" >Semantic Highlight Guide</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../language-extensions/snippet-guide.html" >Snippet Guide</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../language-extensions/language-configuration-guide.html" >Language Configuration Guide</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../language-extensions/programmatic-language-features.html" >Programmatic Language Features</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../language-extensions/language-server-extension-guide.html" >Language Server Extension Guide</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../language-extensions/embedded-languages.html" >Embedded Languages</a>
+			    </li>
+			      
+			  </ul>
+			</li>
+			    
+			<li class="panel collapsed">
+			  <a class="area" role="button" href="#working-with-extensions-articles" data-parent="#main-nav" data-toggle="collapse">Testing and Publishing</a>
+			  <ul id="working-with-extensions-articles" class="collapse ">
+			
+			    <li >
+			      <a href="../working-with-extensions/testing-extension.html" >Testing Extensions</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../working-with-extensions/publishing-extension.html" >Publishing Extensions</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../working-with-extensions/bundling-extension.html" >Bundling Extensions</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../working-with-extensions/continuous-integration.html" >Continuous Integration</a>
+			    </li>
+			      
+			  </ul>
+			</li>
+			    
+			<li class="panel collapsed">
+			  <a class="area" role="button" href="#advanced-topics-articles" data-parent="#main-nav" data-toggle="collapse">Advanced Topics</a>
+			  <ul id="advanced-topics-articles" class="collapse ">
+			
+			    <li >
+			      <a href="../advanced-topics/extension-host.html" >Extension Host</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../advanced-topics/remote-extensions.html" >Remote Development and Codespaces</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../advanced-topics/using-proposed-api.html" >Using Proposed API</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../advanced-topics/tslint-eslint-migration.html" >Migrate from TSLint to ESLint</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../advanced-topics/python-extension-template.html" >Python Extension Template</a>
+			    </li>
+			      
+			  </ul>
+			</li>
+			    
+			<li class="panel active expanded">
+			  <a class="area" role="button" href="#references-articles" data-parent="#main-nav" data-toggle="collapse">References</a>
+			  <ul id="references-articles" class="collapse in">
+			
+			    <li >
+			      <a href="vscode-api.html" >VS Code API </a>
+			    </li>
+			      
+			    <li >
+			      <a href="contribution-points.html" >Contribution Points</a>
+			    </li>
+			      
+			    <li >
+			      <a href="activation-events.html" >Activation Events</a>
+			    </li>
+			      
+			    <li >
+			      <a href="extension-manifest.html" >Extension Manifest</a>
+			    </li>
+			      
+			    <li >
+			      <a href="commands.html" >Built-in Commands</a>
+			    </li>
+			      
+			    <li class="active">
+			      <a href="when-clause-contexts.html" aria-label="Current Page: When clause contexts">When clause contexts</a>
+			    </li>
+			      
+			    <li >
+			      <a href="theme-color.html" >Theme Color</a>
+			    </li>
+			      
+			    <li >
+			      <a href="icons-in-labels.html" >Product Icon Reference</a>
+			    </li>
+			      
+			    <li >
+			      <a href="document-selector.html" >Document Selector</a>
+			    </li>
+			      
+			  </ul>
+			</li>
+			    
+			  </ul>
+			</nav>
+			
+			<nav id="small-nav" aria-label="Topics" class="docs-nav hidden-md hidden-lg">
+				<h4>Topics</h4>
+				<select id="small-nav-dropdown" aria-label="topics">
+			    <option value="/api" >Overview</option>
+			
+			  <optgroup label="Get Started">
+			
+			    <option value="/api/get-started/your-first-extension" >Your First Extension</option>
+			    
+			    <option value="/api/get-started/extension-anatomy" >Extension Anatomy</option>
+			    
+			    <option value="/api/get-started/wrapping-up" >Wrapping Up</option>
+			    
+			  </optgroup>
+			  
+			  <optgroup label="Extension Capabilities">
+			
+			    <option value="/api/extension-capabilities/overview" >Overview</option>
+			    
+			    <option value="/api/extension-capabilities/common-capabilities" >Common Capabilities</option>
+			    
+			    <option value="/api/extension-capabilities/theming" >Theming</option>
+			    
+			    <option value="/api/extension-capabilities/extending-workbench" >Extending Workbench</option>
+			    
+			  </optgroup>
+			  
+			  <optgroup label="Extension Guides">
+			
+			    <option value="/api/extension-guides/overview" >Overview</option>
+			    
+			    <option value="/api/extension-guides/command" >Command</option>
+			    
+			    <option value="/api/extension-guides/color-theme" >Color Theme</option>
+			    
+			    <option value="/api/extension-guides/file-icon-theme" >File Icon Theme</option>
+			    
+			    <option value="/api/extension-guides/product-icon-theme" >Product Icon Theme</option>
+			    
+			    <option value="/api/extension-guides/tree-view" >Tree View</option>
+			    
+			    <option value="/api/extension-guides/webview" >Webview</option>
+			    
+			    <option value="/api/extension-guides/notebook" >Notebook</option>
+			    
+			    <option value="/api/extension-guides/custom-editors" >Custom Editors</option>
+			    
+			    <option value="/api/extension-guides/virtual-documents" >Virtual Documents</option>
+			    
+			    <option value="/api/extension-guides/virtual-workspaces" >Virtual Workspaces</option>
+			    
+			    <option value="/api/extension-guides/web-extensions" >Web Extensions</option>
+			    
+			    <option value="/api/extension-guides/workspace-trust" >Workspace Trust</option>
+			    
+			    <option value="/api/extension-guides/task-provider" >Task Provider</option>
+			    
+			    <option value="/api/extension-guides/scm-provider" >Source Control</option>
+			    
+			    <option value="/api/extension-guides/debugger-extension" >Debugger Extension</option>
+			    
+			    <option value="/api/extension-guides/markdown-extension" >Markdown Extension</option>
+			    
+			    <option value="/api/extension-guides/testing" >Test Extension</option>
+			    
+			    <option value="/api/extension-guides/custom-data-extension" >Custom Data Extension</option>
+			    
+			    <option value="/api/extension-guides/telemetry" >Telemetry</option>
+			    
+			  </optgroup>
+			  
+			  <optgroup label="UX Guidelines">
+			
+			    <option value="/api/ux-guidelines/overview" >Overview</option>
+			    
+			    <option value="/api/ux-guidelines/activity-bar" >Activity Bar</option>
+			    
+			    <option value="/api/ux-guidelines/sidebars" >Sidebars</option>
+			    
+			    <option value="/api/ux-guidelines/panel" >Panel</option>
+			    
+			    <option value="/api/ux-guidelines/status-bar" >Status Bar</option>
+			    
+			    <option value="/api/ux-guidelines/views" >Views</option>
+			    
+			    <option value="/api/ux-guidelines/editor-actions" >Editor Actions</option>
+			    
+			    <option value="/api/ux-guidelines/quick-picks" >Quick Picks</option>
+			    
+			    <option value="/api/ux-guidelines/command-palette" >Command Palette</option>
+			    
+			    <option value="/api/ux-guidelines/notifications" >Notifications</option>
+			    
+			    <option value="/api/ux-guidelines/webviews" >Webviews</option>
+			    
+			    <option value="/api/ux-guidelines/context-menus" >Context Menus</option>
+			    
+			    <option value="/api/ux-guidelines/walkthroughs" >Walkthroughs</option>
+			    
+			    <option value="/api/ux-guidelines/settings" >Settings</option>
+			    
+			  </optgroup>
+			  
+			  <optgroup label="Language Extensions">
+			
+			    <option value="/api/language-extensions/overview" >Overview</option>
+			    
+			    <option value="/api/language-extensions/syntax-highlight-guide" >Syntax Highlight Guide</option>
+			    
+			    <option value="/api/language-extensions/semantic-highlight-guide" >Semantic Highlight Guide</option>
+			    
+			    <option value="/api/language-extensions/snippet-guide" >Snippet Guide</option>
+			    
+			    <option value="/api/language-extensions/language-configuration-guide" >Language Configuration Guide</option>
+			    
+			    <option value="/api/language-extensions/programmatic-language-features" >Programmatic Language Features</option>
+			    
+			    <option value="/api/language-extensions/language-server-extension-guide" >Language Server Extension Guide</option>
+			    
+			    <option value="/api/language-extensions/embedded-languages" >Embedded Languages</option>
+			    
+			  </optgroup>
+			  
+			  <optgroup label="Testing and Publishing">
+			
+			    <option value="/api/working-with-extensions/testing-extension" >Testing Extensions</option>
+			    
+			    <option value="/api/working-with-extensions/publishing-extension" >Publishing Extensions</option>
+			    
+			    <option value="/api/working-with-extensions/bundling-extension" >Bundling Extensions</option>
+			    
+			    <option value="/api/working-with-extensions/continuous-integration" >Continuous Integration</option>
+			    
+			  </optgroup>
+			  
+			  <optgroup label="Advanced Topics">
+			
+			    <option value="/api/advanced-topics/extension-host" >Extension Host</option>
+			    
+			    <option value="/api/advanced-topics/remote-extensions" >Remote Development and Codespaces</option>
+			    
+			    <option value="/api/advanced-topics/using-proposed-api" >Using Proposed API</option>
+			    
+			    <option value="/api/advanced-topics/tslint-eslint-migration" >Migrate from TSLint to ESLint</option>
+			    
+			    <option value="/api/advanced-topics/python-extension-template" >Python Extension Template</option>
+			    
+			  </optgroup>
+			  
+			  <optgroup label="References">
+			
+			    <option value="/api/references/vscode-api" >VS Code API </option>
+			    
+			    <option value="/api/references/contribution-points" >Contribution Points</option>
+			    
+			    <option value="/api/references/activation-events" >Activation Events</option>
+			    
+			    <option value="/api/references/extension-manifest" >Extension Manifest</option>
+			    
+			    <option value="/api/references/commands" >Built-in Commands</option>
+			    
+			    <option value="/api/references/when-clause-contexts" selected>When clause contexts</option>
+			    
+			    <option value="/api/references/theme-color" >Theme Color</option>
+			    
+			    <option value="/api/references/icons-in-labels" >Product Icon Reference</option>
+			    
+			    <option value="/api/references/document-selector" >Document Selector</option>
+			    
+			  </optgroup>
+			  
+				</select>
+			</nav>		</div>
+		<div class="col-sm-9 col-md-8 body">
+			<div class="edit-github pull-right">
+				<a href="https://vscode.dev/github/microsoft/vscode-docs/blob/main/api/references/when-clause-contexts.md"
+					class="btn btn-default" title="Edit this document in vscode.dev">
+					<span class="glyphicon glyphicon-pencil"></span>
+					<span class="hidden-xs">Edit</span>
+				</a>
+			</div>
+			<h1>when clause contexts</h1>
+<p>Visual Studio Code sets various context keys and specific values depending on what elements are visible and active in the VS Code UI. These contexts can be used to selectively enable or disable extension commands and UI elements, such as menus and views.</p>
+<p>For example, VS Code uses when clauses to enable or disable command keybindings, which you can see in the Default Keybindings JSON (<strong>Preferences: Open Default Keyboard Shortcuts (JSON)</strong>):</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #000000">{ </span><span style="color: #0451A5">&quot;key&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;f5&quot;</span><span style="color: #000000">,  </span><span style="color: #0451A5">&quot;command&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;workbench.action.debug.start&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">                   </span><span style="color: #0451A5">&quot;when&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;debuggersAvailable &amp;&amp; !inDebugMode&quot;</span><span style="color: #000000"> },</span></span>
+<span class="line"></span></code></pre>
+<p>Above the built-in <strong>Start Debugging</strong> command has the keyboard shortcut <span class="dynamic-keybinding" data-commandId="workbench.action.debug.start" data-osx="F5" data-win="F5" data-linux="F5"><span class="keybinding">F5</span></span>, which is only enabled when there is an appropriate debugger available (context <code>debuggersAvailable</code> is true) and the editor isn't in debug mode (context <code>inDebugMode</code> is false).</p>
+<h2 id="conditional-operators" data-needslink="conditional-operators">Conditional operators</h2>
+<p>For conditional expressions, you can use the following conditional operators:</p>
+<table class="table table-striped">
+<thead>
+<tr>
+<th>Operator</th>
+<th>Symbol</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Equality</td>
+<td><code>==</code></td>
+<td><code>&quot;editorLangId == typescript&quot;</code></td>
+</tr>
+<tr>
+<td>Inequality</td>
+<td><code>!=</code></td>
+<td><code>&quot;resourceExtname != .js&quot;</code></td>
+</tr>
+<tr>
+<td>Or</td>
+<td><code>||</code></td>
+<td><code>&quot;isLinux</code><code>||</code><code>isWindows&quot;</code></td>
+</tr>
+<tr>
+<td>And</td>
+<td><code>&amp;&amp;</code></td>
+<td><code>&quot;textInputFocus &amp;&amp; !editorReadonly&quot;</code></td>
+</tr>
+<tr>
+<td>Not</td>
+<td><code>!</code></td>
+<td><code>!editorReadonly</code></td>
+</tr>
+<tr>
+<td>Matches</td>
+<td><code>=~</code></td>
+<td><code>&quot;resourceScheme =~ /^untitled$|^file$/&quot;</code></td>
+</tr>
+<tr>
+<td>Greater than</td>
+<td><code>&gt;</code> <code>&gt;=</code></td>
+<td><code>&quot;gitOpenRepositoryCount &gt;= 1&quot;</code></td>
+</tr>
+<tr>
+<td>Less than</td>
+<td><code>&lt;</code> <code>&lt;=</code></td>
+<td><code>&quot;workspaceFolderCount &lt; 2&quot;</code></td>
+</tr>
+<tr>
+<td>In</td>
+<td><code>in</code></td>
+<td><code>resourceFilename in supportedFolders</code> (<a href="#in-conditional-operator">details</a> below)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="keyvalue-when-clause-operator" data-needslink="keyvalue-when-clause-operator">key-value when clause operator</h3>
+<p>There is a key-value pair match operator for <code>when</code> clauses. The expression <code>key =~ value</code> treats the right-hand side as a regular expression to match against the left-hand side. For example, to contribute context menu items for all Docker files, one could use:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #000000">   </span><span style="color: #A31515">&quot;when&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;resourceFilename =~ /docker/&quot;</span></span>
+<span class="line"></span></code></pre>
+<h2 id="available-contexts" data-needslink="available-contexts">Available contexts</h2>
+<p>Below are some of the available <code>when</code> clause contexts, which evaluate to Boolean true/false.</p>
+<p>The list here isn't exhaustive and you can find other <code>when</code> clause contexts by searching and filtering in the Keyboard Shortcuts editor (<strong>Preferences: Open Keyboard Shortcuts</strong>) or reviewing the Default Keybindings JSON file (<strong>Preferences: Open Default Keyboard Shortcuts (JSON)</strong>).</p>
+<table class="table table-striped">
+<thead>
+<tr>
+<th>Context name</th>
+<th>True when</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Editor contexts</strong></td>
+<td></td>
+</tr>
+<tr>
+<td><code>editorFocus</code></td>
+<td>An editor has focus, either the text or a widget.</td>
+</tr>
+<tr>
+<td><code>editorTextFocus</code></td>
+<td>The text in an editor has focus (cursor is blinking).</td>
+</tr>
+<tr>
+<td><code>textInputFocus</code></td>
+<td>Any editor has focus (regular editor, debug REPL, etc.).</td>
+</tr>
+<tr>
+<td><code>inputFocus</code></td>
+<td>Any text input area has focus (editors or text boxes).</td>
+</tr>
+<tr>
+<td><code>editorTabMovesFocus</code></td>
+<td>Whether <span class="keybinding">Tab</span> will move focus out of the editor.</td>
+</tr>
+<tr>
+<td><code>editorHasSelection</code></td>
+<td>Text is selected in the editor.</td>
+</tr>
+<tr>
+<td><code>editorHasMultipleSelections</code></td>
+<td>Multiple regions of text are selected (multiple cursors).</td>
+</tr>
+<tr>
+<td><code>editorReadonly</code></td>
+<td>The editor is read only.</td>
+</tr>
+<tr>
+<td><code>editorLangId</code></td>
+<td>True when the editor's associated <a href="../../docs/languages/identifiers.html">language ID</a> matches. Example: <code>&quot;editorLangId == typescript&quot;</code>.</td>
+</tr>
+<tr>
+<td><code>isInDiffEditor</code></td>
+<td>The active editor is a difference editor.</td>
+</tr>
+<tr>
+<td><code>isInEmbeddedEditor</code></td>
+<td>True when the focus is inside an embedded editor.</td>
+</tr>
+<tr>
+<td><strong>Operating system contexts</strong></td>
+<td></td>
+</tr>
+<tr>
+<td><code>isLinux</code></td>
+<td>True when the OS is Linux</td>
+</tr>
+<tr>
+<td><code>isMac</code></td>
+<td>True when the OS is macOS</td>
+</tr>
+<tr>
+<td><code>isWindows</code></td>
+<td>True when the OS is Windows</td>
+</tr>
+<tr>
+<td><code>isWeb</code></td>
+<td>True when accessing the editor from the Web</td>
+</tr>
+<tr>
+<td><strong>List contexts</strong></td>
+<td></td>
+</tr>
+<tr>
+<td><code>listFocus</code></td>
+<td>A list has focus.</td>
+</tr>
+<tr>
+<td><code>listSupportsMultiselect</code></td>
+<td>A list supports multi select.</td>
+</tr>
+<tr>
+<td><code>listHasSelectionOrFocus</code></td>
+<td>A list has selection or focus.</td>
+</tr>
+<tr>
+<td><code>listDoubleSelection</code></td>
+<td>A list has a selection of 2 elements.</td>
+</tr>
+<tr>
+<td><code>listMultiSelection</code></td>
+<td>A list has a selection of multiple elements.</td>
+</tr>
+<tr>
+<td><strong>Mode contexts</strong></td>
+<td></td>
+</tr>
+<tr>
+<td><code>inSnippetMode</code></td>
+<td>The editor is in snippet mode.</td>
+</tr>
+<tr>
+<td><code>inQuickOpen</code></td>
+<td>The Quick Open dropdown has focus.</td>
+</tr>
+<tr>
+<td><strong>Resource contexts</strong></td>
+<td></td>
+</tr>
+<tr>
+<td><code>resourceScheme</code></td>
+<td>True when the resource Uri scheme matches. Example: <code>&quot;resourceScheme == file&quot;</code></td>
+</tr>
+<tr>
+<td><code>resourceFilename</code></td>
+<td>True when the Explorer or editor filename matches. Example: <code>&quot;resourceFilename == gulpfile.js&quot;</code></td>
+</tr>
+<tr>
+<td><code>resourceExtname</code></td>
+<td>True when the Explorer or editor filename extension matches. Example: <code>&quot;resourceExtname == .js&quot;</code></td>
+</tr>
+<tr>
+<td><code>resourceDirname</code></td>
+<td>True when the Explorer or editor's resource absolute folder path matches. Example: <code>&quot;resourceDirname == /users/alice/project/src&quot;</code></td>
+</tr>
+<tr>
+<td><code>resourcePath</code></td>
+<td>True when the Explorer or editor's resource absolute path matches. Example: <code>&quot;resourcePath == /users/alice/project/gulpfile.js&quot;</code></td>
+</tr>
+<tr>
+<td><code>resourceLangId</code></td>
+<td>True when the Explorer or editor title <a href="../../docs/languages/identifiers.html">language ID</a> matches. Example: <code>&quot;resourceLangId == markdown&quot;</code></td>
+</tr>
+<tr>
+<td><code>isFileSystemResource</code></td>
+<td>True when the Explorer or editor file is a file system resource that can be handled  from a file system provider</td>
+</tr>
+<tr>
+<td><code>resourceSet</code></td>
+<td>True when an Explorer or editor file is set</td>
+</tr>
+<tr>
+<td><code>resource</code></td>
+<td>The full Uri of the Explorer or editor file</td>
+</tr>
+<tr>
+<td><strong>Explorer contexts</strong></td>
+<td></td>
+</tr>
+<tr>
+<td><code>explorerViewletVisible</code></td>
+<td>True if Explorer view is visible.</td>
+</tr>
+<tr>
+<td><code>explorerViewletFocus</code></td>
+<td>True if Explorer view has keyboard focus.</td>
+</tr>
+<tr>
+<td><code>filesExplorerFocus</code></td>
+<td>True if File Explorer section has keyboard focus.</td>
+</tr>
+<tr>
+<td><code>openEditorsFocus</code></td>
+<td>True if OPEN EDITORS section has keyboard focus.</td>
+</tr>
+<tr>
+<td><code>explorerResourceIsFolder</code></td>
+<td>True if a folder is selected in the Explorer.</td>
+</tr>
+<tr>
+<td><strong>Editor widget contexts</strong></td>
+<td></td>
+</tr>
+<tr>
+<td><code>findWidgetVisible</code></td>
+<td>Editor Find widget is visible.</td>
+</tr>
+<tr>
+<td><code>suggestWidgetVisible</code></td>
+<td>Suggestion widget (IntelliSense) is visible.</td>
+</tr>
+<tr>
+<td><code>suggestWidgetMultipleSuggestions</code></td>
+<td>Multiple suggestions are displayed.</td>
+</tr>
+<tr>
+<td><code>renameInputVisible</code></td>
+<td>Rename input text box is visible.</td>
+</tr>
+<tr>
+<td><code>referenceSearchVisible</code></td>
+<td>Peek References peek window is open.</td>
+</tr>
+<tr>
+<td><code>inReferenceSearchEditor</code></td>
+<td>The Peek References peek window editor has focus.</td>
+</tr>
+<tr>
+<td><code>config.editor.stablePeek</code></td>
+<td>Keep peek editors open (controlled by <code>editor.stablePeek</code> setting).</td>
+</tr>
+<tr>
+<td><code>quickFixWidgetVisible</code></td>
+<td>Quick Fix widget is visible.</td>
+</tr>
+<tr>
+<td><code>parameterHintsVisible</code></td>
+<td>Parameter hints are visible (controlled by <code>editor.parameterHints.enabled</code> setting).</td>
+</tr>
+<tr>
+<td><code>parameterHintsMultipleSignatures</code></td>
+<td>Multiple parameter hints are displayed.</td>
+</tr>
+<tr>
+<td><strong>Debugger contexts</strong></td>
+<td></td>
+</tr>
+<tr>
+<td><code>debuggersAvailable</code></td>
+<td>An appropriate debugger extension is available</td>
+</tr>
+<tr>
+<td><code>inDebugMode</code></td>
+<td>A debug session is running.</td>
+</tr>
+<tr>
+<td><code>debugState</code></td>
+<td>Active debugger state. Possible values are <code>inactive</code>, <code>initializing</code>, <code>stopped</code>, <code>running</code>.</td>
+</tr>
+<tr>
+<td><code>debugType</code></td>
+<td>True when debug type matches. Example: <code>&quot;debugType == 'node'&quot;</code>.</td>
+</tr>
+<tr>
+<td><code>inDebugRepl</code></td>
+<td>Focus is in the Debug Console REPL.</td>
+</tr>
+<tr>
+<td><strong>Integrated terminal contexts</strong></td>
+<td></td>
+</tr>
+<tr>
+<td><code>terminalFocus</code></td>
+<td>An integrated terminal has focus.</td>
+</tr>
+<tr>
+<td><code>terminalIsOpen</code></td>
+<td>An integrated terminal is opened.</td>
+</tr>
+<tr>
+<td><strong>Timeline view contexts</strong></td>
+<td></td>
+</tr>
+<tr>
+<td><code>timelineFollowActiveEditor</code></td>
+<td>True if the Timeline view is following the active editor.</td>
+</tr>
+<tr>
+<td><strong>Timeline view item contexts</strong></td>
+<td></td>
+</tr>
+<tr>
+<td><code>timelineItem</code></td>
+<td>True when the timeline item's context value matches. Example: <code>&quot;timelineItem =~ /git:file:commit\\b/&quot;</code>.</td>
+</tr>
+<tr>
+<td><strong>Extension contexts</strong></td>
+<td></td>
+</tr>
+<tr>
+<td><code>extension</code></td>
+<td>True when the extension's ID matches. Example: <code>&quot;extension == eamodio.gitlens&quot;</code>.</td>
+</tr>
+<tr>
+<td><code>extensionStatus</code></td>
+<td>True when the extension is installed. Example: <code>&quot;extensionStatus == installed&quot;</code>.</td>
+</tr>
+<tr>
+<td><code>extensionHasConfiguration</code></td>
+<td>True if the extension has configuration.</td>
+</tr>
+<tr>
+<td><strong>Global UI contexts</strong></td>
+<td></td>
+</tr>
+<tr>
+<td><code>notificationFocus</code></td>
+<td>Notification has keyboard focus.</td>
+</tr>
+<tr>
+<td><code>notificationCenterVisible</code></td>
+<td>Notification Center is visible at the bottom right of VS Code.</td>
+</tr>
+<tr>
+<td><code>notificationToastsVisible</code></td>
+<td>Notification toast is visible at the bottom right of VS Code.</td>
+</tr>
+<tr>
+<td><code>searchViewletVisible</code></td>
+<td>Search view is open.</td>
+</tr>
+<tr>
+<td><code>sideBarVisible</code></td>
+<td>Side Bar is displayed.</td>
+</tr>
+<tr>
+<td><code>sideBarFocus</code></td>
+<td>Side Bar has focus.</td>
+</tr>
+<tr>
+<td><code>panelFocus</code></td>
+<td>Panel has focus.</td>
+</tr>
+<tr>
+<td><code>inZenMode</code></td>
+<td>Window is in Zen Mode.</td>
+</tr>
+<tr>
+<td><code>isCenteredLayout</code></td>
+<td>Editor is in centered layout mode.</td>
+</tr>
+<tr>
+<td><code>workbenchState</code></td>
+<td>Can be <code>empty</code>, <code>folder</code> (1 folder), or <code>workspace</code>.</td>
+</tr>
+<tr>
+<td><code>workspaceFolderCount</code></td>
+<td>Count of workspace folders.</td>
+</tr>
+<tr>
+<td><code>replaceActive</code></td>
+<td>Search view Replace text box is open.</td>
+</tr>
+<tr>
+<td><code>view</code></td>
+<td>True when view identifier matches. Example: <code>&quot;view == myViewsExplorerID&quot;</code>.</td>
+</tr>
+<tr>
+<td><code>viewItem</code></td>
+<td>True when viewItem context matches. Example:  <code>&quot;viewItem == someContextValue&quot;</code>.</td>
+</tr>
+<tr>
+<td><code>isFullscreen</code></td>
+<td>True when window is in fullscreen.</td>
+</tr>
+<tr>
+<td><code>focusedView</code></td>
+<td>The identifier of the currently focused view.</td>
+</tr>
+<tr>
+<td><code>canNavigateBack</code></td>
+<td>True if it is possible to navigate back.</td>
+</tr>
+<tr>
+<td><code>canNavigateForward</code></td>
+<td>True if it is possible to navigate forward.</td>
+</tr>
+<tr>
+<td><code>canNavigateToLastEditLocation</code></td>
+<td>True if it is possible to navigate to the last edit location.</td>
+</tr>
+<tr>
+<td><strong>Global Editor UI contexts</strong></td>
+<td></td>
+</tr>
+<tr>
+<td><code>textCompareEditorVisible</code></td>
+<td>At least one diff (compare) editor is visible.</td>
+</tr>
+<tr>
+<td><code>textCompareEditorActive</code></td>
+<td>A diff (compare) editor is active.</td>
+</tr>
+<tr>
+<td><code>editorIsOpen</code></td>
+<td>True if one editor is open.</td>
+</tr>
+<tr>
+<td><code>groupEditorsCount</code></td>
+<td>Number of editors in a group.</td>
+</tr>
+<tr>
+<td><code>activeEditorGroupEmpty</code></td>
+<td>True if the active editor group has no editors.</td>
+</tr>
+<tr>
+<td><code>activeEditorGroupIndex</code></td>
+<td>A number starting from <code>1</code> reflecting the position of an editor group in the editor grid. The group with index <code>1</code> will be the first in the top-left corner.</td>
+</tr>
+<tr>
+<td><code>activeEditorGroupLast</code></td>
+<td>Will be <code>true</code> for the last editor group in the editor grid.</td>
+</tr>
+<tr>
+<td><code>multipleEditorGroups</code></td>
+<td>True when multiple editor groups are present.</td>
+</tr>
+<tr>
+<td><code>activeEditor</code></td>
+<td>The identifier of the active editor in a group.</td>
+</tr>
+<tr>
+<td><code>activeEditorIsDirty</code></td>
+<td>True when the active editor in a group is dirty.</td>
+</tr>
+<tr>
+<td><code>activeEditorIsNotPreview</code></td>
+<td>True when the active editor in a group is not in preview mode.</td>
+</tr>
+<tr>
+<td><code>activeEditorIsPinned</code></td>
+<td>True when the active editor in a group is pinned.</td>
+</tr>
+<tr>
+<td><code>inSearchEditor</code></td>
+<td>True when focus is inside a search editor.</td>
+</tr>
+<tr>
+<td><strong>Configuration settings contexts</strong></td>
+<td></td>
+</tr>
+<tr>
+<td><code>config.editor.minimap.enabled</code></td>
+<td>True when the setting <code>editor.minimap.enabled</code> is <code>true</code>.</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>Note</strong>: You can use any user or workspace setting that evaluates to a boolean here with the prefix <code>&quot;config.&quot;</code>.</p>
+</blockquote>
+<h2 id="activefocused-view-or-panel-when-clause-context" data-needslink="activefocused-view-or-panel-when-clause-context">Active/focused view or panel when clause context</h2>
+<p>You can have a when clause that checks if a specific view or panel is visible.</p>
+<table class="table table-striped">
+<thead>
+<tr>
+<th>Context name</th>
+<th>True when</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>activeViewlet</td>
+<td>True when view is visible. Example: <code>&quot;activeViewlet == 'workbench.view.explorer'&quot;</code></td>
+</tr>
+<tr>
+<td>activePanel</td>
+<td>True when panel is visible. Example: <code>&quot;activePanel == 'workbench.panel.output'&quot;</code></td>
+</tr>
+<tr>
+<td>focusedView</td>
+<td>True when view is focused. Example: <code>&quot;focusedView == myViewsExplorerID&quot;</code></td>
+</tr>
+</tbody>
+</table>
+<p>View Identifiers:</p>
+<ul>
+<li>workbench.view.explorer - File Explorer</li>
+<li>workbench.view.search - Search</li>
+<li>workbench.view.scm - Source Control</li>
+<li>workbench.view.debug - Run</li>
+<li>workbench.view.extensions - Extensions</li>
+</ul>
+<p>Panel Identifiers:</p>
+<ul>
+<li>workbench.panel.markers - Problems</li>
+<li>workbench.panel.output - Output</li>
+<li>workbench.panel.repl - Debug Console</li>
+<li>terminal - Integrated Terminal</li>
+<li>workbench.panel.comments - Comments</li>
+<li>workbench.view.search - Search when <code>search.location</code> is set to <code>panel</code></li>
+</ul>
+<p>If you want a when clause that is enabled only when a specific view or panel has focus, use <code>sideBarFocus</code> or <code>panelFocus</code> in combination with <code>activeViewlet</code> or <code>activePanel</code>.</p>
+<p>For example, the when clause below is true only when the File Explorer has focus:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #A31515">&quot;sideBarFocus &amp;&amp; activeViewlet == &#39;workbench.view.explorer&#39;&quot;</span></span>
+<span class="line"></span></code></pre>
+<h2 id="check-a-setting-in-a-when-clause" data-needslink="check-a-setting-in-a-when-clause">Check a setting in a when clause</h2>
+<p>In a when clause, you can reference a configuration (setting) value by prefixing it with <code>config.</code>, for example <code>config.editor.tabCompletion</code> or <code>config.breadcrumbs.enabled</code>.</p>
+<h2 id="add-a-custom-when-clause-context" data-needslink="add-a-custom-when-clause-context">Add a custom when clause context</h2>
+<p>If you are authoring your own VS Code extension and need to enable/disable commands, menus, or views by using a <code>when</code> clause context and none of the existing keys suit your needs, you can add your own context with the <code>setContext</code> command.</p>
+<p>The first example below sets the key <code>myExtension.showMyCommand</code> to true, which you can use in enablement of commands or with the <code>when</code> property. The second example stores a value that you could use with a <code>when</code> clause to check if the number of cool open things is greater than 2.</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #001080">vscode</span><span style="color: #000000">.</span><span style="color: #001080">commands</span><span style="color: #000000">.</span><span style="color: #795E26">executeCommand</span><span style="color: #000000">(</span><span style="color: #A31515">&#39;setContext&#39;</span><span style="color: #000000">, </span><span style="color: #A31515">&#39;myExtension.showMyCommand&#39;</span><span style="color: #000000">, </span><span style="color: #0000FF">true</span><span style="color: #000000">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #001080">vscode</span><span style="color: #000000">.</span><span style="color: #001080">commands</span><span style="color: #000000">.</span><span style="color: #795E26">executeCommand</span><span style="color: #000000">(</span><span style="color: #A31515">&#39;setContext&#39;</span><span style="color: #000000">, </span><span style="color: #A31515">&#39;myExtension.numberOfCoolOpenThings&#39;</span><span style="color: #000000">, </span><span style="color: #098658">4</span><span style="color: #000000">);</span></span>
+<span class="line"></span></code></pre>
+<h2 id="in-and-not-in-conditional-operators" data-needslink="in-and-not-in-conditional-operators">'in' and 'not in' conditional operators</h2>
+<p>The <code>in</code> operator for <code>when</code> clauses allows for a dynamic lookup of a context key's value within another context key's value. For example, if you wanted to add a context menu command to folders that contain a certain type of file (or something that can't be statically known), you can now use the <code>in</code> operator to achieve it. You can use the <code>not in</code> operator to check the opposite condition.</p>
+<p>First, determine which folders should support the command, and the folder name to an array. Then, use the <code>setContext</code> command to turn the array into a context key:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #001080">vscode</span><span style="color: #000000">.</span><span style="color: #001080">commands</span><span style="color: #000000">.</span><span style="color: #795E26">executeCommand</span><span style="color: #000000">(</span><span style="color: #A31515">&#39;setContext&#39;</span><span style="color: #000000">, </span><span style="color: #A31515">&#39;ext.supportedFolders&#39;</span><span style="color: #000000">, [</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #A31515">&#39;test&#39;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #A31515">&#39;foo&#39;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #A31515">&#39;bar&#39;</span></span>
+<span class="line"><span style="color: #000000">]);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #008000">// or</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #008000">// Note in this case (using an object), the value doesn&#39;t matter, it is based on the existence of the key in the object</span></span>
+<span class="line"><span style="color: #008000">// The value must be of a simple type</span></span>
+<span class="line"><span style="color: #001080">vscode</span><span style="color: #000000">.</span><span style="color: #001080">commands</span><span style="color: #000000">.</span><span style="color: #795E26">executeCommand</span><span style="color: #000000">(</span><span style="color: #A31515">&#39;setContext&#39;</span><span style="color: #000000">, </span><span style="color: #A31515">&#39;ext.supportedFolders&#39;</span><span style="color: #000000">, {</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #001080">test:</span><span style="color: #000000"> </span><span style="color: #0000FF">true</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #001080">foo:</span><span style="color: #000000"> </span><span style="color: #A31515">&#39;anything&#39;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #001080">bar:</span><span style="color: #000000"> </span><span style="color: #0000FF">false</span></span>
+<span class="line"><span style="color: #000000">});</span></span>
+<span class="line"></span></code></pre>
+<p>Then, in the <code>package.json</code> you could add a menu contribution for the <code>explorer/context</code> menu:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #008000">// Note, this assumes you have already defined a command called ext.doSpecial</span></span>
+<span class="line"><span style="color: #A31515">&quot;menus&quot;</span><span style="color: #000000">: {</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;explorer/context&quot;</span><span style="color: #000000">: [</span></span>
+<span class="line"><span style="color: #000000">    {</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #0451A5">&quot;command&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;ext.doSpecial&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #0451A5">&quot;when&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;explorerResourceIsFolder &amp;&amp; resourceFilename in ext.supportedFolders&quot;</span></span>
+<span class="line"><span style="color: #000000">    }</span></span>
+<span class="line"><span style="color: #000000">  ]</span></span>
+<span class="line"><span style="color: #000000">}</span></span>
+<span class="line"></span></code></pre>
+<p>In that example, we are taking the value of <code>resourceFilename</code> (which is the name of the folder in this case) and checking for its existence in the value of <code>ext.supportedFolders</code>. If it exists, the menu will be shown. This powerful operator should allow for richer conditional and dynamic contributions that support <code>when</code> clauses, for example menus, views, etc.</p>
+<h2 id="inspect-context-keys-utility" data-needslink="inspect-context-keys-utility">Inspect Context Keys utility</h2>
+<p>If you'd like to see all currently active context keys at runtime, you can use the <strong>Developer: Inspect Context Keys</strong> command from the Command Palette (<span class="dynamic-keybinding" data-commandId="workbench.action.showCommands" data-osx="⇧⌘P" data-win="Ctrl+Shift+P" data-linux="Ctrl+Shift+P"><span class="keybinding">⇧⌘P</span> (Windows, Linux <span class="keybinding">Ctrl+Shift+P</span>)</span>). <strong>Inspect Context Keys</strong> will display context keys and their values in the VS Code Developer Tools <strong>Console</strong> tab (<strong>Help</strong> &gt; <strong>Toggle Developer Tools</strong>).</p>
+<p>When you run <strong>Developer: Inspect Context Keys</strong>, your cursor will highlight elements in the VS Code UI and when you click on an element, the current context keys and their states will be output as an object to the Console.</p>
+<p><img src="../../assets/api/references/when-clause-contexts/inspect-context-keys.png" alt="Inspect Context Keys output" loading="lazy"></p>
+<p>The list of active context keys is extensive and may contain <a href="#add-a-custom-when-clause-context">custom context keys</a> from extensions you have installed.</p>
+<blockquote>
+<p><strong>Note</strong>: Some context keys are for VS Code internal use and may change in the future.</p>
+</blockquote>
+
+			<div class="feedback"></div>
+			
+			<div class="body-footer">12/7/2022</div>
+			
+		</div>
+		<div class="col-sm-3 col-md-2 docs-subnavbar-container">
+			<nav id="docs-subnavbar" aria-label="On Page" data-spy="affix" data-offset-top="20">
+				
+				<h4><span class="sr-only">In this article there are 7 sections</span><span
+						aria-hidden="true">In this article</span></h4>
+				<ul class="nav">
+					
+					<li><a href="#conditional-operators">Conditional operators</a></li>
+					
+					<li><a href="#available-contexts">Available contexts</a></li>
+					
+					<li><a href="#activefocused-view-or-panel-when-clause-context">Active/focused view or panel when clause context</a></li>
+					
+					<li><a href="#check-a-setting-in-a-when-clause">Check a setting in a when clause</a></li>
+					
+					<li><a href="#add-a-custom-when-clause-context">Add a custom when clause context</a></li>
+					
+					<li><a href="#in-and-not-in-conditional-operators">'in' and 'not in' conditional operators</a></li>
+					
+					<li><a href="#inspect-context-keys-utility">Inspect Context Keys utility</a></li>
+					
+				</ul>
+				
+				<div class="connect-widget"></div>
+			</nav>
+		</div>
+	</div>
+</div>
+      </div>
+  </div>
+
+  <footer role="contentinfo">
+      <div class="container">
+          <div class="row">
+              <div class="left col-md-7">
+                  <ul class="links">
+                      <li>
+                          <span class="message">Hello from Seattle.</span>
+                      </li>
+                      <li>
+                          <a href="https://go.microsoft.com/fwlink/?LinkID=533687" onclick="followOnTwitter()" tabindex="0">Follow @code</a>
+                      </li>
+                      <li>
+                          <div class="github-star-button">
+                              <iframe src="../../assets/github-button29be.html?user=Microsoft&amp;repo=vscode&amp;type=star&amp;count=true"
+                                  frameborder="0" scrolling="0" width="130px" height="20px" title="GitHub follow button" loading="lazy"></iframe>
+                          </div>
+                      </li>
+  
+                      <script>
+                          function followOnTwitter() {
+                              var windowFeatures = "location=yes,height=600,width=550,scrollbars=yes,status=yes";
+                              var originalReferer = "&original_referer=" + document.URL;
+                              var screenName = "&screen_name=code";
+                              var URL = "https://twitter.com/intent/follow?" + originalReferer + screenName;
+                              window.open(URL, "_blank", windowFeatures);
+                          }
+  
+                          function manageConsent() {
+                              if(WcpConsent.siteConsent.isConsentRequired){
+                                  WcpConsent.siteConsent.manageConsent();
+                              }
+                          }
+                      </script>
+                  </ul>
+              </div>
+              <div class="right col-md-5">
+                  <ul class="links">
+                      <li><a id="footer-support-link" href="https://support.serviceshub.microsoft.com/supportforbusiness/create?sapId=d66407ed-3967-b000-4cfb-2c318cad363d"
+                              target="_blank">Support</a></li>
+                      <li><a id="footer-privacy-link" href="https://privacy.microsoft.com/privacystatement"
+                              target="_blank">Privacy</a></li>
+                      <li style="display: none;"><a id="footer-cookie-link" style="cursor: pointer;" onclick="manageConsent()"
+                              target="_blank">Manage Cookies</a></li>
+                      <li><a id="footer-terms-link" href="https://www.microsoft.com/legal/terms-of-use"
+                              target="_blank">Terms of Use</a></li>
+                      <li><a id="footer-license-link" href="../../License.html">License</a></li>
+                  </ul>
+                  <div class="copyright">
+                      <a id="footer-microsoft-link" class="logo" href="https://www.microsoft.com/">
+                          <img class="microsoft-logo" src="../../assets/images/microsoft-logo.png" height="20" alt="Microsoft homepage"/>
+                          <img class="microsoft-logo-inverted" src="../../assets/images/microsoft-logo-inverted.png" height="20" alt="Microsoft homepage" />
+                      </a>
+                      <span>&copy; 2023 Microsoft</span>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </footer>
+  <script src="../../dist/index.js"></script>
+
+  
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "SoftwareApplication",
+      "name" : "Visual Studio Code",
+      "softwareVersion": "1.74",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "applicationCategory": "DeveloperApplication",
+      "applicationSubCategory": "Text Editor",
+      "alternateName": "VS Code",
+      "datePublished": "2021-11-03",
+      "operatingSystem": "Mac, Linux, Windows",
+      "logo": "https://code.visualstudio.com/assets/apple-touch-icon.png",
+      "screenshot": "https://code.visualstudio.com/assets/home/home-screenshot-win.png",
+      "releaseNotes": "https://code.visualstudio.com/updates",
+      "downloadUrl": "https://code.visualstudio.com/download",
+      "license": "https://code.visualstudio.com/license",
+      "softwareRequirements": "https://code.visualstudio.com/docs/supporting/requirements",
+      "url" : "https://code.visualstudio.com",
+      "author": {
+        "@type": "Organization",
+        "name": "Microsoft"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Microsoft"
+      },
+      "maintainer": {
+        "@type": "Organization",
+        "name": "Microsoft"
+      },
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://code.visualstudio.com/Search?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      },
+      "sameAs" : [
+        "https://en.wikipedia.org/wiki/Visual_Studio_Code",
+        "https://twitter.com/code",
+        "https://www.youtube.com/code",
+        "https://www.tiktok.com/@vscode",
+        "https://github.com/microsoft/vscode"
+      ]
+    }
+  </script>
+</body>
+
+<!-- Mirrored from code.visualstudio.com/api/references/when-clause-contexts by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 04 Jan 2023 11:28:26 GMT -->
+</html>

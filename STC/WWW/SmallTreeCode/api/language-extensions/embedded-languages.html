@@ -1,0 +1,1029 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Mirrored from code.visualstudio.com/api/language-extensions/embedded-languages by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 04 Jan 2023 11:27:44 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="google-site-verification" content="hNs7DXrTySP_X-0P_AC0WulAXvUwgSXEmgfcO2r79dw" />
+
+  <!-- Twitter and Facebook OpenGraph Metadata-->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@code" />
+
+  <meta name="keywords" content="vscode API" />
+
+<meta name="description" content="Learn how to create Language Servers to provide rich language features for embedded programming languages in Visual Studio Code." />
+
+<meta name="ms.prod" content="vs-code" />
+<meta name="ms.TOCTitle" content="Embedded Programming Languages" />
+<meta name="ms.ContentId" content="b76a223a-a210-4bdb-b537-36c1ea6814ae" />
+<meta name="ms.topic" content="conceptual" />
+<meta name="ms.date" content="12/7/2022" />
+<!-- Twitter and Facebook OpenGraph Metadata-->
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="og:url" content="embedded-languages.html" />
+
+<meta property="og:description" content="Learn how to create Language Servers to provide rich language features for embedded programming languages in Visual Studio Code." />
+
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Embedded Programming Languages" />
+<meta property="og:image" content="../../opengraphimg/opengraph-docs.png" />
+
+
+  <link rel="shortcut icon" href="../../favicon.ico" sizes="128x128" />
+  <link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+
+  <title>Embedded Programming Languages | Visual Studio Code Extension
+API</title>
+
+  <link rel="stylesheet" href="../../vendor/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../../dist/style.css">
+
+  <script type="text/javascript" src="../../../js.monitor.azure.com/scripts/c/ms.analytics-web-3.min.js"></script>
+  <script>
+  window.appInsights = new oneDS.ApplicationInsights();
+  window.appInsights.initialize({
+    instrumentationKey: "1a3eb3104447440391ad5f2a6ee06a0a-62879566-bc58-4741-9650-302bf2af703f-7103",
+    webAnalyticsConfiguration:{ // Web Analytics Plugin configuration
+        urlCollectQuery:true, 
+        autoCapture: {
+          scroll: true,
+          pageView: true,
+          onLoad: true,
+          onUnload: true,
+          click: true,
+          resize: true,
+          jsError: true
+        }
+    }
+  }, []);
+  </script>
+  
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','../../../www.google-analytics.com/analytics.js','ga');
+  </script>  
+  <link rel="alternate" type="application/atom+xml" title="RSS Feed for code.visualstudio.com" href="../../feed.xml" />
+</head>
+
+<body>
+  <!-- EU Cookie Compliance JS -->
+  <script src="../../../wcpstatic.microsoft.com/mscc/lib/v2/wcp-consent.js"></script>
+
+  <div id="main">
+          <div class="navbar-fixed-container">
+              <div class="navbar navbar-inverse navbar-fixed-top ">
+                  <div id='cookie-banner'></div>        <nav role="navigation" aria-label="Top Level">
+                      <div class="container">
+                          <div class="nav navbar-header">
+                              <a role="button" id="skip-to-content" class="link-button" href="#main-content">Skip to content<i>&nbsp;</i><span class="glyphicon glyphicon-menu-down"></span></a>
+                              <a class="navbar-brand" id="navbar-brand" href="../../index.html">Visual Studio Code</a>
+                              <button type="button" class="navbar-toggle" role="navigation" data-toggle="collapse" data-target=".navbar-collapse" aria-label="Toggle Navigation Menu">
+                                  <span class="icon-bar"></span>
+                                  <span class="icon-bar"></span>
+                                  <span class="icon-bar"></span>
+                              </button>
+                          </div>
+                          <div class="navbar-collapse collapse" role="navigation">
+                              <ul class="nav navbar-nav navbar-left">
+                                  <li ><a id="nav-docs" href="../../docs.html">Docs</a></li>
+                                  <li ><a id="nav-updates" href="../../updates/v1_74.html">Updates</a></li>
+                                  <li ><a id="nav-blogs" href="../../blogs.html">Blog</a></li>
+                                  <li class="active" ><a id="nav-extend" href="../../api.html">API</a></li>
+                                  <li><a href="https://marketplace.visualstudio.com/VSCode" target="_blank" id="nav-extensions">Extensions</a></li>
+                                  <li ><a id="nav-faqs" href="../../docs/supporting/faq.html">FAQ</a></li>
+                                  <li ><a id="nav-learn" href="../../learn.html">Learn</a></li>
+                                  <li class='search visible-xs visible-sm'
+                                      ><a href="../../Search.html">Search</a></li>
+                              </ul>
+          
+                              <ul class="nav navbar-nav navbar-right" role="presentation">
+                                  <!-- Floating search icon -->
+                                  <li>
+                                      <a href="../../Search.html" title="Search" class="btn search-btn" id="nav-search">
+                                          <img class="search-icon" src="../../assets/icons/search.svg" width="16px" height="16px" alt="Search"/>
+                                          <img class="search-icon-inverted" src="../../assets/icons/search_dark.svg" width="16px" height="16px" alt="Search" />
+                                      </a>
+                                  </li>
+                                  <!-- Actual search icon -->
+                                  <li class="search" role="presentation">
+                                      <form class="nav-search search-form" role="search" aria-label="Search">
+                                          <div class="input-group" role="presentation">
+                                              <input type="text" name="q" class="search-box form-control" placeholder="Search Docs" aria-label="Search text"/>
+                                              <span class="input-group-btn">
+                                                  <button tabindex="0" class="btn" type="submit" aria-label="Search">
+                                                          <img class="search-icon" src="../../assets/icons/search.svg" width="16px" height="16px" alt="Search" />
+                                                          <img class="search-icon-inverted" src="../../assets/icons/search_dark.svg" width="16px" height="16px" alt="Search" />
+                                                  </button>
+                                              </span>
+                                          </div>
+                                      </form>                        </li>
+                                  <!-- this was hiden in the home and download page, keeping it for now -->
+                                  <li><a class="link-button" href="../../Download.html" id="nav-download">
+                                      <img class="download-icon" src="../../assets/icons/download.svg" width="16px" height="16px" alt="Download VS Code"/>
+                                      <img class="download-icon-inverted" src="../../assets/icons/download-black.svg" width="16px" height="16px" alt="Download VS Code" />
+                                      <span>Download</span>
+                                  </a></li>
+                              </ul>
+                          </div>
+                      </div>
+                  </nav>
+              </div>
+          </div>          <div class="updates-banner  ">
+              <div class="container">
+                  <p class="message"><a href="../../updates/v1_74.html" id="banner-link-updates">Version 1.74</a> is now available! Read about the new features and fixes from November.</p> 
+              </div>
+              <div tabindex="0" role="button" title="Dismiss this update" class="dismiss-btn" id="banner-dismiss-btn"><span class="sr-only">Dismiss this update</span><span aria-hidden="true" class="glyph-icon"></span></div>
+          </div>      <div role="main" id="main-content">
+        <div class="container body-content docs">
+	<div class="row">
+		<div class="col-md-2 docs-navbar-container">
+			<nav id="docs-navbar" class="docs-nav visible-md visible-lg">
+			  <ul class="nav" id="main-nav">
+			  <li >
+			    <a class="docs-home" href="../../api.html" >Overview</a>
+			  </li>
+			  
+			<li class="panel collapsed">
+			  <a class="area" role="button" href="#get-started-articles" data-parent="#main-nav" data-toggle="collapse">Get Started</a>
+			  <ul id="get-started-articles" class="collapse ">
+			
+			    <li >
+			      <a href="../get-started/your-first-extension.html" >Your First Extension</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../get-started/extension-anatomy.html" >Extension Anatomy</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../get-started/wrapping-up.html" >Wrapping Up</a>
+			    </li>
+			      
+			  </ul>
+			</li>
+			    
+			<li class="panel collapsed">
+			  <a class="area" role="button" href="#extension-capabilities-articles" data-parent="#main-nav" data-toggle="collapse">Extension Capabilities</a>
+			  <ul id="extension-capabilities-articles" class="collapse ">
+			
+			    <li >
+			      <a href="../extension-capabilities/overview.html" >Overview</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../extension-capabilities/common-capabilities.html" >Common Capabilities</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../extension-capabilities/theming.html" >Theming</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../extension-capabilities/extending-workbench.html" >Extending Workbench</a>
+			    </li>
+			      
+			  </ul>
+			</li>
+			    
+			<li class="panel collapsed">
+			  <a class="area" role="button" href="#extension-guides-articles" data-parent="#main-nav" data-toggle="collapse">Extension Guides</a>
+			  <ul id="extension-guides-articles" class="collapse ">
+			
+			    <li >
+			      <a href="../extension-guides/overview.html" >Overview</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../extension-guides/command.html" >Command</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../extension-guides/color-theme.html" >Color Theme</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../extension-guides/file-icon-theme.html" >File Icon Theme</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../extension-guides/product-icon-theme.html" >Product Icon Theme</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../extension-guides/tree-view.html" >Tree View</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../extension-guides/webview.html" >Webview</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../extension-guides/notebook.html" >Notebook</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../extension-guides/custom-editors.html" >Custom Editors</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../extension-guides/virtual-documents.html" >Virtual Documents</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../extension-guides/virtual-workspaces.html" >Virtual Workspaces</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../extension-guides/web-extensions.html" >Web Extensions</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../extension-guides/workspace-trust.html" >Workspace Trust</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../extension-guides/task-provider.html" >Task Provider</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../extension-guides/scm-provider.html" >Source Control</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../extension-guides/debugger-extension.html" >Debugger Extension</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../extension-guides/markdown-extension.html" >Markdown Extension</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../extension-guides/testing.html" >Test Extension</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../extension-guides/custom-data-extension.html" >Custom Data Extension</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../extension-guides/telemetry.html" >Telemetry</a>
+			    </li>
+			      
+			  </ul>
+			</li>
+			    
+			<li class="panel collapsed">
+			  <a class="area" role="button" href="#ux-guidelines-articles" data-parent="#main-nav" data-toggle="collapse">UX Guidelines</a>
+			  <ul id="ux-guidelines-articles" class="collapse ">
+			
+			    <li >
+			      <a href="../ux-guidelines/overview.html" >Overview</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../ux-guidelines/activity-bar.html" >Activity Bar</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../ux-guidelines/sidebars.html" >Sidebars</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../ux-guidelines/panel.html" >Panel</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../ux-guidelines/status-bar.html" >Status Bar</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../ux-guidelines/views.html" >Views</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../ux-guidelines/editor-actions.html" >Editor Actions</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../ux-guidelines/quick-picks.html" >Quick Picks</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../ux-guidelines/command-palette.html" >Command Palette</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../ux-guidelines/notifications.html" >Notifications</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../ux-guidelines/webviews.html" >Webviews</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../ux-guidelines/context-menus.html" >Context Menus</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../ux-guidelines/walkthroughs.html" >Walkthroughs</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../ux-guidelines/settings.html" >Settings</a>
+			    </li>
+			      
+			  </ul>
+			</li>
+			    
+			<li class="panel active expanded">
+			  <a class="area" role="button" href="#language-extensions-articles" data-parent="#main-nav" data-toggle="collapse">Language Extensions</a>
+			  <ul id="language-extensions-articles" class="collapse in">
+			
+			    <li >
+			      <a href="overview.html" >Overview</a>
+			    </li>
+			      
+			    <li >
+			      <a href="syntax-highlight-guide.html" >Syntax Highlight Guide</a>
+			    </li>
+			      
+			    <li >
+			      <a href="semantic-highlight-guide.html" >Semantic Highlight Guide</a>
+			    </li>
+			      
+			    <li >
+			      <a href="snippet-guide.html" >Snippet Guide</a>
+			    </li>
+			      
+			    <li >
+			      <a href="language-configuration-guide.html" >Language Configuration Guide</a>
+			    </li>
+			      
+			    <li >
+			      <a href="programmatic-language-features.html" >Programmatic Language Features</a>
+			    </li>
+			      
+			    <li >
+			      <a href="language-server-extension-guide.html" >Language Server Extension Guide</a>
+			    </li>
+			      
+			    <li class="active">
+			      <a href="embedded-languages.html" aria-label="Current Page: Embedded Languages">Embedded Languages</a>
+			    </li>
+			      
+			  </ul>
+			</li>
+			    
+			<li class="panel collapsed">
+			  <a class="area" role="button" href="#working-with-extensions-articles" data-parent="#main-nav" data-toggle="collapse">Testing and Publishing</a>
+			  <ul id="working-with-extensions-articles" class="collapse ">
+			
+			    <li >
+			      <a href="../working-with-extensions/testing-extension.html" >Testing Extensions</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../working-with-extensions/publishing-extension.html" >Publishing Extensions</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../working-with-extensions/bundling-extension.html" >Bundling Extensions</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../working-with-extensions/continuous-integration.html" >Continuous Integration</a>
+			    </li>
+			      
+			  </ul>
+			</li>
+			    
+			<li class="panel collapsed">
+			  <a class="area" role="button" href="#advanced-topics-articles" data-parent="#main-nav" data-toggle="collapse">Advanced Topics</a>
+			  <ul id="advanced-topics-articles" class="collapse ">
+			
+			    <li >
+			      <a href="../advanced-topics/extension-host.html" >Extension Host</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../advanced-topics/remote-extensions.html" >Remote Development and Codespaces</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../advanced-topics/using-proposed-api.html" >Using Proposed API</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../advanced-topics/tslint-eslint-migration.html" >Migrate from TSLint to ESLint</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../advanced-topics/python-extension-template.html" >Python Extension Template</a>
+			    </li>
+			      
+			  </ul>
+			</li>
+			    
+			<li class="panel collapsed">
+			  <a class="area" role="button" href="#references-articles" data-parent="#main-nav" data-toggle="collapse">References</a>
+			  <ul id="references-articles" class="collapse ">
+			
+			    <li >
+			      <a href="../references/vscode-api.html" >VS Code API </a>
+			    </li>
+			      
+			    <li >
+			      <a href="../references/contribution-points.html" >Contribution Points</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../references/activation-events.html" >Activation Events</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../references/extension-manifest.html" >Extension Manifest</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../references/commands.html" >Built-in Commands</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../references/when-clause-contexts.html" >When clause contexts</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../references/theme-color.html" >Theme Color</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../references/icons-in-labels.html" >Product Icon Reference</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../references/document-selector.html" >Document Selector</a>
+			    </li>
+			      
+			  </ul>
+			</li>
+			    
+			  </ul>
+			</nav>
+			
+			<nav id="small-nav" aria-label="Topics" class="docs-nav hidden-md hidden-lg">
+				<h4>Topics</h4>
+				<select id="small-nav-dropdown" aria-label="topics">
+			    <option value="/api" >Overview</option>
+			
+			  <optgroup label="Get Started">
+			
+			    <option value="/api/get-started/your-first-extension" >Your First Extension</option>
+			    
+			    <option value="/api/get-started/extension-anatomy" >Extension Anatomy</option>
+			    
+			    <option value="/api/get-started/wrapping-up" >Wrapping Up</option>
+			    
+			  </optgroup>
+			  
+			  <optgroup label="Extension Capabilities">
+			
+			    <option value="/api/extension-capabilities/overview" >Overview</option>
+			    
+			    <option value="/api/extension-capabilities/common-capabilities" >Common Capabilities</option>
+			    
+			    <option value="/api/extension-capabilities/theming" >Theming</option>
+			    
+			    <option value="/api/extension-capabilities/extending-workbench" >Extending Workbench</option>
+			    
+			  </optgroup>
+			  
+			  <optgroup label="Extension Guides">
+			
+			    <option value="/api/extension-guides/overview" >Overview</option>
+			    
+			    <option value="/api/extension-guides/command" >Command</option>
+			    
+			    <option value="/api/extension-guides/color-theme" >Color Theme</option>
+			    
+			    <option value="/api/extension-guides/file-icon-theme" >File Icon Theme</option>
+			    
+			    <option value="/api/extension-guides/product-icon-theme" >Product Icon Theme</option>
+			    
+			    <option value="/api/extension-guides/tree-view" >Tree View</option>
+			    
+			    <option value="/api/extension-guides/webview" >Webview</option>
+			    
+			    <option value="/api/extension-guides/notebook" >Notebook</option>
+			    
+			    <option value="/api/extension-guides/custom-editors" >Custom Editors</option>
+			    
+			    <option value="/api/extension-guides/virtual-documents" >Virtual Documents</option>
+			    
+			    <option value="/api/extension-guides/virtual-workspaces" >Virtual Workspaces</option>
+			    
+			    <option value="/api/extension-guides/web-extensions" >Web Extensions</option>
+			    
+			    <option value="/api/extension-guides/workspace-trust" >Workspace Trust</option>
+			    
+			    <option value="/api/extension-guides/task-provider" >Task Provider</option>
+			    
+			    <option value="/api/extension-guides/scm-provider" >Source Control</option>
+			    
+			    <option value="/api/extension-guides/debugger-extension" >Debugger Extension</option>
+			    
+			    <option value="/api/extension-guides/markdown-extension" >Markdown Extension</option>
+			    
+			    <option value="/api/extension-guides/testing" >Test Extension</option>
+			    
+			    <option value="/api/extension-guides/custom-data-extension" >Custom Data Extension</option>
+			    
+			    <option value="/api/extension-guides/telemetry" >Telemetry</option>
+			    
+			  </optgroup>
+			  
+			  <optgroup label="UX Guidelines">
+			
+			    <option value="/api/ux-guidelines/overview" >Overview</option>
+			    
+			    <option value="/api/ux-guidelines/activity-bar" >Activity Bar</option>
+			    
+			    <option value="/api/ux-guidelines/sidebars" >Sidebars</option>
+			    
+			    <option value="/api/ux-guidelines/panel" >Panel</option>
+			    
+			    <option value="/api/ux-guidelines/status-bar" >Status Bar</option>
+			    
+			    <option value="/api/ux-guidelines/views" >Views</option>
+			    
+			    <option value="/api/ux-guidelines/editor-actions" >Editor Actions</option>
+			    
+			    <option value="/api/ux-guidelines/quick-picks" >Quick Picks</option>
+			    
+			    <option value="/api/ux-guidelines/command-palette" >Command Palette</option>
+			    
+			    <option value="/api/ux-guidelines/notifications" >Notifications</option>
+			    
+			    <option value="/api/ux-guidelines/webviews" >Webviews</option>
+			    
+			    <option value="/api/ux-guidelines/context-menus" >Context Menus</option>
+			    
+			    <option value="/api/ux-guidelines/walkthroughs" >Walkthroughs</option>
+			    
+			    <option value="/api/ux-guidelines/settings" >Settings</option>
+			    
+			  </optgroup>
+			  
+			  <optgroup label="Language Extensions">
+			
+			    <option value="/api/language-extensions/overview" >Overview</option>
+			    
+			    <option value="/api/language-extensions/syntax-highlight-guide" >Syntax Highlight Guide</option>
+			    
+			    <option value="/api/language-extensions/semantic-highlight-guide" >Semantic Highlight Guide</option>
+			    
+			    <option value="/api/language-extensions/snippet-guide" >Snippet Guide</option>
+			    
+			    <option value="/api/language-extensions/language-configuration-guide" >Language Configuration Guide</option>
+			    
+			    <option value="/api/language-extensions/programmatic-language-features" >Programmatic Language Features</option>
+			    
+			    <option value="/api/language-extensions/language-server-extension-guide" >Language Server Extension Guide</option>
+			    
+			    <option value="/api/language-extensions/embedded-languages" selected>Embedded Languages</option>
+			    
+			  </optgroup>
+			  
+			  <optgroup label="Testing and Publishing">
+			
+			    <option value="/api/working-with-extensions/testing-extension" >Testing Extensions</option>
+			    
+			    <option value="/api/working-with-extensions/publishing-extension" >Publishing Extensions</option>
+			    
+			    <option value="/api/working-with-extensions/bundling-extension" >Bundling Extensions</option>
+			    
+			    <option value="/api/working-with-extensions/continuous-integration" >Continuous Integration</option>
+			    
+			  </optgroup>
+			  
+			  <optgroup label="Advanced Topics">
+			
+			    <option value="/api/advanced-topics/extension-host" >Extension Host</option>
+			    
+			    <option value="/api/advanced-topics/remote-extensions" >Remote Development and Codespaces</option>
+			    
+			    <option value="/api/advanced-topics/using-proposed-api" >Using Proposed API</option>
+			    
+			    <option value="/api/advanced-topics/tslint-eslint-migration" >Migrate from TSLint to ESLint</option>
+			    
+			    <option value="/api/advanced-topics/python-extension-template" >Python Extension Template</option>
+			    
+			  </optgroup>
+			  
+			  <optgroup label="References">
+			
+			    <option value="/api/references/vscode-api" >VS Code API </option>
+			    
+			    <option value="/api/references/contribution-points" >Contribution Points</option>
+			    
+			    <option value="/api/references/activation-events" >Activation Events</option>
+			    
+			    <option value="/api/references/extension-manifest" >Extension Manifest</option>
+			    
+			    <option value="/api/references/commands" >Built-in Commands</option>
+			    
+			    <option value="/api/references/when-clause-contexts" >When clause contexts</option>
+			    
+			    <option value="/api/references/theme-color" >Theme Color</option>
+			    
+			    <option value="/api/references/icons-in-labels" >Product Icon Reference</option>
+			    
+			    <option value="/api/references/document-selector" >Document Selector</option>
+			    
+			  </optgroup>
+			  
+				</select>
+			</nav>		</div>
+		<div class="col-sm-9 col-md-8 body">
+			<div class="edit-github pull-right">
+				<a href="https://vscode.dev/github/microsoft/vscode-docs/blob/main/api/language-extensions/embedded-languages.md"
+					class="btn btn-default" title="Edit this document in vscode.dev">
+					<span class="glyphicon glyphicon-pencil"></span>
+					<span class="hidden-xs">Edit</span>
+				</a>
+			</div>
+			<h1>Embedded Programming Languages</h1>
+<p>Visual Studio Code provides rich language features for programming languages. As you have read in the
+<a href="language-server-extension-guide.html">Language Server extension guide</a>, you can write language servers to support any programming language. However, it involves more effort to enable such support for embedded languages.</p>
+<p>Today, there are an increasing number of embedded languages, such as:</p>
+<ul>
+<li>JavaScript and CSS in HTML</li>
+<li>JSX in JavaScript</li>
+<li>Interpolation in templating languages, for example Vue, Handlebars and Razor</li>
+<li>HTML in PHP</li>
+</ul>
+<p>This guide focuses on implementing language features for embedded languages. If you are interested in providing syntax highlighting for embedded languages, you can find information in the <a href="syntax-highlight-guide.html#embedded-languages">Syntax Highlight guide</a>.</p>
+<p>This guide includes two samples that illustrate two approaches to build such a language server: <strong>Language Services</strong> and <strong>Request Forwarding</strong>. We'll review both samples and conclude with each approach's pros and cons.</p>
+<p>Source code for both samples can be found at:</p>
+<ul>
+<li><a href="https://github.com/microsoft/vscode-extension-samples/tree/main/lsp-embedded-language-service" class="external-link" target="_blank">Language Server for Embedded Language with Language Services</a></li>
+<li><a href="https://github.com/microsoft/vscode-extension-samples/tree/main/lsp-embedded-request-forwarding" class="external-link" target="_blank">Language Server for Embedded Language with Request Forwarding</a></li>
+</ul>
+<p>Here's the embedded language server we'll be building:</p>
+<p><img src="../../assets/api/language-extensions/embedded-languages/embedded-lsp-sample.gif" alt="sample" loading="lazy"></p>
+<p>Both samples contribute a new language, <code>html1</code>, for illustration purpose. You can create a file <code>.html1</code> and test the following functionalities:</p>
+<ul>
+<li>Completions for HTML tags</li>
+<li>Completions for CSS in <code>&lt;style&gt;</code> tag</li>
+<li>Diagnostics for CSS (only in the Language Services sample)</li>
+</ul>
+<h2 id="language-services" data-needslink="language-services">Language Services</h2>
+<p>A <strong>language service</strong> is a library that implements <a href="programmatic-language-features.html">programmatic language features</a> for a single language. A <strong>language server</strong> can embed language services to handle embedded languages.</p>
+<p>Here's an outline of VS Code's HTML support:</p>
+<ul>
+<li>The built-in <a href="https://github.com/microsoft/vscode/tree/main/extensions/html" class="external-link" target="_blank">html extension</a> only provides syntax highlighting and language configuration for HTML.</li>
+<li>The built-in <a href="https://github.com/microsoft/vscode/tree/main/extensions/html-language-features" class="external-link" target="_blank">html-language-features extension</a> includes an HTML Language Server to offer programmatic language features for HTML.</li>
+<li>The HTML Language Server uses <a href="https://github.com/microsoft/vscode-html-languageservice" class="external-link" target="_blank">vscode-html-languageservice</a> to support HTML.</li>
+<li>The CSS Language Server uses <a href="https://github.com/microsoft/vscode-css-languageservice" class="external-link" target="_blank">vscode-css-languageservice</a> to support CSS in HTML.</li>
+</ul>
+<p>The HTML language server analyzes an HTML document, breaks it down into language regions, and uses the corresponding language service to handle language server requests.</p>
+<p>For example:</p>
+<ul>
+<li>For auto-completion request at <code>&lt;|</code>, the HTML language server uses the HTML language service to provide HTML completions.</li>
+<li>For auto-completion request at <code>&lt;style&gt;.foo { | }&lt;/style&gt;</code>, the HTML language server uses the CSS language service to provide CSS completions.</li>
+</ul>
+<p>Let's examine the <a href="https://github.com/microsoft/vscode-extension-samples/tree/main/lsp-embedded-language-service" class="external-link" target="_blank">lsp-embedded-language-service</a> sample, a simplified version of the HTML language server that implements auto-completion for HTML and CSS, and diagnostic errors for CSS.</p>
+<h3 id="language-services-sample" data-needslink="language-services-sample">Language Services sample</h3>
+<blockquote>
+<p><strong>Note</strong>: This sample assumes knowledge of the <a href="programmatic-language-features.html">Programmatic Language Features topic</a> and the <a href="language-server-extension-guide.html">Language Server extension guide</a>. The code builds on top of <a href="https://github.com/microsoft/vscode-extension-samples/tree/main/lsp-sample" class="external-link" target="_blank">lsp-sample</a>.</p>
+</blockquote>
+<p>The source code is available at <a href="https://github.com/microsoft/vscode-extension-samples/tree/main/lsp-embedded-language-service" class="external-link" target="_blank">microsoft/vscode-extension-samples</a>.</p>
+<p>Compared to the <a href="https://github.com/microsoft/vscode-extension-samples/tree/main/lsp-sample" class="external-link" target="_blank">lsp-sample</a>, the client-side code is the same.</p>
+<p>As mentioned above, the server breaks down the document into different language regions to handle the embedded content.</p>
+<p>Here is a simple example:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #800000">&lt;div&gt;&lt;/div&gt;</span></span>
+<span class="line"><span style="color: #800000">&lt;style&gt;.foo</span><span style="color: #000000FF"> { }</span><span style="color: #800000">&lt;/style&gt;</span></span>
+<span class="line"></span></code></pre>
+<p>In this case, the server detects the <code>&lt;style&gt;</code> tag, and marks <code>.foo { }</code> as a CSS region.</p>
+<p>Given an auto completion request at a specific position, the server uses the following logic to compute a response:</p>
+<ul>
+<li>If the position falls into any region
+<ul>
+<li>Handle it with a virtual document with the region's language, while replacing all other regions with whitespace</li>
+</ul>
+</li>
+<li>If the position falls out of any region
+<ul>
+<li>Handle it with a virtual document in HTML, while replacing all regions with whitespace</li>
+</ul>
+</li>
+</ul>
+<p>For example, when doing an auto completion in this position:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #800000">&lt;div&gt;&lt;/div&gt;</span></span>
+<span class="line"><span style="color: #800000">&lt;style&gt;.foo</span><span style="color: #000000FF"> { | }</span><span style="color: #800000">&lt;/style&gt;</span></span>
+<span class="line"></span></code></pre>
+<p>The server determines that the position is inside the region and computes a virtual CSS document with the following content (█ stands for space)):</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #000000">███████████</span></span>
+<span class="line"><span style="color: #000000">███████</span><span style="color: #800000">.foo</span><span style="color: #000000"> { | }████████</span></span>
+<span class="line"></span></code></pre>
+<p>The server then uses <code>vscode-css-languageservice</code> to analyze this document and compute a list of completion items. Because the content now contains no HTML, the CSS language service can handle it without issue. By replacing all non-CSS content with whitespace, we save ourselves from having to manually offset the positions.</p>
+<p>The server code handling completion requests:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #001080">connection</span><span style="color: #000000">.</span><span style="color: #795E26">onCompletion</span><span style="color: #000000">(</span><span style="color: #0000FF">async</span><span style="color: #000000"> (</span><span style="color: #001080">textDocumentPosition</span><span style="color: #000000">, </span><span style="color: #001080">token</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">document</span><span style="color: #000000"> = </span><span style="color: #001080">documents</span><span style="color: #000000">.</span><span style="color: #795E26">get</span><span style="color: #000000">(</span><span style="color: #001080">textDocumentPosition</span><span style="color: #000000">.</span><span style="color: #001080">textDocument</span><span style="color: #000000">.</span><span style="color: #001080">uri</span><span style="color: #000000">);</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #AF00DB">if</span><span style="color: #000000"> (!</span><span style="color: #001080">document</span><span style="color: #000000">) {</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #AF00DB">return</span><span style="color: #000000"> </span><span style="color: #0000FF">null</span><span style="color: #000000">;</span></span>
+<span class="line"><span style="color: #000000">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">mode</span><span style="color: #000000"> = </span><span style="color: #001080">languageModes</span><span style="color: #000000">.</span><span style="color: #795E26">getModeAtPosition</span><span style="color: #000000">(</span><span style="color: #001080">document</span><span style="color: #000000">, </span><span style="color: #001080">textDocumentPosition</span><span style="color: #000000">.</span><span style="color: #001080">position</span><span style="color: #000000">);</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #AF00DB">if</span><span style="color: #000000"> (!</span><span style="color: #001080">mode</span><span style="color: #000000"> || !</span><span style="color: #001080">mode</span><span style="color: #000000">.</span><span style="color: #001080">doComplete</span><span style="color: #000000">) {</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #AF00DB">return</span><span style="color: #000000"> </span><span style="color: #001080">CompletionList</span><span style="color: #000000">.</span><span style="color: #795E26">create</span><span style="color: #000000">();</span></span>
+<span class="line"><span style="color: #000000">  }</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">doComplete</span><span style="color: #000000"> = </span><span style="color: #001080">mode</span><span style="color: #000000">.</span><span style="color: #001080">doComplete</span><span style="color: #000000">!;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #AF00DB">return</span><span style="color: #000000"> </span><span style="color: #795E26">doComplete</span><span style="color: #000000">(</span><span style="color: #001080">document</span><span style="color: #000000">, </span><span style="color: #001080">textDocumentPosition</span><span style="color: #000000">.</span><span style="color: #001080">position</span><span style="color: #000000">);</span></span>
+<span class="line"><span style="color: #000000">});</span></span>
+<span class="line"></span></code></pre>
+<p>The CSS mode that is responsible for handling all language server requests that fall into CSS regions:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #AF00DB">export</span><span style="color: #000000"> </span><span style="color: #0000FF">function</span><span style="color: #000000"> </span><span style="color: #795E26">getCSSMode</span><span style="color: #000000">(</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #001080">cssLanguageService</span><span style="color: #000000">: </span><span style="color: #267F99">CSSLanguageService</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #001080">documentRegions</span><span style="color: #000000">: </span><span style="color: #267F99">LanguageModelCache</span><span style="color: #000000">&lt;</span><span style="color: #267F99">HTMLDocumentRegions</span><span style="color: #000000">&gt;</span></span>
+<span class="line"><span style="color: #000000">): </span><span style="color: #267F99">LanguageMode</span><span style="color: #000000"> {</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #AF00DB">return</span><span style="color: #000000"> {</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #795E26">getId</span><span style="color: #000000">() {</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #AF00DB">return</span><span style="color: #000000"> </span><span style="color: #A31515">&#39;css&#39;</span><span style="color: #000000">;</span></span>
+<span class="line"><span style="color: #000000">    },</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #795E26">doComplete</span><span style="color: #000000">(</span><span style="color: #001080">document</span><span style="color: #000000">: </span><span style="color: #267F99">TextDocument</span><span style="color: #000000">, </span><span style="color: #001080">position</span><span style="color: #000000">: </span><span style="color: #267F99">Position</span><span style="color: #000000">) {</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #008000">// Get virtual CSS document, with all non-CSS code replaced with whitespace</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">embedded</span><span style="color: #000000"> = </span><span style="color: #001080">documentRegions</span><span style="color: #000000">.</span><span style="color: #795E26">get</span><span style="color: #000000">(</span><span style="color: #001080">document</span><span style="color: #000000">).</span><span style="color: #795E26">getEmbeddedDocument</span><span style="color: #000000">(</span><span style="color: #A31515">&#39;css&#39;</span><span style="color: #000000">);</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #008000">// Compute a response with vscode-css-languageservice</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">stylesheet</span><span style="color: #000000"> = </span><span style="color: #001080">cssLanguageService</span><span style="color: #000000">.</span><span style="color: #795E26">parseStylesheet</span><span style="color: #000000">(</span><span style="color: #001080">embedded</span><span style="color: #000000">);</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #AF00DB">return</span><span style="color: #000000"> </span><span style="color: #001080">cssLanguageService</span><span style="color: #000000">.</span><span style="color: #795E26">doComplete</span><span style="color: #000000">(</span><span style="color: #001080">embedded</span><span style="color: #000000">, </span><span style="color: #001080">position</span><span style="color: #000000">, </span><span style="color: #001080">stylesheet</span><span style="color: #000000">);</span></span>
+<span class="line"><span style="color: #000000">    }</span></span>
+<span class="line"><span style="color: #000000">  };</span></span>
+<span class="line"><span style="color: #000000">}</span></span>
+<span class="line"></span></code></pre>
+<p>This is a simple and effective approach for handling embedded languages. However, there are some drawbacks with this approach:</p>
+<ul>
+<li>You have to continuously update the language services that your language server depends on.</li>
+<li>It can be challenging to include language services that are not written in the same language as your language server. For example, a PHP language server written in PHP would find it cumbersome to include the <code>vscode-css-languageservice</code> written in TypeScript.</li>
+</ul>
+<p>We'll now cover <strong>request forwarding</strong>, which would solve the problems above.</p>
+<h2 id="request-forwarding" data-needslink="request-forwarding">Request Forwarding</h2>
+<p>In a nutshell, request forwarding works in a similar way as language services. The request forwarding approach also takes language server requests, computes virtual content, and calculates the responses.</p>
+<p>The major differences are:</p>
+<ul>
+<li>While the language service approach uses libraries to calculate language server responses, request forwarding sends the request back to VS Code to use extensions that are active and have registered a completion provider for the embedded language.</li>
+</ul>
+<p>Here is the simple example again:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #800000">&lt;div&gt;&lt;/div&gt;</span></span>
+<span class="line"><span style="color: #800000">&lt;style&gt;.foo</span><span style="color: #000000FF"> { | }</span><span style="color: #800000">&lt;/style&gt;</span></span>
+<span class="line"></span></code></pre>
+<p>Auto completion happens in this way:</p>
+<ul>
+<li>The language client registers a virtual text document provider for <code>embedded-content</code> document using <code>workspace.registerTextDocumentContentProvider</code>.</li>
+<li>The language client hijacks completion requests for <code>&lt;FILE_URI&gt;</code>.</li>
+<li>The language client determines that the request position falls into a CSS region.</li>
+<li>The language client constructs a new URI, such as <code>embedded-content://css/&lt;FILE_URI&gt;.css</code>.</li>
+<li>The language client then calls <code>commands.executeCommand('vscode.executeCompletionItemProvider', ...)</code>
+<ul>
+<li>VS Code's CSS language server responds to this provider request.</li>
+<li>The virtual text document provider provides CSS language server with virtual content, where all non-CSS code is replaced with whitespace.</li>
+<li>The language client receives response from VS Code and sends it as the response.</li>
+</ul>
+</li>
+</ul>
+<p>With this approach, we are able to compute CSS auto-completion even if our code does not include any library that understands CSS. As VS Code updates its CSS language server, we get the latest CSS language support without having to update our code.</p>
+<p>Let's now review the sample code.</p>
+<h3 id="request-forwarding-sample" data-needslink="request-forwarding-sample">Request Forwarding sample</h3>
+<blockquote>
+<p><strong>Note</strong>: This sample assumes knowledge of the <a href="programmatic-language-features.html">Programmatic Language Features topic</a> and the <a href="language-server-extension-guide.html">Language Server extension guide</a>. The code builds on top of <a href="https://github.com/microsoft/vscode-extension-samples/tree/main/lsp-sample" class="external-link" target="_blank">lsp-sample</a>.</p>
+</blockquote>
+<p>The source code is available at <a href="https://github.com/microsoft/vscode-extension-samples/tree/main/lsp-embedded-request-forwarding" class="external-link" target="_blank">microsoft/vscode-extension-samples</a>.</p>
+<p>Keeping a map between document's URI and their virtual documents, and provide them for corresponding requests:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">virtualDocumentContents</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #795E26">Map</span><span style="color: #000000">&lt;</span><span style="color: #267F99">string</span><span style="color: #000000">, </span><span style="color: #267F99">string</span><span style="color: #000000">&gt;();</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #001080">workspace</span><span style="color: #000000">.</span><span style="color: #795E26">registerTextDocumentContentProvider</span><span style="color: #000000">(</span><span style="color: #A31515">&#39;embedded-content&#39;</span><span style="color: #000000">, {</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #795E26">provideTextDocumentContent</span><span style="color: #001080">:</span><span style="color: #000000"> </span><span style="color: #001080">uri</span><span style="color: #000000"> </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #008000">// Remove leading `/` and ending `.css` to get original URI</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">originalUri</span><span style="color: #000000"> = </span><span style="color: #001080">uri</span><span style="color: #000000">.</span><span style="color: #001080">path</span><span style="color: #000000">.</span><span style="color: #795E26">slice</span><span style="color: #000000">(</span><span style="color: #098658">1</span><span style="color: #000000">).</span><span style="color: #795E26">slice</span><span style="color: #000000">(</span><span style="color: #098658">0</span><span style="color: #000000">, -</span><span style="color: #098658">4</span><span style="color: #000000">);</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">decodedUri</span><span style="color: #000000"> = </span><span style="color: #795E26">decodeURIComponent</span><span style="color: #000000">(</span><span style="color: #001080">originalUri</span><span style="color: #000000">);</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #AF00DB">return</span><span style="color: #000000"> </span><span style="color: #001080">virtualDocumentContents</span><span style="color: #000000">.</span><span style="color: #795E26">get</span><span style="color: #000000">(</span><span style="color: #001080">decodedUri</span><span style="color: #000000">);</span></span>
+<span class="line"><span style="color: #000000">  }</span></span>
+<span class="line"><span style="color: #000000">});</span></span>
+<span class="line"></span></code></pre>
+<p>By using the <code>middleware</code> option of language client, we hijack request for auto completion:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #0000FF">let</span><span style="color: #000000"> </span><span style="color: #001080">clientOptions</span><span style="color: #000000">: </span><span style="color: #267F99">LanguageClientOptions</span><span style="color: #000000"> = {</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #001080">documentSelector:</span><span style="color: #000000"> [{ </span><span style="color: #001080">scheme:</span><span style="color: #000000"> </span><span style="color: #A31515">&#39;file&#39;</span><span style="color: #000000">, </span><span style="color: #001080">language:</span><span style="color: #000000"> </span><span style="color: #A31515">&#39;html&#39;</span><span style="color: #000000"> }],</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #001080">middleware:</span><span style="color: #000000"> {</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #795E26">provideCompletionItem</span><span style="color: #001080">:</span><span style="color: #000000"> </span><span style="color: #0000FF">async</span><span style="color: #000000"> (</span><span style="color: #001080">document</span><span style="color: #000000">, </span><span style="color: #001080">position</span><span style="color: #000000">, </span><span style="color: #001080">context</span><span style="color: #000000">, </span><span style="color: #001080">token</span><span style="color: #000000">, </span><span style="color: #001080">next</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #008000">// If not in `&lt;style&gt;`, do not perform request forwarding</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #AF00DB">if</span><span style="color: #000000"> (</span></span>
+<span class="line"><span style="color: #000000">        !</span><span style="color: #795E26">isInsideStyleRegion</span><span style="color: #000000">(</span></span>
+<span class="line"><span style="color: #000000">          </span><span style="color: #001080">htmlLanguageService</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">          </span><span style="color: #001080">document</span><span style="color: #000000">.</span><span style="color: #795E26">getText</span><span style="color: #000000">(),</span></span>
+<span class="line"><span style="color: #000000">          </span><span style="color: #001080">document</span><span style="color: #000000">.</span><span style="color: #795E26">offsetAt</span><span style="color: #000000">(</span><span style="color: #001080">position</span><span style="color: #000000">)</span></span>
+<span class="line"><span style="color: #000000">        )</span></span>
+<span class="line"><span style="color: #000000">      ) {</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #AF00DB">return</span><span style="color: #000000"> </span><span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #795E26">next</span><span style="color: #000000">(</span><span style="color: #001080">document</span><span style="color: #000000">, </span><span style="color: #001080">position</span><span style="color: #000000">, </span><span style="color: #001080">context</span><span style="color: #000000">, </span><span style="color: #001080">token</span><span style="color: #000000">);</span></span>
+<span class="line"><span style="color: #000000">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">originalUri</span><span style="color: #000000"> = </span><span style="color: #001080">document</span><span style="color: #000000">.</span><span style="color: #001080">uri</span><span style="color: #000000">.</span><span style="color: #795E26">toString</span><span style="color: #000000">(</span><span style="color: #0000FF">true</span><span style="color: #000000">);</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #001080">virtualDocumentContents</span><span style="color: #000000">.</span><span style="color: #795E26">set</span><span style="color: #000000">(</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #001080">originalUri</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #795E26">getCSSVirtualContent</span><span style="color: #000000">(</span><span style="color: #001080">htmlLanguageService</span><span style="color: #000000">, </span><span style="color: #001080">document</span><span style="color: #000000">.</span><span style="color: #795E26">getText</span><span style="color: #000000">())</span></span>
+<span class="line"><span style="color: #000000">      );</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">vdocUriString</span><span style="color: #000000"> = </span><span style="color: #A31515">`embedded-content://css/</span><span style="color: #0000FF">${</span><span style="color: #795E26">encodeURIComponent</span><span style="color: #000000FF">(</span><span style="color: #001080">originalUri</span><span style="color: #000000FF">)</span><span style="color: #0000FF">}</span><span style="color: #A31515">.css`</span><span style="color: #000000">;</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">vdocUri</span><span style="color: #000000"> = </span><span style="color: #001080">Uri</span><span style="color: #000000">.</span><span style="color: #795E26">parse</span><span style="color: #000000">(</span><span style="color: #001080">vdocUriString</span><span style="color: #000000">);</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #AF00DB">return</span><span style="color: #000000"> </span><span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">commands</span><span style="color: #000000">.</span><span style="color: #795E26">executeCommand</span><span style="color: #000000">&lt;</span><span style="color: #267F99">CompletionList</span><span style="color: #000000">&gt;(</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #A31515">&#39;vscode.executeCompletionItemProvider&#39;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #001080">vdocUri</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #001080">position</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #001080">context</span><span style="color: #000000">.</span><span style="color: #001080">triggerCharacter</span></span>
+<span class="line"><span style="color: #000000">      );</span></span>
+<span class="line"><span style="color: #000000">    }</span></span>
+<span class="line"><span style="color: #000000">  }</span></span>
+<span class="line"><span style="color: #000000">};</span></span>
+<span class="line"></span></code></pre>
+<h2 id="potential-issues" data-needslink="potential-issues">Potential issues</h2>
+<p>While implementing embedded language servers, we have encountered many issues. Although we do not have a perfect solution yet, we want to give you a heads-up as you are likely to encounter those issues as well.</p>
+<h3 id="hard-to-implement-language-features" data-needslink="hard-to-implement-language-features">Hard to implement language features</h3>
+<p>Generally, language features that work across language region boundaries are harder to implement. For example, auto-completion or hover content is easy to implement, as you can detect the embedded content's language and compute a response based on the embedded content. However, language features such as formatting or renaming might need special handling. In the case of formatting, you need to handle indentation and formatter settings for multiple regions inside the single document. For renaming, it can be challenging to make it work across different regions within different documents.</p>
+<h3 id="language-services-can-be-stateful-and-hard-to-embed" data-needslink="language-services-can-be-stateful-and-hard-to-embed">Language Services can be stateful and hard to embed</h3>
+<p>VS Code's HTML support provides HTML, CSS, and JavaScript language features. Although the HTML and CSS language services are non-stateful, the TypeScript server powering the JavaScript language features is. We only offer basic JavaScript support inside HTML documents because it is hard to inform TypeScript of the project's state. For example, if you include a <code>&lt;script&gt;</code> tag that points to the <code>lodash</code> library hosted on a CDN, you will not get <code>_.</code> completions inside <code>&lt;script&gt;</code> tags.</p>
+<h3 id="encoding-and-decoding" data-needslink="encoding-and-decoding">Encoding and decoding</h3>
+<p>The main language of a document might have a different encoding or escaping rules than its embedded language. For example, this HTML document is invalid according to the <a href="https://www.w3.org/TR/html401/appendix/notes.html#h-B.3.2" class="external-link" target="_blank">HTML spec</a>:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #800000">&lt;SCRIPT</span><span style="color: #000000FF"> </span><span style="color: #E50000">type</span><span style="color: #000000FF">=</span><span style="color: #0000FF">&quot;text/javascript&quot;</span><span style="color: #800000">&gt;</span></span>
+<span class="line"><span style="color: #000000FF">  </span><span style="color: #001080">document</span><span style="color: #000000FF">.</span><span style="color: #795E26">write</span><span style="color: #000000FF"> (</span><span style="color: #A31515">&quot;&lt;EM&gt;This won&#39;t work&lt;/EM&gt;&quot;</span><span style="color: #000000FF">)</span></span>
+<span class="line"><span style="color: #800000">&lt;/SCRIPT&gt;</span></span>
+<span class="line"></span></code></pre>
+<p>In this case, if the language server for the embedded JavaScript returns a result that contains <code>&lt;/</code>, it should be escaped to <code>&lt;\/</code>.</p>
+<h2 id="conclusion" data-needslink="conclusion">Conclusion</h2>
+<p>Both approaches have their pros and cons.</p>
+<p>Language Service:</p>
+<ul>
+<li>+ Full control of the language server and the user experience.</li>
+<li>+ No dependencies on other language servers. All code is in one repository.</li>
+<li>+ The language server can be reused in all <a href="https://microsoft.github.io/language-server-protocol/implementors/tools/" class="external-link" target="_blank">LSP-compliant code editors</a>.</li>
+<li>- Might be hard to embed language services written in other languages.</li>
+<li>- Needs continued maintenance to get new features from language service dependencies.</li>
+</ul>
+<p>Request forwarding:</p>
+<ul>
+<li>+ Avoid issues embedding language services not written in the language server's language (for example, embedding C# compiler in a Razor language server to support C#).</li>
+<li>+ No maintenance needed to get new features upstream from other language services.</li>
+<li>- Does not yet work with diagnostics errors. The VS Code API currently does not support diagnostic providers that can 'pull' (request) diagnosics. (<a href="https://github.com/microsoft/vscode/issues/159911" class="external-link" target="_blank">Issue</a>).</li>
+<li>- Hard to share state to other language servers because of lack of control.</li>
+<li>- Cross-language features might be hard to implement (for example, providing CSS completion for <code>.foo</code> when <code>&lt;div class=&quot;foo&quot;&gt;</code> is present).</li>
+</ul>
+<p>Overall, we recommend building a language server by embedding language services, as this approach gives you more control over the user experience and the server is reusable for any LSP-compliant editors. However, if you have a simple use case where embedded content can be easily handled without context or language server state, or if bundling the Node.js library is a problem for you, you can consider the Request Forwarding approach.</p>
+
+			<div class="feedback"></div>
+			
+			<div class="body-footer">12/7/2022</div>
+			
+		</div>
+		<div class="col-sm-3 col-md-2 docs-subnavbar-container">
+			<nav id="docs-subnavbar" aria-label="On Page" data-spy="affix" data-offset-top="20">
+				
+				<h4><span class="sr-only">In this article there are 4 sections</span><span
+						aria-hidden="true">In this article</span></h4>
+				<ul class="nav">
+					
+					<li><a href="#language-services">Language Services</a></li>
+					
+					<li><a href="#request-forwarding">Request Forwarding</a></li>
+					
+					<li><a href="#potential-issues">Potential issues</a></li>
+					
+					<li><a href="#conclusion">Conclusion</a></li>
+					
+				</ul>
+				
+				<div class="connect-widget"></div>
+			</nav>
+		</div>
+	</div>
+</div>
+      </div>
+  </div>
+
+  <footer role="contentinfo">
+      <div class="container">
+          <div class="row">
+              <div class="left col-md-7">
+                  <ul class="links">
+                      <li>
+                          <span class="message">Hello from Seattle.</span>
+                      </li>
+                      <li>
+                          <a href="https://go.microsoft.com/fwlink/?LinkID=533687" onclick="followOnTwitter()" tabindex="0">Follow @code</a>
+                      </li>
+                      <li>
+                          <div class="github-star-button">
+                              <iframe src="../../assets/github-button29be.html?user=Microsoft&amp;repo=vscode&amp;type=star&amp;count=true"
+                                  frameborder="0" scrolling="0" width="130px" height="20px" title="GitHub follow button" loading="lazy"></iframe>
+                          </div>
+                      </li>
+  
+                      <script>
+                          function followOnTwitter() {
+                              var windowFeatures = "location=yes,height=600,width=550,scrollbars=yes,status=yes";
+                              var originalReferer = "&original_referer=" + document.URL;
+                              var screenName = "&screen_name=code";
+                              var URL = "https://twitter.com/intent/follow?" + originalReferer + screenName;
+                              window.open(URL, "_blank", windowFeatures);
+                          }
+  
+                          function manageConsent() {
+                              if(WcpConsent.siteConsent.isConsentRequired){
+                                  WcpConsent.siteConsent.manageConsent();
+                              }
+                          }
+                      </script>
+                  </ul>
+              </div>
+              <div class="right col-md-5">
+                  <ul class="links">
+                      <li><a id="footer-support-link" href="https://support.serviceshub.microsoft.com/supportforbusiness/create?sapId=d66407ed-3967-b000-4cfb-2c318cad363d"
+                              target="_blank">Support</a></li>
+                      <li><a id="footer-privacy-link" href="https://privacy.microsoft.com/privacystatement"
+                              target="_blank">Privacy</a></li>
+                      <li style="display: none;"><a id="footer-cookie-link" style="cursor: pointer;" onclick="manageConsent()"
+                              target="_blank">Manage Cookies</a></li>
+                      <li><a id="footer-terms-link" href="https://www.microsoft.com/legal/terms-of-use"
+                              target="_blank">Terms of Use</a></li>
+                      <li><a id="footer-license-link" href="../../License.html">License</a></li>
+                  </ul>
+                  <div class="copyright">
+                      <a id="footer-microsoft-link" class="logo" href="https://www.microsoft.com/">
+                          <img class="microsoft-logo" src="../../assets/images/microsoft-logo.png" height="20" alt="Microsoft homepage"/>
+                          <img class="microsoft-logo-inverted" src="../../assets/images/microsoft-logo-inverted.png" height="20" alt="Microsoft homepage" />
+                      </a>
+                      <span>&copy; 2023 Microsoft</span>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </footer>
+  <script src="../../dist/index.js"></script>
+
+  
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "SoftwareApplication",
+      "name" : "Visual Studio Code",
+      "softwareVersion": "1.74",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "applicationCategory": "DeveloperApplication",
+      "applicationSubCategory": "Text Editor",
+      "alternateName": "VS Code",
+      "datePublished": "2021-11-03",
+      "operatingSystem": "Mac, Linux, Windows",
+      "logo": "https://code.visualstudio.com/assets/apple-touch-icon.png",
+      "screenshot": "https://code.visualstudio.com/assets/home/home-screenshot-win.png",
+      "releaseNotes": "https://code.visualstudio.com/updates",
+      "downloadUrl": "https://code.visualstudio.com/download",
+      "license": "https://code.visualstudio.com/license",
+      "softwareRequirements": "https://code.visualstudio.com/docs/supporting/requirements",
+      "url" : "https://code.visualstudio.com",
+      "author": {
+        "@type": "Organization",
+        "name": "Microsoft"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Microsoft"
+      },
+      "maintainer": {
+        "@type": "Organization",
+        "name": "Microsoft"
+      },
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://code.visualstudio.com/Search?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      },
+      "sameAs" : [
+        "https://en.wikipedia.org/wiki/Visual_Studio_Code",
+        "https://twitter.com/code",
+        "https://www.youtube.com/code",
+        "https://www.tiktok.com/@vscode",
+        "https://github.com/microsoft/vscode"
+      ]
+    }
+  </script>
+</body>
+
+<!-- Mirrored from code.visualstudio.com/api/language-extensions/embedded-languages by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 04 Jan 2023 11:27:45 GMT -->
+</html>

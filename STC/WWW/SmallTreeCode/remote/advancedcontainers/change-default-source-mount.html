@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Mirrored from code.visualstudio.com/remote/advancedcontainers/change-default-source-mount by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 04 Jan 2023 12:15:03 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="google-site-verification" content="hNs7DXrTySP_X-0P_AC0WulAXvUwgSXEmgfcO2r79dw" />
+
+  <!-- Twitter and Facebook OpenGraph Metadata-->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@code" />
+
+  <meta name="description" content="Change default source code mount in containers" />
+<meta name="keywords" content="" />
+<!-- Twitter and Facebook OpenGraph Metadata-->
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="og:url" content="change-default-source-mount.html" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Change default source code mount in containers" />
+<meta property="og:description" content="Change default source code mount in containers" />
+
+<meta property="og:image" content="../../opengraphimg/opengraph-blog.png" />
+
+
+
+  <link rel="shortcut icon" href="../../favicon.ico" sizes="128x128" />
+  <link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+
+  <title>Change default source code mount in containers</title>
+
+  <link rel="stylesheet" href="../../vendor/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../../dist/style.css">
+
+  <script type="text/javascript" src="../../../js.monitor.azure.com/scripts/c/ms.analytics-web-3.min.js"></script>
+  <script>
+  window.appInsights = new oneDS.ApplicationInsights();
+  window.appInsights.initialize({
+    instrumentationKey: "1a3eb3104447440391ad5f2a6ee06a0a-62879566-bc58-4741-9650-302bf2af703f-7103",
+    webAnalyticsConfiguration:{ // Web Analytics Plugin configuration
+        urlCollectQuery:true, 
+        autoCapture: {
+          scroll: true,
+          pageView: true,
+          onLoad: true,
+          onUnload: true,
+          click: true,
+          resize: true,
+          jsError: true
+        }
+    }
+  }, []);
+  </script>
+  
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','../../../www.google-analytics.com/analytics.js','ga');
+  </script>  
+  <link rel="alternate" type="application/atom+xml" title="RSS Feed for code.visualstudio.com" href="../../feed.xml" />
+</head>
+
+<body>
+  <!-- EU Cookie Compliance JS -->
+  <script src="../../../wcpstatic.microsoft.com/mscc/lib/v2/wcp-consent.js"></script>
+
+  <div id="main">
+          <div class="navbar-fixed-container">
+              <div class="navbar navbar-inverse navbar-fixed-top ">
+                  <div id='cookie-banner'></div>        <nav role="navigation" aria-label="Top Level">
+                      <div class="container">
+                          <div class="nav navbar-header">
+                              <a role="button" id="skip-to-content" class="link-button" href="#main-content">Skip to content<i>&nbsp;</i><span class="glyphicon glyphicon-menu-down"></span></a>
+                              <a class="navbar-brand" id="navbar-brand" href="../../index.html">Visual Studio Code</a>
+                              <button type="button" class="navbar-toggle" role="navigation" data-toggle="collapse" data-target=".navbar-collapse" aria-label="Toggle Navigation Menu">
+                                  <span class="icon-bar"></span>
+                                  <span class="icon-bar"></span>
+                                  <span class="icon-bar"></span>
+                              </button>
+                          </div>
+                          <div class="navbar-collapse collapse" role="navigation">
+                              <ul class="nav navbar-nav navbar-left">
+                                  <li ><a id="nav-docs" href="../../docs.html">Docs</a></li>
+                                  <li ><a id="nav-updates" href="../../updates/v1_74.html">Updates</a></li>
+                                  <li ><a id="nav-blogs" href="../../blogs.html">Blog</a></li>
+                                  <li ><a id="nav-extend" href="../../api.html">API</a></li>
+                                  <li><a href="https://marketplace.visualstudio.com/VSCode" target="_blank" id="nav-extensions">Extensions</a></li>
+                                  <li ><a id="nav-faqs" href="../../docs/supporting/faq.html">FAQ</a></li>
+                                  <li ><a id="nav-learn" href="../../learn.html">Learn</a></li>
+                                  <li class='search visible-xs visible-sm'
+                                      ><a href="../../Search.html">Search</a></li>
+                              </ul>
+          
+                              <ul class="nav navbar-nav navbar-right" role="presentation">
+                                  <!-- Floating search icon -->
+                                  <li>
+                                      <a href="../../Search.html" title="Search" class="btn search-btn" id="nav-search">
+                                          <img class="search-icon" src="../../assets/icons/search.svg" width="16px" height="16px" alt="Search"/>
+                                          <img class="search-icon-inverted" src="../../assets/icons/search_dark.svg" width="16px" height="16px" alt="Search" />
+                                      </a>
+                                  </li>
+                                  <!-- Actual search icon -->
+                                  <li class="search" role="presentation">
+                                      <form class="nav-search search-form" role="search" aria-label="Search">
+                                          <div class="input-group" role="presentation">
+                                              <input type="text" name="q" class="search-box form-control" placeholder="Search Docs" aria-label="Search text"/>
+                                              <span class="input-group-btn">
+                                                  <button tabindex="0" class="btn" type="submit" aria-label="Search">
+                                                          <img class="search-icon" src="../../assets/icons/search.svg" width="16px" height="16px" alt="Search" />
+                                                          <img class="search-icon-inverted" src="../../assets/icons/search_dark.svg" width="16px" height="16px" alt="Search" />
+                                                  </button>
+                                              </span>
+                                          </div>
+                                      </form>                        </li>
+                                  <!-- this was hiden in the home and download page, keeping it for now -->
+                                  <li><a class="link-button" href="../../Download.html" id="nav-download">
+                                      <img class="download-icon" src="../../assets/icons/download.svg" width="16px" height="16px" alt="Download VS Code"/>
+                                      <img class="download-icon-inverted" src="../../assets/icons/download-black.svg" width="16px" height="16px" alt="Download VS Code" />
+                                      <span>Download</span>
+                                  </a></li>
+                              </ul>
+                          </div>
+                      </div>
+                  </nav>
+              </div>
+          </div>          <div class="updates-banner  ">
+              <div class="container">
+                  <p class="message"><a href="../../updates/v1_74.html" id="banner-link-updates">Version 1.74</a> is now available! Read about the new features and fixes from November.</p> 
+              </div>
+              <div tabindex="0" role="button" title="Dismiss this update" class="dismiss-btn" id="banner-dismiss-btn"><span class="sr-only">Dismiss this update</span><span aria-hidden="true" class="glyph-icon"></span></div>
+          </div>      <div role="main" id="main-content">
+        <script>
+    function closeReportIssue() {
+        var element = document.getElementById('surveypopup');
+        element.parentElement.removeChild(element);
+    }
+
+    function reportIssue(tutorial, page) {
+        var div = document.createElement('div');
+        div.innerHTML = '<div id="surveypopup" class="overlay visible"><div class="surveypopup"><div id="surveytitle">Tell us more<a href="javascript:void(0)" onclick="closeReportIssue()">X</a></div><div id="surveydiv"><iframe frameBorder="0" scrolling="0" src="https://www.research.net/r/PWZWZ52?tutorial=' + tutorial + '&step=' + page + '"></iframe></div></div></div>';
+        document.body.appendChild(div.children[0]);
+    }
+</script>
+
+<div class="container body-content docs tutorial">
+    <div class="row">
+        <div class="col-md-2 docs-navbar-container">
+            <nav id="docs-navbar" class="docs-nav visible-md visible-lg">
+            	<ul class="nav" id="main-nav">
+            		<li ><a class="docs-home" href="../../docs/devcontainers/containers.html">Back to Dev Containers</a></li>
+            		
+            			
+            				<li class="panel active expanded">
+            					<a class="area" role="button" href="#advancedcontainers-articles" data-parent="#main-nav" data-toggle="collapse">advanced containers</a>
+            					<ul id="advancedcontainers-articles" class="collapse in">
+            					
+            						<li ><a href="overview.html">Overview</a></li>
+            					
+            						<li ><a href="environment-variables.html">Environment variables</a></li>
+            					
+            						<li ><a href="start-processes.html">Start processes</a></li>
+            					
+            						<li ><a href="add-local-file-mount.html">Add local file mount</a></li>
+            					
+            						<li ><a href="persist-bash-history.html">Persist bash history</a></li>
+            					
+            						<li class="active"><a href="change-default-source-mount.html">Change default mount</a></li>
+            					
+            						<li ><a href="improve-performance.html">Improve performance</a></li>
+            					
+            						<li ><a href="avoid-extension-reinstalls.html">Avoid extension reinstalls</a></li>
+            					
+            						<li ><a href="add-nonroot-user.html">Add non-root user</a></li>
+            					
+            						<li ><a href="set-docker-compose-project-name.html">Set Docker Compose project name</a></li>
+            					
+            						<li ><a href="use-docker-kubernetes.html">Use Docker or Kubernetes</a></li>
+            					
+            						<li ><a href="connect-multiple-containers.html">Connect to multiple containers</a></li>
+            					
+            						<li ><a href="configure-separate-containers.html">Configure separate containers</a></li>
+            					
+            						<li ><a href="develop-remote-host.html">Develop on a remote Docker host</a></li>
+            					
+            						<li ><a href="reduce-docker-warnings.html">Reduce Docker warnings</a></li>
+            					
+            						<li ><a href="docker-options.html">Docker options</a></li>
+            					
+            						<li ><a href="questions-feedback.html">Questions or feedback</a></li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            	</ul>
+            </nav>
+            <nav id="small-nav" class="docs-nav hidden-md hidden-lg">
+            	<h4>Remote</h4>
+            	<select id="small-nav-dropdown" aria-label="remote">
+            		
+            			
+            				<optgroup label="advanced containers">
+            				
+            					<option value="/remote/advancedcontainers/overview" >Overview</option>
+            				
+            					<option value="/remote/advancedcontainers/environment-variables" >Environment variables</option>
+            				
+            					<option value="/remote/advancedcontainers/start-processes" >Start processes</option>
+            				
+            					<option value="/remote/advancedcontainers/add-local-file-mount" >Add local file mount</option>
+            				
+            					<option value="/remote/advancedcontainers/persist-bash-history" >Persist bash history</option>
+            				
+            					<option value="/remote/advancedcontainers/change-default-source-mount" selected>Change default mount</option>
+            				
+            					<option value="/remote/advancedcontainers/improve-performance" >Improve performance</option>
+            				
+            					<option value="/remote/advancedcontainers/avoid-extension-reinstalls" >Avoid extension reinstalls</option>
+            				
+            					<option value="/remote/advancedcontainers/add-nonroot-user" >Add non-root user</option>
+            				
+            					<option value="/remote/advancedcontainers/set-docker-compose-project-name" >Set Docker Compose project name</option>
+            				
+            					<option value="/remote/advancedcontainers/use-docker-kubernetes" >Use Docker or Kubernetes</option>
+            				
+            					<option value="/remote/advancedcontainers/connect-multiple-containers" >Connect to multiple containers</option>
+            				
+            					<option value="/remote/advancedcontainers/configure-separate-containers" >Configure separate containers</option>
+            				
+            					<option value="/remote/advancedcontainers/develop-remote-host" >Develop on a remote Docker host</option>
+            				
+            					<option value="/remote/advancedcontainers/reduce-docker-warnings" >Reduce Docker warnings</option>
+            				
+            					<option value="/remote/advancedcontainers/docker-options" >Docker options</option>
+            				
+            					<option value="/remote/advancedcontainers/questions-feedback" >Questions or feedback</option>
+            				
+            				</optgroup>
+            			
+            		
+            	</select>
+            </nav>        </div>
+        <div class="col-sm-9 col-md-8 body">
+            <h1>Change the default source code mount</h1>
+<p>If you add the <code>image</code> or <code>dockerFile</code> properties to <code>devcontainer.json</code>, VS Code will automatically &quot;bind&quot; mount your current workspace folder into the container.  If <code>git</code> is present on the host's <code>PATH</code> and the folder containing <code>.devcontainer/devcontainer.json</code> is within a <code>git</code> repository, the current workspace mounted will be the root of the repository.  If <code>git</code> is not present on the host's <code>PATH</code>, the current workspace mounted will be the folder containing <code>.devcontainer/devcontainer.json</code>.</p>
+<p>While this is convenient, you may want to change <a href="https://docs.docker.com/engine/reference/commandline/service_create/#add-bind-mounts-volumes-or-memory-filesystems" class="external-link" target="_blank">mount settings</a>, alter the type of mount, location, or <a href="develop-remote-host.html">run in a remote dev container</a>.</p>
+<p>You can use the <code>workspaceMount</code> property in <code>devcontainer.json</code> to change the automatic mounting behavior. It expects the same value as the <a href="https://docs.docker.com/engine/reference/commandline/run/#add-bind-mounts-or-volumes-using-the---mount-flag" class="external-link" target="_blank">Docker CLI <code>--mount</code> flag</a>.</p>
+<p>For example:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #A31515">&quot;workspaceMount&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;source=${localWorkspaceFolder}/sub-folder,target=/workspace,type=bind&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #A31515">&quot;workspaceFolder&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;/workspace&quot;</span></span>
+<span class="line"></span></code></pre>
+<p>This also allows you to do something like a named volume mount instead of a bind mount, which can be useful particularly when <a href="develop-remote-host.html">using a remote Docker Host</a> or you <a href="improve-performance.html#_use-a-named-volume-for-your-entire-source-tree">want to store your entire source tree in a volume</a>.</p>
+<p>If you've already built the container and connected to it, run <strong>Dev Containers: Rebuild Container</strong> from the Command Palette (<span class="keybinding">F1</span>) to pick up the change. Otherwise run <strong>Dev Containers: Open Folder in Container...</strong> to connect to the container.</p>
+<h3 id="_video-work-with-monorepos-in-a-dev-container-by-changing-default-mount" data-needslink="_video-work-with-monorepos-in-a-dev-container-by-changing-default-mount">Video : Work with Monorepos in a dev container by changing default mount</h3>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/o5coAL7oE0o" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<p><br><br></p>
+<h3 id="_video-change-the-default-location-of-your-project-in-a-container" data-needslink="_video-change-the-default-location-of-your-project-in-a-container">Video : Change the default location of your project in a container</h3>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/4zX2XWTmr3c" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+            <div class="feedback"></div>
+            
+            <div class="body-footer">12/7/2022</div>
+            
+        </div>
+        <div class="col-sm-3 col-md-2 docs-subnavbar-container">
+            <nav id="docs-subnavbar" aria-label="On Page Navigation" data-spy="affix" data-offset-top="20">
+                
+                <ul class="nav">
+                    
+                </ul>
+                <div class="connect-widget"></div>
+            </nav>
+        </div>
+    </div>
+</div>
+      </div>
+  </div>
+
+  <footer role="contentinfo">
+      <div class="container">
+          <div class="row">
+              <div class="left col-md-7">
+                  <ul class="links">
+                      <li>
+                          <span class="message">Hello from Seattle.</span>
+                      </li>
+                      <li>
+                          <a href="https://go.microsoft.com/fwlink/?LinkID=533687" onclick="followOnTwitter()" tabindex="0">Follow @code</a>
+                      </li>
+                      <li>
+                          <div class="github-star-button">
+                              <iframe src="../../assets/github-button29be.html?user=Microsoft&amp;repo=vscode&amp;type=star&amp;count=true"
+                                  frameborder="0" scrolling="0" width="130px" height="20px" title="GitHub follow button" loading="lazy"></iframe>
+                          </div>
+                      </li>
+  
+                      <script>
+                          function followOnTwitter() {
+                              var windowFeatures = "location=yes,height=600,width=550,scrollbars=yes,status=yes";
+                              var originalReferer = "&original_referer=" + document.URL;
+                              var screenName = "&screen_name=code";
+                              var URL = "https://twitter.com/intent/follow?" + originalReferer + screenName;
+                              window.open(URL, "_blank", windowFeatures);
+                          }
+  
+                          function manageConsent() {
+                              if(WcpConsent.siteConsent.isConsentRequired){
+                                  WcpConsent.siteConsent.manageConsent();
+                              }
+                          }
+                      </script>
+                  </ul>
+              </div>
+              <div class="right col-md-5">
+                  <ul class="links">
+                      <li><a id="footer-support-link" href="https://support.serviceshub.microsoft.com/supportforbusiness/create?sapId=d66407ed-3967-b000-4cfb-2c318cad363d"
+                              target="_blank">Support</a></li>
+                      <li><a id="footer-privacy-link" href="https://privacy.microsoft.com/privacystatement"
+                              target="_blank">Privacy</a></li>
+                      <li style="display: none;"><a id="footer-cookie-link" style="cursor: pointer;" onclick="manageConsent()"
+                              target="_blank">Manage Cookies</a></li>
+                      <li><a id="footer-terms-link" href="https://www.microsoft.com/legal/terms-of-use"
+                              target="_blank">Terms of Use</a></li>
+                      <li><a id="footer-license-link" href="../../License.html">License</a></li>
+                  </ul>
+                  <div class="copyright">
+                      <a id="footer-microsoft-link" class="logo" href="https://www.microsoft.com/">
+                          <img class="microsoft-logo" src="../../assets/images/microsoft-logo.png" height="20" alt="Microsoft homepage"/>
+                          <img class="microsoft-logo-inverted" src="../../assets/images/microsoft-logo-inverted.png" height="20" alt="Microsoft homepage" />
+                      </a>
+                      <span>&copy; 2023 Microsoft</span>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </footer>
+  <script src="../../dist/index.js"></script>
+
+  
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "SoftwareApplication",
+      "name" : "Visual Studio Code",
+      "softwareVersion": "1.74",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "applicationCategory": "DeveloperApplication",
+      "applicationSubCategory": "Text Editor",
+      "alternateName": "VS Code",
+      "datePublished": "2021-11-03",
+      "operatingSystem": "Mac, Linux, Windows",
+      "logo": "https://code.visualstudio.com/assets/apple-touch-icon.png",
+      "screenshot": "https://code.visualstudio.com/assets/home/home-screenshot-win.png",
+      "releaseNotes": "https://code.visualstudio.com/updates",
+      "downloadUrl": "https://code.visualstudio.com/download",
+      "license": "https://code.visualstudio.com/license",
+      "softwareRequirements": "https://code.visualstudio.com/docs/supporting/requirements",
+      "url" : "https://code.visualstudio.com",
+      "author": {
+        "@type": "Organization",
+        "name": "Microsoft"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Microsoft"
+      },
+      "maintainer": {
+        "@type": "Organization",
+        "name": "Microsoft"
+      },
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://code.visualstudio.com/Search?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      },
+      "sameAs" : [
+        "https://en.wikipedia.org/wiki/Visual_Studio_Code",
+        "https://twitter.com/code",
+        "https://www.youtube.com/code",
+        "https://www.tiktok.com/@vscode",
+        "https://github.com/microsoft/vscode"
+      ]
+    }
+  </script>
+</body>
+
+<!-- Mirrored from code.visualstudio.com/remote/advancedcontainers/change-default-source-mount by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 04 Jan 2023 12:15:03 GMT -->
+</html>

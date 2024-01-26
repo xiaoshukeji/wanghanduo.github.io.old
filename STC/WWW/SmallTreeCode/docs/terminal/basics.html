@@ -1,0 +1,1889 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Mirrored from code.visualstudio.com/docs/terminal/basics by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 04 Jan 2023 10:02:17 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="google-site-verification" content="hNs7DXrTySP_X-0P_AC0WulAXvUwgSXEmgfcO2r79dw" />
+
+  <!-- Twitter and Facebook OpenGraph Metadata-->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@code" />
+
+  <meta name="description" content="Visual Studio Code has an integrated terminal to enable working in your shell of choice without leaving the editor." />
+<meta name="keywords" content="" />
+<meta name="ms.prod" content="vs-code" />
+<meta name="ms.TOCTitle" content="Terminal Basics" />
+<meta name="ms.ContentId" content="7B4DC928-2414-4FC7-9C76-E4A13D6675FE" />
+<meta name="ms.date" content="12/7/2022" />
+<meta name="ms.topic" content="conceptual" />
+<!-- Twitter and Facebook OpenGraph Metadata-->
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="og:url" content="basics.html" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Integrated Terminal in Visual Studio Code" />
+<meta property="og:description" content="Visual Studio Code has an integrated terminal to enable working in your shell of choice without leaving the editor." />
+
+<meta property="og:image" content="../../opengraphimg/opengraph-docs.png" />
+
+
+
+  <link rel="shortcut icon" href="../../favicon.ico" sizes="128x128" />
+  <link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+
+  <title>Integrated Terminal in Visual Studio Code</title>
+
+  <link rel="stylesheet" href="../../vendor/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../../dist/style.css">
+
+  <script type="text/javascript" src="../../../js.monitor.azure.com/scripts/c/ms.analytics-web-3.min.js"></script>
+  <script>
+  window.appInsights = new oneDS.ApplicationInsights();
+  window.appInsights.initialize({
+    instrumentationKey: "1a3eb3104447440391ad5f2a6ee06a0a-62879566-bc58-4741-9650-302bf2af703f-7103",
+    webAnalyticsConfiguration:{ // Web Analytics Plugin configuration
+        urlCollectQuery:true, 
+        autoCapture: {
+          scroll: true,
+          pageView: true,
+          onLoad: true,
+          onUnload: true,
+          click: true,
+          resize: true,
+          jsError: true
+        }
+    }
+  }, []);
+  </script>
+  
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','../../../www.google-analytics.com/analytics.js','ga');
+  </script>  
+  <link rel="alternate" type="application/atom+xml" title="RSS Feed for code.visualstudio.com" href="../../feed.xml" />
+</head>
+
+<body>
+  <!-- EU Cookie Compliance JS -->
+  <script src="../../../wcpstatic.microsoft.com/mscc/lib/v2/wcp-consent.js"></script>
+
+  <div id="main">
+          <div class="navbar-fixed-container">
+              <div class="navbar navbar-inverse navbar-fixed-top ">
+                  <div id='cookie-banner'></div>        <nav role="navigation" aria-label="Top Level">
+                      <div class="container">
+                          <div class="nav navbar-header">
+                              <a role="button" id="skip-to-content" class="link-button" href="#main-content">Skip to content<i>&nbsp;</i><span class="glyphicon glyphicon-menu-down"></span></a>
+                              <a class="navbar-brand" id="navbar-brand" href="../../index.html">Visual Studio Code</a>
+                              <button type="button" class="navbar-toggle" role="navigation" data-toggle="collapse" data-target=".navbar-collapse" aria-label="Toggle Navigation Menu">
+                                  <span class="icon-bar"></span>
+                                  <span class="icon-bar"></span>
+                                  <span class="icon-bar"></span>
+                              </button>
+                          </div>
+                          <div class="navbar-collapse collapse" role="navigation">
+                              <ul class="nav navbar-nav navbar-left">
+                                  <li class="active" ><a id="nav-docs" href="../../docs.html">Docs</a></li>
+                                  <li ><a id="nav-updates" href="../../updates/v1_74.html">Updates</a></li>
+                                  <li ><a id="nav-blogs" href="../../blogs.html">Blog</a></li>
+                                  <li ><a id="nav-extend" href="../../api.html">API</a></li>
+                                  <li><a href="https://marketplace.visualstudio.com/VSCode" target="_blank" id="nav-extensions">Extensions</a></li>
+                                  <li ><a id="nav-faqs" href="../supporting/faq.html">FAQ</a></li>
+                                  <li ><a id="nav-learn" href="../../learn.html">Learn</a></li>
+                                  <li class='search visible-xs visible-sm'
+                                      ><a href="../../Search.html">Search</a></li>
+                              </ul>
+          
+                              <ul class="nav navbar-nav navbar-right" role="presentation">
+                                  <!-- Floating search icon -->
+                                  <li>
+                                      <a href="../../Search.html" title="Search" class="btn search-btn" id="nav-search">
+                                          <img class="search-icon" src="../../assets/icons/search.svg" width="16px" height="16px" alt="Search"/>
+                                          <img class="search-icon-inverted" src="../../assets/icons/search_dark.svg" width="16px" height="16px" alt="Search" />
+                                      </a>
+                                  </li>
+                                  <!-- Actual search icon -->
+                                  <li class="search" role="presentation">
+                                      <form class="nav-search search-form" role="search" aria-label="Search">
+                                          <div class="input-group" role="presentation">
+                                              <input type="text" name="q" class="search-box form-control" placeholder="Search Docs" aria-label="Search text"/>
+                                              <span class="input-group-btn">
+                                                  <button tabindex="0" class="btn" type="submit" aria-label="Search">
+                                                          <img class="search-icon" src="../../assets/icons/search.svg" width="16px" height="16px" alt="Search" />
+                                                          <img class="search-icon-inverted" src="../../assets/icons/search_dark.svg" width="16px" height="16px" alt="Search" />
+                                                  </button>
+                                              </span>
+                                          </div>
+                                      </form>                        </li>
+                                  <!-- this was hiden in the home and download page, keeping it for now -->
+                                  <li><a class="link-button" href="../../Download.html" id="nav-download">
+                                      <img class="download-icon" src="../../assets/icons/download.svg" width="16px" height="16px" alt="Download VS Code"/>
+                                      <img class="download-icon-inverted" src="../../assets/icons/download-black.svg" width="16px" height="16px" alt="Download VS Code" />
+                                      <span>Download</span>
+                                  </a></li>
+                              </ul>
+                          </div>
+                      </div>
+                  </nav>
+              </div>
+          </div>          <div class="updates-banner  ">
+              <div class="container">
+                  <p class="message"><a href="../../updates/v1_74.html" id="banner-link-updates">Version 1.74</a> is now available! Read about the new features and fixes from November.</p> 
+              </div>
+              <div tabindex="0" role="button" title="Dismiss this update" class="dismiss-btn" id="banner-dismiss-btn"><span class="sr-only">Dismiss this update</span><span aria-hidden="true" class="glyph-icon"></span></div>
+          </div>      <div role="main" id="main-content">
+        <script>
+    function closeReportIssue() {
+        var element = document.getElementById('surveypopup');
+        element.parentElement.removeChild(element);
+    }
+
+    function reportIssue(tutorial, page) {
+        var div = document.createElement('div');
+        div.innerHTML = '<div id="surveypopup" class="overlay visible"><div class="surveypopup"><div id="surveytitle">Tell us more<a href="javascript:void(0)" onclick="closeReportIssue()">X</a></div><div id="surveydiv"><iframe frameBorder="0" scrolling="0" src="https://www.research.net/r/PWZWZ52?tutorial=' + tutorial + '&step=' + page + '"></iframe></div></div></div>';
+        document.body.appendChild(div.children[0]);
+    }
+
+    function pushCodingPackEvent(language, os) {
+        let id = `${language}-${os}-coding-pack`;
+        var analytics = window.vscodeAnalytics;
+
+        analytics && analytics.event(
+            'click',
+            'download',
+            id,
+        );
+    }
+</script>
+
+<div class="container body-content docs">
+    <div class="row">
+        <div class="col-md-2 docs-navbar-container">
+            <nav id="docs-navbar" aria-label="Topics" class="docs-nav visible-md visible-lg">
+            	<ul class="nav" id="main-nav">
+            		<li >
+            			<a class="docs-home" href="../../docs.html" >Overview</a>
+            		</li>
+            		
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#setup-articles" data-parent="#main-nav" data-toggle="collapse">Setup</a>
+            					<ul id="setup-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../setup/setup-overview.html" >Overview</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../setup/linux.html" >Linux</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../setup/mac.html" >macOS</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../setup/windows.html" >Windows</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../setup/raspberry-pi.html" >Raspberry Pi</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../setup/network.html" >Network</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../setup/additional-components.html" >Additional Components</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../setup/enterprise.html" >Enterprise</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../setup/uninstall.html" >Uninstall</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#getstarted-articles" data-parent="#main-nav" data-toggle="collapse">Get Started</a>
+            					<ul id="getstarted-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../getstarted/introvideos.html" >Intro Videos</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../getstarted/tips-and-tricks.html" >Tips and Tricks</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../getstarted/userinterface.html" >User Interface</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../getstarted/themes.html" >Themes</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../getstarted/settings.html" >Settings</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../getstarted/keybindings.html" >Key Bindings</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../getstarted/locales.html" >Display Language</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../getstarted/telemetry.html" >Telemetry</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#editor-articles" data-parent="#main-nav" data-toggle="collapse">User Guide</a>
+            					<ul id="editor-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../editor/codebasics.html" >Basic Editing</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../editor/extension-marketplace.html" >Extension Marketplace</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../editor/intellisense.html" >IntelliSense</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../editor/editingevolved.html" >Code Navigation</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../editor/refactoring.html" >Refactoring</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../editor/debugging.html" >Debugging</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../editor/vscode-web.html" >VS Code for the Web</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../editor/tasks.html" >Tasks</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../editor/settings-sync.html" >Settings Sync</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../editor/userdefinedsnippets.html" >Snippets</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../editor/emmet.html" >Emmet</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../editor/command-line.html" >Command Line Interface</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../editor/workspace-trust.html" >Workspace Trust</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../editor/multi-root-workspaces.html" >Multi-root Workspaces</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../editor/accessibility.html" >Accessibility</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#sourcecontrol-articles" data-parent="#main-nav" data-toggle="collapse">Source Control</a>
+            					<ul id="sourcecontrol-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../sourcecontrol/overview.html" >Overview</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../sourcecontrol/github.html" >Collaborate on GitHub</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../sourcecontrol/faq.html" >FAQ</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel active expanded">
+            					<a class="area" role="button" href="#terminal-articles" data-parent="#main-nav" data-toggle="collapse">Terminal</a>
+            					<ul id="terminal-articles" class="collapse in">
+            					
+            						<li class="active">
+            							<a href="basics.html" aria-label="Current Page: Terminal Basics">Terminal Basics</a>
+            						</li>
+            					
+            						<li >
+            							<a href="profiles.html" >Terminal Profiles</a>
+            						</li>
+            					
+            						<li >
+            							<a href="shell-integration.html" >Shell Integration</a>
+            						</li>
+            					
+            						<li >
+            							<a href="appearance.html" >Appearance</a>
+            						</li>
+            					
+            						<li >
+            							<a href="advanced.html" >Advanced</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#languages-articles" data-parent="#main-nav" data-toggle="collapse">Languages</a>
+            					<ul id="languages-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../languages/overview.html" >Overview</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/javascript.html" >JavaScript</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/json.html" >JSON</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/html.html" >HTML</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/css.html" >CSS, SCSS and Less</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/typescript.html" >TypeScript</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/markdown.html" >Markdown</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/powershell.html" >PowerShell</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/cpp.html" >C++</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/java.html" >Java</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/php.html" >PHP</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/python.html" >Python</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/julia.html" >Julia</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/r.html" >R</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/rust.html" >Rust</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/go.html" >Go</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/tsql.html" >T-SQL</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/csharp.html" >C#</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/dotnet.html" >.NET</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#nodejs-articles" data-parent="#main-nav" data-toggle="collapse">Node.js / JavaScript</a>
+            					<ul id="nodejs-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../nodejs/working-with-javascript.html" >Working with JavaScript</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../nodejs/nodejs-tutorial.html" >Node.js Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../nodejs/nodejs-debugging.html" >Node.js Debugging</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../nodejs/nodejs-deployment.html" >Deploy Node.js Apps</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../nodejs/browser-debugging.html" >Browser Debugging</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../nodejs/angular-tutorial.html" >Angular Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../nodejs/reactjs-tutorial.html" >React Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../nodejs/vuejs-tutorial.html" >Vue Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../nodejs/emberjs-tutorial.html" >Ember Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../nodejs/debugging-recipes.html" >Debugging Recipes</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../nodejs/profiling.html" >Performance Profiling</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../nodejs/extensions.html" >Extensions</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#typescript-articles" data-parent="#main-nav" data-toggle="collapse">TypeScript</a>
+            					<ul id="typescript-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../typescript/typescript-tutorial.html" >Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../typescript/typescript-compiling.html" >Compiling</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../typescript/typescript-editing.html" >Editing</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../typescript/typescript-refactoring.html" >Refactoring</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../typescript/typescript-debugging.html" >Debugging</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#python-articles" data-parent="#main-nav" data-toggle="collapse">Python</a>
+            					<ul id="python-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../python/python-tutorial.html" >Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../python/editing.html" >Editing Code</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../python/linting.html" >Linting</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../python/debugging.html" >Debugging</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../python/environments.html" >Environments</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../python/testing.html" >Testing</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../datascience/overview.html" >Data Science</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../python/jupyter-support-py.html" >Python Interactive</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../python/tutorial-django.html" >Django Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../python/tutorial-flask.html" >Flask Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../containers/quickstart-python.html" >Create containers</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../python/python-on-azure.html" >Deploy Python Apps</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../python/python-web.html" >Python in the Web</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../python/settings-reference.html" >Settings Reference</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#java-articles" data-parent="#main-nav" data-toggle="collapse">Java</a>
+            					<ul id="java-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../java/java-tutorial.html" >Getting Started</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-editing.html" >Navigate and Edit</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-refactoring.html" >Refactoring</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-linting.html" >Formatting and Linting</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-project.html" >Project Management</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-build.html" >Build Tools</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-debugging.html" >Run and Debug</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-testing.html" >Testing</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-spring-boot.html" >Spring Boot</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-tomcat-jetty.html" >Application Servers</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-on-azure.html" >Deploy Java Apps</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-gui.html" >GUI Applications</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/extensions.html" >Extensions</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-faq.html" >FAQ</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#cpp-articles" data-parent="#main-nav" data-toggle="collapse">C++</a>
+            					<ul id="cpp-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../cpp/introvideos-cpp.html" >Intro Videos</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../cpp/config-linux.html" >GCC on Linux</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../cpp/config-mingw.html" >GCC on Windows</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../cpp/config-wsl.html" >GCC on Windows Subsystem for Linux</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../cpp/config-clang-mac.html" >Clang on macOS</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../cpp/config-msvc.html" >Microsoft C++ on Windows</a>
+            						</li>
+            					
+            						<li >
+            							<a href="https://github.com/microsoft/vscode-cmake-tools/blob/main/docs/README.md" >Build with CMake</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../cpp/cmake-linux.html" >CMake Tools on Linux</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../cpp/cpp-ide.html" >Editing</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../cpp/cpp-debug.html" >Debugging</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../cpp/launch-json-reference.html" >Configure debugging</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../cpp/customize-default-settings-cpp.html" >Settings</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../cpp/configure-intellisense-crosscompilation.html" >Configure IntelliSense for cross-compiling</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../cpp/faq-cpp.html" >FAQ</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#containers-articles" data-parent="#main-nav" data-toggle="collapse">Docker</a>
+            					<ul id="containers-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../containers/overview.html" >Overview</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../containers/quickstart-node.html" >Node.js</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../containers/quickstart-python.html" >Python</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../containers/quickstart-aspnet-core.html" >ASP.NET Core</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../containers/debug-common.html" >Debug</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../containers/docker-compose.html" >Docker Compose</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../containers/quickstart-container-registries.html" >Registries</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../containers/app-service.html" >Deploy to Azure</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../containers/choosing-dev-environment.html" >Choose a dev environment</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../containers/reference.html" >Customize</a>
+            						</li>
+            					
+            						<li >
+            							<a href="https://learn.microsoft.com/visualstudio/bridge/bridge-to-kubernetes-vs-code" >Develop with Kubernetes</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../containers/troubleshooting.html" >Tips and Tricks</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#datascience-articles" data-parent="#main-nav" data-toggle="collapse">Data Science</a>
+            					<ul id="datascience-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../datascience/overview.html" >Overview</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../datascience/jupyter-notebooks.html" >Jupyter Notebooks</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../datascience/data-science-tutorial.html" >Data Science Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../python/jupyter-support-py.html" >Python Interactive</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../datascience/pytorch-support.html" >PyTorch Support</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../datascience/azure-machine-learning.html" >Azure Machine Learning</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#azure-articles" data-parent="#main-nav" data-toggle="collapse">Azure</a>
+            					<ul id="azure-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../azure/extensions.html" >Extensions</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../azure/deployment.html" >Deployment</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../azure/remote-debugging.html" >Remote Debugging for Node.js</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../containers/overview.html" >Docker</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../azure/mongodb.html" >MongoDB</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../azure/kubernetes.html" >Kubernetes</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../azure/aksextensions.html" >Azure Kubernetes Service</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#remote-articles" data-parent="#main-nav" data-toggle="collapse">Remote</a>
+            					<ul id="remote-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../remote/remote-overview.html" >Overview</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../remote/ssh.html" >SSH</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../devcontainers/containers.html" >Dev Containers</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../remote/wsl.html" >Windows Subsystem for Linux</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../remote/codespaces.html" >GitHub Codespaces</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../remote/vscode-server.html" >VS Code Server</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../remote/tunnels.html" >Tunnels</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../remote/ssh-tutorial.html" >SSH Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../remote/wsl-tutorial.html" >WSL Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../remote/troubleshooting.html" >Tips and Tricks</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../remote/faq.html" >FAQ</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#devcontainers-articles" data-parent="#main-nav" data-toggle="collapse">Dev Containers</a>
+            					<ul id="devcontainers-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../devcontainers/containers.html" >Overview</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../devcontainers/tutorial.html" >Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../devcontainers/attach-container.html" >Attach to Container</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../devcontainers/create-dev-container.html" >Create a Dev Container</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../../remote/advancedcontainers/overview.html" >Advanced Containers</a>
+            						</li>
+            					
+            						<li >
+            							<a href="https://containers.dev/implementors/json_reference" >devcontainer.json</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../devcontainers/devcontainer-cli.html" >Dev Container CLI</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../devcontainers/tips-and-tricks.html" >Tips and Tricks</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../devcontainers/faq.html" >FAQ</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            		
+            	</ul>
+            </nav>
+            <nav id="small-nav" aria-label="Topics" class="docs-nav hidden-md hidden-lg">
+            	<h4>Topics</h4>
+            	<select id="small-nav-dropdown" aria-label="topics">
+            		<option value="/docs" >Overview</option>
+            		
+            			
+            		
+            			
+            				<optgroup label="Setup">
+            				
+            					<option value="/docs/setup/setup-overview" >Overview</option>
+            				
+            					<option value="/docs/setup/linux" >Linux</option>
+            				
+            					<option value="/docs/setup/mac" >macOS</option>
+            				
+            					<option value="/docs/setup/windows" >Windows</option>
+            				
+            					<option value="/docs/setup/raspberry-pi" >Raspberry Pi</option>
+            				
+            					<option value="/docs/setup/network" >Network</option>
+            				
+            					<option value="/docs/setup/additional-components" >Additional Components</option>
+            				
+            					<option value="/docs/setup/enterprise" >Enterprise</option>
+            				
+            					<option value="/docs/setup/uninstall" >Uninstall</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Get Started">
+            				
+            					<option value="/docs/getstarted/introvideos" >Intro Videos</option>
+            				
+            					<option value="/docs/getstarted/tips-and-tricks" >Tips and Tricks</option>
+            				
+            					<option value="/docs/getstarted/userinterface" >User Interface</option>
+            				
+            					<option value="/docs/getstarted/themes" >Themes</option>
+            				
+            					<option value="/docs/getstarted/settings" >Settings</option>
+            				
+            					<option value="/docs/getstarted/keybindings" >Key Bindings</option>
+            				
+            					<option value="/docs/getstarted/locales" >Display Language</option>
+            				
+            					<option value="/docs/getstarted/telemetry" >Telemetry</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="User Guide">
+            				
+            					<option value="/docs/editor/codebasics" >Basic Editing</option>
+            				
+            					<option value="/docs/editor/extension-marketplace" >Extension Marketplace</option>
+            				
+            					<option value="/docs/editor/intellisense" >IntelliSense</option>
+            				
+            					<option value="/docs/editor/editingevolved" >Code Navigation</option>
+            				
+            					<option value="/docs/editor/refactoring" >Refactoring</option>
+            				
+            					<option value="/docs/editor/debugging" >Debugging</option>
+            				
+            					<option value="/docs/editor/vscode-web" >VS Code for the Web</option>
+            				
+            					<option value="/docs/editor/tasks" >Tasks</option>
+            				
+            					<option value="/docs/editor/settings-sync" >Settings Sync</option>
+            				
+            					<option value="/docs/editor/userdefinedsnippets" >Snippets</option>
+            				
+            					<option value="/docs/editor/emmet" >Emmet</option>
+            				
+            					<option value="/docs/editor/command-line" >Command Line Interface</option>
+            				
+            					<option value="/docs/editor/workspace-trust" >Workspace Trust</option>
+            				
+            					<option value="/docs/editor/multi-root-workspaces" >Multi-root Workspaces</option>
+            				
+            					<option value="/docs/editor/accessibility" >Accessibility</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Source Control">
+            				
+            					<option value="/docs/sourcecontrol/overview" >Overview</option>
+            				
+            					<option value="/docs/sourcecontrol/github" >Collaborate on GitHub</option>
+            				
+            					<option value="/docs/sourcecontrol/faq" >FAQ</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Terminal">
+            				
+            					<option value="/docs/terminal/basics" selected>Terminal Basics</option>
+            				
+            					<option value="/docs/terminal/profiles" >Terminal Profiles</option>
+            				
+            					<option value="/docs/terminal/shell-integration" >Shell Integration</option>
+            				
+            					<option value="/docs/terminal/appearance" >Appearance</option>
+            				
+            					<option value="/docs/terminal/advanced" >Advanced</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Languages">
+            				
+            					<option value="/docs/languages/overview" >Overview</option>
+            				
+            					<option value="/docs/languages/javascript" >JavaScript</option>
+            				
+            					<option value="/docs/languages/json" >JSON</option>
+            				
+            					<option value="/docs/languages/html" >HTML</option>
+            				
+            					<option value="/docs/languages/css" >CSS, SCSS and Less</option>
+            				
+            					<option value="/docs/languages/typescript" >TypeScript</option>
+            				
+            					<option value="/docs/languages/markdown" >Markdown</option>
+            				
+            					<option value="/docs/languages/powershell" >PowerShell</option>
+            				
+            					<option value="/docs/languages/cpp" >C++</option>
+            				
+            					<option value="/docs/languages/java" >Java</option>
+            				
+            					<option value="/docs/languages/php" >PHP</option>
+            				
+            					<option value="/docs/languages/python" >Python</option>
+            				
+            					<option value="/docs/languages/julia" >Julia</option>
+            				
+            					<option value="/docs/languages/r" >R</option>
+            				
+            					<option value="/docs/languages/rust" >Rust</option>
+            				
+            					<option value="/docs/languages/go" >Go</option>
+            				
+            					<option value="/docs/languages/tsql" >T-SQL</option>
+            				
+            					<option value="/docs/languages/csharp" >C#</option>
+            				
+            					<option value="/docs/languages/dotnet" >.NET</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Node.js / JavaScript">
+            				
+            					<option value="/docs/nodejs/working-with-javascript" >Working with JavaScript</option>
+            				
+            					<option value="/docs/nodejs/nodejs-tutorial" >Node.js Tutorial</option>
+            				
+            					<option value="/docs/nodejs/nodejs-debugging" >Node.js Debugging</option>
+            				
+            					<option value="/docs/nodejs/nodejs-deployment" >Deploy Node.js Apps</option>
+            				
+            					<option value="/docs/nodejs/browser-debugging" >Browser Debugging</option>
+            				
+            					<option value="/docs/nodejs/angular-tutorial" >Angular Tutorial</option>
+            				
+            					<option value="/docs/nodejs/reactjs-tutorial" >React Tutorial</option>
+            				
+            					<option value="/docs/nodejs/vuejs-tutorial" >Vue Tutorial</option>
+            				
+            					<option value="/docs/nodejs/emberjs-tutorial" >Ember Tutorial</option>
+            				
+            					<option value="/docs/nodejs/debugging-recipes" >Debugging Recipes</option>
+            				
+            					<option value="/docs/nodejs/profiling" >Performance Profiling</option>
+            				
+            					<option value="/docs/nodejs/extensions" >Extensions</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="TypeScript">
+            				
+            					<option value="/docs/typescript/typescript-tutorial" >Tutorial</option>
+            				
+            					<option value="/docs/typescript/typescript-compiling" >Compiling</option>
+            				
+            					<option value="/docs/typescript/typescript-editing" >Editing</option>
+            				
+            					<option value="/docs/typescript/typescript-refactoring" >Refactoring</option>
+            				
+            					<option value="/docs/typescript/typescript-debugging" >Debugging</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Python">
+            				
+            					<option value="/docs/python/python-tutorial" >Tutorial</option>
+            				
+            					<option value="/docs/python/editing" >Editing Code</option>
+            				
+            					<option value="/docs/python/linting" >Linting</option>
+            				
+            					<option value="/docs/python/debugging" >Debugging</option>
+            				
+            					<option value="/docs/python/environments" >Environments</option>
+            				
+            					<option value="/docs/python/testing" >Testing</option>
+            				
+            					<option value="/docs/python/data-science" >Data Science</option>
+            				
+            					<option value="/docs/python/jupyter-support-py" >Python Interactive</option>
+            				
+            					<option value="/docs/python/tutorial-django" >Django Tutorial</option>
+            				
+            					<option value="/docs/python/tutorial-flask" >Flask Tutorial</option>
+            				
+            					<option value="/docs/python/tutorial-create-containers" >Create containers</option>
+            				
+            					<option value="/docs/python/python-on-azure" >Deploy Python Apps</option>
+            				
+            					<option value="/docs/python/python-web" >Python in the Web</option>
+            				
+            					<option value="/docs/python/settings-reference" >Settings Reference</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Java">
+            				
+            					<option value="/docs/java/java-tutorial" >Getting Started</option>
+            				
+            					<option value="/docs/java/java-editing" >Navigate and Edit</option>
+            				
+            					<option value="/docs/java/java-refactoring" >Refactoring</option>
+            				
+            					<option value="/docs/java/java-linting" >Formatting and Linting</option>
+            				
+            					<option value="/docs/java/java-project" >Project Management</option>
+            				
+            					<option value="/docs/java/java-build" >Build Tools</option>
+            				
+            					<option value="/docs/java/java-debugging" >Run and Debug</option>
+            				
+            					<option value="/docs/java/java-testing" >Testing</option>
+            				
+            					<option value="/docs/java/java-spring-boot" >Spring Boot</option>
+            				
+            					<option value="/docs/java/java-tomcat-jetty" >Application Servers</option>
+            				
+            					<option value="/docs/java/java-on-azure" >Deploy Java Apps</option>
+            				
+            					<option value="/docs/java/java-gui" >GUI Applications</option>
+            				
+            					<option value="/docs/java/extensions" >Extensions</option>
+            				
+            					<option value="/docs/java/java-faq" >FAQ</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="C++">
+            				
+            					<option value="/docs/cpp/introvideos-cpp" >Intro Videos</option>
+            				
+            					<option value="/docs/cpp/config-linux" >GCC on Linux</option>
+            				
+            					<option value="/docs/cpp/config-mingw" >GCC on Windows</option>
+            				
+            					<option value="/docs/cpp/config-wsl" >GCC on Windows Subsystem for Linux</option>
+            				
+            					<option value="/docs/cpp/config-clang-mac" >Clang on macOS</option>
+            				
+            					<option value="/docs/cpp/config-msvc" >Microsoft C++ on Windows</option>
+            				
+            					<option value="/docs/cpp/build-with-cmake" >Build with CMake</option>
+            				
+            					<option value="/docs/cpp/cmake-linux" >CMake Tools on Linux</option>
+            				
+            					<option value="/docs/cpp/cpp-ide" >Editing</option>
+            				
+            					<option value="/docs/cpp/cpp-debug" >Debugging</option>
+            				
+            					<option value="/docs/cpp/launch-json-reference" >Configure debugging</option>
+            				
+            					<option value="/docs/cpp/customize-default-settings-cpp" >Settings</option>
+            				
+            					<option value="/docs/cpp/configure-intellisense-crosscompilation" >Configure IntelliSense for cross-compiling</option>
+            				
+            					<option value="/docs/cpp/faq-cpp" >FAQ</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Docker">
+            				
+            					<option value="/docs/containers/overview" >Overview</option>
+            				
+            					<option value="/docs/containers/quickstart-node" >Node.js</option>
+            				
+            					<option value="/docs/containers/quickstart-python" >Python</option>
+            				
+            					<option value="/docs/containers/quickstart-aspnet-core" >ASP.NET Core</option>
+            				
+            					<option value="/docs/containers/debug-common" >Debug</option>
+            				
+            					<option value="/docs/containers/docker-compose" >Docker Compose</option>
+            				
+            					<option value="/docs/containers/quickstart-container-registries" >Registries</option>
+            				
+            					<option value="/docs/containers/app-service" >Deploy to Azure</option>
+            				
+            					<option value="/docs/containers/choosing-dev-environment" >Choose a dev environment</option>
+            				
+            					<option value="/docs/containers/reference" >Customize</option>
+            				
+            					<option value="/docs/containers/bridge-to-kubernetes" >Develop with Kubernetes</option>
+            				
+            					<option value="/docs/containers/troubleshooting" >Tips and Tricks</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Data Science">
+            				
+            					<option value="/docs/datascience/overview" >Overview</option>
+            				
+            					<option value="/docs/datascience/jupyter-notebooks" >Jupyter Notebooks</option>
+            				
+            					<option value="/docs/datascience/data-science-tutorial" >Data Science Tutorial</option>
+            				
+            					<option value="/docs/datascience/python-interactive" >Python Interactive</option>
+            				
+            					<option value="/docs/datascience/pytorch-support" >PyTorch Support</option>
+            				
+            					<option value="/docs/datascience/azure-machine-learning" >Azure Machine Learning</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Azure">
+            				
+            					<option value="/docs/azure/extensions" >Extensions</option>
+            				
+            					<option value="/docs/azure/deployment" >Deployment</option>
+            				
+            					<option value="/docs/azure/remote-debugging" >Remote Debugging for Node.js</option>
+            				
+            					<option value="/docs/azure/docker" >Docker</option>
+            				
+            					<option value="/docs/azure/mongodb" >MongoDB</option>
+            				
+            					<option value="/docs/azure/kubernetes" >Kubernetes</option>
+            				
+            					<option value="/docs/azure/aksextensions" >Azure Kubernetes Service</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Remote">
+            				
+            					<option value="/docs/remote/remote-overview" >Overview</option>
+            				
+            					<option value="/docs/remote/ssh" >SSH</option>
+            				
+            					<option value="/docs/remote/dev-containers" >Dev Containers</option>
+            				
+            					<option value="/docs/remote/wsl" >Windows Subsystem for Linux</option>
+            				
+            					<option value="/docs/remote/codespaces" >GitHub Codespaces</option>
+            				
+            					<option value="/docs/remote/vscode-server" >VS Code Server</option>
+            				
+            					<option value="/docs/remote/tunnels" >Tunnels</option>
+            				
+            					<option value="/docs/remote/ssh-tutorial" >SSH Tutorial</option>
+            				
+            					<option value="/docs/remote/wsl-tutorial" >WSL Tutorial</option>
+            				
+            					<option value="/docs/remote/troubleshooting" >Tips and Tricks</option>
+            				
+            					<option value="/docs/remote/faq" >FAQ</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Dev Containers">
+            				
+            					<option value="/docs/devcontainers/containers" >Overview</option>
+            				
+            					<option value="/docs/devcontainers/tutorial" >Tutorial</option>
+            				
+            					<option value="/docs/devcontainers/attach-container" >Attach to Container</option>
+            				
+            					<option value="/docs/devcontainers/create-dev-container" >Create a Dev Container</option>
+            				
+            					<option value="/docs/devcontainers/containers-advanced" >Advanced Containers</option>
+            				
+            					<option value="/docs/devcontainers/devcontainerjson-reference" >devcontainer.json</option>
+            				
+            					<option value="/docs/devcontainers/devcontainer-cli" >Dev Container CLI</option>
+            				
+            					<option value="/docs/devcontainers/tips-and-tricks" >Tips and Tricks</option>
+            				
+            					<option value="/docs/devcontainers/faq" >FAQ</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            		
+            	</select>
+            </nav>        </div>
+        <div class="col-sm-9 col-md-8 body">
+            <div class="edit-github pull-right">
+                <a href="https://vscode.dev/github/microsoft/vscode-docs/blob/main/docs/terminal/basics.md"
+                    class="btn btn-default" title="Edit this document in vscode.dev">
+                    <span class="glyphicon glyphicon-pencil"></span>
+                    <span class="hidden-xs">Edit</span>
+                </a>
+            </div>
+            <h1>Terminal Basics</h1>
+<p>Visual Studio Code includes a full featured integrated terminal that conveniently starts at the root of your workspace. It provides integration with the editor to support features like <a href="#_links">links</a> and <a href="../editor/tasks.html">error detection</a>.</p>
+<p>To open the terminal:</p>
+<ul>
+<li>Use the <span class="dynamic-keybinding" data-commandId="workbench.action.terminal.toggleTerminal" data-osx="⌃`" data-win="Ctrl+`" data-linux="Ctrl+`"><span class="keybinding">⌃`</span> (Windows, Linux <span class="keybinding">Ctrl+`</span>)</span> keyboard shortcut to toggle the terminal panel.</li>
+<li>Use the <span class="dynamic-keybinding" data-commandId="workbench.action.terminal.new" data-osx="⌃⇧`" data-win="Ctrl+Shift+`" data-linux="Ctrl+Shift+`"><span class="keybinding">⌃⇧`</span> (Windows, Linux <span class="keybinding">Ctrl+Shift+`</span>)</span> keyboard shortcut to create a new terminal.</li>
+<li>Use the <strong>View</strong> &gt; <strong>Terminal</strong> or <strong>Terminal</strong> &gt; <strong>New Terminal</strong> menu commands.</li>
+<li>From the <strong>Command Palette</strong> (<span class="dynamic-keybinding" data-commandId="workbench.action.showCommands" data-osx="⇧⌘P" data-win="Ctrl+Shift+P" data-linux="Ctrl+Shift+P"><span class="keybinding">⇧⌘P</span> (Windows, Linux <span class="keybinding">Ctrl+Shift+P</span>)</span>), use the <strong>View: Toggle Terminal</strong> command.</li>
+</ul>
+<p><img src="../../assets/docs/terminal/basics/integrated-terminal.png" alt="The integrated terminal can run commands such as mkdir and git just like a standalone terminal. VS Code's terminal has additional functionality called shell integration that tracks where commands are run with decorations on the left of a command and in the scrollbar." loading="lazy"></p>
+<blockquote>
+<p><strong>Note:</strong> Open an external terminal with the <span class="dynamic-keybinding" data-commandId="workbench.action.terminal.openNativeConsole" data-osx="⇧⌘C" data-win="Ctrl+Shift+C" data-linux="Ctrl+Shift+C"><span class="keybinding">⇧⌘C</span> (Windows, Linux <span class="keybinding">Ctrl+Shift+C</span>)</span> keyboard shortcut if you prefer to work outside VS Code.</p>
+</blockquote>
+<h2 id="_terminal-shells" data-needslink="_terminal-shells">Terminal shells</h2>
+<p>The integrated terminal can use various shells installed on your machine, with the default being pulled from your system defaults. Shells are detected and presented in the terminal profiles dropdown.</p>
+<p><img src="../../assets/docs/terminal/basics/select-profile-dropdown.png" alt="A detected profile can be chosen in the dropdown next to the new terminal button. Some examples on Windows include PowerShell, Command Prompt, Git Bash and WSL" loading="lazy"></p>
+<p>You can learn more about configuring terminal shells in the <a href="profiles.html">terminal profiles</a> article.</p>
+<h2 id="_managing-terminals" data-needslink="_managing-terminals">Managing terminals</h2>
+<p>The terminal tabs UI is on the right side of the terminal view. Each terminal has an entry with its name, icon, color, and group decoration (if any).</p>
+<p><img src="../../assets/docs/terminal/basics/tabs.png" alt="Activating the Launch Profile button will show all detected and manually configured profiles" loading="lazy"></p>
+<p>Terminal instances can be added by selecting the <strong>+</strong> icon on the top-right of the <strong>TERMINAL</strong> panel, selecting a profile from the terminal dropdown, or by triggering the <span class="dynamic-keybinding" data-commandId="workbench.action.terminal.new" data-osx="⌃⇧`" data-win="Ctrl+Shift+`" data-linux="Ctrl+Shift+`"><span class="keybinding">⌃⇧`</span> (Windows, Linux <span class="keybinding">Ctrl+Shift+`</span>)</span> command. This action creates another entry in the tab list associated with that terminal.</p>
+<p>Remove terminal instances by hovering a tab and selecting the <strong>Trash Can</strong> button, selecting a tab item and pressing <span class="keybinding">Delete</span>, using <strong>Terminal: Kill the Active Terminal Instance</strong> command, or via the right-click context menu.</p>
+<p>Navigate between terminal groups using focus next <span class="dynamic-keybinding" data-commandId="workbench.action.terminal.focusNext" data-osx="⇧⌘]" data-win="Ctrl+PageDown" data-linux="Ctrl+PageDown"><span class="keybinding">⇧⌘]</span> (Windows, Linux <span class="keybinding">Ctrl+PageDown</span>)</span> and focus previous <span class="dynamic-keybinding" data-commandId="workbench.action.terminal.focusPrevious" data-osx="⇧⌘[" data-win="Ctrl+PageUp" data-linux="Ctrl+PageUp"><span class="keybinding">⇧⌘[</span> (Windows, Linux <span class="keybinding">Ctrl+PageUp</span>)</span>.</p>
+<p>Icons may appear to the right of the terminal title on the tab label when a terminal's status changes. Some examples are a bell (macOS) and for tasks, displaying a check mark when there are no errors and an X otherwise. Hover the icon to read status information, which may contain actions.</p>
+<h3 id="_groups-split-panes" data-needslink="_groups-split-panes">Groups (split panes)</h3>
+<p>Multiple terminals can be placed side-by-side are called a group and are created by splitting a terminal:</p>
+<ul>
+<li>On hover, selecting the inline split button.</li>
+<li>Right-clicking the context menu and selecting the <strong>Split</strong> menu option.</li>
+<li><span class="keybinding">Alt</span> and click on a tab, the <strong>+</strong> button, or the single tab on the terminal panel.</li>
+<li>Triggering the <span class="dynamic-keybinding" data-commandId="workbench.action.terminal.split" data-osx="⌘\" data-win="Ctrl+Shift+5" data-linux="Ctrl+Shift+5"><span class="keybinding">⌘\</span> (Windows, Linux <span class="keybinding">Ctrl+Shift+5</span>)</span> command.</li>
+</ul>
+<blockquote>
+<p><strong>Tip:</strong> The working directory for the new terminal depends on the <code>terminal.integrated.splitCwd</code> <a href="../getstarted/settings.html">setting</a>.</p>
+</blockquote>
+<p>Navigate between terminals in a group by focusing the previous pane, <span class="dynamic-keybinding" data-commandId="workbench.action.terminal.focusPreviousPane" data-osx="⌥⌘←" data-win="Alt+Left" data-linux="Alt+Left"><span class="keybinding">⌥⌘←</span> (Windows, Linux <span class="keybinding">Alt+Left</span>)</span>, or the next pane, <span class="dynamic-keybinding" data-commandId="workbench.action.terminal.focusNextPane" data-osx="⌥⌘→" data-win="Alt+Right" data-linux="Alt+Right"><span class="keybinding">⌥⌘→</span> (Windows, Linux <span class="keybinding">Alt+Right</span>)</span>.</p>
+<p>Dragging and dropping tabs in the list will rearrange them. Dragging a tab into the main terminal area allows moving a terminal from one group to another.</p>
+<p>Moving a terminal into its own group can be done with the <strong>Terminal: Unsplit Terminal</strong> command through the Command Palette or in the right-click context menu.</p>
+<h2 id="_terminals-in-editor-area" data-needslink="_terminals-in-editor-area">Terminals in editor area</h2>
+<p>Terminal in the editor area, also known as terminal editors, can be created through the <strong>Terminal: Create New Terminal in Editor Area</strong> and <strong>Terminal: Create New Terminal in Editor Area to the Side</strong> commands or by dragging a terminal from the terminal view into the editor area.</p>
+<p><img src="../../assets/docs/terminal/basics/terminal-editor.png" alt="Terminal editors are presented like regular text file tabs" loading="lazy"></p>
+<p>Terminal editors are ideal if you want a complex workbench layout such as terminals on either side of an editor or terminals arranged in two dimensions. Below PowerShell and WSL terminals are stacked in an editor group to the right of a group of file editors.</p>
+<p><img src="../../assets/docs/terminal/basics/terminal-editor-grid.png" alt="Terminal editors are can be layed out using the editor group layout system, for example 2 terminals could sit to the right of a text editor" loading="lazy"></p>
+<p>The <code>terminal.integrated.defaultLocation</code> setting can change the default terminal location to be in either the <code>view</code> or <code>editor</code> areas.</p>
+<h2 id="_navigating-the-buffer" data-needslink="_navigating-the-buffer">Navigating the buffer</h2>
+<p>The content in the terminal is called the buffer, with the section right above the bottom viewport being called &quot;scrollback&quot;. The amount of scrollback kept is determined by the <code>terminal.integrated.scrollback</code> <a href="../getstarted/settings.html">setting</a> and defaults to <code>1000</code> lines.</p>
+<p>There are various commands available to navigate around the terminal buffer:</p>
+<ul>
+<li>Scroll up a line - <span class="dynamic-keybinding" data-commandId="workbench.action.terminal.scrollUp" data-osx="⌥⌘PageUp" data-win="Ctrl+Alt+PageUp" data-linux="Ctrl+Shift+Up"><span class="keybinding">⌥⌘PageUp</span> (Windows <span class="keybinding">Ctrl+Alt+PageUp</span>, Linux <span class="keybinding">Ctrl+Shift+Up</span>)</span></li>
+<li>Scroll down a line - <span class="dynamic-keybinding" data-commandId="workbench.action.terminal.scrollDown" data-osx="⌥⌘PageDown" data-win="Ctrl+Alt+PageDown" data-linux="Ctrl+Shift+Down"><span class="keybinding">⌥⌘PageDown</span> (Windows <span class="keybinding">Ctrl+Alt+PageDown</span>, Linux <span class="keybinding">Ctrl+Shift+Down</span>)</span></li>
+<li>Scroll up a page - <span class="dynamic-keybinding" data-commandId="workbench.action.terminal.scrollUpPage" data-osx="PageUp" data-win="Shift+PageUp" data-linux="Shift+PageUp"><span class="keybinding">PageUp</span> (Windows, Linux <span class="keybinding">Shift+PageUp</span>)</span></li>
+<li>Scroll down a page - <span class="dynamic-keybinding" data-commandId="workbench.action.terminal.scrollDownPage" data-osx="PageDown" data-win="Shift+PageDown" data-linux="Shift+PageDown"><span class="keybinding">PageDown</span> (Windows, Linux <span class="keybinding">Shift+PageDown</span>)</span></li>
+<li>Scroll to the top - <span class="dynamic-keybinding" data-commandId="workbench.action.terminal.scrollToTop" data-osx="⌘Home" data-win="Ctrl+Home" data-linux="Shift+Home"><span class="keybinding">⌘Home</span> (Windows <span class="keybinding">Ctrl+Home</span>, Linux <span class="keybinding">Shift+Home</span>)</span></li>
+<li>Scroll to the bottom - <span class="dynamic-keybinding" data-commandId="workbench.action.terminal.scrollToBottom" data-osx="⌘End" data-win="Ctrl+End" data-linux="Shift+End"><span class="keybinding">⌘End</span> (Windows <span class="keybinding">Ctrl+End</span>, Linux <span class="keybinding">Shift+End</span>)</span></li>
+</ul>
+<p><strong>Command</strong> navigation is also available (see <a href="shell-integration.html">shell integration</a>):</p>
+<ul>
+<li>Scroll to the previous command - <span class="dynamic-keybinding" data-commandId="workbench.action.terminal.scrollToPreviousCommand" data-osx="⌘↑" data-win="Ctrl+Up" data-linux="Ctrl+Up"><span class="keybinding">⌘↑</span> (Windows, Linux <span class="keybinding">Ctrl+Up</span>)</span></li>
+<li>Scroll to the next command - <span class="dynamic-keybinding" data-commandId="workbench.action.terminal.scrollToNextCommand" data-osx="⌘↓" data-win="Ctrl+Down" data-linux="Ctrl+Down"><span class="keybinding">⌘↓</span> (Windows, Linux <span class="keybinding">Ctrl+Down</span>)</span></li>
+</ul>
+<p>Scrolling will happen instantaneously, but can be configured to animate over a short duration with the <code>terminal.integrated.smoothScrolling</code> setting.</p>
+<h2 id="_links" data-needslink="_links">Links</h2>
+<p>The terminal features sophisticated link detection with editor integration and even extension contributed link handlers. Links are activated by mousing over the link so an underline appears, then hold <span class="keybinding">Ctrl</span>/<span class="keybinding">Cmd</span> and click.</p>
+<p>There are several built-in link handlers that are used in the following priority order:</p>
+<ul>
+<li>
+<p>URIs/URLs: These are links that look like URIs, such as <code>https://code.visualstudio.com</code>. These will open the system browser at that location.</p>
+<p><img src="../../assets/docs/terminal/basics/link-uri.png" alt="Opening a URI link will open it in the system browser" loading="lazy"></p>
+</li>
+<li>
+<p>File links: These are links that we have verified represent files on the system. These will open the file in a new editor tab and support common line/column formats such as <code>file:1:2</code>, <code>file:line 1, column 2</code>.</p>
+<p><img src="../../assets/docs/terminal/basics/link-file.png" alt="Activating a file link will open it in an editor" loading="lazy"></p>
+</li>
+<li>
+<p>Folder links: These are similar to file links but will open a new VS Code window at the folder.</p>
+<p><img src="../../assets/docs/terminal/basics/link-folder.png" alt="Activating a folder link will open it in a new window" loading="lazy"></p>
+</li>
+<li>
+<p>Word links: This is the fallback link type and uses the <code>terminal.integrated.wordSeparators</code> setting to define word boundaries and make nearly all text into words. Activating a word link will search the workspace for the word, if there is a single result it will open, otherwise it will present the search results. Word links are considered &quot;low confidence&quot; and will not show an underline or tooltip unless <span class="keybinding">Ctrl</span>/<span class="keybinding">Cmd</span> is held. They also have limited support for line and column suffixes.</p>
+<p><img src="../../assets/docs/terminal/basics/link-word.png" alt="Activating a word link 'terminal:15' will open a Quick Pick searching the workspace for all files containing 'terminal', choosing an option will open the file at line 15" loading="lazy"></p>
+</li>
+</ul>
+<h3 id="_extensions-handling-links" data-needslink="_extensions-handling-links">Extensions handling links</h3>
+<p>Extensions can contribute <strong>link providers</strong> which allow the extension to define what happens when clicked. An example of this is the <a href="https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens" class="external-link" target="_blank">GitLens</a> extension detecting Git branch links.</p>
+<p><img src="../../assets/docs/terminal/basics/link-extension.png" alt="When GitLens is installed, hovering a branch name will provide custom behavior to open the branch in the UI" loading="lazy"></p>
+<h3 id="_keyboard-accessibility" data-needslink="_keyboard-accessibility">Keyboard accessibility</h3>
+<p>Links are keyboard accessible through several commands that open links based on the type of link. These commands do not have default keyboard shortcuts.</p>
+<ul>
+<li><strong>Terminal: Open Last Local File Link</strong> - Opens the most recent local file link.</li>
+<li><strong>Terminal: Open Last URL link</strong> - Opens the most recent URI/URL link.</li>
+<li><strong>Terminal: Open Detected Link...</strong> - Opens a searchable Quick Pick with all links (including word links).</li>
+</ul>
+<h2 id="_copy-paste" data-needslink="_copy-paste">Copy &amp; paste</h2>
+<p>The keybindings for copy and paste follow platform standards:</p>
+<ul>
+<li>Linux: <span class="keybinding">Ctrl+Shift+C</span> and <span class="keybinding">Ctrl+Shift+V</span>; selection paste is available with <span class="keybinding">Shift+Insert</span></li>
+<li>macOS: <span class="keybinding">Cmd+C</span> and <span class="keybinding">Cmd+V</span></li>
+<li>Windows: <span class="keybinding">Ctrl+C</span> and <span class="keybinding">Ctrl+V</span></li>
+</ul>
+<p>Copying is done automatically on selection when <code>terminal.integrated.copyOnSelection</code> is enabled.</p>
+<p>By default there is a warning when pasting multiple lines, which can be disabled with the <code>terminal.integrated.enableMultiLinePasteWarning</code> setting. This is only done when the shell does not support &quot;bracketed paste mode&quot;. When that mode is enabled, the shell is indicating that it can handle multiple line pasting.</p>
+<h2 id="_using-the-mouse" data-needslink="_using-the-mouse">Using the mouse</h2>
+<h3 id="_rightclick-behavior" data-needslink="_rightclick-behavior">Right-click behavior</h3>
+<p>The right-click behavior differs based on the platform:</p>
+<ul>
+<li>Linux: Show the context menu.</li>
+<li>macOS: Select the word under the cursor and show the context menu.</li>
+<li>Windows: Copy and drop selection if there is a selection, otherwise paste.</li>
+</ul>
+<p>This can be configured using the <code>terminal.integrated.rightClickBehavior</code> setting. The options are:</p>
+<ul>
+<li><code>default</code> - Show the context menu.</li>
+<li><code>copyPaste</code> - Copy when there is a selection, otherwise paste.</li>
+<li><code>paste</code> - Paste on right-click.</li>
+<li><code>selectWord</code> - Select the word under the cursor and show the context menu.</li>
+<li><code>nothing</code> - Do nothing and pass event to terminal.</li>
+</ul>
+<h3 id="_reposition-the-cursor-with-alt" data-needslink="_reposition-the-cursor-with-alt">Reposition the cursor with Alt</h3>
+<p><span class="keybinding">Alt</span> and left-click will reposition the cursor to underneath the mouse. This works by simulating arrow keystrokes, which may not work reliably for some shells or programs. This feature can be disabled with the <code>terminal.integrated.altClickMovesCursor</code> setting.</p>
+<h3 id="_mouse-events-mode" data-needslink="_mouse-events-mode">Mouse events mode</h3>
+<p>When applications running in the terminal turn on mouse events mode, such as Vim mouse mode, mouse interaction is sent to the application instead of the terminal. This means that clicking and dragging will no longer create a selection. Terminal selection can be forced by holding the <span class="keybinding">Alt</span> key on Windows and Linux, this can also be done with the <span class="keybinding">Option</span> key on macOS but requires enabling the <code>terminal.integrated.macOptionClickForcesSelection</code> setting first.</p>
+<h2 id="_find" data-needslink="_find">Find</h2>
+<p>The integrated terminal has find functionality that can be triggered with <span class="dynamic-keybinding" data-commandId="workbench.action.terminal.focusFind" data-osx="⌘F" data-win="Ctrl+F" data-linux="Ctrl+F"><span class="keybinding">⌘F</span> (Windows, Linux <span class="keybinding">Ctrl+F</span>)</span>.</p>
+<p><img src="../../assets/docs/terminal/basics/terminal-find.png" alt="Find in the terminal will highlight all text matching the query" loading="lazy"></p>
+<blockquote>
+<p><strong>Tip:</strong> <span class="keybinding">Ctrl+F</span> can be sent to the shell by removing the <code>workbench.action.terminal.focusFind</code> command from <a href="advanced.html#_keybinding-and-the-shell">commands to skip shell</a>.</p>
+</blockquote>
+<h2 id="_run-selected-text" data-needslink="_run-selected-text">Run selected text</h2>
+<p>To use the <code>runSelectedText</code> command, select text in an editor and run the command <strong>Terminal: Run Selected Text in Active Terminal</strong> via the <strong>Command Palette</strong> (<span class="dynamic-keybinding" data-commandId="workbench.action.showCommands" data-osx="⇧⌘P" data-win="Ctrl+Shift+P" data-linux="Ctrl+Shift+P"><span class="keybinding">⇧⌘P</span> (Windows, Linux <span class="keybinding">Ctrl+Shift+P</span>)</span>), the terminal will attempt to run the selected text. If no text is selected in the active editor, the entire line that the cursor is on will run in the terminal.</p>
+<blockquote>
+<p><strong>Tip:</strong> Also run the active file using the command <code>workbench.action.terminal.runActiveFile</code>.</p>
+</blockquote>
+<h2 id="_maximizing-the-terminal" data-needslink="_maximizing-the-terminal">Maximizing the terminal</h2>
+<p>The terminal view can be maximized by clicking the maximize panel size button with the upwards chevron icon. This will temporarily hide the editors and maximize the panel. This is useful to temporarily focus on a large amount of output. Some developers use VS Code as a standalone terminal by opening a new window, maximizing the panel, and hiding the side bar.</p>
+<h2 id="_select-all" data-needslink="_select-all">Select all</h2>
+<p>There is a <strong>Terminal: Select All</strong> command, which is bound to <span class="keybinding">Cmd+A</span> on macOS, but does not have a default keybinding on Windows and Linux as it may conflict with shell hotkeys. To use <span class="keybinding">Ctrl+A</span> to select all, add this custom keybinding:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #000000">{</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;key&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;ctrl+a&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;command&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;workbench.action.terminal.selectAll&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;when&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;terminalFocus &amp;&amp; !isMac&quot;</span></span>
+<span class="line"><span style="color: #000000">},</span></span>
+<span class="line"></span></code></pre>
+<h2 id="_drag-and-drop-file-paths" data-needslink="_drag-and-drop-file-paths">Drag and drop file paths</h2>
+<p>Dragging a file into the terminal will input the path into the terminal, with escaping to match the active shell.</p>
+<h2 id="_automating-terminals-with-tasks" data-needslink="_automating-terminals-with-tasks">Automating terminals with tasks</h2>
+<p>The <a href="../editor/tasks.html">Tasks</a> feature can be used to automate the launching of terminals, for example, the following <code>.vscode/tasks.json</code> file will launch a Command Prompt and PowerShell terminal in a single terminal group when the window starts:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #000000">{</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;version&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;2.0.0&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;presentation&quot;</span><span style="color: #000000">: {</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #0451A5">&quot;echo&quot;</span><span style="color: #000000">: </span><span style="color: #0000FF">false</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #0451A5">&quot;reveal&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;always&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #0451A5">&quot;focus&quot;</span><span style="color: #000000">: </span><span style="color: #0000FF">false</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #0451A5">&quot;panel&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;dedicated&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #0451A5">&quot;showReuseMessage&quot;</span><span style="color: #000000">: </span><span style="color: #0000FF">true</span></span>
+<span class="line"><span style="color: #000000">  },</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;tasks&quot;</span><span style="color: #000000">: [</span></span>
+<span class="line"><span style="color: #000000">    {</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #0451A5">&quot;label&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;Create terminals&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #0451A5">&quot;dependsOn&quot;</span><span style="color: #000000">: [</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #A31515">&quot;First&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #A31515">&quot;Second&quot;</span></span>
+<span class="line"><span style="color: #000000">      ],</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #008000">// Mark as the default build task so cmd/ctrl+shift+b will create them</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #0451A5">&quot;group&quot;</span><span style="color: #000000">: {</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #0451A5">&quot;kind&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;build&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #0451A5">&quot;isDefault&quot;</span><span style="color: #000000">: </span><span style="color: #0000FF">true</span></span>
+<span class="line"><span style="color: #000000">      },</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #008000">// Try start the task on folder open</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #0451A5">&quot;runOptions&quot;</span><span style="color: #000000">: {</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #0451A5">&quot;runOn&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;folderOpen&quot;</span></span>
+<span class="line"><span style="color: #000000">      }</span></span>
+<span class="line"><span style="color: #000000">    },</span></span>
+<span class="line"><span style="color: #000000">    {</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #008000">// The name that shows up in terminal tab</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #0451A5">&quot;label&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;First&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #008000">// The task will launch a shell</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #0451A5">&quot;type&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;shell&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #0451A5">&quot;command&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #008000">// Set the shell type</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #0451A5">&quot;options&quot;</span><span style="color: #000000">: {</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #0451A5">&quot;shell&quot;</span><span style="color: #000000">: {</span></span>
+<span class="line"><span style="color: #000000">          </span><span style="color: #0451A5">&quot;executable&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;cmd.exe&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">          </span><span style="color: #0451A5">&quot;args&quot;</span><span style="color: #000000">: []</span></span>
+<span class="line"><span style="color: #000000">        }</span></span>
+<span class="line"><span style="color: #000000">      },</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #008000">// Mark as a background task to avoid the spinner animation on the terminal tab</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #0451A5">&quot;isBackground&quot;</span><span style="color: #000000">: </span><span style="color: #0000FF">true</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #0451A5">&quot;problemMatcher&quot;</span><span style="color: #000000">: [],</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #008000">// Create the tasks in a terminal group</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #0451A5">&quot;presentation&quot;</span><span style="color: #000000">: {</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #0451A5">&quot;group&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;my-group&quot;</span></span>
+<span class="line"><span style="color: #000000">      }</span></span>
+<span class="line"><span style="color: #000000">    },</span></span>
+<span class="line"><span style="color: #000000">    {</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #0451A5">&quot;label&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;Second&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #0451A5">&quot;type&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;shell&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #0451A5">&quot;command&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #0451A5">&quot;options&quot;</span><span style="color: #000000">: {</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #0451A5">&quot;shell&quot;</span><span style="color: #000000">: {</span></span>
+<span class="line"><span style="color: #000000">          </span><span style="color: #0451A5">&quot;executable&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;pwsh.exe&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">          </span><span style="color: #0451A5">&quot;args&quot;</span><span style="color: #000000">: []</span></span>
+<span class="line"><span style="color: #000000">        }</span></span>
+<span class="line"><span style="color: #000000">      },</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #0451A5">&quot;isBackground&quot;</span><span style="color: #000000">: </span><span style="color: #0000FF">true</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #0451A5">&quot;problemMatcher&quot;</span><span style="color: #000000">: [],</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #0451A5">&quot;presentation&quot;</span><span style="color: #000000">: {</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #0451A5">&quot;group&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;my-group&quot;</span></span>
+<span class="line"><span style="color: #000000">      }</span></span>
+<span class="line"><span style="color: #000000">    }</span></span>
+<span class="line"><span style="color: #000000">  ]</span></span>
+<span class="line"><span style="color: #000000">}</span></span>
+<span class="line"></span></code></pre>
+<p>This file could be committed to the repository to share with other developers or created as a user task via the <code>workbench.action.tasks.openUserTasks</code> command.</p>
+<h2 id="_working-directory" data-needslink="_working-directory">Working directory</h2>
+<p>By default, the terminal will open at the folder that is opened in the Explorer. The <code>terminal.integrated.cwd</code> setting allows specifying a custom path to open instead:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #000000">{</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;terminal.integrated.cwd&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;/home/user&quot;</span></span>
+<span class="line"><span style="color: #000000">}</span></span>
+<span class="line"></span></code></pre>
+<p>Split terminals on Windows will start in the directory that the parent terminal started with. On macOS and Linux, split terminals will inherit the current working directory of the parent terminal. This behavior can be changed using the <code>terminal.integrated.splitCwd</code> setting:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #000000">{</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;terminal.integrated.splitCwd&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;workspaceRoot&quot;</span></span>
+<span class="line"><span style="color: #000000">}</span></span>
+<span class="line"></span></code></pre>
+<p>There are also extensions available that give more options such as <a href="https://marketplace.visualstudio.com/items?itemName=Tyriar.vscode-terminal-here" class="external-link" target="_blank">Terminal Here</a>.</p>
+<h2 id="_fixed-dimension-terminals" data-needslink="_fixed-dimension-terminals">Fixed dimension terminals</h2>
+<p>The <strong>Terminal: Set Fixed Dimensions</strong> command allows changing the number of columns and rows that the terminal and it's backing psuedoterminal uses. This will add scroll bars when necessary, which may lead to an unpleasant UX and is generally not recommended, but it is a common ask on Windows in particular for reading logs or long lines when paging tools aren't available.</p>
+<p>You can also right-click on a terminal tab and select <strong>Toggle Size to Content Width</strong> (<span class="dynamic-keybinding" data-commandId="workbench.action.terminal.sizeToContentWidth" data-osx="⌥Z" data-win="Alt+Z" data-linux="Alt+Z"><span class="keybinding">⌥Z</span> (Windows, Linux <span class="keybinding">Alt+Z</span>)</span>) to resize the number of terminal columns to the largest wrapped line in the terminal.</p>
+<h2 id="_next-steps" data-needslink="_next-steps">Next steps</h2>
+<p>The basics of the terminal have been covered in this document. Read on to find out more about:</p>
+<ul>
+<li><a href="../editor/tasks.html">Tasks</a> - Tasks let you integrate with external tools and leverage the terminal heavily.</li>
+<li><a href="https://www.growingwiththeweb.com/2017/03/mastering-vscodes-terminal.html" class="external-link" target="_blank">Mastering VS Code's Terminal</a> - An external blog with plenty of power user tips for the terminal.</li>
+<li>Explore terminal commands by browsing the keyboard shortcuts within VS Code (<strong>Preferences: Open Keyboard Shortcuts</strong> then search on 'terminal').</li>
+</ul>
+<h2 id="_common-questions" data-needslink="_common-questions">Common questions</h2>
+<h3 id="_im-having-problems-launching-the-terminal" data-needslink="_im-having-problems-launching-the-terminal">I'm having problems launching the terminal</h3>
+<p>There's a <a href="../supporting/troubleshoot-terminal-launch.html">dedicated troubleshooting guide</a> for these sorts of problems.</p>
+<h3 id="_why-is-nvm-complaining-about-a-prefix-option-when-the-integrated-terminal-is-launched" data-needslink="_why-is-nvm-complaining-about-a-prefix-option-when-the-integrated-terminal-is-launched">Why is nvm complaining about a prefix option when the integrated terminal is launched?</h3>
+<p>nvm (Node Version Manager) users often see this error for the first time inside VS Code's integrated terminal:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #000000">nvm is not compatible with the npm config </span><span style="color: #A31515">&quot;prefix&quot;</span><span style="color: #000000"> option: currently </span><span style="color: #795E26">set</span><span style="color: #000000"> to </span><span style="color: #A31515">&quot;/usr/local&quot;</span></span>
+<span class="line"><span style="color: #000000">Run </span><span style="color: #A31515">`npm config delete prefix`</span><span style="color: #000000"> or </span><span style="color: #A31515">`nvm use --delete-prefix v8.9.1 --silent`</span><span style="color: #000000"> to </span><span style="color: #795E26">unset</span><span style="color: #000000"> it</span></span>
+<span class="line"></span></code></pre>
+<p>This is mostly a macOS problem and does not happen in external terminals. The typical reasons for this are the following:</p>
+<ul>
+<li><code>npm</code> was globally installed using another instance of <code>node</code> that is somewhere in your path (such as <code>/usr/local/bin/npm</code>).</li>
+<li>To get the development tools on the <code>$PATH</code>, VS Code will launch a bash login shell on startup. This means that your <code>~/.bash_profile</code> has already run and when an integrated terminal launches, it will run <strong>another</strong> login shell, reordering the <code>$PATH</code> potentially in unexpected ways.</li>
+</ul>
+<p>To resolve this issue, you need to track down where the old <code>npm</code> is installed and remove both it and its out-of-date node_modules. Find the <code>nvm</code> initialization script and run <code>which npm</code> before it runs, which should print the path when you launch a new terminal.</p>
+<p>Once you have the path to npm, find the old node_modules by resolving the symlink by running a command something like this:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #000000">ls -la /usr/local/bin | grep </span><span style="color: #A31515">&quot;np[mx]&quot;</span></span>
+<span class="line"></span></code></pre>
+<p>This will give you the resolved path at the end:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #000000">... npm -&gt; ../lib/node_modules/npm/bin/npm-cli.js</span></span>
+<span class="line"><span style="color: #000000">... npx -&gt; ../lib/node_modules/npm/bin/npx-cli.js</span></span>
+<span class="line"></span></code></pre>
+<p>From there, removing the files and relaunching VS Code should fix the issue:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #000000">rm /usr/local/bin/npm /usr/local/lib/node_modules/npm/bin/npm-cli.js</span></span>
+<span class="line"><span style="color: #000000">rm /usr/local/bin/npx /usr/local/lib/node_modules/npm/bin/npx-cli.js</span></span>
+<span class="line"></span></code></pre>
+<h3 id="_why-does-macos-make-a-ding-sound-when-i-resize-terminal-split-panes" data-needslink="_why-does-macos-make-a-ding-sound-when-i-resize-terminal-split-panes">Why does macOS make a ding sound when I resize terminal split panes?</h3>
+<p>The keybindings ⌃⌘← and ⌃⌘→ are the defaults for resizing individual split panes in the terminal. While they work, they also cause a system &quot;invalid key&quot; sound to play due to an issue in Chromium. The <a href="https://github.com/microsoft/vscode/issues/44070#issuecomment-799716362" class="external-link" target="_blank">recommended workaround</a> is to tell macOS to no-op for these keybindings by running this in your terminal:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #000000">mkdir -p ~/Library/KeyBindings</span></span>
+<span class="line"><span style="color: #000000">cat &gt; ~/Library/KeyBindings/DefaultKeyBinding.dict </span><span style="color: #000000">&lt;&lt;</span><span style="color: #AF00DB">EOF</span></span>
+<span class="line"><span style="color: #A31515">{</span></span>
+<span class="line"><span style="color: #A31515">  &quot;^@\UF701&quot; = &quot;noop&quot;;</span></span>
+<span class="line"><span style="color: #A31515">  &quot;^@\UF702&quot; = &quot;noop&quot;;</span></span>
+<span class="line"><span style="color: #A31515">  &quot;^@\UF703&quot; = &quot;noop&quot;;</span></span>
+<span class="line"><span style="color: #A31515">}</span></span>
+<span class="line"><span style="color: #AF00DB">EOF</span></span>
+<span class="line"></span></code></pre>
+<h3 id="_im-having-problems-with-the-terminal-rendering-what-can-i-do" data-needslink="_im-having-problems-with-the-terminal-rendering-what-can-i-do">I'm having problems with the terminal rendering. What can I do?</h3>
+<p>By default, the integrated terminal will render using GPU acceleration on most machines. Typically when there are rendering problems it's an issue of something in your hardware/OS/drivers not playing nicely with the GPU renderer. The first thing to try is to disable GPU acceleration, trading off rendering speed for DOM-based rendering, which is more reliable:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #000000">{</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;terminal.integrated.gpuAcceleration&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;off&quot;</span></span>
+<span class="line"><span style="color: #000000">}</span></span>
+<span class="line"></span></code></pre>
+<p>See the <a href="appearance.html#_gpu-acceleration">GPU acceleration</a> section for more information.</p>
+<h3 id="_i-see-1-or-201-when-i-paste-something" data-needslink="_i-see-1-or-201-when-i-paste-something">I see <code>1~</code> or <code>[201~</code> when I paste something</h3>
+<p>This normally means that the program/shell running inside the terminal requested to turn on &quot;bracketed paste mode&quot; but something doesn't support it properly. To work around this, you could run <code>printf &quot;\e[?2004l&quot;</code> to disable it for that session or add the following to your <code>~/.inputrc</code> file:</p>
+<pre class="shiki"><code>set enable-bracketed-paste off
+</code></pre>
+<h3 id="_ctrla-ctrlr-output-a-r-on-zsh" data-needslink="_ctrla-ctrlr-output-a-r-on-zsh">Ctrl+A, Ctrl+R output ^A, ^R on zsh</h3>
+<p>This can happen if zsh is in Vim mode instead of Emacs mode, due to setting <code>$EDITOR</code> or <code>$VISUAL</code> to <code>vi</code>/<code>vim</code> in your init scripts.</p>
+<p>To work around this, you have two options:</p>
+<ul>
+<li>Ensure that you don't set <code>$EDITOR</code> to <code>vi(m)</code>. However, this isn't an option if you want your Git editor to work.</li>
+<li>Add <code>bindkey -e</code> to your init script to set Emacs explicitly.</li>
+</ul>
+<h3 id="_how-can-i-configure-cmd-to-map-to-ctrlc-like-macos-builtin-terminal" data-needslink="_how-can-i-configure-cmd-to-map-to-ctrlc-like-macos-builtin-terminal">How can I configure Cmd+. to map to Ctrl+C like macOS' built-in terminal?</h3>
+<p>The macOS default terminal uses <span class="keybinding">Cmd+.</span> to perform the same as <span class="keybinding">Ctrl+C</span>. To get this behavior in VS Code, add this <a href="../getstarted/keybindings.html">custom keybinding</a>:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #000000">{</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;key&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;cmd+.&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;command&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;workbench.action.terminal.sendSequence&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;when&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;terminalFocus&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;args&quot;</span><span style="color: #000000">: { </span><span style="color: #0451A5">&quot;text&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;</span><span style="color: #EE0000">\u0003</span><span style="color: #A31515">&quot;</span><span style="color: #000000"> }</span></span>
+<span class="line"><span style="color: #000000">}</span></span>
+<span class="line"></span></code></pre>
+<h3 id="_why-are-the-colors-in-the-terminal-not-correct" data-needslink="_why-are-the-colors-in-the-terminal-not-correct">Why are the colors in the terminal not correct?</h3>
+<p>One of our accessibility features we enable by default is to ensure a minimum contrast ratio of at least 4.5 is met for the foreground text. This feature ensures that text is readable regardless of the shell and theme used which is not possible otherwise. To disable this feature, you can set:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #A31515">&quot;terminal.integrated.minimumContrastRatio&quot;</span><span style="color: #000000">: </span><span style="color: #098658">1</span></span>
+<span class="line"></span></code></pre>
+<p>See the <a href="appearance.html#_minimum-contrast-ratio">minimum contrast ratio</a> section for more information.</p>
+
+            <div class="feedback"></div>
+            
+            <div class="body-footer">12/7/2022</div>
+            
+        </div>
+        <div class="col-sm-3 col-md-2 docs-subnavbar-container">
+            <nav id="docs-subnavbar" aria-label="On Page" data-spy="affix" data-offset-top="20">
+                
+                <h4><span class="sr-only">In this article there are 17 sections</span><span
+                        aria-hidden="true">In this article</span></h4>
+                <ul class="nav">
+                    
+                    <li><a href="#_terminal-shells">Terminal shells</a></li>
+                    
+                    <li><a href="#_managing-terminals">Managing terminals</a></li>
+                    
+                    <li><a href="#_terminals-in-editor-area">Terminals in editor area</a></li>
+                    
+                    <li><a href="#_navigating-the-buffer">Navigating the buffer</a></li>
+                    
+                    <li><a href="#_links">Links</a></li>
+                    
+                    <li><a href="#_copy-paste">Copy & paste</a></li>
+                    
+                    <li><a href="#_using-the-mouse">Using the mouse</a></li>
+                    
+                    <li><a href="#_find">Find</a></li>
+                    
+                    <li><a href="#_run-selected-text">Run selected text</a></li>
+                    
+                    <li><a href="#_maximizing-the-terminal">Maximizing the terminal</a></li>
+                    
+                    <li><a href="#_select-all">Select all</a></li>
+                    
+                    <li><a href="#_drag-and-drop-file-paths">Drag and drop file paths</a></li>
+                    
+                    <li><a href="#_automating-terminals-with-tasks">Automating terminals with tasks</a></li>
+                    
+                    <li><a href="#_working-directory">Working directory</a></li>
+                    
+                    <li><a href="#_fixed-dimension-terminals">Fixed dimension terminals</a></li>
+                    
+                    <li><a href="#_next-steps">Next steps</a></li>
+                    
+                    <li><a href="#_common-questions">Common questions</a></li>
+                    
+                </ul>
+                
+                <div class="connect-widget"></div>
+            </nav>
+        </div>
+    </div>
+</div>
+      </div>
+  </div>
+
+  <footer role="contentinfo">
+      <div class="container">
+          <div class="row">
+              <div class="left col-md-7">
+                  <ul class="links">
+                      <li>
+                          <span class="message">Hello from Seattle.</span>
+                      </li>
+                      <li>
+                          <a href="https://go.microsoft.com/fwlink/?LinkID=533687" onclick="followOnTwitter()" tabindex="0">Follow @code</a>
+                      </li>
+                      <li>
+                          <div class="github-star-button">
+                              <iframe src="../../assets/github-button29be.html?user=Microsoft&amp;repo=vscode&amp;type=star&amp;count=true"
+                                  frameborder="0" scrolling="0" width="130px" height="20px" title="GitHub follow button" loading="lazy"></iframe>
+                          </div>
+                      </li>
+  
+                      <script>
+                          function followOnTwitter() {
+                              var windowFeatures = "location=yes,height=600,width=550,scrollbars=yes,status=yes";
+                              var originalReferer = "&original_referer=" + document.URL;
+                              var screenName = "&screen_name=code";
+                              var URL = "https://twitter.com/intent/follow?" + originalReferer + screenName;
+                              window.open(URL, "_blank", windowFeatures);
+                          }
+  
+                          function manageConsent() {
+                              if(WcpConsent.siteConsent.isConsentRequired){
+                                  WcpConsent.siteConsent.manageConsent();
+                              }
+                          }
+                      </script>
+                  </ul>
+              </div>
+              <div class="right col-md-5">
+                  <ul class="links">
+                      <li><a id="footer-support-link" href="https://support.serviceshub.microsoft.com/supportforbusiness/create?sapId=d66407ed-3967-b000-4cfb-2c318cad363d"
+                              target="_blank">Support</a></li>
+                      <li><a id="footer-privacy-link" href="https://privacy.microsoft.com/privacystatement"
+                              target="_blank">Privacy</a></li>
+                      <li style="display: none;"><a id="footer-cookie-link" style="cursor: pointer;" onclick="manageConsent()"
+                              target="_blank">Manage Cookies</a></li>
+                      <li><a id="footer-terms-link" href="https://www.microsoft.com/legal/terms-of-use"
+                              target="_blank">Terms of Use</a></li>
+                      <li><a id="footer-license-link" href="../../License.html">License</a></li>
+                  </ul>
+                  <div class="copyright">
+                      <a id="footer-microsoft-link" class="logo" href="https://www.microsoft.com/">
+                          <img class="microsoft-logo" src="../../assets/images/microsoft-logo.png" height="20" alt="Microsoft homepage"/>
+                          <img class="microsoft-logo-inverted" src="../../assets/images/microsoft-logo-inverted.png" height="20" alt="Microsoft homepage" />
+                      </a>
+                      <span>&copy; 2023 Microsoft</span>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </footer>
+  <script src="../../dist/index.js"></script>
+
+  
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "SoftwareApplication",
+      "name" : "Visual Studio Code",
+      "softwareVersion": "1.74",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "applicationCategory": "DeveloperApplication",
+      "applicationSubCategory": "Text Editor",
+      "alternateName": "VS Code",
+      "datePublished": "2021-11-03",
+      "operatingSystem": "Mac, Linux, Windows",
+      "logo": "https://code.visualstudio.com/assets/apple-touch-icon.png",
+      "screenshot": "https://code.visualstudio.com/assets/home/home-screenshot-win.png",
+      "releaseNotes": "https://code.visualstudio.com/updates",
+      "downloadUrl": "https://code.visualstudio.com/download",
+      "license": "https://code.visualstudio.com/license",
+      "softwareRequirements": "https://code.visualstudio.com/docs/supporting/requirements",
+      "url" : "https://code.visualstudio.com",
+      "author": {
+        "@type": "Organization",
+        "name": "Microsoft"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Microsoft"
+      },
+      "maintainer": {
+        "@type": "Organization",
+        "name": "Microsoft"
+      },
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://code.visualstudio.com/Search?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      },
+      "sameAs" : [
+        "https://en.wikipedia.org/wiki/Visual_Studio_Code",
+        "https://twitter.com/code",
+        "https://www.youtube.com/code",
+        "https://www.tiktok.com/@vscode",
+        "https://github.com/microsoft/vscode"
+      ]
+    }
+  </script>
+</body>
+
+<!-- Mirrored from code.visualstudio.com/docs/terminal/basics by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 04 Jan 2023 10:02:31 GMT -->
+</html>

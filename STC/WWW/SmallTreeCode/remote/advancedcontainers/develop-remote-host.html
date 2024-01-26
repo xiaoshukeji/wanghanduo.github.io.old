@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Mirrored from code.visualstudio.com/remote/advancedcontainers/develop-remote-host by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 04 Jan 2023 12:15:03 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="google-site-verification" content="hNs7DXrTySP_X-0P_AC0WulAXvUwgSXEmgfcO2r79dw" />
+
+  <!-- Twitter and Facebook OpenGraph Metadata-->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@code" />
+
+  <meta name="description" content="Develop a container on a remote Docker host" />
+<meta name="keywords" content="" />
+<!-- Twitter and Facebook OpenGraph Metadata-->
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="og:url" content="develop-remote-host.html" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Develop a container on a remote Docker host" />
+<meta property="og:description" content="Develop a container on a remote Docker host" />
+
+<meta property="og:image" content="../../opengraphimg/opengraph-blog.png" />
+
+
+
+  <link rel="shortcut icon" href="../../favicon.ico" sizes="128x128" />
+  <link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+
+  <title>Develop a container on a remote Docker host</title>
+
+  <link rel="stylesheet" href="../../vendor/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../../dist/style.css">
+
+  <script type="text/javascript" src="../../../js.monitor.azure.com/scripts/c/ms.analytics-web-3.min.js"></script>
+  <script>
+  window.appInsights = new oneDS.ApplicationInsights();
+  window.appInsights.initialize({
+    instrumentationKey: "1a3eb3104447440391ad5f2a6ee06a0a-62879566-bc58-4741-9650-302bf2af703f-7103",
+    webAnalyticsConfiguration:{ // Web Analytics Plugin configuration
+        urlCollectQuery:true, 
+        autoCapture: {
+          scroll: true,
+          pageView: true,
+          onLoad: true,
+          onUnload: true,
+          click: true,
+          resize: true,
+          jsError: true
+        }
+    }
+  }, []);
+  </script>
+  
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','../../../www.google-analytics.com/analytics.js','ga');
+  </script>  
+  <link rel="alternate" type="application/atom+xml" title="RSS Feed for code.visualstudio.com" href="../../feed.xml" />
+</head>
+
+<body>
+  <!-- EU Cookie Compliance JS -->
+  <script src="../../../wcpstatic.microsoft.com/mscc/lib/v2/wcp-consent.js"></script>
+
+  <div id="main">
+          <div class="navbar-fixed-container">
+              <div class="navbar navbar-inverse navbar-fixed-top ">
+                  <div id='cookie-banner'></div>        <nav role="navigation" aria-label="Top Level">
+                      <div class="container">
+                          <div class="nav navbar-header">
+                              <a role="button" id="skip-to-content" class="link-button" href="#main-content">Skip to content<i>&nbsp;</i><span class="glyphicon glyphicon-menu-down"></span></a>
+                              <a class="navbar-brand" id="navbar-brand" href="../../index.html">Visual Studio Code</a>
+                              <button type="button" class="navbar-toggle" role="navigation" data-toggle="collapse" data-target=".navbar-collapse" aria-label="Toggle Navigation Menu">
+                                  <span class="icon-bar"></span>
+                                  <span class="icon-bar"></span>
+                                  <span class="icon-bar"></span>
+                              </button>
+                          </div>
+                          <div class="navbar-collapse collapse" role="navigation">
+                              <ul class="nav navbar-nav navbar-left">
+                                  <li ><a id="nav-docs" href="../../docs.html">Docs</a></li>
+                                  <li ><a id="nav-updates" href="../../updates/v1_74.html">Updates</a></li>
+                                  <li ><a id="nav-blogs" href="../../blogs.html">Blog</a></li>
+                                  <li ><a id="nav-extend" href="../../api.html">API</a></li>
+                                  <li><a href="https://marketplace.visualstudio.com/VSCode" target="_blank" id="nav-extensions">Extensions</a></li>
+                                  <li ><a id="nav-faqs" href="../../docs/supporting/faq.html">FAQ</a></li>
+                                  <li ><a id="nav-learn" href="../../learn.html">Learn</a></li>
+                                  <li class='search visible-xs visible-sm'
+                                      ><a href="../../Search.html">Search</a></li>
+                              </ul>
+          
+                              <ul class="nav navbar-nav navbar-right" role="presentation">
+                                  <!-- Floating search icon -->
+                                  <li>
+                                      <a href="../../Search.html" title="Search" class="btn search-btn" id="nav-search">
+                                          <img class="search-icon" src="../../assets/icons/search.svg" width="16px" height="16px" alt="Search"/>
+                                          <img class="search-icon-inverted" src="../../assets/icons/search_dark.svg" width="16px" height="16px" alt="Search" />
+                                      </a>
+                                  </li>
+                                  <!-- Actual search icon -->
+                                  <li class="search" role="presentation">
+                                      <form class="nav-search search-form" role="search" aria-label="Search">
+                                          <div class="input-group" role="presentation">
+                                              <input type="text" name="q" class="search-box form-control" placeholder="Search Docs" aria-label="Search text"/>
+                                              <span class="input-group-btn">
+                                                  <button tabindex="0" class="btn" type="submit" aria-label="Search">
+                                                          <img class="search-icon" src="../../assets/icons/search.svg" width="16px" height="16px" alt="Search" />
+                                                          <img class="search-icon-inverted" src="../../assets/icons/search_dark.svg" width="16px" height="16px" alt="Search" />
+                                                  </button>
+                                              </span>
+                                          </div>
+                                      </form>                        </li>
+                                  <!-- this was hiden in the home and download page, keeping it for now -->
+                                  <li><a class="link-button" href="../../Download.html" id="nav-download">
+                                      <img class="download-icon" src="../../assets/icons/download.svg" width="16px" height="16px" alt="Download VS Code"/>
+                                      <img class="download-icon-inverted" src="../../assets/icons/download-black.svg" width="16px" height="16px" alt="Download VS Code" />
+                                      <span>Download</span>
+                                  </a></li>
+                              </ul>
+                          </div>
+                      </div>
+                  </nav>
+              </div>
+          </div>          <div class="updates-banner  ">
+              <div class="container">
+                  <p class="message"><a href="../../updates/v1_74.html" id="banner-link-updates">Version 1.74</a> is now available! Read about the new features and fixes from November.</p> 
+              </div>
+              <div tabindex="0" role="button" title="Dismiss this update" class="dismiss-btn" id="banner-dismiss-btn"><span class="sr-only">Dismiss this update</span><span aria-hidden="true" class="glyph-icon"></span></div>
+          </div>      <div role="main" id="main-content">
+        <script>
+    function closeReportIssue() {
+        var element = document.getElementById('surveypopup');
+        element.parentElement.removeChild(element);
+    }
+
+    function reportIssue(tutorial, page) {
+        var div = document.createElement('div');
+        div.innerHTML = '<div id="surveypopup" class="overlay visible"><div class="surveypopup"><div id="surveytitle">Tell us more<a href="javascript:void(0)" onclick="closeReportIssue()">X</a></div><div id="surveydiv"><iframe frameBorder="0" scrolling="0" src="https://www.research.net/r/PWZWZ52?tutorial=' + tutorial + '&step=' + page + '"></iframe></div></div></div>';
+        document.body.appendChild(div.children[0]);
+    }
+</script>
+
+<div class="container body-content docs tutorial">
+    <div class="row">
+        <div class="col-md-2 docs-navbar-container">
+            <nav id="docs-navbar" class="docs-nav visible-md visible-lg">
+            	<ul class="nav" id="main-nav">
+            		<li ><a class="docs-home" href="../../docs/devcontainers/containers.html">Back to Dev Containers</a></li>
+            		
+            			
+            				<li class="panel active expanded">
+            					<a class="area" role="button" href="#advancedcontainers-articles" data-parent="#main-nav" data-toggle="collapse">advanced containers</a>
+            					<ul id="advancedcontainers-articles" class="collapse in">
+            					
+            						<li ><a href="overview.html">Overview</a></li>
+            					
+            						<li ><a href="environment-variables.html">Environment variables</a></li>
+            					
+            						<li ><a href="start-processes.html">Start processes</a></li>
+            					
+            						<li ><a href="add-local-file-mount.html">Add local file mount</a></li>
+            					
+            						<li ><a href="persist-bash-history.html">Persist bash history</a></li>
+            					
+            						<li ><a href="change-default-source-mount.html">Change default mount</a></li>
+            					
+            						<li ><a href="improve-performance.html">Improve performance</a></li>
+            					
+            						<li ><a href="avoid-extension-reinstalls.html">Avoid extension reinstalls</a></li>
+            					
+            						<li ><a href="add-nonroot-user.html">Add non-root user</a></li>
+            					
+            						<li ><a href="set-docker-compose-project-name.html">Set Docker Compose project name</a></li>
+            					
+            						<li ><a href="use-docker-kubernetes.html">Use Docker or Kubernetes</a></li>
+            					
+            						<li ><a href="connect-multiple-containers.html">Connect to multiple containers</a></li>
+            					
+            						<li ><a href="configure-separate-containers.html">Configure separate containers</a></li>
+            					
+            						<li class="active"><a href="develop-remote-host.html">Develop on a remote Docker host</a></li>
+            					
+            						<li ><a href="reduce-docker-warnings.html">Reduce Docker warnings</a></li>
+            					
+            						<li ><a href="docker-options.html">Docker options</a></li>
+            					
+            						<li ><a href="questions-feedback.html">Questions or feedback</a></li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            	</ul>
+            </nav>
+            <nav id="small-nav" class="docs-nav hidden-md hidden-lg">
+            	<h4>Remote</h4>
+            	<select id="small-nav-dropdown" aria-label="remote">
+            		
+            			
+            				<optgroup label="advanced containers">
+            				
+            					<option value="/remote/advancedcontainers/overview" >Overview</option>
+            				
+            					<option value="/remote/advancedcontainers/environment-variables" >Environment variables</option>
+            				
+            					<option value="/remote/advancedcontainers/start-processes" >Start processes</option>
+            				
+            					<option value="/remote/advancedcontainers/add-local-file-mount" >Add local file mount</option>
+            				
+            					<option value="/remote/advancedcontainers/persist-bash-history" >Persist bash history</option>
+            				
+            					<option value="/remote/advancedcontainers/change-default-source-mount" >Change default mount</option>
+            				
+            					<option value="/remote/advancedcontainers/improve-performance" >Improve performance</option>
+            				
+            					<option value="/remote/advancedcontainers/avoid-extension-reinstalls" >Avoid extension reinstalls</option>
+            				
+            					<option value="/remote/advancedcontainers/add-nonroot-user" >Add non-root user</option>
+            				
+            					<option value="/remote/advancedcontainers/set-docker-compose-project-name" >Set Docker Compose project name</option>
+            				
+            					<option value="/remote/advancedcontainers/use-docker-kubernetes" >Use Docker or Kubernetes</option>
+            				
+            					<option value="/remote/advancedcontainers/connect-multiple-containers" >Connect to multiple containers</option>
+            				
+            					<option value="/remote/advancedcontainers/configure-separate-containers" >Configure separate containers</option>
+            				
+            					<option value="/remote/advancedcontainers/develop-remote-host" selected>Develop on a remote Docker host</option>
+            				
+            					<option value="/remote/advancedcontainers/reduce-docker-warnings" >Reduce Docker warnings</option>
+            				
+            					<option value="/remote/advancedcontainers/docker-options" >Docker options</option>
+            				
+            					<option value="/remote/advancedcontainers/questions-feedback" >Questions or feedback</option>
+            				
+            				</optgroup>
+            			
+            		
+            	</select>
+            </nav>        </div>
+        <div class="col-sm-9 col-md-8 body">
+            <h1>Develop on a remote Docker host</h1>
+<p>Sometimes you may want to use the Dev Containers extension to develop inside a container that sits on a remote server. Docker does <strong>not</strong> support mounting (binding) your local filesystem into a remote dev container, so Visual Studio Code's default <code>devcontainer.json</code> behavior to use your local source code will not work. While this is the default behavior, in this section we will cover connecting to a remote host so that you can either <a href="../../docs/remote/ssh.html">use the Remote - SSH extension</a> to open a folder on a remote host in a container, <a href="../../docs/devcontainers/attach-container.html">attach to any running container</a>, or use a <strong>local</strong> <code>devcontainer.json</code> file as a way to configure, create, and connect to a remote dev container using a socket.</p>
+<h2 id="_connect-using-the-remote-ssh-extension-recommended" data-needslink="_connect-using-the-remote-ssh-extension-recommended">Connect using the Remote - SSH extension (recommended)</h2>
+<p>If you are using a Linux or macOS SSH host, you can use the <a href="../../docs/remote/ssh.html">Remote - SSH</a> and Dev Containers extensions together. You do not even need to have a Docker client installed locally. To do so:</p>
+<ol>
+<li>Follow the <a href="../../docs/remote/ssh.html#_installation">installation</a> and SSH <a href="../../docs/remote/ssh.html#_ssh-host-setup">host setup</a> steps for the Remote - SSH extension.</li>
+<li><strong>Optional:</strong> Set up SSH <a href="../../docs/remote/troubleshooting.html#_configuring-key-based-authentication">key based authentication</a> to the server so you do not need to enter your password multiple times.</li>
+<li><a href="../../docs/devcontainers/containers.html#installation">Install Docker</a> on your SSH host. You do not need to install Docker locally.</li>
+<li>Follow the <a href="../../docs/remote/ssh.html#_connect-to-a-remote-host">quick start</a> for the Remote - SSH extension to connect to a host and open a folder there.</li>
+<li>Use the <strong>Dev Containers: Reopen in Container</strong> command from the Command Palette (<span class="keybinding">F1</span>, <span class="dynamic-keybinding" data-commandId="workbench.action.showCommands" data-osx="⇧⌘P" data-win="Ctrl+Shift+P" data-linux="Ctrl+Shift+P"><span class="keybinding">⇧⌘P</span> (Windows, Linux <span class="keybinding">Ctrl+Shift+P</span>)</span>).</li>
+</ol>
+<p>The rest of the Dev Containers quick start applies as-is. You can learn more about the <a href="../../docs/remote/ssh.html">Remote - SSH extension in its documentation</a>.</p>
+<h2 id="_connect-using-the-docker-cli" data-needslink="_connect-using-the-docker-cli">Connect using the Docker CLI</h2>
+<p>This model only requires that a Docker Engine be running on a remote host that your local Docker CLI can connect to. While using the Remote - SSH extension is easier and doesn't require the Docker CLI to even be installed locally, this model can be useful for situations where you already have a host you are connecting to from the command line. This approach is also useful if you are looking to attach to already running containers on this remote server.</p>
+<h3 id="_a-basic-remote-example" data-needslink="_a-basic-remote-example">A basic remote example</h3>
+<p>Setting up VS Code to attach to a container on a remote Docker host can be as easy as setting the <a href="https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-docker" class="external-link" target="_blank">Docker extension</a> <code>docker.environment</code> property in <code>settings.json</code> and restarting VS Code (or reloading the window).</p>
+<p>For example:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #A31515">&quot;docker.environment&quot;</span><span style="color: #000000">: {</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #0451A5">&quot;DOCKER_HOST&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;ssh://your-remote-user@your-remote-machine-fqdn-or-ip-here&quot;</span></span>
+<span class="line"><span style="color: #000000">}</span></span>
+<span class="line"></span></code></pre>
+<p>Using SSH requires a <a href="../../docs/remote/troubleshooting.html#_installing-a-supported-ssh-client">supported SSH client</a>, that you have <a href="../../docs/remote/troubleshooting.html#_configuring-key-based-authentication">key based authentication</a> configured for the remote host, and that the <strong>key is imported into your local SSH agent</strong>. See the article on <a href="../../docs/devcontainers/containers.html#_using-ssh-keys">using SSH Keys with Git</a> for details on configuring the agent and adding your key.</p>
+<p>At this point, you can <a href="../../docs/devcontainers/attach-container.html">attach</a> to containers on the remote host. We'll cover more on information on how you can connect using <a href="#_connect-using-vs-code-settings-or-local-environment-variables">settings and environment variables</a> or <a href="#_connect-using-docker-contexts">Docker contexts</a> later in this section.</p>
+<p>For <code>devcontainer.json</code>, there is one additional step: You'll need to update any configured (or auto-configured) bind mounts so they no longer point to the local filesystem.</p>
+<p>There's two variations of this setup. The first is to <strong>create your remote dev container first</strong>, and then <strong>clone your source code into a named volume</strong> since this does not require you to have direct access to the filesystem on the remote host.</p>
+<p>Here is a basic <code>devcontainer.json</code> example of this setup:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #000000">{</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;image&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;node&quot;</span><span style="color: #000000">, </span><span style="color: #008000">// Or &quot;dockerFile&quot;</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;workspaceFolder&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;/workspace&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;workspaceMount&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;source=remote-workspace,target=/workspace,type=volume&quot;</span></span>
+<span class="line"><span style="color: #000000">}</span></span>
+<span class="line"></span></code></pre>
+<p>In fact, the <strong>Dev Containers: Clone Repository in Container Volume...</strong> command in the Command Palette (<span class="keybinding">F1</span>) uses this same technique. If you already have a <code>devcontainer.json</code> file in a GitHub repository that references an image or Dockerfile, the command will automatically use a named volume instead of a bind mount - which also works with remote hosts.</p>
+<p>The second approach is to <strong>bind mount a folder on the remote machine</strong> into your container. This requires you to have access to the remote filesystem, but also allows you to work with <strong>existing source code</strong> on the remote machine.</p>
+<p>Update the <code>workspaceMount</code> property in the example above to use this model instead:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #A31515">&quot;workspaceMount&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;source=/absolute/path/on/remote/machine,target=/workspace,type=bind,consistency=cached&quot;</span></span>
+<span class="line"></span></code></pre>
+<p>In either case, to try it out, run <strong>Dev Containers: Open Folder in Container...</strong>, and select the local folder with the <code>.devcontainer.json</code> file in it.</p>
+<p>See <a href="#_converting-an-existing-or-predefined-devcontainerjson">Converting an existing or pre-defined devcontainer.json</a> for information on other scenarios like Docker Compose.</p>
+<h2 id="_connect-using-vs-code-settings-or-local-environment-variables" data-needslink="_connect-using-vs-code-settings-or-local-environment-variables">Connect using VS Code settings or local environment variables</h2>
+<p>If you already have a remote Docker host up and running, you can use the following properties in your workspace or user <code>settings.json</code> to specify the host.</p>
+<h3 id="_ssh-protocol" data-needslink="_ssh-protocol">SSH protocol</h3>
+<p>Recent versions of Docker (18.06+) have added support for the SSH protocol to connect to remote Docker Host. This is easy to configure as you only need to set one property in <code>settings.json</code> to use it.</p>
+<p>First, install a <a href="../../docs/remote/troubleshooting.html#_installing-a-supported-ssh-client">supported SSH client</a>, configure <a href="../../docs/remote/troubleshooting.html#_configuring-key-based-authentication">key based authentication</a>), and then <strong>import your key into your local SSH agent</strong> (which often is not running by default on Windows and Linux). See the article on <a href="../../docs/devcontainers/containers.html#_using-ssh-keys">using SSH Keys with Git</a> for details on configuring the agent and adding the key.</p>
+<p>Then, add the following <a href="https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-docker" class="external-link" target="_blank">Docker extension</a> <code>docker.environment</code> property to <code>settings.json</code> (replacing values as appropriate):</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #A31515">&quot;docker.environment&quot;</span><span style="color: #000000">: {</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #0451A5">&quot;DOCKER_HOST&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;ssh://your-remote-user@your-remote-machine-fqdn-or-ip-here&quot;</span></span>
+<span class="line"><span style="color: #000000">}</span></span>
+<span class="line"></span></code></pre>
+<p>After restarting VS Code (or reloading the window), you will now be able to <a href="../../docs/devcontainers/attach-container.html">attach to any running container</a> on the remote host. You can also <a href="#_converting-an-existing-or-predefined-devcontainerjson">use specialized, local <code>devcontainer.json</code> files to create / connect to a remote dev container</a>.</p>
+<blockquote>
+<p><strong>Tip:</strong> If this is not working for you but you are able to connect to the host using SSH from the command line, be sure you have the <a href="../../docs/devcontainers/containers.html#_using-ssh-keys">SSH agent running with your authentication key</a>. If all else fails, you can use <a href="../../docs/devcontainers/tips-and-tricks.html#_using-an-ssh-tunnel-to-connect-to-a-remote-docker-host">an SSH tunnel as a fallback</a> instead.</p>
+</blockquote>
+<h3 id="_using-the-tcp-protocol" data-needslink="_using-the-tcp-protocol">Using the TCP protocol</h3>
+<p>While the SSH protocol has its own built-in authorization mechanism, using the TCP protocol often requires setting other <a href="https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-docker" class="external-link" target="_blank">Docker extension</a> properties. These are:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #A31515">&quot;docker.environment&quot;</span><span style="color: #000000">: {</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #0451A5">&quot;DOCKER_HOST&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;tcp://your-remote-machine-fqdn-or-ip-here:port&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #0451A5">&quot;DOCKER_CERT_PATH&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;/optional/path/to/folder/with/certificate/files&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #0451A5">&quot;DOCKER_TLS_VERIFY&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;1&quot;</span><span style="color: #000000"> </span><span style="color: #008000">// or &quot;0&quot;</span></span>
+<span class="line"><span style="color: #000000">}</span></span>
+<span class="line"></span></code></pre>
+<p>As with SSH, restart VS Code (or reload the window) for the settings to take effect.</p>
+<h3 id="_using-environment-variables-instead-of-settingsjson" data-needslink="_using-environment-variables-instead-of-settingsjson">Using environment variables instead of settings.json</h3>
+<p>If you'd prefer not to use <code>settings.json</code>, you can set <strong>environment variables</strong> in a terminal instead. The steps to do so are:</p>
+<ol>
+<li>Shut down <strong>all instances</strong> of VS Code.</li>
+<li>Ensure VS Code is in your operating system <code>PATH</code>.</li>
+<li>Set the environment variables (for example <code>DOCKER_HOST</code>) in a terminal / command prompt.</li>
+<li>Type <code>code</code> in this same terminal / command prompt to launch VS Code with the variables set.</li>
+</ol>
+<h2 id="_connect-using-docker-contexts" data-needslink="_connect-using-docker-contexts">Connect using Docker Contexts</h2>
+<p><a href="https://docs.docker.com/engine/context/working-with-contexts/" class="external-link" target="_blank">Docker Contexts</a> allow you to interact with different hosts - you can set up contexts for each host and switch between them.</p>
+<p>You create new contexts with <code>docker context create</code>. The current context can be changed using <code>docker context use &lt;context&gt;</code>.</p>
+<p>The <a href="https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-docker" class="external-link" target="_blank">Docker extension</a> comes with the <code>docker.environment</code> setting where environment variables like <code>DOCKER_HOST</code> or <code>DOCKER_CONTEXT</code> can be set that are also honored by the Dev Containers extension.</p>
+<blockquote>
+<p><strong>Note:</strong> The above settings are only visible when the Docker extension is installed. Without the Docker extension, Dev Containers will use the current context.</p>
+</blockquote>
+<h2 id="_converting-an-existing-or-predefined-devcontainerjson" data-needslink="_converting-an-existing-or-predefined-devcontainerjson">Converting an existing or pre-defined devcontainer.json</h2>
+<p>To convert an existing or pre-defined, local <code>devcontainer.json</code> into a remote one, follow these steps:</p>
+<ol>
+<li>
+<p>Open a <strong>local</strong> folder in VS Code (not a remote one) where you want to convert the file.</p>
+</li>
+<li>
+<p>If you did not select a folder with a <code>devcontainer.json</code> in it, you can pick a pre-defined one by running <strong>Dev Containers: Add Container Configuration File...</strong> from the Command Palette (<span class="keybinding">F1</span>).</p>
+</li>
+<li>
+<p>Follow these steps based on what your <code>.devcontainer/devcontainer.json</code> or <code>.devcontainer.json</code> references to alter the source code mount:</p>
+<p><strong>Dockerfile or image</strong>:</p>
+<p>If you do <strong>not</strong> have login access to the remote host, use a Docker &quot;volume&quot; for your source code. Update <code>.devcontainer/devcontainer.json</code> as follows (replacing <code>remote-workspace</code> with a unique volume name if desired):</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #A31515">&quot;workspaceMount&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;source=remote-workspace,target=/workspace,type=volume&quot;</span></span>
+<span class="line"><span style="color: #A31515">&quot;workspaceFolder&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;/workspace&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"></span></code></pre>
+<p>If you <strong>do</strong> have login access, you can use a remote filesystem bind mount instead:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #A31515">&quot;workspaceMount&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;source=/absolute/path/on/remote/machine,target=/workspace,type=bind,consistency=cached&quot;</span></span>
+<span class="line"><span style="color: #A31515">&quot;workspaceFolder&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;/workspace&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"></span></code></pre>
+<p>The <code>workspaceMount</code> property supports the same values as the <a href="https://docs.docker.com/engine/reference/commandline/run/#add-bind-mounts-or-volumes-using-the---mount-flag" class="external-link" target="_blank">Docker CLI <code>--mount</code> flag</a> if you have a different scenario in mind.</p>
+<p><strong>Docker Compose</strong>:</p>
+<p>If you do <strong>not</strong> have login access to the remote host, update (or <a href="../../docs/devcontainers/create-dev-container.html#_extend-your-docker-compose-file-for-development">extend</a>) your <code>docker-compose.yml</code>. Replace  <code>your-service-name-here</code> with the value specified for the <code>&quot;service&quot;</code> property in <code>devcontainer.json</code> and appropriate and <code>remote-workspace</code> with a unique volume name:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #800000">version</span><span style="color: #000000">: </span><span style="color: #0000FF">&#39;3&#39;</span></span>
+<span class="line"><span style="color: #800000">services</span><span style="color: #000000">:</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #800000">your-service-name-here</span><span style="color: #000000">:</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #800000">volumes</span><span style="color: #000000">:</span></span>
+<span class="line"><span style="color: #000000">        - </span><span style="color: #0000FF">remote-workspace:/workspace</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #008000"># ...</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #800000">volumes</span><span style="color: #000000">:</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #800000">remote-workspace</span><span style="color: #000000">:</span></span>
+<span class="line"></span></code></pre>
+<p>If you <strong>do</strong> have login access, you can use a remote filesystem bind mount instead:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #800000">version</span><span style="color: #000000">: </span><span style="color: #0000FF">&#39;3&#39;</span></span>
+<span class="line"><span style="color: #800000">services</span><span style="color: #000000">:</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #800000">your-service-name-here</span><span style="color: #000000">:</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #800000">volumes</span><span style="color: #000000">:</span></span>
+<span class="line"><span style="color: #000000">      - </span><span style="color: #0000FF">/absolute/path/on/remote/machine:/workspace:cached</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #008000"># ...</span></span>
+<span class="line"></span></code></pre>
+<p>See the <a href="https://docs.docker.com/compose/compose-file/#volumes" class="external-link" target="_blank">Docker Compose documentation on <code>volumes</code></a> if you need to support a different scenario.</p>
+</li>
+<li>
+<p>Run the <strong>Dev Containers: Reopen in Container</strong> command from the Command Palette (<span class="keybinding">F1</span>) or <strong>Dev Containers: Rebuild Container</strong>.</p>
+</li>
+<li>
+<p>If you used a volume instead of a bind mount, use <span class="dynamic-keybinding" data-commandId="workbench.action.terminal.new" data-osx="⌃⇧`" data-win="Ctrl+Shift+`" data-linux="Ctrl+Shift+`"><span class="keybinding">⌃⇧`</span> (Windows, Linux <span class="keybinding">Ctrl+Shift+`</span>)</span> to open a terminal inside the container. You can run <code>git clone</code> from here to pull down your source code and use <strong>File &gt; Open... / Open Folder...</strong> to open the cloned repository.</p>
+</li>
+</ol>
+<p>Next time you want to connect to this same container, run <strong>Dev Containers: Open Folder in Container...</strong> and select the same local folder in a VS Code window.</p>
+<h2 id="_optional-making-the-remote-source-code-available-locally" data-needslink="_optional-making-the-remote-source-code-available-locally">Optional: Making the remote source code available locally</h2>
+<p>If you store your source code on the remote host's filesystem instead of inside a Docker volume, there are several ways you can access the files locally:</p>
+<ol>
+<li><a href="../../docs/remote/troubleshooting.html#_using-sshfs-to-access-files-on-your-remote-host">Mount the remote filesystem using SSHFS</a>.</li>
+<li><a href="../../docs/remote/troubleshooting.html#_using-rsync-to-maintain-a-local-copy-of-your-source-code">Sync files from the remote host to your local machine using <code>rsync</code></a>.</li>
+<li><a href="https://docs.docker.com/machine/reference/mount/" class="external-link" target="_blank">Use the mount command</a> if you are using <a href="https://docs.docker.com/machine/" class="external-link" target="_blank">Docker Machine</a>.</li>
+</ol>
+<p>Using SSHFS or Docker Machine's mount command are the more convenient options and do not require any file sync'ing. However, performance will be significantly slower than working through VS Code, so they are best used for single file edits and uploading/downloading content. If you need to use an application that bulk reads/write to many files at once (like a local source control tool), rsync is a better choice.</p>
+
+            <div class="feedback"></div>
+            
+            <div class="body-footer">12/7/2022</div>
+            
+        </div>
+        <div class="col-sm-3 col-md-2 docs-subnavbar-container">
+            <nav id="docs-subnavbar" aria-label="On Page Navigation" data-spy="affix" data-offset-top="20">
+                
+                <h4><span class="sr-only">In this article, there are 6
+                        sections</span><span aria-hidden="true">In this article</span></h4>
+                
+                <ul class="nav">
+                    
+                    <li><a href="#_connect-using-the-remote-ssh-extension-recommended">Connect using the Remote - SSH extension (recommended)</a></li>
+                    
+                    <li><a href="#_connect-using-the-docker-cli">Connect using the Docker CLI</a></li>
+                    
+                    <li><a href="#_connect-using-vs-code-settings-or-local-environment-variables">Connect using VS Code settings or local environment variables</a></li>
+                    
+                    <li><a href="#_connect-using-docker-contexts">Connect using Docker Contexts</a></li>
+                    
+                    <li><a href="#_converting-an-existing-or-predefined-devcontainerjson">Converting an existing or pre-defined devcontainer.json</a></li>
+                    
+                    <li><a href="#_optional-making-the-remote-source-code-available-locally">Optional: Making the remote source code available locally</a></li>
+                    
+                </ul>
+                <div class="connect-widget"></div>
+            </nav>
+        </div>
+    </div>
+</div>
+      </div>
+  </div>
+
+  <footer role="contentinfo">
+      <div class="container">
+          <div class="row">
+              <div class="left col-md-7">
+                  <ul class="links">
+                      <li>
+                          <span class="message">Hello from Seattle.</span>
+                      </li>
+                      <li>
+                          <a href="https://go.microsoft.com/fwlink/?LinkID=533687" onclick="followOnTwitter()" tabindex="0">Follow @code</a>
+                      </li>
+                      <li>
+                          <div class="github-star-button">
+                              <iframe src="../../assets/github-button29be.html?user=Microsoft&amp;repo=vscode&amp;type=star&amp;count=true"
+                                  frameborder="0" scrolling="0" width="130px" height="20px" title="GitHub follow button" loading="lazy"></iframe>
+                          </div>
+                      </li>
+  
+                      <script>
+                          function followOnTwitter() {
+                              var windowFeatures = "location=yes,height=600,width=550,scrollbars=yes,status=yes";
+                              var originalReferer = "&original_referer=" + document.URL;
+                              var screenName = "&screen_name=code";
+                              var URL = "https://twitter.com/intent/follow?" + originalReferer + screenName;
+                              window.open(URL, "_blank", windowFeatures);
+                          }
+  
+                          function manageConsent() {
+                              if(WcpConsent.siteConsent.isConsentRequired){
+                                  WcpConsent.siteConsent.manageConsent();
+                              }
+                          }
+                      </script>
+                  </ul>
+              </div>
+              <div class="right col-md-5">
+                  <ul class="links">
+                      <li><a id="footer-support-link" href="https://support.serviceshub.microsoft.com/supportforbusiness/create?sapId=d66407ed-3967-b000-4cfb-2c318cad363d"
+                              target="_blank">Support</a></li>
+                      <li><a id="footer-privacy-link" href="https://privacy.microsoft.com/privacystatement"
+                              target="_blank">Privacy</a></li>
+                      <li style="display: none;"><a id="footer-cookie-link" style="cursor: pointer;" onclick="manageConsent()"
+                              target="_blank">Manage Cookies</a></li>
+                      <li><a id="footer-terms-link" href="https://www.microsoft.com/legal/terms-of-use"
+                              target="_blank">Terms of Use</a></li>
+                      <li><a id="footer-license-link" href="../../License.html">License</a></li>
+                  </ul>
+                  <div class="copyright">
+                      <a id="footer-microsoft-link" class="logo" href="https://www.microsoft.com/">
+                          <img class="microsoft-logo" src="../../assets/images/microsoft-logo.png" height="20" alt="Microsoft homepage"/>
+                          <img class="microsoft-logo-inverted" src="../../assets/images/microsoft-logo-inverted.png" height="20" alt="Microsoft homepage" />
+                      </a>
+                      <span>&copy; 2023 Microsoft</span>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </footer>
+  <script src="../../dist/index.js"></script>
+
+  
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "SoftwareApplication",
+      "name" : "Visual Studio Code",
+      "softwareVersion": "1.74",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "applicationCategory": "DeveloperApplication",
+      "applicationSubCategory": "Text Editor",
+      "alternateName": "VS Code",
+      "datePublished": "2021-11-03",
+      "operatingSystem": "Mac, Linux, Windows",
+      "logo": "https://code.visualstudio.com/assets/apple-touch-icon.png",
+      "screenshot": "https://code.visualstudio.com/assets/home/home-screenshot-win.png",
+      "releaseNotes": "https://code.visualstudio.com/updates",
+      "downloadUrl": "https://code.visualstudio.com/download",
+      "license": "https://code.visualstudio.com/license",
+      "softwareRequirements": "https://code.visualstudio.com/docs/supporting/requirements",
+      "url" : "https://code.visualstudio.com",
+      "author": {
+        "@type": "Organization",
+        "name": "Microsoft"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Microsoft"
+      },
+      "maintainer": {
+        "@type": "Organization",
+        "name": "Microsoft"
+      },
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://code.visualstudio.com/Search?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      },
+      "sameAs" : [
+        "https://en.wikipedia.org/wiki/Visual_Studio_Code",
+        "https://twitter.com/code",
+        "https://www.youtube.com/code",
+        "https://www.tiktok.com/@vscode",
+        "https://github.com/microsoft/vscode"
+      ]
+    }
+  </script>
+</body>
+
+<!-- Mirrored from code.visualstudio.com/remote/advancedcontainers/develop-remote-host by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 04 Jan 2023 12:15:03 GMT -->
+</html>

@@ -1,0 +1,1603 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Mirrored from code.visualstudio.com/api/language-extensions/programmatic-language-features by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 04 Jan 2023 11:27:07 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="google-site-verification" content="hNs7DXrTySP_X-0P_AC0WulAXvUwgSXEmgfcO2r79dw" />
+
+  <!-- Twitter and Facebook OpenGraph Metadata-->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@code" />
+
+  <meta name="keywords" content="vscode API" />
+
+<meta name="description" content="Visual Studio Code language extensions contribute programming language features. These guidelines present the language features available in Visual Studio Code and explain the API." />
+
+<meta name="ms.prod" content="vs-code" />
+<meta name="ms.TOCTitle" content="Programmatic Language Features" />
+<meta name="ms.ContentId" content="A9D40038-7837-4320-8C2D-E0CA5769AA69" />
+<meta name="ms.topic" content="conceptual" />
+<meta name="ms.date" content="12/7/2022" />
+<!-- Twitter and Facebook OpenGraph Metadata-->
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="og:url" content="programmatic-language-features.html" />
+
+<meta property="og:description" content="Visual Studio Code language extensions contribute programming language features. These guidelines present the language features available in Visual Studio Code and explain the API." />
+
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Programmatic Language Features" />
+<meta property="og:image" content="../../opengraphimg/opengraph-docs.png" />
+
+
+  <link rel="shortcut icon" href="../../favicon.ico" sizes="128x128" />
+  <link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+
+  <title>Programmatic Language Features | Visual Studio Code Extension
+API</title>
+
+  <link rel="stylesheet" href="../../vendor/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../../dist/style.css">
+
+  <script type="text/javascript" src="../../../js.monitor.azure.com/scripts/c/ms.analytics-web-3.min.js"></script>
+  <script>
+  window.appInsights = new oneDS.ApplicationInsights();
+  window.appInsights.initialize({
+    instrumentationKey: "1a3eb3104447440391ad5f2a6ee06a0a-62879566-bc58-4741-9650-302bf2af703f-7103",
+    webAnalyticsConfiguration:{ // Web Analytics Plugin configuration
+        urlCollectQuery:true, 
+        autoCapture: {
+          scroll: true,
+          pageView: true,
+          onLoad: true,
+          onUnload: true,
+          click: true,
+          resize: true,
+          jsError: true
+        }
+    }
+  }, []);
+  </script>
+  
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','../../../www.google-analytics.com/analytics.js','ga');
+  </script>  
+  <link rel="alternate" type="application/atom+xml" title="RSS Feed for code.visualstudio.com" href="../../feed.xml" />
+</head>
+
+<body>
+  <!-- EU Cookie Compliance JS -->
+  <script src="../../../wcpstatic.microsoft.com/mscc/lib/v2/wcp-consent.js"></script>
+
+  <div id="main">
+          <div class="navbar-fixed-container">
+              <div class="navbar navbar-inverse navbar-fixed-top ">
+                  <div id='cookie-banner'></div>        <nav role="navigation" aria-label="Top Level">
+                      <div class="container">
+                          <div class="nav navbar-header">
+                              <a role="button" id="skip-to-content" class="link-button" href="#main-content">Skip to content<i>&nbsp;</i><span class="glyphicon glyphicon-menu-down"></span></a>
+                              <a class="navbar-brand" id="navbar-brand" href="../../index.html">Visual Studio Code</a>
+                              <button type="button" class="navbar-toggle" role="navigation" data-toggle="collapse" data-target=".navbar-collapse" aria-label="Toggle Navigation Menu">
+                                  <span class="icon-bar"></span>
+                                  <span class="icon-bar"></span>
+                                  <span class="icon-bar"></span>
+                              </button>
+                          </div>
+                          <div class="navbar-collapse collapse" role="navigation">
+                              <ul class="nav navbar-nav navbar-left">
+                                  <li ><a id="nav-docs" href="../../docs.html">Docs</a></li>
+                                  <li ><a id="nav-updates" href="../../updates/v1_74.html">Updates</a></li>
+                                  <li ><a id="nav-blogs" href="../../blogs.html">Blog</a></li>
+                                  <li class="active" ><a id="nav-extend" href="../../api.html">API</a></li>
+                                  <li><a href="https://marketplace.visualstudio.com/VSCode" target="_blank" id="nav-extensions">Extensions</a></li>
+                                  <li ><a id="nav-faqs" href="../../docs/supporting/faq.html">FAQ</a></li>
+                                  <li ><a id="nav-learn" href="../../learn.html">Learn</a></li>
+                                  <li class='search visible-xs visible-sm'
+                                      ><a href="../../Search.html">Search</a></li>
+                              </ul>
+          
+                              <ul class="nav navbar-nav navbar-right" role="presentation">
+                                  <!-- Floating search icon -->
+                                  <li>
+                                      <a href="../../Search.html" title="Search" class="btn search-btn" id="nav-search">
+                                          <img class="search-icon" src="../../assets/icons/search.svg" width="16px" height="16px" alt="Search"/>
+                                          <img class="search-icon-inverted" src="../../assets/icons/search_dark.svg" width="16px" height="16px" alt="Search" />
+                                      </a>
+                                  </li>
+                                  <!-- Actual search icon -->
+                                  <li class="search" role="presentation">
+                                      <form class="nav-search search-form" role="search" aria-label="Search">
+                                          <div class="input-group" role="presentation">
+                                              <input type="text" name="q" class="search-box form-control" placeholder="Search Docs" aria-label="Search text"/>
+                                              <span class="input-group-btn">
+                                                  <button tabindex="0" class="btn" type="submit" aria-label="Search">
+                                                          <img class="search-icon" src="../../assets/icons/search.svg" width="16px" height="16px" alt="Search" />
+                                                          <img class="search-icon-inverted" src="../../assets/icons/search_dark.svg" width="16px" height="16px" alt="Search" />
+                                                  </button>
+                                              </span>
+                                          </div>
+                                      </form>                        </li>
+                                  <!-- this was hiden in the home and download page, keeping it for now -->
+                                  <li><a class="link-button" href="../../Download.html" id="nav-download">
+                                      <img class="download-icon" src="../../assets/icons/download.svg" width="16px" height="16px" alt="Download VS Code"/>
+                                      <img class="download-icon-inverted" src="../../assets/icons/download-black.svg" width="16px" height="16px" alt="Download VS Code" />
+                                      <span>Download</span>
+                                  </a></li>
+                              </ul>
+                          </div>
+                      </div>
+                  </nav>
+              </div>
+          </div>          <div class="updates-banner  ">
+              <div class="container">
+                  <p class="message"><a href="../../updates/v1_74.html" id="banner-link-updates">Version 1.74</a> is now available! Read about the new features and fixes from November.</p> 
+              </div>
+              <div tabindex="0" role="button" title="Dismiss this update" class="dismiss-btn" id="banner-dismiss-btn"><span class="sr-only">Dismiss this update</span><span aria-hidden="true" class="glyph-icon"></span></div>
+          </div>      <div role="main" id="main-content">
+        <div class="container body-content docs">
+	<div class="row">
+		<div class="col-md-2 docs-navbar-container">
+			<nav id="docs-navbar" class="docs-nav visible-md visible-lg">
+			  <ul class="nav" id="main-nav">
+			  <li >
+			    <a class="docs-home" href="../../api.html" >Overview</a>
+			  </li>
+			  
+			<li class="panel collapsed">
+			  <a class="area" role="button" href="#get-started-articles" data-parent="#main-nav" data-toggle="collapse">Get Started</a>
+			  <ul id="get-started-articles" class="collapse ">
+			
+			    <li >
+			      <a href="../get-started/your-first-extension.html" >Your First Extension</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../get-started/extension-anatomy.html" >Extension Anatomy</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../get-started/wrapping-up.html" >Wrapping Up</a>
+			    </li>
+			      
+			  </ul>
+			</li>
+			    
+			<li class="panel collapsed">
+			  <a class="area" role="button" href="#extension-capabilities-articles" data-parent="#main-nav" data-toggle="collapse">Extension Capabilities</a>
+			  <ul id="extension-capabilities-articles" class="collapse ">
+			
+			    <li >
+			      <a href="../extension-capabilities/overview.html" >Overview</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../extension-capabilities/common-capabilities.html" >Common Capabilities</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../extension-capabilities/theming.html" >Theming</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../extension-capabilities/extending-workbench.html" >Extending Workbench</a>
+			    </li>
+			      
+			  </ul>
+			</li>
+			    
+			<li class="panel collapsed">
+			  <a class="area" role="button" href="#extension-guides-articles" data-parent="#main-nav" data-toggle="collapse">Extension Guides</a>
+			  <ul id="extension-guides-articles" class="collapse ">
+			
+			    <li >
+			      <a href="../extension-guides/overview.html" >Overview</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../extension-guides/command.html" >Command</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../extension-guides/color-theme.html" >Color Theme</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../extension-guides/file-icon-theme.html" >File Icon Theme</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../extension-guides/product-icon-theme.html" >Product Icon Theme</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../extension-guides/tree-view.html" >Tree View</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../extension-guides/webview.html" >Webview</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../extension-guides/notebook.html" >Notebook</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../extension-guides/custom-editors.html" >Custom Editors</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../extension-guides/virtual-documents.html" >Virtual Documents</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../extension-guides/virtual-workspaces.html" >Virtual Workspaces</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../extension-guides/web-extensions.html" >Web Extensions</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../extension-guides/workspace-trust.html" >Workspace Trust</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../extension-guides/task-provider.html" >Task Provider</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../extension-guides/scm-provider.html" >Source Control</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../extension-guides/debugger-extension.html" >Debugger Extension</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../extension-guides/markdown-extension.html" >Markdown Extension</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../extension-guides/testing.html" >Test Extension</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../extension-guides/custom-data-extension.html" >Custom Data Extension</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../extension-guides/telemetry.html" >Telemetry</a>
+			    </li>
+			      
+			  </ul>
+			</li>
+			    
+			<li class="panel collapsed">
+			  <a class="area" role="button" href="#ux-guidelines-articles" data-parent="#main-nav" data-toggle="collapse">UX Guidelines</a>
+			  <ul id="ux-guidelines-articles" class="collapse ">
+			
+			    <li >
+			      <a href="../ux-guidelines/overview.html" >Overview</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../ux-guidelines/activity-bar.html" >Activity Bar</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../ux-guidelines/sidebars.html" >Sidebars</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../ux-guidelines/panel.html" >Panel</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../ux-guidelines/status-bar.html" >Status Bar</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../ux-guidelines/views.html" >Views</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../ux-guidelines/editor-actions.html" >Editor Actions</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../ux-guidelines/quick-picks.html" >Quick Picks</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../ux-guidelines/command-palette.html" >Command Palette</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../ux-guidelines/notifications.html" >Notifications</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../ux-guidelines/webviews.html" >Webviews</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../ux-guidelines/context-menus.html" >Context Menus</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../ux-guidelines/walkthroughs.html" >Walkthroughs</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../ux-guidelines/settings.html" >Settings</a>
+			    </li>
+			      
+			  </ul>
+			</li>
+			    
+			<li class="panel active expanded">
+			  <a class="area" role="button" href="#language-extensions-articles" data-parent="#main-nav" data-toggle="collapse">Language Extensions</a>
+			  <ul id="language-extensions-articles" class="collapse in">
+			
+			    <li >
+			      <a href="overview.html" >Overview</a>
+			    </li>
+			      
+			    <li >
+			      <a href="syntax-highlight-guide.html" >Syntax Highlight Guide</a>
+			    </li>
+			      
+			    <li >
+			      <a href="semantic-highlight-guide.html" >Semantic Highlight Guide</a>
+			    </li>
+			      
+			    <li >
+			      <a href="snippet-guide.html" >Snippet Guide</a>
+			    </li>
+			      
+			    <li >
+			      <a href="language-configuration-guide.html" >Language Configuration Guide</a>
+			    </li>
+			      
+			    <li class="active">
+			      <a href="programmatic-language-features.html" aria-label="Current Page: Programmatic Language Features">Programmatic Language Features</a>
+			    </li>
+			      
+			    <li >
+			      <a href="language-server-extension-guide.html" >Language Server Extension Guide</a>
+			    </li>
+			      
+			    <li >
+			      <a href="embedded-languages.html" >Embedded Languages</a>
+			    </li>
+			      
+			  </ul>
+			</li>
+			    
+			<li class="panel collapsed">
+			  <a class="area" role="button" href="#working-with-extensions-articles" data-parent="#main-nav" data-toggle="collapse">Testing and Publishing</a>
+			  <ul id="working-with-extensions-articles" class="collapse ">
+			
+			    <li >
+			      <a href="../working-with-extensions/testing-extension.html" >Testing Extensions</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../working-with-extensions/publishing-extension.html" >Publishing Extensions</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../working-with-extensions/bundling-extension.html" >Bundling Extensions</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../working-with-extensions/continuous-integration.html" >Continuous Integration</a>
+			    </li>
+			      
+			  </ul>
+			</li>
+			    
+			<li class="panel collapsed">
+			  <a class="area" role="button" href="#advanced-topics-articles" data-parent="#main-nav" data-toggle="collapse">Advanced Topics</a>
+			  <ul id="advanced-topics-articles" class="collapse ">
+			
+			    <li >
+			      <a href="../advanced-topics/extension-host.html" >Extension Host</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../advanced-topics/remote-extensions.html" >Remote Development and Codespaces</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../advanced-topics/using-proposed-api.html" >Using Proposed API</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../advanced-topics/tslint-eslint-migration.html" >Migrate from TSLint to ESLint</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../advanced-topics/python-extension-template.html" >Python Extension Template</a>
+			    </li>
+			      
+			  </ul>
+			</li>
+			    
+			<li class="panel collapsed">
+			  <a class="area" role="button" href="#references-articles" data-parent="#main-nav" data-toggle="collapse">References</a>
+			  <ul id="references-articles" class="collapse ">
+			
+			    <li >
+			      <a href="../references/vscode-api.html" >VS Code API </a>
+			    </li>
+			      
+			    <li >
+			      <a href="../references/contribution-points.html" >Contribution Points</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../references/activation-events.html" >Activation Events</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../references/extension-manifest.html" >Extension Manifest</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../references/commands.html" >Built-in Commands</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../references/when-clause-contexts.html" >When clause contexts</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../references/theme-color.html" >Theme Color</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../references/icons-in-labels.html" >Product Icon Reference</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../references/document-selector.html" >Document Selector</a>
+			    </li>
+			      
+			  </ul>
+			</li>
+			    
+			  </ul>
+			</nav>
+			
+			<nav id="small-nav" aria-label="Topics" class="docs-nav hidden-md hidden-lg">
+				<h4>Topics</h4>
+				<select id="small-nav-dropdown" aria-label="topics">
+			    <option value="/api" >Overview</option>
+			
+			  <optgroup label="Get Started">
+			
+			    <option value="/api/get-started/your-first-extension" >Your First Extension</option>
+			    
+			    <option value="/api/get-started/extension-anatomy" >Extension Anatomy</option>
+			    
+			    <option value="/api/get-started/wrapping-up" >Wrapping Up</option>
+			    
+			  </optgroup>
+			  
+			  <optgroup label="Extension Capabilities">
+			
+			    <option value="/api/extension-capabilities/overview" >Overview</option>
+			    
+			    <option value="/api/extension-capabilities/common-capabilities" >Common Capabilities</option>
+			    
+			    <option value="/api/extension-capabilities/theming" >Theming</option>
+			    
+			    <option value="/api/extension-capabilities/extending-workbench" >Extending Workbench</option>
+			    
+			  </optgroup>
+			  
+			  <optgroup label="Extension Guides">
+			
+			    <option value="/api/extension-guides/overview" >Overview</option>
+			    
+			    <option value="/api/extension-guides/command" >Command</option>
+			    
+			    <option value="/api/extension-guides/color-theme" >Color Theme</option>
+			    
+			    <option value="/api/extension-guides/file-icon-theme" >File Icon Theme</option>
+			    
+			    <option value="/api/extension-guides/product-icon-theme" >Product Icon Theme</option>
+			    
+			    <option value="/api/extension-guides/tree-view" >Tree View</option>
+			    
+			    <option value="/api/extension-guides/webview" >Webview</option>
+			    
+			    <option value="/api/extension-guides/notebook" >Notebook</option>
+			    
+			    <option value="/api/extension-guides/custom-editors" >Custom Editors</option>
+			    
+			    <option value="/api/extension-guides/virtual-documents" >Virtual Documents</option>
+			    
+			    <option value="/api/extension-guides/virtual-workspaces" >Virtual Workspaces</option>
+			    
+			    <option value="/api/extension-guides/web-extensions" >Web Extensions</option>
+			    
+			    <option value="/api/extension-guides/workspace-trust" >Workspace Trust</option>
+			    
+			    <option value="/api/extension-guides/task-provider" >Task Provider</option>
+			    
+			    <option value="/api/extension-guides/scm-provider" >Source Control</option>
+			    
+			    <option value="/api/extension-guides/debugger-extension" >Debugger Extension</option>
+			    
+			    <option value="/api/extension-guides/markdown-extension" >Markdown Extension</option>
+			    
+			    <option value="/api/extension-guides/testing" >Test Extension</option>
+			    
+			    <option value="/api/extension-guides/custom-data-extension" >Custom Data Extension</option>
+			    
+			    <option value="/api/extension-guides/telemetry" >Telemetry</option>
+			    
+			  </optgroup>
+			  
+			  <optgroup label="UX Guidelines">
+			
+			    <option value="/api/ux-guidelines/overview" >Overview</option>
+			    
+			    <option value="/api/ux-guidelines/activity-bar" >Activity Bar</option>
+			    
+			    <option value="/api/ux-guidelines/sidebars" >Sidebars</option>
+			    
+			    <option value="/api/ux-guidelines/panel" >Panel</option>
+			    
+			    <option value="/api/ux-guidelines/status-bar" >Status Bar</option>
+			    
+			    <option value="/api/ux-guidelines/views" >Views</option>
+			    
+			    <option value="/api/ux-guidelines/editor-actions" >Editor Actions</option>
+			    
+			    <option value="/api/ux-guidelines/quick-picks" >Quick Picks</option>
+			    
+			    <option value="/api/ux-guidelines/command-palette" >Command Palette</option>
+			    
+			    <option value="/api/ux-guidelines/notifications" >Notifications</option>
+			    
+			    <option value="/api/ux-guidelines/webviews" >Webviews</option>
+			    
+			    <option value="/api/ux-guidelines/context-menus" >Context Menus</option>
+			    
+			    <option value="/api/ux-guidelines/walkthroughs" >Walkthroughs</option>
+			    
+			    <option value="/api/ux-guidelines/settings" >Settings</option>
+			    
+			  </optgroup>
+			  
+			  <optgroup label="Language Extensions">
+			
+			    <option value="/api/language-extensions/overview" >Overview</option>
+			    
+			    <option value="/api/language-extensions/syntax-highlight-guide" >Syntax Highlight Guide</option>
+			    
+			    <option value="/api/language-extensions/semantic-highlight-guide" >Semantic Highlight Guide</option>
+			    
+			    <option value="/api/language-extensions/snippet-guide" >Snippet Guide</option>
+			    
+			    <option value="/api/language-extensions/language-configuration-guide" >Language Configuration Guide</option>
+			    
+			    <option value="/api/language-extensions/programmatic-language-features" selected>Programmatic Language Features</option>
+			    
+			    <option value="/api/language-extensions/language-server-extension-guide" >Language Server Extension Guide</option>
+			    
+			    <option value="/api/language-extensions/embedded-languages" >Embedded Languages</option>
+			    
+			  </optgroup>
+			  
+			  <optgroup label="Testing and Publishing">
+			
+			    <option value="/api/working-with-extensions/testing-extension" >Testing Extensions</option>
+			    
+			    <option value="/api/working-with-extensions/publishing-extension" >Publishing Extensions</option>
+			    
+			    <option value="/api/working-with-extensions/bundling-extension" >Bundling Extensions</option>
+			    
+			    <option value="/api/working-with-extensions/continuous-integration" >Continuous Integration</option>
+			    
+			  </optgroup>
+			  
+			  <optgroup label="Advanced Topics">
+			
+			    <option value="/api/advanced-topics/extension-host" >Extension Host</option>
+			    
+			    <option value="/api/advanced-topics/remote-extensions" >Remote Development and Codespaces</option>
+			    
+			    <option value="/api/advanced-topics/using-proposed-api" >Using Proposed API</option>
+			    
+			    <option value="/api/advanced-topics/tslint-eslint-migration" >Migrate from TSLint to ESLint</option>
+			    
+			    <option value="/api/advanced-topics/python-extension-template" >Python Extension Template</option>
+			    
+			  </optgroup>
+			  
+			  <optgroup label="References">
+			
+			    <option value="/api/references/vscode-api" >VS Code API </option>
+			    
+			    <option value="/api/references/contribution-points" >Contribution Points</option>
+			    
+			    <option value="/api/references/activation-events" >Activation Events</option>
+			    
+			    <option value="/api/references/extension-manifest" >Extension Manifest</option>
+			    
+			    <option value="/api/references/commands" >Built-in Commands</option>
+			    
+			    <option value="/api/references/when-clause-contexts" >When clause contexts</option>
+			    
+			    <option value="/api/references/theme-color" >Theme Color</option>
+			    
+			    <option value="/api/references/icons-in-labels" >Product Icon Reference</option>
+			    
+			    <option value="/api/references/document-selector" >Document Selector</option>
+			    
+			  </optgroup>
+			  
+				</select>
+			</nav>		</div>
+		<div class="col-sm-9 col-md-8 body">
+			<div class="edit-github pull-right">
+				<a href="https://vscode.dev/github/microsoft/vscode-docs/blob/main/api/language-extensions/programmatic-language-features.md"
+					class="btn btn-default" title="Edit this document in vscode.dev">
+					<span class="glyphicon glyphicon-pencil"></span>
+					<span class="hidden-xs">Edit</span>
+				</a>
+			</div>
+			<h1>Programmatic Language Features</h1>
+<p>Programmatic Language Features is a set of smart-editing features powered by the <a href="../references/vscode-api.html#languages"><code>vscode.languages.*</code></a> API. There are two common ways to provide a dynamic language feature in Visual Studio Code. Let's take <a href="#hover">Hover</a> as an example:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #001080">vscode</span><span style="color: #000000">.</span><span style="color: #001080">languages</span><span style="color: #000000">.</span><span style="color: #795E26">registerHoverProvider</span><span style="color: #000000">(</span><span style="color: #A31515">&#39;javascript&#39;</span><span style="color: #000000">, {</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #795E26">provideHover</span><span style="color: #000000">(</span><span style="color: #001080">document</span><span style="color: #000000">, </span><span style="color: #001080">position</span><span style="color: #000000">, </span><span style="color: #001080">token</span><span style="color: #000000">) {</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #AF00DB">return</span><span style="color: #000000"> {</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #001080">contents:</span><span style="color: #000000"> [</span><span style="color: #A31515">&#39;Hover Content&#39;</span><span style="color: #000000">]</span></span>
+<span class="line"><span style="color: #000000">    };</span></span>
+<span class="line"><span style="color: #000000">  }</span></span>
+<span class="line"><span style="color: #000000">});</span></span>
+<span class="line"></span></code></pre>
+<p>As you see above, the <a href="../references/vscode-api.html#languages.registerHoverProvider"><code>vscode.languages.registerHoverProvider</code></a> API provides an easy way to provide hover contents to JavaScript files. After this extension gets activated, whenever you hover over some JavaScript code, VS Code queries all <a href="../references/vscode-api.html#HoverProvider"><code>HoverProvider</code></a> for JavaScript and shows the result in a Hover widget. The <a href="#language-features-listing">Language Feature Listing</a> and illustrated gif below provides an easy way for you to locate which VS Code API / LSP Method your extension needs.</p>
+<p>An alternative approach is to implement a Language Server that speaks <a href="https://microsoft.github.io/language-server-protocol/" class="external-link" target="_blank">Language Server Protocol</a>. The way it works is:</p>
+<ul>
+<li>An extension provides a Language Client and a Language Server for JavaScript.</li>
+<li>The Language Client is like any other VS Code extension, running in the Node.js Extension Host context. When it gets activated, it spawns the Language Server in another process and communicates with it through <a href="https://microsoft.github.io/language-server-protocol/" class="external-link" target="_blank">Language Server Protocol</a>.</li>
+<li>You hover over JavaScript code in VS Code</li>
+<li>VS Code informs the Language Client of the hover</li>
+<li>The Language Client queries the Language Server for a hover result and sends it back to VS Code</li>
+<li>VS Code displays the hover result in a Hover widget</li>
+</ul>
+<p>The process seems more complicated, but it provides two major benefits:</p>
+<ul>
+<li>The Language Server can be written in any language</li>
+<li>The Language Server can be reused to provide smart editing features for multiple editors</li>
+</ul>
+<p>For a more in-depth guide, head over to the <a href="language-server-extension-guide.html">Language Server extension guide</a>.</p>
+<hr>
+<h2 id="language-features-listing" data-needslink="language-features-listing">Language Features Listing</h2>
+<p>This listing includes the following items for each language feature:</p>
+<ul>
+<li>An illustration of the language feature in VS Code</li>
+<li>Related VS Code API</li>
+<li>Related LSP methods</li>
+</ul>
+<table class="table table-striped">
+<thead>
+<tr>
+<th>VS Code API</th>
+<th>LSP method</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="../references/vscode-api.html#languages.createDiagnosticCollection"><code>createDiagnosticCollection</code></a></td>
+<td><a href="https://microsoft.github.io/language-server-protocol/specification#textDocument_publishDiagnostics" class="external-link" target="_blank">PublishDiagnostics</a></td>
+</tr>
+<tr>
+<td><a href="../references/vscode-api.html#languages.registerCompletionItemProvider"><code>registerCompletionItemProvider</code></a></td>
+<td><a href="https://microsoft.github.io/language-server-protocol/specification#textDocument_completion" class="external-link" target="_blank">Completion</a> &amp; <a href="https://microsoft.github.io/language-server-protocol/specification#completionItem_resolve" class="external-link" target="_blank">Completion Resolve</a></td>
+</tr>
+<tr>
+<td><a href="../references/vscode-api.html#languages.registerHoverProvider"><code>registerHoverProvider</code></a></td>
+<td><a href="https://microsoft.github.io/language-server-protocol/specification#textDocument_hover" class="external-link" target="_blank">Hover</a></td>
+</tr>
+<tr>
+<td><a href="../references/vscode-api.html#languages.registerSignatureHelpProvider"><code>registerSignatureHelpProvider</code></a></td>
+<td><a href="https://microsoft.github.io/language-server-protocol/specification#textDocument_signatureHelp" class="external-link" target="_blank">SignatureHelp</a></td>
+</tr>
+<tr>
+<td><a href="../references/vscode-api.html#languages.registerDefinitionProvider"><code>registerDefinitionProvider</code></a></td>
+<td><a href="https://microsoft.github.io/language-server-protocol/specification#textDocument_definition" class="external-link" target="_blank">Definition</a></td>
+</tr>
+<tr>
+<td><a href="../references/vscode-api.html#languages.registerTypeDefinitionProvider"><code>registerTypeDefinitionProvider</code></a></td>
+<td><a href="https://microsoft.github.io/language-server-protocol/specification#textDocument_typeDefinition" class="external-link" target="_blank">TypeDefinition</a></td>
+</tr>
+<tr>
+<td><a href="../references/vscode-api.html#languages.registerImplementationProvider"><code>registerImplementationProvider</code></a></td>
+<td><a href="https://microsoft.github.io/language-server-protocol/specification#textDocument_implementation" class="external-link" target="_blank">Implementation</a></td>
+</tr>
+<tr>
+<td><a href="../references/vscode-api.html#languages.registerReferenceProvider"><code>registerReferenceProvider</code></a></td>
+<td><a href="https://microsoft.github.io/language-server-protocol/specification#textDocument_references" class="external-link" target="_blank">References</a></td>
+</tr>
+<tr>
+<td><a href="../references/vscode-api.html#languages.registerDocumentHighlightProvider"><code>registerDocumentHighlightProvider</code></a></td>
+<td><a href="https://microsoft.github.io/language-server-protocol/specification#textDocument_documentHighlight" class="external-link" target="_blank">DocumentHighlight</a></td>
+</tr>
+<tr>
+<td><a href="../references/vscode-api.html#languages.registerDocumentSymbolProvider"><code>registerDocumentSymbolProvider</code></a></td>
+<td><a href="https://microsoft.github.io/language-server-protocol/specification#textDocument_documentSymbol" class="external-link" target="_blank">DocumentSymbol</a></td>
+</tr>
+<tr>
+<td><a href="../references/vscode-api.html#languages.registerCodeActionsProvider"><code>registerCodeActionsProvider</code></a></td>
+<td><a href="https://microsoft.github.io/language-server-protocol/specification#textDocument_codeAction" class="external-link" target="_blank">CodeAction</a></td>
+</tr>
+<tr>
+<td><a href="../references/vscode-api.html#languages.registerCodeLensProvider"><code>registerCodeLensProvider</code></a></td>
+<td><a href="https://microsoft.github.io/language-server-protocol/specification#textDocument_codeLens" class="external-link" target="_blank">CodeLens</a> &amp; <a href="https://microsoft.github.io/language-server-protocol/specification#codeLens_resolve" class="external-link" target="_blank">CodeLens Resolve</a></td>
+</tr>
+<tr>
+<td><a href="../references/vscode-api.html#languages.registerDocumentLinkProvider"><code>registerDocumentLinkProvider</code></a></td>
+<td><a href="https://microsoft.github.io/language-server-protocol/specification#textDocument_documentLink" class="external-link" target="_blank">DocumentLink</a> &amp; <a href="https://microsoft.github.io/language-server-protocol/specification#documentLink_resolve" class="external-link" target="_blank">DocumentLink Resolve</a></td>
+</tr>
+<tr>
+<td><a href="../references/vscode-api.html#languages.registerColorProvider"><code>registerColorProvider</code></a></td>
+<td><a href="https://microsoft.github.io/language-server-protocol/specification#textDocument_documentColor" class="external-link" target="_blank">DocumentColor</a> &amp; <a href="https://microsoft.github.io/language-server-protocol/specification#textDocument_colorPresentation" class="external-link" target="_blank">Color Presentation</a></td>
+</tr>
+<tr>
+<td><a href="../references/vscode-api.html#languages.registerDocumentFormattingEditProvider"><code>registerDocumentFormattingEditProvider</code></a></td>
+<td><a href="https://microsoft.github.io/language-server-protocol/specification#textDocument_formatting" class="external-link" target="_blank">Formatting</a></td>
+</tr>
+<tr>
+<td><a href="../references/vscode-api.html#languages.registerDocumentRangeFormattingEditProvider"><code>registerDocumentRangeFormattingEditProvider</code></a></td>
+<td><a href="https://microsoft.github.io/language-server-protocol/specification#textDocument_rangeFormatting" class="external-link" target="_blank">RangeFormatting</a></td>
+</tr>
+<tr>
+<td><a href="../references/vscode-api.html#languages.registerOnTypeFormattingEditProvider"><code>registerOnTypeFormattingEditProvider</code></a></td>
+<td><a href="https://microsoft.github.io/language-server-protocol/specification#textDocument_onTypeFormatting" class="external-link" target="_blank">OnTypeFormatting</a></td>
+</tr>
+<tr>
+<td><a href="../references/vscode-api.html#languages.registerRenameProvider"><code>registerRenameProvider</code></a></td>
+<td><a href="https://microsoft.github.io/language-server-protocol/specification#textDocument_rename" class="external-link" target="_blank">Rename</a> &amp; <a href="https://microsoft.github.io/language-server-protocol/specification#textDocument_prepareRename" class="external-link" target="_blank">Prepare Rename</a></td>
+</tr>
+<tr>
+<td><a href="../references/vscode-api.html#languages.registerFoldingRangeProvider"><code>registerFoldingRangeProvider</code></a></td>
+<td><a href="https://microsoft.github.io/language-server-protocol/specification#textDocument_foldingRange" class="external-link" target="_blank">FoldingRange</a></td>
+</tr>
+</tbody>
+</table>
+<h2 id="provide-diagnostics" data-needslink="provide-diagnostics">Provide Diagnostics</h2>
+<p>Diagnostics are a way to indicate issues with the code.</p>
+<p><img src="../../assets/api/language-extensions/language-support/diagnostics.gif" alt="Diagnostics indicating a misspelled method name" loading="lazy"></p>
+<h4>Language Server Protocol</h4>
+<p>Your language server sends the <code>textDocument/publishDiagnostics</code> message to the language client. The message carries an array of diagnostic items for a resource URI.</p>
+<p><strong>Note</strong>: The client does not ask the server for diagnostics. The server pushes the diagnostic information to the client.</p>
+<h4>Direct Implementation</h4>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #0000FF">let</span><span style="color: #000000"> </span><span style="color: #001080">diagnosticCollection</span><span style="color: #000000">: </span><span style="color: #267F99">vscode</span><span style="color: #000000">.</span><span style="color: #267F99">DiagnosticCollection</span><span style="color: #000000">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #AF00DB">export</span><span style="color: #000000"> </span><span style="color: #0000FF">function</span><span style="color: #000000"> </span><span style="color: #795E26">activate</span><span style="color: #000000">(</span><span style="color: #001080">ctx</span><span style="color: #000000">: </span><span style="color: #267F99">vscode</span><span style="color: #000000">.</span><span style="color: #267F99">ExtensionContext</span><span style="color: #000000">): </span><span style="color: #267F99">void</span><span style="color: #000000"> {</span></span>
+<span class="line"><span style="color: #000000">  ...</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #001080">ctx</span><span style="color: #000000">.</span><span style="color: #001080">subscriptions</span><span style="color: #000000">.</span><span style="color: #795E26">push</span><span style="color: #000000">(</span><span style="color: #795E26">getDisposable</span><span style="color: #000000">());</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #001080">diagnosticCollection</span><span style="color: #000000"> = </span><span style="color: #001080">vscode</span><span style="color: #000000">.</span><span style="color: #001080">languages</span><span style="color: #000000">.</span><span style="color: #795E26">createDiagnosticCollection</span><span style="color: #000000">(</span><span style="color: #A31515">&#39;go&#39;</span><span style="color: #000000">);</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #001080">ctx</span><span style="color: #000000">.</span><span style="color: #001080">subscriptions</span><span style="color: #000000">.</span><span style="color: #795E26">push</span><span style="color: #000000">(</span><span style="color: #001080">diagnosticCollection</span><span style="color: #000000">);</span></span>
+<span class="line"><span style="color: #000000">  ...</span></span>
+<span class="line"><span style="color: #000000">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #0000FF">function</span><span style="color: #000000"> </span><span style="color: #795E26">onChange</span><span style="color: #000000">() {</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0000FF">let</span><span style="color: #000000"> </span><span style="color: #001080">uri</span><span style="color: #000000"> = </span><span style="color: #001080">document</span><span style="color: #000000">.</span><span style="color: #001080">uri</span><span style="color: #000000">;</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #795E26">check</span><span style="color: #000000">(</span><span style="color: #001080">uri</span><span style="color: #000000">.</span><span style="color: #001080">fsPath</span><span style="color: #000000">, </span><span style="color: #001080">goConfig</span><span style="color: #000000">).</span><span style="color: #795E26">then</span><span style="color: #000000">(</span><span style="color: #001080">errors</span><span style="color: #000000"> </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #001080">diagnosticCollection</span><span style="color: #000000">.</span><span style="color: #795E26">clear</span><span style="color: #000000">();</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #0000FF">let</span><span style="color: #000000"> </span><span style="color: #001080">diagnosticMap</span><span style="color: #000000">: </span><span style="color: #267F99">Map</span><span style="color: #000000">&lt;</span><span style="color: #267F99">string</span><span style="color: #000000">, </span><span style="color: #267F99">vscode</span><span style="color: #000000">.</span><span style="color: #267F99">Diagnostic</span><span style="color: #000000">[]&gt; = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #795E26">Map</span><span style="color: #000000">();</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #001080">errors</span><span style="color: #000000">.</span><span style="color: #795E26">forEach</span><span style="color: #000000">(</span><span style="color: #001080">error</span><span style="color: #000000"> </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #0000FF">let</span><span style="color: #000000"> </span><span style="color: #001080">canonicalFile</span><span style="color: #000000"> = </span><span style="color: #001080">vscode</span><span style="color: #000000">.</span><span style="color: #001080">Uri</span><span style="color: #000000">.</span><span style="color: #795E26">file</span><span style="color: #000000">(</span><span style="color: #001080">error</span><span style="color: #000000">.</span><span style="color: #001080">file</span><span style="color: #000000">).</span><span style="color: #795E26">toString</span><span style="color: #000000">();</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #0000FF">let</span><span style="color: #000000"> </span><span style="color: #001080">range</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #001080">vscode</span><span style="color: #000000">.</span><span style="color: #795E26">Range</span><span style="color: #000000">(</span><span style="color: #001080">error</span><span style="color: #000000">.</span><span style="color: #001080">line</span><span style="color: #000000">-</span><span style="color: #098658">1</span><span style="color: #000000">, </span><span style="color: #001080">error</span><span style="color: #000000">.</span><span style="color: #001080">startColumn</span><span style="color: #000000">, </span><span style="color: #001080">error</span><span style="color: #000000">.</span><span style="color: #001080">line</span><span style="color: #000000">-</span><span style="color: #098658">1</span><span style="color: #000000">, </span><span style="color: #001080">error</span><span style="color: #000000">.</span><span style="color: #001080">endColumn</span><span style="color: #000000">);</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #0000FF">let</span><span style="color: #000000"> </span><span style="color: #001080">diagnostics</span><span style="color: #000000"> = </span><span style="color: #001080">diagnosticMap</span><span style="color: #000000">.</span><span style="color: #795E26">get</span><span style="color: #000000">(</span><span style="color: #001080">canonicalFile</span><span style="color: #000000">);</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #AF00DB">if</span><span style="color: #000000"> (!</span><span style="color: #001080">diagnostics</span><span style="color: #000000">) { </span><span style="color: #001080">diagnostics</span><span style="color: #000000"> = []; }</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #001080">diagnostics</span><span style="color: #000000">.</span><span style="color: #795E26">push</span><span style="color: #000000">(</span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #001080">vscode</span><span style="color: #000000">.</span><span style="color: #795E26">Diagnostic</span><span style="color: #000000">(</span><span style="color: #001080">range</span><span style="color: #000000">, </span><span style="color: #001080">error</span><span style="color: #000000">.</span><span style="color: #001080">msg</span><span style="color: #000000">, </span><span style="color: #001080">error</span><span style="color: #000000">.</span><span style="color: #001080">severity</span><span style="color: #000000">));</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #001080">diagnosticMap</span><span style="color: #000000">.</span><span style="color: #795E26">set</span><span style="color: #000000">(</span><span style="color: #001080">canonicalFile</span><span style="color: #000000">, </span><span style="color: #001080">diagnostics</span><span style="color: #000000">);</span></span>
+<span class="line"><span style="color: #000000">    });</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #001080">diagnosticMap</span><span style="color: #000000">.</span><span style="color: #795E26">forEach</span><span style="color: #000000">((</span><span style="color: #001080">diags</span><span style="color: #000000">, </span><span style="color: #001080">file</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #001080">diagnosticCollection</span><span style="color: #000000">.</span><span style="color: #795E26">set</span><span style="color: #000000">(</span><span style="color: #001080">vscode</span><span style="color: #000000">.</span><span style="color: #001080">Uri</span><span style="color: #000000">.</span><span style="color: #795E26">parse</span><span style="color: #000000">(</span><span style="color: #001080">file</span><span style="color: #000000">), </span><span style="color: #001080">diags</span><span style="color: #000000">);</span></span>
+<span class="line"><span style="color: #000000">    });</span></span>
+<span class="line"><span style="color: #000000">  })</span></span>
+<span class="line"><span style="color: #000000">}</span></span>
+<span class="line"></span></code></pre>
+<blockquote>
+<p><strong>Basic</strong></p>
+<p>Report diagnostics for open editors. Minimally, this needs to happen on every save. Better, diagnostics should be computed based on the un-saved contents of the editor.</p>
+</blockquote>
+<blockquote>
+<p><strong>Advanced</strong></p>
+<p>Report diagnostics not only for the open editors but for all resources in the open folder, no matter whether they have ever been opened in an editor or not.</p>
+</blockquote>
+<h2 id="show-code-completion-proposals" data-needslink="show-code-completion-proposals">Show Code Completion Proposals</h2>
+<p>Code completions provide context sensitive suggestions to the user.</p>
+<p><img src="../../assets/api/language-extensions/language-support/code-completion.gif" alt="Code Completion prompting variable, method, and parameter names while writing code" loading="lazy"></p>
+<h4>Language Server Protocol</h4>
+<p>In the response to the <code>initialize</code> method, your language server needs to announce that it provides completions and whether or not it supports the <code>completionItem\resolve</code> method to provide additional information for the computed completion items.</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #000000">{</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #CD3131">...</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #0451A5">&quot;capabilities&quot;</span><span style="color: #000000"> : {</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #0451A5">&quot;completionProvider&quot;</span><span style="color: #000000"> : {</span></span>
+<span class="line"><span style="color: #000000">            </span><span style="color: #0451A5">&quot;resolveProvider&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;true&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">            </span><span style="color: #0451A5">&quot;triggerCharacters&quot;</span><span style="color: #000000">: [ </span><span style="color: #CD3131">&#39;.&#39;</span><span style="color: #000000"> ]</span></span>
+<span class="line"><span style="color: #000000">        }</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #CD3131">...</span></span>
+<span class="line"><span style="color: #000000">    }</span></span>
+<span class="line"><span style="color: #000000">}</span></span>
+<span class="line"></span></code></pre>
+<h4>Direct Implementation</h4>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #0000FF">class</span><span style="color: #000000"> </span><span style="color: #267F99">GoCompletionItemProvider</span><span style="color: #000000"> </span><span style="color: #0000FF">implements</span><span style="color: #000000"> </span><span style="color: #267F99">vscode</span><span style="color: #000000">.</span><span style="color: #267F99">CompletionItemProvider</span><span style="color: #000000"> {</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #0000FF">public</span><span style="color: #000000"> </span><span style="color: #795E26">provideCompletionItems</span><span style="color: #000000">(</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #001080">document</span><span style="color: #000000">: </span><span style="color: #267F99">vscode</span><span style="color: #000000">.</span><span style="color: #267F99">TextDocument</span><span style="color: #000000">, </span><span style="color: #001080">position</span><span style="color: #000000">: </span><span style="color: #267F99">vscode</span><span style="color: #000000">.</span><span style="color: #267F99">Position</span><span style="color: #000000">, </span><span style="color: #001080">token</span><span style="color: #000000">: </span><span style="color: #267F99">vscode</span><span style="color: #000000">.</span><span style="color: #267F99">CancellationToken</span><span style="color: #000000">):</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #267F99">Thenable</span><span style="color: #000000">&lt;</span><span style="color: #267F99">vscode</span><span style="color: #000000">.</span><span style="color: #267F99">CompletionItem</span><span style="color: #000000">[]&gt; {</span></span>
+<span class="line"><span style="color: #000000">    ...</span></span>
+<span class="line"><span style="color: #000000">    }</span></span>
+<span class="line"><span style="color: #000000">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #AF00DB">export</span><span style="color: #000000"> </span><span style="color: #0000FF">function</span><span style="color: #000000"> </span><span style="color: #795E26">activate</span><span style="color: #000000">(</span><span style="color: #001080">ctx</span><span style="color: #000000">: </span><span style="color: #267F99">vscode</span><span style="color: #000000">.</span><span style="color: #267F99">ExtensionContext</span><span style="color: #000000">): </span><span style="color: #267F99">void</span><span style="color: #000000"> {</span></span>
+<span class="line"><span style="color: #000000">    ...</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #001080">ctx</span><span style="color: #000000">.</span><span style="color: #001080">subscriptions</span><span style="color: #000000">.</span><span style="color: #795E26">push</span><span style="color: #000000">(</span><span style="color: #795E26">getDisposable</span><span style="color: #000000">());</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #001080">ctx</span><span style="color: #000000">.</span><span style="color: #001080">subscriptions</span><span style="color: #000000">.</span><span style="color: #795E26">push</span><span style="color: #000000">(</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #001080">vscode</span><span style="color: #000000">.</span><span style="color: #001080">languages</span><span style="color: #000000">.</span><span style="color: #795E26">registerCompletionItemProvider</span><span style="color: #000000">(</span></span>
+<span class="line"><span style="color: #000000">            </span><span style="color: #0070C1">GO_MODE</span><span style="color: #000000">, </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #795E26">GoCompletionItemProvider</span><span style="color: #000000">(), </span><span style="color: #A31515">&#39;.&#39;</span><span style="color: #000000">, </span><span style="color: #A31515">&#39;</span><span style="color: #EE0000">\&quot;</span><span style="color: #A31515">&#39;</span><span style="color: #000000">));</span></span>
+<span class="line"><span style="color: #000000">    ...</span></span>
+<span class="line"><span style="color: #000000">}</span></span>
+<span class="line"></span></code></pre>
+<blockquote>
+<p><strong>Basic</strong></p>
+<p>You don't support resolve providers.</p>
+</blockquote>
+<blockquote>
+<p><strong>Advanced</strong></p>
+<p>You support resolve providers that compute additional information for completion proposal the user selects. This information is displayed along-side the selected item.</p>
+</blockquote>
+<h2 id="show-hovers" data-needslink="show-hovers">Show Hovers</h2>
+<p>Hovers show information about the symbol/object that's below the mouse cursor. This is usually the type of the symbol and a description.</p>
+<p><img src="../../assets/api/language-extensions/language-support/hovers.gif" alt="Showing details about a workspace and a method when hovering over them" loading="lazy"></p>
+<h4>Language Server Protocol</h4>
+<p>In the response to the <code>initialize</code> method, your language server needs to announce that it provides hovers.</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #000000">{</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #CD3131">...</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #0451A5">&quot;capabilities&quot;</span><span style="color: #000000"> : {</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #0451A5">&quot;hoverProvider&quot;</span><span style="color: #000000"> : </span><span style="color: #A31515">&quot;true&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #CD3131">...</span></span>
+<span class="line"><span style="color: #000000">    }</span></span>
+<span class="line"><span style="color: #000000">}</span></span>
+<span class="line"></span></code></pre>
+<p>In addition, your language server needs to respond to the <code>textDocument/hover</code> request.</p>
+<h4>Direct Implementation</h4>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #0000FF">class</span><span style="color: #000000"> </span><span style="color: #267F99">GoHoverProvider</span><span style="color: #000000"> </span><span style="color: #0000FF">implements</span><span style="color: #000000"> </span><span style="color: #267F99">HoverProvider</span><span style="color: #000000"> {</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #0000FF">public</span><span style="color: #000000"> </span><span style="color: #795E26">provideHover</span><span style="color: #000000">(</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #001080">document</span><span style="color: #000000">: </span><span style="color: #267F99">TextDocument</span><span style="color: #000000">, </span><span style="color: #001080">position</span><span style="color: #000000">: </span><span style="color: #267F99">Position</span><span style="color: #000000">, </span><span style="color: #001080">token</span><span style="color: #000000">: </span><span style="color: #267F99">CancellationToken</span><span style="color: #000000">):</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #267F99">Thenable</span><span style="color: #000000">&lt;</span><span style="color: #267F99">Hover</span><span style="color: #000000">&gt; {</span></span>
+<span class="line"><span style="color: #000000">    ...</span></span>
+<span class="line"><span style="color: #000000">    }</span></span>
+<span class="line"><span style="color: #000000">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #AF00DB">export</span><span style="color: #000000"> </span><span style="color: #0000FF">function</span><span style="color: #000000"> </span><span style="color: #795E26">activate</span><span style="color: #000000">(</span><span style="color: #001080">ctx</span><span style="color: #000000">: </span><span style="color: #267F99">vscode</span><span style="color: #000000">.</span><span style="color: #267F99">ExtensionContext</span><span style="color: #000000">): </span><span style="color: #267F99">void</span><span style="color: #000000"> {</span></span>
+<span class="line"><span style="color: #000000">    ...</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #001080">ctx</span><span style="color: #000000">.</span><span style="color: #001080">subscriptions</span><span style="color: #000000">.</span><span style="color: #795E26">push</span><span style="color: #000000">(</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #001080">vscode</span><span style="color: #000000">.</span><span style="color: #001080">languages</span><span style="color: #000000">.</span><span style="color: #795E26">registerHoverProvider</span><span style="color: #000000">(</span></span>
+<span class="line"><span style="color: #000000">            </span><span style="color: #0070C1">GO_MODE</span><span style="color: #000000">, </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #795E26">GoHoverProvider</span><span style="color: #000000">()));</span></span>
+<span class="line"><span style="color: #000000">    ...</span></span>
+<span class="line"><span style="color: #000000">}</span></span>
+<span class="line"></span></code></pre>
+<blockquote>
+<p><strong>Basic</strong></p>
+<p>Show type information and include documentation if available.</p>
+</blockquote>
+<blockquote>
+<p><strong>Advanced</strong></p>
+<p>Colorize method signatures in the same style you colorize the code.</p>
+</blockquote>
+<h2 id="help-with-function-and-method-signatures" data-needslink="help-with-function-and-method-signatures">Help With Function and Method Signatures</h2>
+<p>When the user enters a function or method, display information about the function/method that is being called.</p>
+<p><img src="../../assets/api/language-extensions/language-support/signature-help.gif" alt="Showing information about the getPackageInfo method including the necessary parameters" loading="lazy"></p>
+<h4>Language Server Protocol</h4>
+<p>In the response to the <code>initialize</code> method, your language server needs to announce that it provides signature help.</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #000000">{</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #CD3131">...</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #0451A5">&quot;capabilities&quot;</span><span style="color: #000000"> : {</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #0451A5">&quot;signatureHelpProvider&quot;</span><span style="color: #000000"> : {</span></span>
+<span class="line"><span style="color: #000000">            </span><span style="color: #0451A5">&quot;triggerCharacters&quot;</span><span style="color: #000000">: [ </span><span style="color: #CD3131">&#39;(&#39;</span><span style="color: #000000"> ]</span></span>
+<span class="line"><span style="color: #000000">        }</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #CD3131">...</span></span>
+<span class="line"><span style="color: #000000">    }</span></span>
+<span class="line"><span style="color: #000000">}</span></span>
+<span class="line"></span></code></pre>
+<p>In addition, your language server needs to respond to the <code>textDocument/signatureHelp</code> request.</p>
+<h4>Direct Implementation</h4>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #0000FF">class</span><span style="color: #000000"> </span><span style="color: #267F99">GoSignatureHelpProvider</span><span style="color: #000000"> </span><span style="color: #0000FF">implements</span><span style="color: #000000"> </span><span style="color: #267F99">SignatureHelpProvider</span><span style="color: #000000"> {</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #0000FF">public</span><span style="color: #000000"> </span><span style="color: #795E26">provideSignatureHelp</span><span style="color: #000000">(</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #001080">document</span><span style="color: #000000">: </span><span style="color: #267F99">TextDocument</span><span style="color: #000000">, </span><span style="color: #001080">position</span><span style="color: #000000">: </span><span style="color: #267F99">Position</span><span style="color: #000000">, </span><span style="color: #001080">token</span><span style="color: #000000">: </span><span style="color: #267F99">CancellationToken</span><span style="color: #000000">):</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #267F99">Promise</span><span style="color: #000000">&lt;</span><span style="color: #267F99">SignatureHelp</span><span style="color: #000000">&gt; {</span></span>
+<span class="line"><span style="color: #000000">    ...</span></span>
+<span class="line"><span style="color: #000000">    }</span></span>
+<span class="line"><span style="color: #000000">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #AF00DB">export</span><span style="color: #000000"> </span><span style="color: #0000FF">function</span><span style="color: #000000"> </span><span style="color: #795E26">activate</span><span style="color: #000000">(</span><span style="color: #001080">ctx</span><span style="color: #000000">: </span><span style="color: #267F99">vscode</span><span style="color: #000000">.</span><span style="color: #267F99">ExtensionContext</span><span style="color: #000000">): </span><span style="color: #267F99">void</span><span style="color: #000000"> {</span></span>
+<span class="line"><span style="color: #000000">    ...</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #001080">ctx</span><span style="color: #000000">.</span><span style="color: #001080">subscriptions</span><span style="color: #000000">.</span><span style="color: #795E26">push</span><span style="color: #000000">(</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #001080">vscode</span><span style="color: #000000">.</span><span style="color: #001080">languages</span><span style="color: #000000">.</span><span style="color: #795E26">registerSignatureHelpProvider</span><span style="color: #000000">(</span></span>
+<span class="line"><span style="color: #000000">            </span><span style="color: #0070C1">GO_MODE</span><span style="color: #000000">, </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #795E26">GoSignatureHelpProvider</span><span style="color: #000000">(), </span><span style="color: #A31515">&#39;(&#39;</span><span style="color: #000000">, </span><span style="color: #A31515">&#39;,&#39;</span><span style="color: #000000">));</span></span>
+<span class="line"><span style="color: #000000">    ...</span></span>
+<span class="line"><span style="color: #000000">}</span></span>
+<span class="line"></span></code></pre>
+<blockquote>
+<p><strong>Basic</strong></p>
+<p>Ensure that the signature help contains the documentation of the parameters of the function or method.</p>
+</blockquote>
+<blockquote>
+<p><strong>Advanced</strong></p>
+<p>Nothing additional.</p>
+</blockquote>
+<h2 id="show-definitions-of-a-symbol" data-needslink="show-definitions-of-a-symbol">Show Definitions of a Symbol</h2>
+<p>Allow the user to see the definition of variables/functions/methods right where the variables/functions/methods are being used.</p>
+<p><img src="../../assets/api/language-extensions/language-support/goto-definition.gif" alt="Right click a variable, function, or method and select &quot;Go to Definition&quot; to jump to the definition" loading="lazy"></p>
+<h4>Language Server Protocol</h4>
+<p>In the response to the <code>initialize</code> method, your language server needs to announce that it provides goto-definition locations.</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #000000">{</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #CD3131">...</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #0451A5">&quot;capabilities&quot;</span><span style="color: #000000"> : {</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #0451A5">&quot;definitionProvider&quot;</span><span style="color: #000000"> : </span><span style="color: #A31515">&quot;true&quot;</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #CD3131">...</span></span>
+<span class="line"><span style="color: #000000">    }</span></span>
+<span class="line"><span style="color: #000000">}</span></span>
+<span class="line"></span></code></pre>
+<p>In addition, your language server needs to respond to the <code>textDocument/definition</code> request.</p>
+<h4>Direct Implementation</h4>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #0000FF">class</span><span style="color: #000000"> </span><span style="color: #267F99">GoDefinitionProvider</span><span style="color: #000000"> </span><span style="color: #0000FF">implements</span><span style="color: #000000"> </span><span style="color: #267F99">vscode</span><span style="color: #000000">.</span><span style="color: #267F99">DefinitionProvider</span><span style="color: #000000"> {</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #0000FF">public</span><span style="color: #000000"> </span><span style="color: #795E26">provideDefinition</span><span style="color: #000000">(</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #001080">document</span><span style="color: #000000">: </span><span style="color: #267F99">vscode</span><span style="color: #000000">.</span><span style="color: #267F99">TextDocument</span><span style="color: #000000">, </span><span style="color: #001080">position</span><span style="color: #000000">: </span><span style="color: #267F99">vscode</span><span style="color: #000000">.</span><span style="color: #267F99">Position</span><span style="color: #000000">, </span><span style="color: #001080">token</span><span style="color: #000000">: </span><span style="color: #267F99">vscode</span><span style="color: #000000">.</span><span style="color: #267F99">CancellationToken</span><span style="color: #000000">):</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #267F99">Thenable</span><span style="color: #000000">&lt;</span><span style="color: #267F99">vscode</span><span style="color: #000000">.</span><span style="color: #267F99">Location</span><span style="color: #000000">&gt; {</span></span>
+<span class="line"><span style="color: #000000">    ...</span></span>
+<span class="line"><span style="color: #000000">    }</span></span>
+<span class="line"><span style="color: #000000">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #AF00DB">export</span><span style="color: #000000"> </span><span style="color: #0000FF">function</span><span style="color: #000000"> </span><span style="color: #795E26">activate</span><span style="color: #000000">(</span><span style="color: #001080">ctx</span><span style="color: #000000">: </span><span style="color: #267F99">vscode</span><span style="color: #000000">.</span><span style="color: #267F99">ExtensionContext</span><span style="color: #000000">): </span><span style="color: #267F99">void</span><span style="color: #000000"> {</span></span>
+<span class="line"><span style="color: #000000">    ...</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #001080">ctx</span><span style="color: #000000">.</span><span style="color: #001080">subscriptions</span><span style="color: #000000">.</span><span style="color: #795E26">push</span><span style="color: #000000">(</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #001080">vscode</span><span style="color: #000000">.</span><span style="color: #001080">languages</span><span style="color: #000000">.</span><span style="color: #795E26">registerDefinitionProvider</span><span style="color: #000000">(</span></span>
+<span class="line"><span style="color: #000000">            </span><span style="color: #0070C1">GO_MODE</span><span style="color: #000000">, </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #795E26">GoDefinitionProvider</span><span style="color: #000000">()));</span></span>
+<span class="line"><span style="color: #000000">    ...</span></span>
+<span class="line"><span style="color: #000000">}</span></span>
+<span class="line"></span></code></pre>
+<blockquote>
+<p><strong>Basic</strong></p>
+<p>If a symbol is ambivalent, you can show multiple definitions.</p>
+</blockquote>
+<blockquote>
+<p><strong>Advanced</strong></p>
+<p>Nothing additional.</p>
+</blockquote>
+<h2 id="find-all-references-to-a-symbol" data-needslink="find-all-references-to-a-symbol">Find All References to a Symbol</h2>
+<p>Allow the user to see all the source code locations where a certain variable/function/method/symbol is being used.</p>
+<p><img src="../../assets/api/language-extensions/language-support/find-references.gif" alt="Right clicking and selecting &quot;Find All References&quot; to highlight all the locations where that symbol is used" loading="lazy"></p>
+<h4>Language Server Protocol</h4>
+<p>In the response to the <code>initialize</code> method, your language server needs to announce that it provides symbol reference locations.</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #000000">{</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #CD3131">...</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #0451A5">&quot;capabilities&quot;</span><span style="color: #000000"> : {</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #0451A5">&quot;referencesProvider&quot;</span><span style="color: #000000"> : </span><span style="color: #A31515">&quot;true&quot;</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #CD3131">...</span></span>
+<span class="line"><span style="color: #000000">    }</span></span>
+<span class="line"><span style="color: #000000">}</span></span>
+<span class="line"></span></code></pre>
+<p>In addition, your language server needs to respond to the <code>textDocument/references</code> request.</p>
+<h4>Direct Implementation</h4>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #0000FF">class</span><span style="color: #000000"> </span><span style="color: #267F99">GoReferenceProvider</span><span style="color: #000000"> </span><span style="color: #0000FF">implements</span><span style="color: #000000"> </span><span style="color: #267F99">vscode</span><span style="color: #000000">.</span><span style="color: #267F99">ReferenceProvider</span><span style="color: #000000"> {</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #0000FF">public</span><span style="color: #000000"> </span><span style="color: #795E26">provideReferences</span><span style="color: #000000">(</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #001080">document</span><span style="color: #000000">: </span><span style="color: #267F99">vscode</span><span style="color: #000000">.</span><span style="color: #267F99">TextDocument</span><span style="color: #000000">, </span><span style="color: #001080">position</span><span style="color: #000000">: </span><span style="color: #267F99">vscode</span><span style="color: #000000">.</span><span style="color: #267F99">Position</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #001080">options</span><span style="color: #000000">: { </span><span style="color: #001080">includeDeclaration</span><span style="color: #000000">: </span><span style="color: #267F99">boolean</span><span style="color: #000000"> }, </span><span style="color: #001080">token</span><span style="color: #000000">: </span><span style="color: #267F99">vscode</span><span style="color: #000000">.</span><span style="color: #267F99">CancellationToken</span><span style="color: #000000">):</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #267F99">Thenable</span><span style="color: #000000">&lt;</span><span style="color: #267F99">vscode</span><span style="color: #000000">.</span><span style="color: #267F99">Location</span><span style="color: #000000">[]&gt; {</span></span>
+<span class="line"><span style="color: #000000">    ...</span></span>
+<span class="line"><span style="color: #000000">    }</span></span>
+<span class="line"><span style="color: #000000">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #AF00DB">export</span><span style="color: #000000"> </span><span style="color: #0000FF">function</span><span style="color: #000000"> </span><span style="color: #795E26">activate</span><span style="color: #000000">(</span><span style="color: #001080">ctx</span><span style="color: #000000">: </span><span style="color: #267F99">vscode</span><span style="color: #000000">.</span><span style="color: #267F99">ExtensionContext</span><span style="color: #000000">): </span><span style="color: #267F99">void</span><span style="color: #000000"> {</span></span>
+<span class="line"><span style="color: #000000">    ...</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #001080">ctx</span><span style="color: #000000">.</span><span style="color: #001080">subscriptions</span><span style="color: #000000">.</span><span style="color: #795E26">push</span><span style="color: #000000">(</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #001080">vscode</span><span style="color: #000000">.</span><span style="color: #001080">languages</span><span style="color: #000000">.</span><span style="color: #795E26">registerReferenceProvider</span><span style="color: #000000">(</span></span>
+<span class="line"><span style="color: #000000">            </span><span style="color: #0070C1">GO_MODE</span><span style="color: #000000">, </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #795E26">GoReferenceProvider</span><span style="color: #000000">()));</span></span>
+<span class="line"><span style="color: #000000">    ...</span></span>
+<span class="line"><span style="color: #000000">}</span></span>
+<span class="line"></span></code></pre>
+<blockquote>
+<p><strong>Basic</strong></p>
+<p>Return the location (resource URI and range) for all references.</p>
+</blockquote>
+<blockquote>
+<p><strong>Advanced</strong></p>
+<p>Nothing additional.</p>
+</blockquote>
+<h2 id="highlight-all-occurrences-of-a-symbol-in-a-document" data-needslink="highlight-all-occurrences-of-a-symbol-in-a-document">Highlight All Occurrences of a Symbol in a Document</h2>
+<p>Allow the user to see all occurrences of a symbol in the open editor.</p>
+<p><img src="../../assets/api/language-extensions/language-support/document-highlights.gif" alt="Select a symbol to highlight all occurrences" loading="lazy"></p>
+<h4>Language Server Protocol</h4>
+<p>In the response to the <code>initialize</code> method, your language server needs to announce that it provides symbol document locations.</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #000000">{</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #CD3131">...</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #0451A5">&quot;capabilities&quot;</span><span style="color: #000000"> : {</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #0451A5">&quot;documentHighlightProvider&quot;</span><span style="color: #000000"> : </span><span style="color: #A31515">&quot;true&quot;</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #CD3131">...</span></span>
+<span class="line"><span style="color: #000000">    }</span></span>
+<span class="line"><span style="color: #000000">}</span></span>
+<span class="line"></span></code></pre>
+<p>In addition, your language server needs to respond to the <code>textDocument/documentHighlight</code> request.</p>
+<h4>Direct Implementation</h4>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #0000FF">class</span><span style="color: #000000"> </span><span style="color: #267F99">GoDocumentHighlightProvider</span><span style="color: #000000"> </span><span style="color: #0000FF">implements</span><span style="color: #000000"> </span><span style="color: #267F99">vscode</span><span style="color: #000000">.</span><span style="color: #267F99">DocumentHighlightProvider</span><span style="color: #000000"> {</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #0000FF">public</span><span style="color: #000000"> </span><span style="color: #795E26">provideDocumentHighlights</span><span style="color: #000000">(</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #001080">document</span><span style="color: #000000">: </span><span style="color: #267F99">vscode</span><span style="color: #000000">.</span><span style="color: #267F99">TextDocument</span><span style="color: #000000">, </span><span style="color: #001080">position</span><span style="color: #000000">: </span><span style="color: #267F99">vscode</span><span style="color: #000000">.</span><span style="color: #267F99">Position</span><span style="color: #000000">, </span><span style="color: #001080">token</span><span style="color: #000000">: </span><span style="color: #267F99">vscode</span><span style="color: #000000">.</span><span style="color: #267F99">CancellationToken</span><span style="color: #000000">):</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #267F99">vscode</span><span style="color: #000000">.</span><span style="color: #267F99">DocumentHighlight</span><span style="color: #000000">[] | </span><span style="color: #267F99">Thenable</span><span style="color: #000000">&lt;</span><span style="color: #267F99">vscode</span><span style="color: #000000">.</span><span style="color: #267F99">DocumentHighlight</span><span style="color: #000000">[]&gt;;</span></span>
+<span class="line"><span style="color: #000000">    ...</span></span>
+<span class="line"><span style="color: #000000">    }</span></span>
+<span class="line"><span style="color: #000000">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #AF00DB">export</span><span style="color: #000000"> </span><span style="color: #0000FF">function</span><span style="color: #000000"> </span><span style="color: #795E26">activate</span><span style="color: #000000">(</span><span style="color: #001080">ctx</span><span style="color: #000000">: </span><span style="color: #267F99">vscode</span><span style="color: #000000">.</span><span style="color: #267F99">ExtensionContext</span><span style="color: #000000">): </span><span style="color: #267F99">void</span><span style="color: #000000"> {</span></span>
+<span class="line"><span style="color: #000000">    ...</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #001080">ctx</span><span style="color: #000000">.</span><span style="color: #001080">subscriptions</span><span style="color: #000000">.</span><span style="color: #795E26">push</span><span style="color: #000000">(</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #001080">vscode</span><span style="color: #000000">.</span><span style="color: #001080">languages</span><span style="color: #000000">.</span><span style="color: #795E26">registerDocumentHighlightProvider</span><span style="color: #000000">(</span></span>
+<span class="line"><span style="color: #000000">            </span><span style="color: #0070C1">GO_MODE</span><span style="color: #000000">, </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #795E26">GoDocumentHighlightProvider</span><span style="color: #000000">()));</span></span>
+<span class="line"><span style="color: #000000">    ...</span></span>
+<span class="line"><span style="color: #000000">}</span></span>
+<span class="line"></span></code></pre>
+<blockquote>
+<p><strong>Basic</strong></p>
+<p>You return the ranges in the editor's document where the references are being found.</p>
+</blockquote>
+<blockquote>
+<p><strong>Advanced</strong></p>
+<p>Nothing additional.</p>
+</blockquote>
+<h2 id="show-all-symbol-definitions-within-a-document" data-needslink="show-all-symbol-definitions-within-a-document">Show all Symbol Definitions Within a Document</h2>
+<p>Allow the user to quickly navigate to any symbol definition in the open editor.</p>
+<p><img src="../../assets/api/language-extensions/language-support/document-symbols.gif" alt="Navigate to a symbol definition in the open editor using @" loading="lazy"></p>
+<h4>Language Server Protocol</h4>
+<p>In the response to the <code>initialize</code> method, your language server needs to announce that it provides symbol document locations.</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #000000">{</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #CD3131">...</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #0451A5">&quot;capabilities&quot;</span><span style="color: #000000"> : {</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #0451A5">&quot;documentSymbolProvider&quot;</span><span style="color: #000000"> : </span><span style="color: #A31515">&quot;true&quot;</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #CD3131">...</span></span>
+<span class="line"><span style="color: #000000">    }</span></span>
+<span class="line"><span style="color: #000000">}</span></span>
+<span class="line"></span></code></pre>
+<p>In addition, your language server needs to respond to the <code>textDocument/documentSymbol</code> request.</p>
+<h4>Direct Implementation</h4>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #0000FF">class</span><span style="color: #000000"> </span><span style="color: #267F99">GoDocumentSymbolProvider</span><span style="color: #000000"> </span><span style="color: #0000FF">implements</span><span style="color: #000000"> </span><span style="color: #267F99">vscode</span><span style="color: #000000">.</span><span style="color: #267F99">DocumentSymbolProvider</span><span style="color: #000000"> {</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #0000FF">public</span><span style="color: #000000"> </span><span style="color: #795E26">provideDocumentSymbols</span><span style="color: #000000">(</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #001080">document</span><span style="color: #000000">: </span><span style="color: #267F99">vscode</span><span style="color: #000000">.</span><span style="color: #267F99">TextDocument</span><span style="color: #000000">, </span><span style="color: #001080">token</span><span style="color: #000000">: </span><span style="color: #267F99">vscode</span><span style="color: #000000">.</span><span style="color: #267F99">CancellationToken</span><span style="color: #000000">):</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #267F99">Thenable</span><span style="color: #000000">&lt;</span><span style="color: #267F99">vscode</span><span style="color: #000000">.</span><span style="color: #267F99">SymbolInformation</span><span style="color: #000000">[]&gt; {</span></span>
+<span class="line"><span style="color: #000000">    ...</span></span>
+<span class="line"><span style="color: #000000">    }</span></span>
+<span class="line"><span style="color: #000000">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #AF00DB">export</span><span style="color: #000000"> </span><span style="color: #0000FF">function</span><span style="color: #000000"> </span><span style="color: #795E26">activate</span><span style="color: #000000">(</span><span style="color: #001080">ctx</span><span style="color: #000000">: </span><span style="color: #267F99">vscode</span><span style="color: #000000">.</span><span style="color: #267F99">ExtensionContext</span><span style="color: #000000">): </span><span style="color: #267F99">void</span><span style="color: #000000"> {</span></span>
+<span class="line"><span style="color: #000000">    ...</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #001080">ctx</span><span style="color: #000000">.</span><span style="color: #001080">subscriptions</span><span style="color: #000000">.</span><span style="color: #795E26">push</span><span style="color: #000000">(</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #001080">vscode</span><span style="color: #000000">.</span><span style="color: #001080">languages</span><span style="color: #000000">.</span><span style="color: #795E26">registerDocumentSymbolProvider</span><span style="color: #000000">(</span></span>
+<span class="line"><span style="color: #000000">            </span><span style="color: #0070C1">GO_MODE</span><span style="color: #000000">, </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #795E26">GoDocumentSymbolProvider</span><span style="color: #000000">()));</span></span>
+<span class="line"><span style="color: #000000">    ...</span></span>
+<span class="line"><span style="color: #000000">}</span></span>
+<span class="line"></span></code></pre>
+<blockquote>
+<p><strong>Basic</strong></p>
+<p>Return all symbols in the document. Define the kinds of symbols such as variables, functions, classes, methods, etc.</p>
+</blockquote>
+<blockquote>
+<p><strong>Advanced</strong></p>
+<p>Nothing additional.</p>
+</blockquote>
+<h2 id="show-all-symbol-definitions-in-folder" data-needslink="show-all-symbol-definitions-in-folder">Show all Symbol Definitions in Folder</h2>
+<p>Allow the user to quickly navigate to symbol definitions anywhere in the folder (workspace) opened in VS Code.</p>
+<p><img src="../../assets/api/language-extensions/language-support/workspace-symbols.gif" alt="Navigate to symbol definitions in the workspace using #" loading="lazy"></p>
+<h4>Language Server Protocol</h4>
+<p>In the response to the <code>initialize</code> method, your language server needs to announce that it provides global symbol locations.</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #000000">{</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #CD3131">...</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #0451A5">&quot;capabilities&quot;</span><span style="color: #000000"> : {</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #0451A5">&quot;workspaceSymbolProvider&quot;</span><span style="color: #000000"> : </span><span style="color: #A31515">&quot;true&quot;</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #CD3131">...</span></span>
+<span class="line"><span style="color: #000000">    }</span></span>
+<span class="line"><span style="color: #000000">}</span></span>
+<span class="line"></span></code></pre>
+<p>In addition, your language server needs to respond to the <code>workspace/symbol</code> request.</p>
+<h4>Direct Implementation</h4>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #0000FF">class</span><span style="color: #000000"> </span><span style="color: #267F99">GoWorkspaceSymbolProvider</span><span style="color: #000000"> </span><span style="color: #0000FF">implements</span><span style="color: #000000"> </span><span style="color: #267F99">vscode</span><span style="color: #000000">.</span><span style="color: #267F99">WorkspaceSymbolProvider</span><span style="color: #000000"> {</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #0000FF">public</span><span style="color: #000000"> </span><span style="color: #795E26">provideWorkspaceSymbols</span><span style="color: #000000">(</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #001080">query</span><span style="color: #000000">: </span><span style="color: #267F99">string</span><span style="color: #000000">, </span><span style="color: #001080">token</span><span style="color: #000000">: </span><span style="color: #267F99">vscode</span><span style="color: #000000">.</span><span style="color: #267F99">CancellationToken</span><span style="color: #000000">):</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #267F99">Thenable</span><span style="color: #000000">&lt;</span><span style="color: #267F99">vscode</span><span style="color: #000000">.</span><span style="color: #267F99">SymbolInformation</span><span style="color: #000000">[]&gt; {</span></span>
+<span class="line"><span style="color: #000000">    ...</span></span>
+<span class="line"><span style="color: #000000">    }</span></span>
+<span class="line"><span style="color: #000000">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #AF00DB">export</span><span style="color: #000000"> </span><span style="color: #0000FF">function</span><span style="color: #000000"> </span><span style="color: #795E26">activate</span><span style="color: #000000">(</span><span style="color: #001080">ctx</span><span style="color: #000000">: </span><span style="color: #267F99">vscode</span><span style="color: #000000">.</span><span style="color: #267F99">ExtensionContext</span><span style="color: #000000">): </span><span style="color: #267F99">void</span><span style="color: #000000"> {</span></span>
+<span class="line"><span style="color: #000000">    ...</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #001080">ctx</span><span style="color: #000000">.</span><span style="color: #001080">subscriptions</span><span style="color: #000000">.</span><span style="color: #795E26">push</span><span style="color: #000000">(</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #001080">vscode</span><span style="color: #000000">.</span><span style="color: #001080">languages</span><span style="color: #000000">.</span><span style="color: #795E26">registerWorkspaceSymbolProvider</span><span style="color: #000000">(</span></span>
+<span class="line"><span style="color: #000000">            </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #795E26">GoWorkspaceSymbolProvider</span><span style="color: #000000">()));</span></span>
+<span class="line"><span style="color: #000000">    ...</span></span>
+<span class="line"><span style="color: #000000">}</span></span>
+<span class="line"></span></code></pre>
+<blockquote>
+<p><strong>Basic</strong></p>
+<p>Return all symbols define by the source code within the open folder. Define the kinds of symbols such as variables, functions, classes, methods, etc.</p>
+</blockquote>
+<blockquote>
+<p><strong>Advanced</strong></p>
+<p>Nothing additional.</p>
+</blockquote>
+<h2 id="possible-actions-on-errors-or-warnings" data-needslink="possible-actions-on-errors-or-warnings">Possible Actions on Errors or Warnings</h2>
+<p>Provide the user with possible corrective actions right next to an error or warning. If actions are available, a light bulb appears next to the error or warning. When the user clicks the light bulb, a list of available Code Actions is presented.</p>
+<p><img src="../../assets/api/language-extensions/language-support/quick-fixes.gif" alt="Selecting a light bulb to view a list of available Code Actions" loading="lazy"></p>
+<h4>Language Server Protocol</h4>
+<p>In the response to the <code>initialize</code> method, your language server needs to announce that it provides Code Actions.</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #000000">{</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #CD3131">...</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #0451A5">&quot;capabilities&quot;</span><span style="color: #000000"> : {</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #0451A5">&quot;codeActionProvider&quot;</span><span style="color: #000000"> : </span><span style="color: #A31515">&quot;true&quot;</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #CD3131">...</span></span>
+<span class="line"><span style="color: #000000">    }</span></span>
+<span class="line"><span style="color: #000000">}</span></span>
+<span class="line"></span></code></pre>
+<p>In addition, your language server needs to respond to the <code>textDocument/codeAction</code> request.</p>
+<h4>Direct Implementation</h4>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #0000FF">class</span><span style="color: #000000"> </span><span style="color: #267F99">GoCodeActionProvider</span><span style="color: #000000"> </span><span style="color: #0000FF">implements</span><span style="color: #000000"> </span><span style="color: #267F99">vscode</span><span style="color: #000000">.</span><span style="color: #267F99">CodeActionProvider</span><span style="color: #000000">&lt;</span><span style="color: #267F99">vscode</span><span style="color: #000000">.</span><span style="color: #267F99">CodeAction</span><span style="color: #000000">&gt; {</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #0000FF">public</span><span style="color: #000000"> </span><span style="color: #795E26">provideCodeActions</span><span style="color: #000000">(</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #001080">document</span><span style="color: #000000">: </span><span style="color: #267F99">vscode</span><span style="color: #000000">.</span><span style="color: #267F99">TextDocument</span><span style="color: #000000">, </span><span style="color: #001080">range</span><span style="color: #000000">: </span><span style="color: #267F99">vscode</span><span style="color: #000000">.</span><span style="color: #267F99">Range</span><span style="color: #000000"> | </span><span style="color: #267F99">vscode</span><span style="color: #000000">.</span><span style="color: #267F99">Selection</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #001080">context</span><span style="color: #000000">: </span><span style="color: #267F99">vscode</span><span style="color: #000000">.</span><span style="color: #267F99">CodeActionContext</span><span style="color: #000000">, </span><span style="color: #001080">token</span><span style="color: #000000">: </span><span style="color: #267F99">vscode</span><span style="color: #000000">.</span><span style="color: #267F99">CancellationToken</span><span style="color: #000000">):</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #267F99">Thenable</span><span style="color: #000000">&lt;</span><span style="color: #267F99">vscode</span><span style="color: #000000">.</span><span style="color: #267F99">CodeAction</span><span style="color: #000000">[]&gt; {</span></span>
+<span class="line"><span style="color: #000000">    ...</span></span>
+<span class="line"><span style="color: #000000">    }</span></span>
+<span class="line"><span style="color: #000000">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #AF00DB">export</span><span style="color: #000000"> </span><span style="color: #0000FF">function</span><span style="color: #000000"> </span><span style="color: #795E26">activate</span><span style="color: #000000">(</span><span style="color: #001080">ctx</span><span style="color: #000000">: </span><span style="color: #267F99">vscode</span><span style="color: #000000">.</span><span style="color: #267F99">ExtensionContext</span><span style="color: #000000">): </span><span style="color: #267F99">void</span><span style="color: #000000"> {</span></span>
+<span class="line"><span style="color: #000000">    ...</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #001080">ctx</span><span style="color: #000000">.</span><span style="color: #001080">subscriptions</span><span style="color: #000000">.</span><span style="color: #795E26">push</span><span style="color: #000000">(</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #001080">vscode</span><span style="color: #000000">.</span><span style="color: #001080">languages</span><span style="color: #000000">.</span><span style="color: #795E26">registerCodeActionsProvider</span><span style="color: #000000">(</span></span>
+<span class="line"><span style="color: #000000">            </span><span style="color: #0070C1">GO_MODE</span><span style="color: #000000">, </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #795E26">GoCodeActionProvider</span><span style="color: #000000">()));</span></span>
+<span class="line"><span style="color: #000000">    ...</span></span>
+<span class="line"><span style="color: #000000">}</span></span>
+<span class="line"></span></code></pre>
+<blockquote>
+<p><strong>Basic</strong></p>
+<p>Provide Code Actions for error/warning correcting actions.</p>
+</blockquote>
+<blockquote>
+<p><strong>Advanced</strong></p>
+<p>In addition, provide source code manipulation actions such as refactoring. For example, <strong>Extract Method</strong>.</p>
+</blockquote>
+<h2 id="codelens-show-actionable-context-information-within-source-code" data-needslink="codelens-show-actionable-context-information-within-source-code">CodeLens - Show Actionable Context Information Within Source Code</h2>
+<p>Provide the user with actionable, contextual information that is displayed interspersed with the source code.</p>
+<p><img src="../../assets/api/language-extensions/language-support/code-lens.gif" alt="CodeLens providing context" loading="lazy"></p>
+<h4>Language Server Protocol</h4>
+<p>In the response to the <code>initialize</code> method, your language server needs to announce that it provides CodeLens results and whether it supports the <code>codeLens\resolve</code> method to bind the CodeLens to its command.</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #000000">{</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #CD3131">...</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #0451A5">&quot;capabilities&quot;</span><span style="color: #000000"> : {</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #0451A5">&quot;codeLensProvider&quot;</span><span style="color: #000000"> : {</span></span>
+<span class="line"><span style="color: #000000">            </span><span style="color: #0451A5">&quot;resolveProvider&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;true&quot;</span></span>
+<span class="line"><span style="color: #000000">        }</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #CD3131">...</span></span>
+<span class="line"><span style="color: #000000">    }</span></span>
+<span class="line"><span style="color: #000000">}</span></span>
+<span class="line"></span></code></pre>
+<p>In addition, your language server needs to respond to the <code>textDocument/codeLens</code> request.</p>
+<h4>Direct Implementation</h4>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #0000FF">class</span><span style="color: #000000"> </span><span style="color: #267F99">GoCodeLensProvider</span><span style="color: #000000"> </span><span style="color: #0000FF">implements</span><span style="color: #000000"> </span><span style="color: #267F99">vscode</span><span style="color: #000000">.</span><span style="color: #267F99">CodeLensProvider</span><span style="color: #000000"> {</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #0000FF">public</span><span style="color: #000000"> </span><span style="color: #795E26">provideCodeLenses</span><span style="color: #000000">(</span><span style="color: #001080">document</span><span style="color: #000000">: </span><span style="color: #267F99">TextDocument</span><span style="color: #000000">, </span><span style="color: #001080">token</span><span style="color: #000000">: </span><span style="color: #267F99">CancellationToken</span><span style="color: #000000">):</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #267F99">CodeLens</span><span style="color: #000000">[] | </span><span style="color: #267F99">Thenable</span><span style="color: #000000">&lt;</span><span style="color: #267F99">CodeLens</span><span style="color: #000000">[]&gt; {</span></span>
+<span class="line"><span style="color: #000000">    ...</span></span>
+<span class="line"><span style="color: #000000">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #0000FF">public</span><span style="color: #000000"> </span><span style="color: #795E26">resolveCodeLens</span><span style="color: #000000">?(</span><span style="color: #001080">codeLens</span><span style="color: #000000">: </span><span style="color: #267F99">CodeLens</span><span style="color: #000000">, </span><span style="color: #001080">token</span><span style="color: #000000">: </span><span style="color: #267F99">CancellationToken</span><span style="color: #000000">):</span></span>
+<span class="line"><span style="color: #000000">         </span><span style="color: #267F99">CodeLens</span><span style="color: #000000"> | </span><span style="color: #267F99">Thenable</span><span style="color: #000000">&lt;</span><span style="color: #267F99">CodeLens</span><span style="color: #000000">&gt; {</span></span>
+<span class="line"><span style="color: #000000">    ...</span></span>
+<span class="line"><span style="color: #000000">    }</span></span>
+<span class="line"><span style="color: #000000">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #AF00DB">export</span><span style="color: #000000"> </span><span style="color: #0000FF">function</span><span style="color: #000000"> </span><span style="color: #795E26">activate</span><span style="color: #000000">(</span><span style="color: #001080">ctx</span><span style="color: #000000">: </span><span style="color: #267F99">vscode</span><span style="color: #000000">.</span><span style="color: #267F99">ExtensionContext</span><span style="color: #000000">): </span><span style="color: #267F99">void</span><span style="color: #000000"> {</span></span>
+<span class="line"><span style="color: #000000">    ...</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #001080">ctx</span><span style="color: #000000">.</span><span style="color: #001080">subscriptions</span><span style="color: #000000">.</span><span style="color: #795E26">push</span><span style="color: #000000">(</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #001080">vscode</span><span style="color: #000000">.</span><span style="color: #001080">languages</span><span style="color: #000000">.</span><span style="color: #795E26">registerCodeLensProvider</span><span style="color: #000000">(</span></span>
+<span class="line"><span style="color: #000000">            </span><span style="color: #0070C1">GO_MODE</span><span style="color: #000000">, </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #795E26">GoCodeLensProvider</span><span style="color: #000000">()));</span></span>
+<span class="line"><span style="color: #000000">    ...</span></span>
+<span class="line"><span style="color: #000000">}</span></span>
+<span class="line"></span></code></pre>
+<blockquote>
+<p><strong>Basic</strong></p>
+<p>Define the CodeLens results that are available for a document.</p>
+</blockquote>
+<blockquote>
+<p><strong>Advanced</strong></p>
+<p>Bind the CodeLens results to a command by responding to <code>codeLens/resolve</code>.</p>
+</blockquote>
+<h2 id="show-color-decorators" data-needslink="show-color-decorators">Show Color Decorators</h2>
+<p>Allow the user to preview and modify colors in the document.</p>
+<p><img src="../../assets/api/language-extensions/language-support/color-decorators.png" alt="Showing the color picker" loading="lazy"></p>
+<h4>Language Server Protocol</h4>
+<p>In the response to the <code>initialize</code> method, your language server needs to announce that it provides color information.</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #000000">{</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #CD3131">...</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #0451A5">&quot;capabilities&quot;</span><span style="color: #000000"> : {</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #0451A5">&quot;colorProvider&quot;</span><span style="color: #000000"> : </span><span style="color: #A31515">&quot;true&quot;</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #CD3131">...</span></span>
+<span class="line"><span style="color: #000000">    }</span></span>
+<span class="line"><span style="color: #000000">}</span></span>
+<span class="line"></span></code></pre>
+<p>In addition, your language server needs to respond to the <code>textDocument/documentColor</code> and <code>textDocument/colorPresentation</code> requests.</p>
+<h4>Direct Implementation</h4>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #0000FF">class</span><span style="color: #000000"> </span><span style="color: #267F99">GoColorProvider</span><span style="color: #000000"> </span><span style="color: #0000FF">implements</span><span style="color: #000000"> </span><span style="color: #267F99">vscode</span><span style="color: #000000">.</span><span style="color: #267F99">DocumentColorProvider</span><span style="color: #000000"> {</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #0000FF">public</span><span style="color: #000000"> </span><span style="color: #795E26">provideDocumentColors</span><span style="color: #000000">(</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #001080">document</span><span style="color: #000000">: </span><span style="color: #267F99">vscode</span><span style="color: #000000">.</span><span style="color: #267F99">TextDocument</span><span style="color: #000000">, </span><span style="color: #001080">token</span><span style="color: #000000">: </span><span style="color: #267F99">vscode</span><span style="color: #000000">.</span><span style="color: #267F99">CancellationToken</span><span style="color: #000000">):</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #267F99">Thenable</span><span style="color: #000000">&lt;</span><span style="color: #267F99">vscode</span><span style="color: #000000">.</span><span style="color: #267F99">ColorInformation</span><span style="color: #000000">[]&gt; {</span></span>
+<span class="line"><span style="color: #000000">    ...</span></span>
+<span class="line"><span style="color: #000000">    }</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #0000FF">public</span><span style="color: #000000"> </span><span style="color: #795E26">provideColorPresentations</span><span style="color: #000000">(</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #001080">color</span><span style="color: #000000">: </span><span style="color: #267F99">Color</span><span style="color: #000000">, </span><span style="color: #001080">context</span><span style="color: #000000">: { </span><span style="color: #001080">document</span><span style="color: #000000">: </span><span style="color: #267F99">TextDocument</span><span style="color: #000000">, </span><span style="color: #001080">range</span><span style="color: #000000">: </span><span style="color: #267F99">Range</span><span style="color: #000000"> }, </span><span style="color: #001080">token</span><span style="color: #000000">: </span><span style="color: #267F99">vscode</span><span style="color: #000000">.</span><span style="color: #267F99">CancellationToken</span><span style="color: #000000">):</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #267F99">Thenable</span><span style="color: #000000">&lt;</span><span style="color: #267F99">vscode</span><span style="color: #000000">.</span><span style="color: #267F99">ColorPresentation</span><span style="color: #000000">[]&gt; {</span></span>
+<span class="line"><span style="color: #000000">    ...</span></span>
+<span class="line"><span style="color: #000000">    }</span></span>
+<span class="line"><span style="color: #000000">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #AF00DB">export</span><span style="color: #000000"> </span><span style="color: #0000FF">function</span><span style="color: #000000"> </span><span style="color: #795E26">activate</span><span style="color: #000000">(</span><span style="color: #001080">ctx</span><span style="color: #000000">: </span><span style="color: #267F99">vscode</span><span style="color: #000000">.</span><span style="color: #267F99">ExtensionContext</span><span style="color: #000000">): </span><span style="color: #267F99">void</span><span style="color: #000000"> {</span></span>
+<span class="line"><span style="color: #000000">    ...</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #001080">ctx</span><span style="color: #000000">.</span><span style="color: #001080">subscriptions</span><span style="color: #000000">.</span><span style="color: #795E26">push</span><span style="color: #000000">(</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #001080">vscode</span><span style="color: #000000">.</span><span style="color: #001080">languages</span><span style="color: #000000">.</span><span style="color: #795E26">registerColorProvider</span><span style="color: #000000">(</span></span>
+<span class="line"><span style="color: #000000">            </span><span style="color: #0070C1">GO_MODE</span><span style="color: #000000">, </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #795E26">GoColorProvider</span><span style="color: #000000">()));</span></span>
+<span class="line"><span style="color: #000000">    ...</span></span>
+<span class="line"><span style="color: #000000">}</span></span>
+<span class="line"></span></code></pre>
+<blockquote>
+<p><strong>Basic</strong></p>
+<p>Return all color references in the document. Provide color presentations for the color formats supported (for example rgb(...), hsl(...)).</p>
+</blockquote>
+<blockquote>
+<p><strong>Advanced</strong></p>
+<p>Nothing additional.</p>
+</blockquote>
+<h2 id="format-source-code-in-an-editor" data-needslink="format-source-code-in-an-editor">Format Source Code in an Editor</h2>
+<p>Provide the user with support for formatting whole documents.</p>
+<p><img src="../../assets/api/language-extensions/language-support/format-document.gif" alt="Right click and select format code" loading="lazy"></p>
+<h4>Language Server Protocol</h4>
+<p>In the response to the <code>initialize</code> method, your language server needs to announce that it provides document formatting.</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #000000">{</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #CD3131">...</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #0451A5">&quot;capabilities&quot;</span><span style="color: #000000"> : {</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #0451A5">&quot;documentFormattingProvider&quot;</span><span style="color: #000000"> : </span><span style="color: #A31515">&quot;true&quot;</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #CD3131">...</span></span>
+<span class="line"><span style="color: #000000">    }</span></span>
+<span class="line"><span style="color: #000000">}</span></span>
+<span class="line"></span></code></pre>
+<p>In addition, your language server needs to respond to the <code>textDocument/formatting</code> request.</p>
+<h4>Direct Implementation</h4>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #0000FF">class</span><span style="color: #000000"> </span><span style="color: #267F99">GoDocumentFormatter</span><span style="color: #000000"> </span><span style="color: #0000FF">implements</span><span style="color: #000000"> </span><span style="color: #267F99">vscode</span><span style="color: #000000">.</span><span style="color: #267F99">DocumentFormattingEditProvider</span><span style="color: #000000"> {</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #0000FF">public</span><span style="color: #000000"> </span><span style="color: #795E26">formatDocument</span><span style="color: #000000">(</span><span style="color: #001080">document</span><span style="color: #000000">: </span><span style="color: #267F99">vscode</span><span style="color: #000000">.</span><span style="color: #267F99">TextDocument</span><span style="color: #000000">):</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #267F99">Thenable</span><span style="color: #000000">&lt;</span><span style="color: #267F99">vscode</span><span style="color: #000000">.</span><span style="color: #267F99">TextEdit</span><span style="color: #000000">[]&gt; {</span></span>
+<span class="line"><span style="color: #000000">    ...</span></span>
+<span class="line"><span style="color: #000000">    }</span></span>
+<span class="line"><span style="color: #000000">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #AF00DB">export</span><span style="color: #000000"> </span><span style="color: #0000FF">function</span><span style="color: #000000"> </span><span style="color: #795E26">activate</span><span style="color: #000000">(</span><span style="color: #001080">ctx</span><span style="color: #000000">: </span><span style="color: #267F99">vscode</span><span style="color: #000000">.</span><span style="color: #267F99">ExtensionContext</span><span style="color: #000000">): </span><span style="color: #267F99">void</span><span style="color: #000000"> {</span></span>
+<span class="line"><span style="color: #000000">    ...</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #001080">ctx</span><span style="color: #000000">.</span><span style="color: #001080">subscriptions</span><span style="color: #000000">.</span><span style="color: #795E26">push</span><span style="color: #000000">(</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #001080">vscode</span><span style="color: #000000">.</span><span style="color: #001080">languages</span><span style="color: #000000">.</span><span style="color: #795E26">registerDocumentFormattingEditProvider</span><span style="color: #000000">(</span></span>
+<span class="line"><span style="color: #000000">            </span><span style="color: #0070C1">GO_MODE</span><span style="color: #000000">, </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #795E26">GoDocumentFormatter</span><span style="color: #000000">()));</span></span>
+<span class="line"><span style="color: #000000">    ...</span></span>
+<span class="line"><span style="color: #000000">}</span></span>
+<span class="line"></span></code></pre>
+<blockquote>
+<p><strong>Basic</strong></p>
+<p>Don't provide formatting support.</p>
+</blockquote>
+<blockquote>
+<p><strong>Advanced</strong></p>
+<p>You should always return the smallest possible text edits that result in the source code being formatted. This is crucial to ensure that markers such as diagnostic results are adjusted correctly and are not lost.</p>
+</blockquote>
+<h2 id="format-the-selected-lines-in-an-editor" data-needslink="format-the-selected-lines-in-an-editor">Format the Selected Lines in an Editor</h2>
+<p>Provide the user with support for formatting a selected range of lines in a document.</p>
+<p><img src="../../assets/api/language-extensions/language-support/format-document-range.gif" alt="Select lines, right click, and select format code" loading="lazy"></p>
+<h4>Language Server Protocol</h4>
+<p>In the response to the <code>initialize</code> method, your language server needs to announce that it provides formatting support for ranges of lines.</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #000000">{</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #CD3131">...</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #0451A5">&quot;capabilities&quot;</span><span style="color: #000000"> : {</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #0451A5">&quot;documentRangeFormattingProvider&quot;</span><span style="color: #000000"> : </span><span style="color: #A31515">&quot;true&quot;</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #CD3131">...</span></span>
+<span class="line"><span style="color: #000000">    }</span></span>
+<span class="line"><span style="color: #000000">}</span></span>
+<span class="line"></span></code></pre>
+<p>In addition, your language server needs to respond to the <code>textDocument/rangeFormatting</code> request.</p>
+<h4>Direct Implementation</h4>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #0000FF">class</span><span style="color: #000000"> </span><span style="color: #267F99">GoDocumentRangeFormatter</span><span style="color: #000000"> </span><span style="color: #0000FF">implements</span><span style="color: #000000"> </span><span style="color: #267F99">vscode</span><span style="color: #000000">.</span><span style="color: #267F99">DocumentRangeFormattingEditProvider</span><span style="color: #000000">{</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #0000FF">public</span><span style="color: #000000"> </span><span style="color: #795E26">provideDocumentRangeFormattingEdits</span><span style="color: #000000">(</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #001080">document</span><span style="color: #000000">: </span><span style="color: #267F99">vscode</span><span style="color: #000000">.</span><span style="color: #267F99">TextDocument</span><span style="color: #000000">, </span><span style="color: #001080">range</span><span style="color: #000000">: </span><span style="color: #267F99">vscode</span><span style="color: #000000">.</span><span style="color: #267F99">Range</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #001080">options</span><span style="color: #000000">: </span><span style="color: #267F99">vscode</span><span style="color: #000000">.</span><span style="color: #267F99">FormattingOptions</span><span style="color: #000000">, </span><span style="color: #001080">token</span><span style="color: #000000">: </span><span style="color: #267F99">vscode</span><span style="color: #000000">.</span><span style="color: #267F99">CancellationToken</span><span style="color: #000000">):</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #267F99">Thenable</span><span style="color: #000000">&lt;</span><span style="color: #267F99">vscode</span><span style="color: #000000">.</span><span style="color: #267F99">TextEdit</span><span style="color: #000000">[]&gt;;</span></span>
+<span class="line"><span style="color: #000000">    ...</span></span>
+<span class="line"><span style="color: #000000">    }</span></span>
+<span class="line"><span style="color: #000000">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #AF00DB">export</span><span style="color: #000000"> </span><span style="color: #0000FF">function</span><span style="color: #000000"> </span><span style="color: #795E26">activate</span><span style="color: #000000">(</span><span style="color: #001080">ctx</span><span style="color: #000000">: </span><span style="color: #267F99">vscode</span><span style="color: #000000">.</span><span style="color: #267F99">ExtensionContext</span><span style="color: #000000">): </span><span style="color: #267F99">void</span><span style="color: #000000"> {</span></span>
+<span class="line"><span style="color: #000000">    ...</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #001080">ctx</span><span style="color: #000000">.</span><span style="color: #001080">subscriptions</span><span style="color: #000000">.</span><span style="color: #795E26">push</span><span style="color: #000000">(</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #001080">vscode</span><span style="color: #000000">.</span><span style="color: #001080">languages</span><span style="color: #000000">.</span><span style="color: #795E26">registerDocumentRangeFormattingEditProvider</span><span style="color: #000000">(</span></span>
+<span class="line"><span style="color: #000000">            </span><span style="color: #0070C1">GO_MODE</span><span style="color: #000000">, </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #795E26">GoDocumentRangeFormatter</span><span style="color: #000000">()));</span></span>
+<span class="line"><span style="color: #000000">    ...</span></span>
+<span class="line"><span style="color: #000000">}</span></span>
+<span class="line"></span></code></pre>
+<blockquote>
+<p><strong>Basic</strong></p>
+<p>Don't provide formatting support.</p>
+</blockquote>
+<blockquote>
+<p><strong>Advanced</strong></p>
+<p>You should always return the smallest possible text edits that result in the source code being formatted. This is crucial to ensure that markers such as diagnostic results are adjusted corrected and are not lost.</p>
+</blockquote>
+<h2 id="incrementally-format-code-as-the-user-types" data-needslink="incrementally-format-code-as-the-user-types">Incrementally Format Code as the User Types</h2>
+<p>Provide the user with support for formatting text as they type.</p>
+<p><strong>Note</strong>: The user <a href="../../docs/getstarted/settings.html">setting</a> <code>editor.formatOnType</code> controls whether source code gets formatted or not as the user types.</p>
+<p><img src="../../assets/api/language-extensions/language-support/format-on-type.gif" alt="Visual indicators for formatting as code is typed" loading="lazy"></p>
+<h4>Language Server Protocol</h4>
+<p>In the response to the <code>initialize</code> method, your language server needs to announce that it provides formatting as the user types. It also needs to tell the client on which characters formatting should be triggered. <code>moreTriggerCharacters</code> is optional.</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #000000">{</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #CD3131">...</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #0451A5">&quot;capabilities&quot;</span><span style="color: #000000"> : {</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #0451A5">&quot;documentOnTypeFormattingProvider&quot;</span><span style="color: #000000"> : {</span></span>
+<span class="line"><span style="color: #000000">            </span><span style="color: #0451A5">&quot;firstTriggerCharacter&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;}&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">            </span><span style="color: #0451A5">&quot;moreTriggerCharacter&quot;</span><span style="color: #000000">: [</span><span style="color: #A31515">&quot;;&quot;</span><span style="color: #000000">, </span><span style="color: #A31515">&quot;,&quot;</span><span style="color: #000000">]</span></span>
+<span class="line"><span style="color: #000000">        }</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #CD3131">...</span></span>
+<span class="line"><span style="color: #000000">    }</span></span>
+<span class="line"><span style="color: #000000">}</span></span>
+<span class="line"></span></code></pre>
+<p>In addition, your language server needs to respond to the <code>textDocument/onTypeFormatting</code> request.</p>
+<h4>Direct Implementation</h4>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #0000FF">class</span><span style="color: #000000"> </span><span style="color: #267F99">GoOnTypingFormatter</span><span style="color: #000000"> </span><span style="color: #0000FF">implements</span><span style="color: #000000"> </span><span style="color: #267F99">vscode</span><span style="color: #000000">.</span><span style="color: #267F99">OnTypeFormattingEditProvider</span><span style="color: #000000">{</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #0000FF">public</span><span style="color: #000000"> </span><span style="color: #795E26">provideOnTypeFormattingEdits</span><span style="color: #000000">(</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #001080">document</span><span style="color: #000000">: </span><span style="color: #267F99">vscode</span><span style="color: #000000">.</span><span style="color: #267F99">TextDocument</span><span style="color: #000000">, </span><span style="color: #001080">position</span><span style="color: #000000">: </span><span style="color: #267F99">vscode</span><span style="color: #000000">.</span><span style="color: #267F99">Position</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #001080">ch</span><span style="color: #000000">: </span><span style="color: #267F99">string</span><span style="color: #000000">, </span><span style="color: #001080">options</span><span style="color: #000000">: </span><span style="color: #267F99">vscode</span><span style="color: #000000">.</span><span style="color: #267F99">FormattingOptions</span><span style="color: #000000">, </span><span style="color: #001080">token</span><span style="color: #000000">: </span><span style="color: #267F99">vscode</span><span style="color: #000000">.</span><span style="color: #267F99">CancellationToken</span><span style="color: #000000">):</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #267F99">Thenable</span><span style="color: #000000">&lt;</span><span style="color: #267F99">vscode</span><span style="color: #000000">.</span><span style="color: #267F99">TextEdit</span><span style="color: #000000">[]&gt;;</span></span>
+<span class="line"><span style="color: #000000">    ...</span></span>
+<span class="line"><span style="color: #000000">    }</span></span>
+<span class="line"><span style="color: #000000">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #AF00DB">export</span><span style="color: #000000"> </span><span style="color: #0000FF">function</span><span style="color: #000000"> </span><span style="color: #795E26">activate</span><span style="color: #000000">(</span><span style="color: #001080">ctx</span><span style="color: #000000">: </span><span style="color: #267F99">vscode</span><span style="color: #000000">.</span><span style="color: #267F99">ExtensionContext</span><span style="color: #000000">): </span><span style="color: #267F99">void</span><span style="color: #000000"> {</span></span>
+<span class="line"><span style="color: #000000">    ...</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #001080">ctx</span><span style="color: #000000">.</span><span style="color: #001080">subscriptions</span><span style="color: #000000">.</span><span style="color: #795E26">push</span><span style="color: #000000">(</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #001080">vscode</span><span style="color: #000000">.</span><span style="color: #001080">languages</span><span style="color: #000000">.</span><span style="color: #795E26">registerOnTypeFormattingEditProvider</span><span style="color: #000000">(</span></span>
+<span class="line"><span style="color: #000000">            </span><span style="color: #0070C1">GO_MODE</span><span style="color: #000000">, </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #795E26">GoOnTypingFormatter</span><span style="color: #000000">()));</span></span>
+<span class="line"><span style="color: #000000">    ...</span></span>
+<span class="line"><span style="color: #000000">}</span></span>
+<span class="line"></span></code></pre>
+<blockquote>
+<p><strong>Basic</strong></p>
+<p>Don't provide formatting support.</p>
+</blockquote>
+<blockquote>
+<p><strong>Advanced</strong></p>
+<p>You should always return the smallest possible text edits that result in the source code being formatted. This is crucial to ensure that markers such as diagnostic results are adjusted corrected and are not lost.</p>
+</blockquote>
+<h2 id="rename-symbols" data-needslink="rename-symbols">Rename Symbols</h2>
+<p>Allow the user to rename a symbol and update all references to the symbol.</p>
+<p><img src="../../assets/api/language-extensions/language-support/rename.gif" alt="Rename a symbol and update all references to the new name" loading="lazy"></p>
+<h4>Language Server Protocol</h4>
+<p>In the response to the <code>initialize</code> method, your language server needs to announce that it provides for renaming.</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #000000">{</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #CD3131">...</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #0451A5">&quot;capabilities&quot;</span><span style="color: #000000"> : {</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #0451A5">&quot;renameProvider&quot;</span><span style="color: #000000"> : </span><span style="color: #A31515">&quot;true&quot;</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #CD3131">...</span></span>
+<span class="line"><span style="color: #000000">    }</span></span>
+<span class="line"><span style="color: #000000">}</span></span>
+<span class="line"></span></code></pre>
+<p>In addition, your language server needs to respond to the <code>textDocument/rename</code> request.</p>
+<h4>Direct Implementation</h4>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #0000FF">class</span><span style="color: #000000"> </span><span style="color: #267F99">GoRenameProvider</span><span style="color: #000000"> </span><span style="color: #0000FF">implements</span><span style="color: #000000"> </span><span style="color: #267F99">vscode</span><span style="color: #000000">.</span><span style="color: #267F99">RenameProvider</span><span style="color: #000000"> {</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #0000FF">public</span><span style="color: #000000"> </span><span style="color: #795E26">provideRenameEdits</span><span style="color: #000000">(</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #001080">document</span><span style="color: #000000">: </span><span style="color: #267F99">vscode</span><span style="color: #000000">.</span><span style="color: #267F99">TextDocument</span><span style="color: #000000">, </span><span style="color: #001080">position</span><span style="color: #000000">: </span><span style="color: #267F99">vscode</span><span style="color: #000000">.</span><span style="color: #267F99">Position</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #001080">newName</span><span style="color: #000000">: </span><span style="color: #267F99">string</span><span style="color: #000000">, </span><span style="color: #001080">token</span><span style="color: #000000">: </span><span style="color: #267F99">vscode</span><span style="color: #000000">.</span><span style="color: #267F99">CancellationToken</span><span style="color: #000000">):</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #267F99">Thenable</span><span style="color: #000000">&lt;</span><span style="color: #267F99">vscode</span><span style="color: #000000">.</span><span style="color: #267F99">WorkspaceEdit</span><span style="color: #000000">&gt; {</span></span>
+<span class="line"><span style="color: #000000">    ...</span></span>
+<span class="line"><span style="color: #000000">    }</span></span>
+<span class="line"><span style="color: #000000">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #AF00DB">export</span><span style="color: #000000"> </span><span style="color: #0000FF">function</span><span style="color: #000000"> </span><span style="color: #795E26">activate</span><span style="color: #000000">(</span><span style="color: #001080">ctx</span><span style="color: #000000">: </span><span style="color: #267F99">vscode</span><span style="color: #000000">.</span><span style="color: #267F99">ExtensionContext</span><span style="color: #000000">): </span><span style="color: #267F99">void</span><span style="color: #000000"> {</span></span>
+<span class="line"><span style="color: #000000">    ...</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #001080">ctx</span><span style="color: #000000">.</span><span style="color: #001080">subscriptions</span><span style="color: #000000">.</span><span style="color: #795E26">push</span><span style="color: #000000">(</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #001080">vscode</span><span style="color: #000000">.</span><span style="color: #001080">languages</span><span style="color: #000000">.</span><span style="color: #795E26">registerRenameProvider</span><span style="color: #000000">(</span></span>
+<span class="line"><span style="color: #000000">            </span><span style="color: #0070C1">GO_MODE</span><span style="color: #000000">, </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #795E26">GoRenameProvider</span><span style="color: #000000">()));</span></span>
+<span class="line"><span style="color: #000000">    ...</span></span>
+<span class="line"><span style="color: #000000">}</span></span>
+<span class="line"></span></code></pre>
+<blockquote>
+<p><strong>Basic</strong></p>
+<p>Don't provide rename support.</p>
+</blockquote>
+<blockquote>
+<p><strong>Advanced</strong></p>
+<p>Return the list of all workspace edits that need to be performed, for example all edits across all files that contain references to the symbol.</p>
+</blockquote>
+
+			<div class="feedback"></div>
+			
+			<div class="body-footer">12/7/2022</div>
+			
+		</div>
+		<div class="col-sm-3 col-md-2 docs-subnavbar-container">
+			<nav id="docs-subnavbar" aria-label="On Page" data-spy="affix" data-offset-top="20">
+				
+				<h4><span class="sr-only">In this article there are 17 sections</span><span
+						aria-hidden="true">In this article</span></h4>
+				<ul class="nav">
+					
+					<li><a href="#language-features-listing">Language Features Listing</a></li>
+					
+					<li><a href="#provide-diagnostics">Provide Diagnostics</a></li>
+					
+					<li><a href="#show-code-completion-proposals">Show Code Completion Proposals</a></li>
+					
+					<li><a href="#show-hovers">Show Hovers</a></li>
+					
+					<li><a href="#help-with-function-and-method-signatures">Help With Function and Method Signatures</a></li>
+					
+					<li><a href="#show-definitions-of-a-symbol">Show Definitions of a Symbol</a></li>
+					
+					<li><a href="#find-all-references-to-a-symbol">Find All References to a Symbol</a></li>
+					
+					<li><a href="#highlight-all-occurrences-of-a-symbol-in-a-document">Highlight All Occurrences of a Symbol in a Document</a></li>
+					
+					<li><a href="#show-all-symbol-definitions-within-a-document">Show all Symbol Definitions Within a Document</a></li>
+					
+					<li><a href="#show-all-symbol-definitions-in-folder">Show all Symbol Definitions in Folder</a></li>
+					
+					<li><a href="#possible-actions-on-errors-or-warnings">Possible Actions on Errors or Warnings</a></li>
+					
+					<li><a href="#codelens-show-actionable-context-information-within-source-code">CodeLens - Show Actionable Context Information Within Source Code</a></li>
+					
+					<li><a href="#show-color-decorators">Show Color Decorators</a></li>
+					
+					<li><a href="#format-source-code-in-an-editor">Format Source Code in an Editor</a></li>
+					
+					<li><a href="#format-the-selected-lines-in-an-editor">Format the Selected Lines in an Editor</a></li>
+					
+					<li><a href="#incrementally-format-code-as-the-user-types">Incrementally Format Code as the User Types</a></li>
+					
+					<li><a href="#rename-symbols">Rename Symbols</a></li>
+					
+				</ul>
+				
+				<div class="connect-widget"></div>
+			</nav>
+		</div>
+	</div>
+</div>
+      </div>
+  </div>
+
+  <footer role="contentinfo">
+      <div class="container">
+          <div class="row">
+              <div class="left col-md-7">
+                  <ul class="links">
+                      <li>
+                          <span class="message">Hello from Seattle.</span>
+                      </li>
+                      <li>
+                          <a href="https://go.microsoft.com/fwlink/?LinkID=533687" onclick="followOnTwitter()" tabindex="0">Follow @code</a>
+                      </li>
+                      <li>
+                          <div class="github-star-button">
+                              <iframe src="../../assets/github-button29be.html?user=Microsoft&amp;repo=vscode&amp;type=star&amp;count=true"
+                                  frameborder="0" scrolling="0" width="130px" height="20px" title="GitHub follow button" loading="lazy"></iframe>
+                          </div>
+                      </li>
+  
+                      <script>
+                          function followOnTwitter() {
+                              var windowFeatures = "location=yes,height=600,width=550,scrollbars=yes,status=yes";
+                              var originalReferer = "&original_referer=" + document.URL;
+                              var screenName = "&screen_name=code";
+                              var URL = "https://twitter.com/intent/follow?" + originalReferer + screenName;
+                              window.open(URL, "_blank", windowFeatures);
+                          }
+  
+                          function manageConsent() {
+                              if(WcpConsent.siteConsent.isConsentRequired){
+                                  WcpConsent.siteConsent.manageConsent();
+                              }
+                          }
+                      </script>
+                  </ul>
+              </div>
+              <div class="right col-md-5">
+                  <ul class="links">
+                      <li><a id="footer-support-link" href="https://support.serviceshub.microsoft.com/supportforbusiness/create?sapId=d66407ed-3967-b000-4cfb-2c318cad363d"
+                              target="_blank">Support</a></li>
+                      <li><a id="footer-privacy-link" href="https://privacy.microsoft.com/privacystatement"
+                              target="_blank">Privacy</a></li>
+                      <li style="display: none;"><a id="footer-cookie-link" style="cursor: pointer;" onclick="manageConsent()"
+                              target="_blank">Manage Cookies</a></li>
+                      <li><a id="footer-terms-link" href="https://www.microsoft.com/legal/terms-of-use"
+                              target="_blank">Terms of Use</a></li>
+                      <li><a id="footer-license-link" href="../../License.html">License</a></li>
+                  </ul>
+                  <div class="copyright">
+                      <a id="footer-microsoft-link" class="logo" href="https://www.microsoft.com/">
+                          <img class="microsoft-logo" src="../../assets/images/microsoft-logo.png" height="20" alt="Microsoft homepage"/>
+                          <img class="microsoft-logo-inverted" src="../../assets/images/microsoft-logo-inverted.png" height="20" alt="Microsoft homepage" />
+                      </a>
+                      <span>&copy; 2023 Microsoft</span>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </footer>
+  <script src="../../dist/index.js"></script>
+
+  
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "SoftwareApplication",
+      "name" : "Visual Studio Code",
+      "softwareVersion": "1.74",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "applicationCategory": "DeveloperApplication",
+      "applicationSubCategory": "Text Editor",
+      "alternateName": "VS Code",
+      "datePublished": "2021-11-03",
+      "operatingSystem": "Mac, Linux, Windows",
+      "logo": "https://code.visualstudio.com/assets/apple-touch-icon.png",
+      "screenshot": "https://code.visualstudio.com/assets/home/home-screenshot-win.png",
+      "releaseNotes": "https://code.visualstudio.com/updates",
+      "downloadUrl": "https://code.visualstudio.com/download",
+      "license": "https://code.visualstudio.com/license",
+      "softwareRequirements": "https://code.visualstudio.com/docs/supporting/requirements",
+      "url" : "https://code.visualstudio.com",
+      "author": {
+        "@type": "Organization",
+        "name": "Microsoft"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Microsoft"
+      },
+      "maintainer": {
+        "@type": "Organization",
+        "name": "Microsoft"
+      },
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://code.visualstudio.com/Search?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      },
+      "sameAs" : [
+        "https://en.wikipedia.org/wiki/Visual_Studio_Code",
+        "https://twitter.com/code",
+        "https://www.youtube.com/code",
+        "https://www.tiktok.com/@vscode",
+        "https://github.com/microsoft/vscode"
+      ]
+    }
+  </script>
+</body>
+
+<!-- Mirrored from code.visualstudio.com/api/language-extensions/programmatic-language-features by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 04 Jan 2023 11:27:31 GMT -->
+</html>

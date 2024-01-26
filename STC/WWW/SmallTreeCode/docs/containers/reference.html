@@ -1,0 +1,2743 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Mirrored from code.visualstudio.com/docs/containers/reference by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 04 Jan 2023 10:16:27 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="google-site-verification" content="hNs7DXrTySP_X-0P_AC0WulAXvUwgSXEmgfcO2r79dw" />
+
+  <!-- Twitter and Facebook OpenGraph Metadata-->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@code" />
+
+  <meta name="description" content="Reference for Docker build and Docker run tasks and properties in the Visual Studio Code Docker extension." />
+<meta name="keywords" content="" />
+<meta name="ms.prod" content="vs-code" />
+<meta name="ms.TOCTitle" content="Customize" />
+<meta name="ms.ContentId" content="6784FBBE-9EE4-44A8-AC48-A52617EB1968" />
+<meta name="ms.date" content="4/18/2022" />
+<meta name="ms.topic" content="conceptual" />
+<!-- Twitter and Facebook OpenGraph Metadata-->
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="og:url" content="reference.html" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Reference for Visual Studio Code Docker extension properties and tasks." />
+<meta property="og:description" content="Reference for Docker build and Docker run tasks and properties in the Visual Studio Code Docker extension." />
+
+<meta property="og:image" content="../../opengraphimg/opengraph-docs.png" />
+
+
+
+  <link rel="shortcut icon" href="../../favicon.ico" sizes="128x128" />
+  <link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+
+  <title>Reference for Visual Studio Code Docker extension properties and tasks.</title>
+
+  <link rel="stylesheet" href="../../vendor/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../../dist/style.css">
+
+  <script type="text/javascript" src="../../../js.monitor.azure.com/scripts/c/ms.analytics-web-3.min.js"></script>
+  <script>
+  window.appInsights = new oneDS.ApplicationInsights();
+  window.appInsights.initialize({
+    instrumentationKey: "1a3eb3104447440391ad5f2a6ee06a0a-62879566-bc58-4741-9650-302bf2af703f-7103",
+    webAnalyticsConfiguration:{ // Web Analytics Plugin configuration
+        urlCollectQuery:true, 
+        autoCapture: {
+          scroll: true,
+          pageView: true,
+          onLoad: true,
+          onUnload: true,
+          click: true,
+          resize: true,
+          jsError: true
+        }
+    }
+  }, []);
+  </script>
+  
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','../../../www.google-analytics.com/analytics.js','ga');
+  </script>  
+  <link rel="alternate" type="application/atom+xml" title="RSS Feed for code.visualstudio.com" href="../../feed.xml" />
+</head>
+
+<body>
+  <!-- EU Cookie Compliance JS -->
+  <script src="../../../wcpstatic.microsoft.com/mscc/lib/v2/wcp-consent.js"></script>
+
+  <div id="main">
+          <div class="navbar-fixed-container">
+              <div class="navbar navbar-inverse navbar-fixed-top ">
+                  <div id='cookie-banner'></div>        <nav role="navigation" aria-label="Top Level">
+                      <div class="container">
+                          <div class="nav navbar-header">
+                              <a role="button" id="skip-to-content" class="link-button" href="#main-content">Skip to content<i>&nbsp;</i><span class="glyphicon glyphicon-menu-down"></span></a>
+                              <a class="navbar-brand" id="navbar-brand" href="../../index.html">Visual Studio Code</a>
+                              <button type="button" class="navbar-toggle" role="navigation" data-toggle="collapse" data-target=".navbar-collapse" aria-label="Toggle Navigation Menu">
+                                  <span class="icon-bar"></span>
+                                  <span class="icon-bar"></span>
+                                  <span class="icon-bar"></span>
+                              </button>
+                          </div>
+                          <div class="navbar-collapse collapse" role="navigation">
+                              <ul class="nav navbar-nav navbar-left">
+                                  <li class="active" ><a id="nav-docs" href="../../docs.html">Docs</a></li>
+                                  <li ><a id="nav-updates" href="../../updates/v1_74.html">Updates</a></li>
+                                  <li ><a id="nav-blogs" href="../../blogs.html">Blog</a></li>
+                                  <li ><a id="nav-extend" href="../../api.html">API</a></li>
+                                  <li><a href="https://marketplace.visualstudio.com/VSCode" target="_blank" id="nav-extensions">Extensions</a></li>
+                                  <li ><a id="nav-faqs" href="../supporting/faq.html">FAQ</a></li>
+                                  <li ><a id="nav-learn" href="../../learn.html">Learn</a></li>
+                                  <li class='search visible-xs visible-sm'
+                                      ><a href="../../Search.html">Search</a></li>
+                              </ul>
+          
+                              <ul class="nav navbar-nav navbar-right" role="presentation">
+                                  <!-- Floating search icon -->
+                                  <li>
+                                      <a href="../../Search.html" title="Search" class="btn search-btn" id="nav-search">
+                                          <img class="search-icon" src="../../assets/icons/search.svg" width="16px" height="16px" alt="Search"/>
+                                          <img class="search-icon-inverted" src="../../assets/icons/search_dark.svg" width="16px" height="16px" alt="Search" />
+                                      </a>
+                                  </li>
+                                  <!-- Actual search icon -->
+                                  <li class="search" role="presentation">
+                                      <form class="nav-search search-form" role="search" aria-label="Search">
+                                          <div class="input-group" role="presentation">
+                                              <input type="text" name="q" class="search-box form-control" placeholder="Search Docs" aria-label="Search text"/>
+                                              <span class="input-group-btn">
+                                                  <button tabindex="0" class="btn" type="submit" aria-label="Search">
+                                                          <img class="search-icon" src="../../assets/icons/search.svg" width="16px" height="16px" alt="Search" />
+                                                          <img class="search-icon-inverted" src="../../assets/icons/search_dark.svg" width="16px" height="16px" alt="Search" />
+                                                  </button>
+                                              </span>
+                                          </div>
+                                      </form>                        </li>
+                                  <!-- this was hiden in the home and download page, keeping it for now -->
+                                  <li><a class="link-button" href="../../Download.html" id="nav-download">
+                                      <img class="download-icon" src="../../assets/icons/download.svg" width="16px" height="16px" alt="Download VS Code"/>
+                                      <img class="download-icon-inverted" src="../../assets/icons/download-black.svg" width="16px" height="16px" alt="Download VS Code" />
+                                      <span>Download</span>
+                                  </a></li>
+                              </ul>
+                          </div>
+                      </div>
+                  </nav>
+              </div>
+          </div>          <div class="updates-banner  ">
+              <div class="container">
+                  <p class="message"><a href="../../updates/v1_74.html" id="banner-link-updates">Version 1.74</a> is now available! Read about the new features and fixes from November.</p> 
+              </div>
+              <div tabindex="0" role="button" title="Dismiss this update" class="dismiss-btn" id="banner-dismiss-btn"><span class="sr-only">Dismiss this update</span><span aria-hidden="true" class="glyph-icon"></span></div>
+          </div>      <div role="main" id="main-content">
+        <script>
+    function closeReportIssue() {
+        var element = document.getElementById('surveypopup');
+        element.parentElement.removeChild(element);
+    }
+
+    function reportIssue(tutorial, page) {
+        var div = document.createElement('div');
+        div.innerHTML = '<div id="surveypopup" class="overlay visible"><div class="surveypopup"><div id="surveytitle">Tell us more<a href="javascript:void(0)" onclick="closeReportIssue()">X</a></div><div id="surveydiv"><iframe frameBorder="0" scrolling="0" src="https://www.research.net/r/PWZWZ52?tutorial=' + tutorial + '&step=' + page + '"></iframe></div></div></div>';
+        document.body.appendChild(div.children[0]);
+    }
+
+    function pushCodingPackEvent(language, os) {
+        let id = `${language}-${os}-coding-pack`;
+        var analytics = window.vscodeAnalytics;
+
+        analytics && analytics.event(
+            'click',
+            'download',
+            id,
+        );
+    }
+</script>
+
+<div class="container body-content docs">
+    <div class="row">
+        <div class="col-md-2 docs-navbar-container">
+            <nav id="docs-navbar" aria-label="Topics" class="docs-nav visible-md visible-lg">
+            	<ul class="nav" id="main-nav">
+            		<li >
+            			<a class="docs-home" href="../../docs.html" >Overview</a>
+            		</li>
+            		
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#setup-articles" data-parent="#main-nav" data-toggle="collapse">Setup</a>
+            					<ul id="setup-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../setup/setup-overview.html" >Overview</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../setup/linux.html" >Linux</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../setup/mac.html" >macOS</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../setup/windows.html" >Windows</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../setup/raspberry-pi.html" >Raspberry Pi</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../setup/network.html" >Network</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../setup/additional-components.html" >Additional Components</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../setup/enterprise.html" >Enterprise</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../setup/uninstall.html" >Uninstall</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#getstarted-articles" data-parent="#main-nav" data-toggle="collapse">Get Started</a>
+            					<ul id="getstarted-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../getstarted/introvideos.html" >Intro Videos</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../getstarted/tips-and-tricks.html" >Tips and Tricks</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../getstarted/userinterface.html" >User Interface</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../getstarted/themes.html" >Themes</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../getstarted/settings.html" >Settings</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../getstarted/keybindings.html" >Key Bindings</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../getstarted/locales.html" >Display Language</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../getstarted/telemetry.html" >Telemetry</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#editor-articles" data-parent="#main-nav" data-toggle="collapse">User Guide</a>
+            					<ul id="editor-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../editor/codebasics.html" >Basic Editing</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../editor/extension-marketplace.html" >Extension Marketplace</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../editor/intellisense.html" >IntelliSense</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../editor/editingevolved.html" >Code Navigation</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../editor/refactoring.html" >Refactoring</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../editor/debugging.html" >Debugging</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../editor/vscode-web.html" >VS Code for the Web</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../editor/tasks.html" >Tasks</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../editor/settings-sync.html" >Settings Sync</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../editor/userdefinedsnippets.html" >Snippets</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../editor/emmet.html" >Emmet</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../editor/command-line.html" >Command Line Interface</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../editor/workspace-trust.html" >Workspace Trust</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../editor/multi-root-workspaces.html" >Multi-root Workspaces</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../editor/accessibility.html" >Accessibility</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#sourcecontrol-articles" data-parent="#main-nav" data-toggle="collapse">Source Control</a>
+            					<ul id="sourcecontrol-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../sourcecontrol/overview.html" >Overview</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../sourcecontrol/github.html" >Collaborate on GitHub</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../sourcecontrol/faq.html" >FAQ</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#terminal-articles" data-parent="#main-nav" data-toggle="collapse">Terminal</a>
+            					<ul id="terminal-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../terminal/basics.html" >Terminal Basics</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../terminal/profiles.html" >Terminal Profiles</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../terminal/shell-integration.html" >Shell Integration</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../terminal/appearance.html" >Appearance</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../terminal/advanced.html" >Advanced</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#languages-articles" data-parent="#main-nav" data-toggle="collapse">Languages</a>
+            					<ul id="languages-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../languages/overview.html" >Overview</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/javascript.html" >JavaScript</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/json.html" >JSON</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/html.html" >HTML</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/css.html" >CSS, SCSS and Less</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/typescript.html" >TypeScript</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/markdown.html" >Markdown</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/powershell.html" >PowerShell</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/cpp.html" >C++</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/java.html" >Java</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/php.html" >PHP</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/python.html" >Python</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/julia.html" >Julia</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/r.html" >R</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/rust.html" >Rust</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/go.html" >Go</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/tsql.html" >T-SQL</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/csharp.html" >C#</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/dotnet.html" >.NET</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#nodejs-articles" data-parent="#main-nav" data-toggle="collapse">Node.js / JavaScript</a>
+            					<ul id="nodejs-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../nodejs/working-with-javascript.html" >Working with JavaScript</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../nodejs/nodejs-tutorial.html" >Node.js Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../nodejs/nodejs-debugging.html" >Node.js Debugging</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../nodejs/nodejs-deployment.html" >Deploy Node.js Apps</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../nodejs/browser-debugging.html" >Browser Debugging</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../nodejs/angular-tutorial.html" >Angular Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../nodejs/reactjs-tutorial.html" >React Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../nodejs/vuejs-tutorial.html" >Vue Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../nodejs/emberjs-tutorial.html" >Ember Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../nodejs/debugging-recipes.html" >Debugging Recipes</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../nodejs/profiling.html" >Performance Profiling</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../nodejs/extensions.html" >Extensions</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#typescript-articles" data-parent="#main-nav" data-toggle="collapse">TypeScript</a>
+            					<ul id="typescript-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../typescript/typescript-tutorial.html" >Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../typescript/typescript-compiling.html" >Compiling</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../typescript/typescript-editing.html" >Editing</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../typescript/typescript-refactoring.html" >Refactoring</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../typescript/typescript-debugging.html" >Debugging</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#python-articles" data-parent="#main-nav" data-toggle="collapse">Python</a>
+            					<ul id="python-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../python/python-tutorial.html" >Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../python/editing.html" >Editing Code</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../python/linting.html" >Linting</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../python/debugging.html" >Debugging</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../python/environments.html" >Environments</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../python/testing.html" >Testing</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../datascience/overview.html" >Data Science</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../python/jupyter-support-py.html" >Python Interactive</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../python/tutorial-django.html" >Django Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../python/tutorial-flask.html" >Flask Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="quickstart-python.html" >Create containers</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../python/python-on-azure.html" >Deploy Python Apps</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../python/python-web.html" >Python in the Web</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../python/settings-reference.html" >Settings Reference</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#java-articles" data-parent="#main-nav" data-toggle="collapse">Java</a>
+            					<ul id="java-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../java/java-tutorial.html" >Getting Started</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-editing.html" >Navigate and Edit</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-refactoring.html" >Refactoring</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-linting.html" >Formatting and Linting</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-project.html" >Project Management</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-build.html" >Build Tools</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-debugging.html" >Run and Debug</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-testing.html" >Testing</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-spring-boot.html" >Spring Boot</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-tomcat-jetty.html" >Application Servers</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-on-azure.html" >Deploy Java Apps</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-gui.html" >GUI Applications</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/extensions.html" >Extensions</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-faq.html" >FAQ</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#cpp-articles" data-parent="#main-nav" data-toggle="collapse">C++</a>
+            					<ul id="cpp-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../cpp/introvideos-cpp.html" >Intro Videos</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../cpp/config-linux.html" >GCC on Linux</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../cpp/config-mingw.html" >GCC on Windows</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../cpp/config-wsl.html" >GCC on Windows Subsystem for Linux</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../cpp/config-clang-mac.html" >Clang on macOS</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../cpp/config-msvc.html" >Microsoft C++ on Windows</a>
+            						</li>
+            					
+            						<li >
+            							<a href="https://github.com/microsoft/vscode-cmake-tools/blob/main/docs/README.md" >Build with CMake</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../cpp/cmake-linux.html" >CMake Tools on Linux</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../cpp/cpp-ide.html" >Editing</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../cpp/cpp-debug.html" >Debugging</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../cpp/launch-json-reference.html" >Configure debugging</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../cpp/customize-default-settings-cpp.html" >Settings</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../cpp/configure-intellisense-crosscompilation.html" >Configure IntelliSense for cross-compiling</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../cpp/faq-cpp.html" >FAQ</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel active expanded">
+            					<a class="area" role="button" href="#containers-articles" data-parent="#main-nav" data-toggle="collapse">Docker</a>
+            					<ul id="containers-articles" class="collapse in">
+            					
+            						<li >
+            							<a href="overview.html" >Overview</a>
+            						</li>
+            					
+            						<li >
+            							<a href="quickstart-node.html" >Node.js</a>
+            						</li>
+            					
+            						<li >
+            							<a href="quickstart-python.html" >Python</a>
+            						</li>
+            					
+            						<li >
+            							<a href="quickstart-aspnet-core.html" >ASP.NET Core</a>
+            						</li>
+            					
+            						<li >
+            							<a href="debug-common.html" >Debug</a>
+            						</li>
+            					
+            						<li >
+            							<a href="docker-compose.html" >Docker Compose</a>
+            						</li>
+            					
+            						<li >
+            							<a href="quickstart-container-registries.html" >Registries</a>
+            						</li>
+            					
+            						<li >
+            							<a href="app-service.html" >Deploy to Azure</a>
+            						</li>
+            					
+            						<li >
+            							<a href="choosing-dev-environment.html" >Choose a dev environment</a>
+            						</li>
+            					
+            						<li class="active">
+            							<a href="reference.html" aria-label="Current Page: Customize">Customize</a>
+            						</li>
+            					
+            						<li >
+            							<a href="https://learn.microsoft.com/visualstudio/bridge/bridge-to-kubernetes-vs-code" >Develop with Kubernetes</a>
+            						</li>
+            					
+            						<li >
+            							<a href="troubleshooting.html" >Tips and Tricks</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#datascience-articles" data-parent="#main-nav" data-toggle="collapse">Data Science</a>
+            					<ul id="datascience-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../datascience/overview.html" >Overview</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../datascience/jupyter-notebooks.html" >Jupyter Notebooks</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../datascience/data-science-tutorial.html" >Data Science Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../python/jupyter-support-py.html" >Python Interactive</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../datascience/pytorch-support.html" >PyTorch Support</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../datascience/azure-machine-learning.html" >Azure Machine Learning</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#azure-articles" data-parent="#main-nav" data-toggle="collapse">Azure</a>
+            					<ul id="azure-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../azure/extensions.html" >Extensions</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../azure/deployment.html" >Deployment</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../azure/remote-debugging.html" >Remote Debugging for Node.js</a>
+            						</li>
+            					
+            						<li >
+            							<a href="overview.html" >Docker</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../azure/mongodb.html" >MongoDB</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../azure/kubernetes.html" >Kubernetes</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../azure/aksextensions.html" >Azure Kubernetes Service</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#remote-articles" data-parent="#main-nav" data-toggle="collapse">Remote</a>
+            					<ul id="remote-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../remote/remote-overview.html" >Overview</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../remote/ssh.html" >SSH</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../devcontainers/containers.html" >Dev Containers</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../remote/wsl.html" >Windows Subsystem for Linux</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../remote/codespaces.html" >GitHub Codespaces</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../remote/vscode-server.html" >VS Code Server</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../remote/tunnels.html" >Tunnels</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../remote/ssh-tutorial.html" >SSH Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../remote/wsl-tutorial.html" >WSL Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../remote/troubleshooting.html" >Tips and Tricks</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../remote/faq.html" >FAQ</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#devcontainers-articles" data-parent="#main-nav" data-toggle="collapse">Dev Containers</a>
+            					<ul id="devcontainers-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../devcontainers/containers.html" >Overview</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../devcontainers/tutorial.html" >Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../devcontainers/attach-container.html" >Attach to Container</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../devcontainers/create-dev-container.html" >Create a Dev Container</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../../remote/advancedcontainers/overview.html" >Advanced Containers</a>
+            						</li>
+            					
+            						<li >
+            							<a href="https://containers.dev/implementors/json_reference" >devcontainer.json</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../devcontainers/devcontainer-cli.html" >Dev Container CLI</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../devcontainers/tips-and-tricks.html" >Tips and Tricks</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../devcontainers/faq.html" >FAQ</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            		
+            	</ul>
+            </nav>
+            <nav id="small-nav" aria-label="Topics" class="docs-nav hidden-md hidden-lg">
+            	<h4>Topics</h4>
+            	<select id="small-nav-dropdown" aria-label="topics">
+            		<option value="/docs" >Overview</option>
+            		
+            			
+            		
+            			
+            				<optgroup label="Setup">
+            				
+            					<option value="/docs/setup/setup-overview" >Overview</option>
+            				
+            					<option value="/docs/setup/linux" >Linux</option>
+            				
+            					<option value="/docs/setup/mac" >macOS</option>
+            				
+            					<option value="/docs/setup/windows" >Windows</option>
+            				
+            					<option value="/docs/setup/raspberry-pi" >Raspberry Pi</option>
+            				
+            					<option value="/docs/setup/network" >Network</option>
+            				
+            					<option value="/docs/setup/additional-components" >Additional Components</option>
+            				
+            					<option value="/docs/setup/enterprise" >Enterprise</option>
+            				
+            					<option value="/docs/setup/uninstall" >Uninstall</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Get Started">
+            				
+            					<option value="/docs/getstarted/introvideos" >Intro Videos</option>
+            				
+            					<option value="/docs/getstarted/tips-and-tricks" >Tips and Tricks</option>
+            				
+            					<option value="/docs/getstarted/userinterface" >User Interface</option>
+            				
+            					<option value="/docs/getstarted/themes" >Themes</option>
+            				
+            					<option value="/docs/getstarted/settings" >Settings</option>
+            				
+            					<option value="/docs/getstarted/keybindings" >Key Bindings</option>
+            				
+            					<option value="/docs/getstarted/locales" >Display Language</option>
+            				
+            					<option value="/docs/getstarted/telemetry" >Telemetry</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="User Guide">
+            				
+            					<option value="/docs/editor/codebasics" >Basic Editing</option>
+            				
+            					<option value="/docs/editor/extension-marketplace" >Extension Marketplace</option>
+            				
+            					<option value="/docs/editor/intellisense" >IntelliSense</option>
+            				
+            					<option value="/docs/editor/editingevolved" >Code Navigation</option>
+            				
+            					<option value="/docs/editor/refactoring" >Refactoring</option>
+            				
+            					<option value="/docs/editor/debugging" >Debugging</option>
+            				
+            					<option value="/docs/editor/vscode-web" >VS Code for the Web</option>
+            				
+            					<option value="/docs/editor/tasks" >Tasks</option>
+            				
+            					<option value="/docs/editor/settings-sync" >Settings Sync</option>
+            				
+            					<option value="/docs/editor/userdefinedsnippets" >Snippets</option>
+            				
+            					<option value="/docs/editor/emmet" >Emmet</option>
+            				
+            					<option value="/docs/editor/command-line" >Command Line Interface</option>
+            				
+            					<option value="/docs/editor/workspace-trust" >Workspace Trust</option>
+            				
+            					<option value="/docs/editor/multi-root-workspaces" >Multi-root Workspaces</option>
+            				
+            					<option value="/docs/editor/accessibility" >Accessibility</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Source Control">
+            				
+            					<option value="/docs/sourcecontrol/overview" >Overview</option>
+            				
+            					<option value="/docs/sourcecontrol/github" >Collaborate on GitHub</option>
+            				
+            					<option value="/docs/sourcecontrol/faq" >FAQ</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Terminal">
+            				
+            					<option value="/docs/terminal/basics" >Terminal Basics</option>
+            				
+            					<option value="/docs/terminal/profiles" >Terminal Profiles</option>
+            				
+            					<option value="/docs/terminal/shell-integration" >Shell Integration</option>
+            				
+            					<option value="/docs/terminal/appearance" >Appearance</option>
+            				
+            					<option value="/docs/terminal/advanced" >Advanced</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Languages">
+            				
+            					<option value="/docs/languages/overview" >Overview</option>
+            				
+            					<option value="/docs/languages/javascript" >JavaScript</option>
+            				
+            					<option value="/docs/languages/json" >JSON</option>
+            				
+            					<option value="/docs/languages/html" >HTML</option>
+            				
+            					<option value="/docs/languages/css" >CSS, SCSS and Less</option>
+            				
+            					<option value="/docs/languages/typescript" >TypeScript</option>
+            				
+            					<option value="/docs/languages/markdown" >Markdown</option>
+            				
+            					<option value="/docs/languages/powershell" >PowerShell</option>
+            				
+            					<option value="/docs/languages/cpp" >C++</option>
+            				
+            					<option value="/docs/languages/java" >Java</option>
+            				
+            					<option value="/docs/languages/php" >PHP</option>
+            				
+            					<option value="/docs/languages/python" >Python</option>
+            				
+            					<option value="/docs/languages/julia" >Julia</option>
+            				
+            					<option value="/docs/languages/r" >R</option>
+            				
+            					<option value="/docs/languages/rust" >Rust</option>
+            				
+            					<option value="/docs/languages/go" >Go</option>
+            				
+            					<option value="/docs/languages/tsql" >T-SQL</option>
+            				
+            					<option value="/docs/languages/csharp" >C#</option>
+            				
+            					<option value="/docs/languages/dotnet" >.NET</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Node.js / JavaScript">
+            				
+            					<option value="/docs/nodejs/working-with-javascript" >Working with JavaScript</option>
+            				
+            					<option value="/docs/nodejs/nodejs-tutorial" >Node.js Tutorial</option>
+            				
+            					<option value="/docs/nodejs/nodejs-debugging" >Node.js Debugging</option>
+            				
+            					<option value="/docs/nodejs/nodejs-deployment" >Deploy Node.js Apps</option>
+            				
+            					<option value="/docs/nodejs/browser-debugging" >Browser Debugging</option>
+            				
+            					<option value="/docs/nodejs/angular-tutorial" >Angular Tutorial</option>
+            				
+            					<option value="/docs/nodejs/reactjs-tutorial" >React Tutorial</option>
+            				
+            					<option value="/docs/nodejs/vuejs-tutorial" >Vue Tutorial</option>
+            				
+            					<option value="/docs/nodejs/emberjs-tutorial" >Ember Tutorial</option>
+            				
+            					<option value="/docs/nodejs/debugging-recipes" >Debugging Recipes</option>
+            				
+            					<option value="/docs/nodejs/profiling" >Performance Profiling</option>
+            				
+            					<option value="/docs/nodejs/extensions" >Extensions</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="TypeScript">
+            				
+            					<option value="/docs/typescript/typescript-tutorial" >Tutorial</option>
+            				
+            					<option value="/docs/typescript/typescript-compiling" >Compiling</option>
+            				
+            					<option value="/docs/typescript/typescript-editing" >Editing</option>
+            				
+            					<option value="/docs/typescript/typescript-refactoring" >Refactoring</option>
+            				
+            					<option value="/docs/typescript/typescript-debugging" >Debugging</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Python">
+            				
+            					<option value="/docs/python/python-tutorial" >Tutorial</option>
+            				
+            					<option value="/docs/python/editing" >Editing Code</option>
+            				
+            					<option value="/docs/python/linting" >Linting</option>
+            				
+            					<option value="/docs/python/debugging" >Debugging</option>
+            				
+            					<option value="/docs/python/environments" >Environments</option>
+            				
+            					<option value="/docs/python/testing" >Testing</option>
+            				
+            					<option value="/docs/python/data-science" >Data Science</option>
+            				
+            					<option value="/docs/python/jupyter-support-py" >Python Interactive</option>
+            				
+            					<option value="/docs/python/tutorial-django" >Django Tutorial</option>
+            				
+            					<option value="/docs/python/tutorial-flask" >Flask Tutorial</option>
+            				
+            					<option value="/docs/python/tutorial-create-containers" >Create containers</option>
+            				
+            					<option value="/docs/python/python-on-azure" >Deploy Python Apps</option>
+            				
+            					<option value="/docs/python/python-web" >Python in the Web</option>
+            				
+            					<option value="/docs/python/settings-reference" >Settings Reference</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Java">
+            				
+            					<option value="/docs/java/java-tutorial" >Getting Started</option>
+            				
+            					<option value="/docs/java/java-editing" >Navigate and Edit</option>
+            				
+            					<option value="/docs/java/java-refactoring" >Refactoring</option>
+            				
+            					<option value="/docs/java/java-linting" >Formatting and Linting</option>
+            				
+            					<option value="/docs/java/java-project" >Project Management</option>
+            				
+            					<option value="/docs/java/java-build" >Build Tools</option>
+            				
+            					<option value="/docs/java/java-debugging" >Run and Debug</option>
+            				
+            					<option value="/docs/java/java-testing" >Testing</option>
+            				
+            					<option value="/docs/java/java-spring-boot" >Spring Boot</option>
+            				
+            					<option value="/docs/java/java-tomcat-jetty" >Application Servers</option>
+            				
+            					<option value="/docs/java/java-on-azure" >Deploy Java Apps</option>
+            				
+            					<option value="/docs/java/java-gui" >GUI Applications</option>
+            				
+            					<option value="/docs/java/extensions" >Extensions</option>
+            				
+            					<option value="/docs/java/java-faq" >FAQ</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="C++">
+            				
+            					<option value="/docs/cpp/introvideos-cpp" >Intro Videos</option>
+            				
+            					<option value="/docs/cpp/config-linux" >GCC on Linux</option>
+            				
+            					<option value="/docs/cpp/config-mingw" >GCC on Windows</option>
+            				
+            					<option value="/docs/cpp/config-wsl" >GCC on Windows Subsystem for Linux</option>
+            				
+            					<option value="/docs/cpp/config-clang-mac" >Clang on macOS</option>
+            				
+            					<option value="/docs/cpp/config-msvc" >Microsoft C++ on Windows</option>
+            				
+            					<option value="/docs/cpp/build-with-cmake" >Build with CMake</option>
+            				
+            					<option value="/docs/cpp/cmake-linux" >CMake Tools on Linux</option>
+            				
+            					<option value="/docs/cpp/cpp-ide" >Editing</option>
+            				
+            					<option value="/docs/cpp/cpp-debug" >Debugging</option>
+            				
+            					<option value="/docs/cpp/launch-json-reference" >Configure debugging</option>
+            				
+            					<option value="/docs/cpp/customize-default-settings-cpp" >Settings</option>
+            				
+            					<option value="/docs/cpp/configure-intellisense-crosscompilation" >Configure IntelliSense for cross-compiling</option>
+            				
+            					<option value="/docs/cpp/faq-cpp" >FAQ</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Docker">
+            				
+            					<option value="/docs/containers/overview" >Overview</option>
+            				
+            					<option value="/docs/containers/quickstart-node" >Node.js</option>
+            				
+            					<option value="/docs/containers/quickstart-python" >Python</option>
+            				
+            					<option value="/docs/containers/quickstart-aspnet-core" >ASP.NET Core</option>
+            				
+            					<option value="/docs/containers/debug-common" >Debug</option>
+            				
+            					<option value="/docs/containers/docker-compose" >Docker Compose</option>
+            				
+            					<option value="/docs/containers/quickstart-container-registries" >Registries</option>
+            				
+            					<option value="/docs/containers/app-service" >Deploy to Azure</option>
+            				
+            					<option value="/docs/containers/choosing-dev-environment" >Choose a dev environment</option>
+            				
+            					<option value="/docs/containers/reference" selected>Customize</option>
+            				
+            					<option value="/docs/containers/bridge-to-kubernetes" >Develop with Kubernetes</option>
+            				
+            					<option value="/docs/containers/troubleshooting" >Tips and Tricks</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Data Science">
+            				
+            					<option value="/docs/datascience/overview" >Overview</option>
+            				
+            					<option value="/docs/datascience/jupyter-notebooks" >Jupyter Notebooks</option>
+            				
+            					<option value="/docs/datascience/data-science-tutorial" >Data Science Tutorial</option>
+            				
+            					<option value="/docs/datascience/python-interactive" >Python Interactive</option>
+            				
+            					<option value="/docs/datascience/pytorch-support" >PyTorch Support</option>
+            				
+            					<option value="/docs/datascience/azure-machine-learning" >Azure Machine Learning</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Azure">
+            				
+            					<option value="/docs/azure/extensions" >Extensions</option>
+            				
+            					<option value="/docs/azure/deployment" >Deployment</option>
+            				
+            					<option value="/docs/azure/remote-debugging" >Remote Debugging for Node.js</option>
+            				
+            					<option value="/docs/azure/docker" >Docker</option>
+            				
+            					<option value="/docs/azure/mongodb" >MongoDB</option>
+            				
+            					<option value="/docs/azure/kubernetes" >Kubernetes</option>
+            				
+            					<option value="/docs/azure/aksextensions" >Azure Kubernetes Service</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Remote">
+            				
+            					<option value="/docs/remote/remote-overview" >Overview</option>
+            				
+            					<option value="/docs/remote/ssh" >SSH</option>
+            				
+            					<option value="/docs/remote/dev-containers" >Dev Containers</option>
+            				
+            					<option value="/docs/remote/wsl" >Windows Subsystem for Linux</option>
+            				
+            					<option value="/docs/remote/codespaces" >GitHub Codespaces</option>
+            				
+            					<option value="/docs/remote/vscode-server" >VS Code Server</option>
+            				
+            					<option value="/docs/remote/tunnels" >Tunnels</option>
+            				
+            					<option value="/docs/remote/ssh-tutorial" >SSH Tutorial</option>
+            				
+            					<option value="/docs/remote/wsl-tutorial" >WSL Tutorial</option>
+            				
+            					<option value="/docs/remote/troubleshooting" >Tips and Tricks</option>
+            				
+            					<option value="/docs/remote/faq" >FAQ</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Dev Containers">
+            				
+            					<option value="/docs/devcontainers/containers" >Overview</option>
+            				
+            					<option value="/docs/devcontainers/tutorial" >Tutorial</option>
+            				
+            					<option value="/docs/devcontainers/attach-container" >Attach to Container</option>
+            				
+            					<option value="/docs/devcontainers/create-dev-container" >Create a Dev Container</option>
+            				
+            					<option value="/docs/devcontainers/containers-advanced" >Advanced Containers</option>
+            				
+            					<option value="/docs/devcontainers/devcontainerjson-reference" >devcontainer.json</option>
+            				
+            					<option value="/docs/devcontainers/devcontainer-cli" >Dev Container CLI</option>
+            				
+            					<option value="/docs/devcontainers/tips-and-tricks" >Tips and Tricks</option>
+            				
+            					<option value="/docs/devcontainers/faq" >FAQ</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            		
+            	</select>
+            </nav>        </div>
+        <div class="col-sm-9 col-md-8 body">
+            <div class="edit-github pull-right">
+                <a href="https://vscode.dev/github/microsoft/vscode-docs/blob/main/docs/containers/reference.md"
+                    class="btn btn-default" title="Edit this document in vscode.dev">
+                    <span class="glyphicon glyphicon-pencil"></span>
+                    <span class="hidden-xs">Edit</span>
+                </a>
+            </div>
+            <h1>Customize the Docker extension</h1>
+<p>The Docker extension includes several Visual Studio Code tasks to control the behavior of Docker <a href="#_docker-build-task">build</a> and <a href="#_docker-run-task">run</a>, and form the basis of container startup for debugging.</p>
+<p>The tasks allow for a great deal of control and customization. The final configuration is a combination of general defaults, platform-specific defaults (such as Node.js, Python, or .NET), and user input. User input takes precedence when it conflicts with defaults.</p>
+<p>All common features of Visual Studio Code tasks (for example, grouping tasks into compound tasks) are supported by Docker extension tasks. For more information on common task features and properties, see the Visual Studio Code <a href="../editor/tasks.html#_custom-tasks">custom task</a> documentation.</p>
+<h2 id="_docker-build-task" data-needslink="_docker-build-task">Docker build task</h2>
+<p>The <code>docker-build</code> task builds Docker images using the Docker command line (CLI). The task can be used by itself, or as part of a chain of tasks to run and/or debug an application within a Docker container.</p>
+<p>The most important configuration settings for the <code>docker-build</code> task are <code>dockerBuild</code> and <code>platform</code>:</p>
+<ul>
+<li>The <code>dockerBuild</code> object specifies parameters for the Docker build command. Values specified by this object are applied directly to Docker build CLI invocation.</li>
+<li>The <code>platform</code> property is a hint that changes how the <code>docker-build</code> task determines Docker build defaults.</li>
+</ul>
+<p>See <a href="#_build-task-reference">property reference</a> for full list of all task properties.</p>
+<h3 id="_platform-support" data-needslink="_platform-support">Platform support</h3>
+<p>While the <code>docker-build</code> task in <code>tasks.json</code> can be used to build any Docker image, the extension has explicit support (and simplified configuration) for Node.js, Python, and .NET Core.</p>
+<h3 id="_nodejs-dockerbuild" data-needslink="_nodejs-dockerbuild">Node.js (docker-build)</h3>
+<p><strong>Minimal configuration using defaults</strong></p>
+<p>A Node.js based Docker image with no specific platform options can just set the <code>platform</code> property to <code>node</code>:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #000000">{</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;version&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;2.0.0&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;tasks&quot;</span><span style="color: #000000">: [</span></span>
+<span class="line"><span style="color: #000000">    {</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #0451A5">&quot;label&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;Build Node Image&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #0451A5">&quot;type&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;docker-build&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #0451A5">&quot;platform&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;node&quot;</span></span>
+<span class="line"><span style="color: #000000">    }</span></span>
+<span class="line"><span style="color: #000000">  ]</span></span>
+<span class="line"><span style="color: #000000">}</span></span>
+<span class="line"></span></code></pre>
+<p><strong>Platform defaults</strong></p>
+<p>For Node.js Docker images, the <code>docker-build</code> task infers the following options:</p>
+<table class="table table-striped">
+<thead>
+<tr>
+<th>Property</th>
+<th>Inferred Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>dockerBuild.context</code></td>
+<td>The same directory in which the <code>package.json</code> resides.</td>
+</tr>
+<tr>
+<td><code>dockerBuild.dockerfile</code></td>
+<td>The file <code>Dockerfile</code> in the same directory as the <code>package.json</code> resides.</td>
+</tr>
+<tr>
+<td><code>dockerBuild.tag</code></td>
+<td>The application's <code>name</code> property in <code>package.json</code> (if defined), else the base name of the folder in which <code>package.json</code> resides.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_python-dockerbuild" data-needslink="_python-dockerbuild">Python (docker-build)</h3>
+<p><strong>Minimal configuration using defaults</strong></p>
+<p>A Python based Docker image with no specific platform options can just set the <code>platform</code> property to <code>python</code>:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #000000">{</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;tasks&quot;</span><span style="color: #000000">: [</span></span>
+<span class="line"><span style="color: #000000">    {</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #0451A5">&quot;type&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;docker-build&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #0451A5">&quot;label&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;docker-build&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #0451A5">&quot;platform&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;python&quot;</span></span>
+<span class="line"><span style="color: #000000">    }</span></span>
+<span class="line"><span style="color: #000000">  ]</span></span>
+<span class="line"><span style="color: #000000">}</span></span>
+<span class="line"></span></code></pre>
+<p><strong>Platform defaults</strong></p>
+<p>For Python Docker images, the <code>docker-build</code> task infers the following options:</p>
+<table class="table table-striped">
+<thead>
+<tr>
+<th>Property</th>
+<th>Inferred Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>dockerBuild.context</code></td>
+<td>The default context is the workspace folder.</td>
+</tr>
+<tr>
+<td><code>dockerBuild.dockerfile</code></td>
+<td>The default <code>Dockerfile</code> path will be in the root of the workspace folder.</td>
+</tr>
+<tr>
+<td><code>dockerBuild.tag</code></td>
+<td>The base name of the root workspace folder.</td>
+</tr>
+<tr>
+<td><code>dockerBuild.pull</code></td>
+<td>Defaults to true in order to pull new base images before building.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_net-dockerbuild" data-needslink="_net-dockerbuild">.NET (docker-build)</h3>
+<p><strong>Minimal configuration using defaults</strong></p>
+<p>When you build a .NET-based Docker image, you can omit the <code>platform</code> property and just set the <code>netCore</code> object (<code>platform</code> is implicitly set to <code>netcore</code> when <code>netCore</code> object is present). Note that <code>appProject</code> is a required property:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #000000">{</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;version&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;2.0.0&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;tasks&quot;</span><span style="color: #000000">: [</span></span>
+<span class="line"><span style="color: #000000">    {</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #0451A5">&quot;label&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;Build Node Image&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #0451A5">&quot;type&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;docker-build&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #0451A5">&quot;netCore&quot;</span><span style="color: #000000">: {</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #0451A5">&quot;appProject&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;${workspaceFolder}/project.csproj&quot;</span></span>
+<span class="line"><span style="color: #000000">      }</span></span>
+<span class="line"><span style="color: #000000">    }</span></span>
+<span class="line"><span style="color: #000000">  ]</span></span>
+<span class="line"><span style="color: #000000">}</span></span>
+<span class="line"></span></code></pre>
+<p><strong>Platform defaults</strong></p>
+<p>For .NET-based images, the <code>docker-build</code> task infers the following options:</p>
+<table class="table table-striped">
+<thead>
+<tr>
+<th>Property</th>
+<th>Inferred Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>dockerBuild.context</code></td>
+<td>The root workspace folder.</td>
+</tr>
+<tr>
+<td><code>dockerBuild.dockerfile</code></td>
+<td>The file <code>Dockerfile</code> in the root workspace folder.</td>
+</tr>
+<tr>
+<td><code>dockerBuild.tag</code></td>
+<td>The base name of the root workspace folder.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_build-task-reference" data-needslink="_build-task-reference">Build task reference</h2>
+<p>Here are all properties available for configuring <code>docker-build</code> task. All properties are optional unless indicated otherwise.</p>
+<table class="table table-striped">
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>dockerBuild</code></td>
+<td>Options for controlling the <code>docker build</code> command executed (<a href="#_dockerbuild-object-properties">see below</a>). <br/> Required unless <code>platform</code> is set.</td>
+</tr>
+<tr>
+<td><code>platform</code></td>
+<td>Determines the platform: .NET (<code>netcore</code>) or Node.js (<code>node</code>) and default settings for <code>docker build</code> command.</td>
+</tr>
+<tr>
+<td><code>node</code></td>
+<td>Determines options specific for Node.js projects (<a href="#_node-object-properties-dockerbuild-task">see below</a>).</td>
+</tr>
+<tr>
+<td><code>python</code></td>
+<td>There are no object properties for Python in the <code>docker-build</code> task.</td>
+</tr>
+<tr>
+<td><code>netCore</code></td>
+<td>Determines options specific for .NET projects (<a href="#_netcore-object-properties-dockerbuild-task">see below</a>).</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_dockerbuild-object-properties" data-needslink="_dockerbuild-object-properties">dockerBuild object properties</h3>
+<table class="table table-striped">
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+<th><code>docker build</code> CLI Equivalent</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>context</code></td>
+<td>The path to the Docker build context. <br/> Required, unless inferred from the platform.</td>
+<td><code>PATH</code></td>
+</tr>
+<tr>
+<td><code>dockerfile</code></td>
+<td>The path to the Dockerfile. <br/> Required, unless inferred from the platform.</td>
+<td><code>-f</code> or <code>--file</code></td>
+</tr>
+<tr>
+<td><code>tag</code></td>
+<td>The tag applied to the Docker image. <br/> Required, unless inferred from the platform.</td>
+<td><code>-t</code> or <code>--tag</code></td>
+</tr>
+<tr>
+<td><code>buildArgs</code></td>
+<td>Build arguments applied to the command line. This is a list of key-value pairs.</td>
+<td><code>--build-arg</code></td>
+</tr>
+<tr>
+<td><code>labels</code></td>
+<td>Labels added to the Docker image. This is a list of key-value pairs (a JSON object). <br/> In addition to labels specified here, a label <code>com.microsoft.created-by</code>, set to <code>visual-studio-code</code> is added to the image. This behavior can be turned off by setting <code>includeDefaults</code> property of the <code>labels</code> object to false.</td>
+<td><code>--label</code></td>
+</tr>
+<tr>
+<td><code>target</code></td>
+<td>The target in the Dockerfile to build to.</td>
+<td><code>--target</code></td>
+</tr>
+<tr>
+<td><code>pull</code></td>
+<td>Whether or not to pull new base images before building.</td>
+<td><code>--pull</code></td>
+</tr>
+<tr>
+<td><code>customOptions</code></td>
+<td>Any extra parameters to add before the context argument. No attempt is made to resolve conflicts with other options or validate this option.</td>
+<td>(any)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_node-object-properties-dockerbuild-task" data-needslink="_node-object-properties-dockerbuild-task">node object properties (<code>docker-build</code> task)</h3>
+<table class="table table-striped">
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>package</code></td>
+<td>The path to the <code>package.json</code> file associated with the Dockerfile and <code>docker-build</code> task.</td>
+<td>The file <code>package.json</code> in the root workspace folder.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_netcore-object-properties-dockerbuild-task" data-needslink="_netcore-object-properties-dockerbuild-task">netCore object properties (<code>docker-build</code> task)</h3>
+<table class="table table-striped">
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>appProject</code></td>
+<td>The .NET project file (<code>.csproj</code>, <code>.fsproj</code>, etc.) associated with the Dockerfile and <code>docker-build</code> task. <br/> Required always.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_docker-run-task" data-needslink="_docker-run-task">Docker run task</h2>
+<p>The <code>docker-run</code> task in <code>tasks.json</code> creates and starts a Docker container using the Docker command line (CLI). The task can be used by itself, or as part of a chain of tasks to debug an application within a Docker container.</p>
+<p>The most important configuration settings for the <code>docker-run</code> task are <code>dockerRun</code> and <code>platform</code>:</p>
+<ul>
+<li>The <code>dockerRun</code> object specifies parameters for the Docker run command. Values specified by this object are applied directly to Docker run CLI invocation.</li>
+<li>The <code>platform</code> property is a hint that changes how the <code>docker-run</code> task determines Docker run defaults.</li>
+</ul>
+<p>See <a href="#_run-task-reference">property reference</a> for full list of all task properties.</p>
+<h3 id="_docker-run-platform-support" data-needslink="_docker-run-platform-support">Docker run platform support</h3>
+<p>While the <code>docker-run</code> task can be used to run any Docker image, the extension has explicit support (and simplified configuration) for Node.js, Python, and .NET.</p>
+<h3 id="_nodejs-dockerrun" data-needslink="_nodejs-dockerrun">Node.js (docker-run)</h3>
+<p><strong>Minimal configuration using defaults</strong></p>
+<p>A Node.js based Docker image with no specific platform options can just set the <code>platform</code> property to <code>node</code>.</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #000000">{</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;version&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;2.0.0&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;tasks&quot;</span><span style="color: #000000">: [</span></span>
+<span class="line"><span style="color: #000000">    {</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #0451A5">&quot;label&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;Run Node Image&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #0451A5">&quot;node&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;docker-run&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #0451A5">&quot;platform&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;node&quot;</span></span>
+<span class="line"><span style="color: #000000">    }</span></span>
+<span class="line"><span style="color: #000000">  ]</span></span>
+<span class="line"><span style="color: #000000">}</span></span>
+<span class="line"></span></code></pre>
+<p><strong>Platform defaults</strong></p>
+<p>For Node.js-based Docker images, the <code>docker-run</code> task infers the following options:</p>
+<table class="table table-striped">
+<thead>
+<tr>
+<th>Property</th>
+<th>Inferred Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>dockerRun.command</code></td>
+<td>Generated from the npm <code>start</code> script in the <code>package.json</code> (if it exists), else generated from the <code>main</code> property in the <code>package.json</code>.</td>
+</tr>
+<tr>
+<td><code>dockerRun.containerName</code></td>
+<td>Derived from the application package name.</td>
+</tr>
+<tr>
+<td><code>dockerRun.image</code></td>
+<td>The tag from a dependent <code>docker-build</code> task (if one exists) or derived from the application package name, itself derived from the <code>name</code> property within <code>package.json</code> or the base name of the folder in which it resides.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_python-dockerrun" data-needslink="_python-dockerrun">Python (docker-run)</h3>
+<p>When building a Python-based Docker image, you can omit the <code>platform</code> property and just set the <code>python</code> object (<code>platform</code> is implicitly set to <code>python</code> when <code>python</code> object is present)</p>
+<p><strong>Minimal configuration for Django Apps</strong></p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #000000">{</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;type&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;docker-run&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;label&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;docker-run: debug&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;dependsOn&quot;</span><span style="color: #000000">: [</span><span style="color: #A31515">&quot;docker-build&quot;</span><span style="color: #000000">],</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;python&quot;</span><span style="color: #000000">: {</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #0451A5">&quot;args&quot;</span><span style="color: #000000">: [</span><span style="color: #A31515">&quot;runserver&quot;</span><span style="color: #000000">, </span><span style="color: #A31515">&quot;0.0.0.0:8000&quot;</span><span style="color: #000000">, </span><span style="color: #A31515">&quot;--nothreading&quot;</span><span style="color: #000000">, </span><span style="color: #A31515">&quot;--noreload&quot;</span><span style="color: #000000">],</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #0451A5">&quot;file&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;path_to/manage.py&quot;</span></span>
+<span class="line"><span style="color: #000000">  }</span></span>
+<span class="line"><span style="color: #000000">}</span></span>
+<span class="line"></span></code></pre>
+<p><strong>Minimal configuration for Flask Apps</strong></p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #000000">{</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;type&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;docker-run&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;label&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;docker-run: debug&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;dependsOn&quot;</span><span style="color: #000000">: [</span><span style="color: #A31515">&quot;docker-build&quot;</span><span style="color: #000000">],</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;dockerRun&quot;</span><span style="color: #000000">: {</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #0451A5">&quot;env&quot;</span><span style="color: #000000">: {</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #0451A5">&quot;FLASK_APP&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;path_to/flask_entry_point.py&quot;</span></span>
+<span class="line"><span style="color: #000000">    }</span></span>
+<span class="line"><span style="color: #000000">  },</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;python&quot;</span><span style="color: #000000">: {</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #0451A5">&quot;args&quot;</span><span style="color: #000000">: [</span><span style="color: #A31515">&quot;run&quot;</span><span style="color: #000000">, </span><span style="color: #A31515">&quot;--no-debugger&quot;</span><span style="color: #000000">, </span><span style="color: #A31515">&quot;--no-reload&quot;</span><span style="color: #000000">, </span><span style="color: #A31515">&quot;--host&quot;</span><span style="color: #000000">, </span><span style="color: #A31515">&quot;0.0.0.0&quot;</span><span style="color: #000000">, </span><span style="color: #A31515">&quot;--port&quot;</span><span style="color: #000000">, </span><span style="color: #A31515">&quot;5000&quot;</span><span style="color: #000000">],</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #0451A5">&quot;module&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;flask&quot;</span></span>
+<span class="line"><span style="color: #000000">  }</span></span>
+<span class="line"><span style="color: #000000">}</span></span>
+<span class="line"></span></code></pre>
+<p><strong>Minimal configuration for General Apps</strong></p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #000000">{</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;type&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;docker-run&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;label&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;docker-run: debug&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;dependsOn&quot;</span><span style="color: #000000">: [</span><span style="color: #A31515">&quot;docker-build&quot;</span><span style="color: #000000">],</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;python&quot;</span><span style="color: #000000">: {</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #0451A5">&quot;file&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;path_to/app_entry_point.py&quot;</span></span>
+<span class="line"><span style="color: #000000">  }</span></span>
+<span class="line"><span style="color: #000000">}</span></span>
+<span class="line"></span></code></pre>
+<p><strong>Platform defaults</strong></p>
+<p>For Python-based Docker images, the <code>docker-run</code> task infers the following options:</p>
+<table class="table table-striped">
+<thead>
+<tr>
+<th>Property</th>
+<th>Inferred Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>dockerRun.command</code></td>
+<td>Generated by the Python object and is called by the Python Debugger.</td>
+</tr>
+<tr>
+<td><code>dockerRun.containerName</code></td>
+<td>Derived from the base name of the root workspace folder.</td>
+</tr>
+<tr>
+<td><code>dockerRun.image</code></td>
+<td>The tag from a dependent docker-build task (if one exists) or derived from the base name of the root workspace folder.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_net-dockerrun" data-needslink="_net-dockerrun">.NET (docker-run)</h3>
+<p><strong>Minimal configuration using defaults</strong></p>
+<p>When building a .NET-based Docker image, you can omit the <code>platform</code> property and just set the <code>netCore</code> object (<code>platform</code> is implicitly set to <code>netcore</code> when <code>netCore</code> object is present). Note that <code>appProject</code> is a required property:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #000000">{</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;version&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;2.0.0&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;tasks&quot;</span><span style="color: #000000">: [</span></span>
+<span class="line"><span style="color: #000000">    {</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #0451A5">&quot;label&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;Run .NET Core Image&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #0451A5">&quot;type&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;docker-run&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #0451A5">&quot;netCore&quot;</span><span style="color: #000000">: {</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #0451A5">&quot;appProject&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;${workspaceFolder}/project.csproj&quot;</span></span>
+<span class="line"><span style="color: #000000">      }</span></span>
+<span class="line"><span style="color: #000000">    }</span></span>
+<span class="line"><span style="color: #000000">  ]</span></span>
+<span class="line"><span style="color: #000000">}</span></span>
+<span class="line"></span></code></pre>
+<p><strong>Platform defaults</strong></p>
+<p>For .NET-based images, the <code>docker-run</code> task infers the following options:</p>
+<table class="table table-striped">
+<thead>
+<tr>
+<th>Property</th>
+<th>Inferred Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>dockerRun.containerName</code></td>
+<td>Derived from the base name of the root workspace folder.</td>
+</tr>
+<tr>
+<td><code>dockerRun.env</code></td>
+<td>Adds the following environment variables as required: <code>ASPNETCORE_ENVIRONMENT</code>, <code>ASPNETCORE_URLS</code>, and <code>DOTNET_USE_POLLING_FILE_WATCHER</code>.</td>
+</tr>
+<tr>
+<td><code>dockerRun.image</code></td>
+<td>The tag from a dependent <code>docker-build</code> task (if one exists) or derived from the base name of the root workspace folder.</td>
+</tr>
+<tr>
+<td><code>dockerRun.os</code></td>
+<td><code>Linux</code></td>
+</tr>
+<tr>
+<td><code>dockerRun.volumes</code></td>
+<td>Adds the following volumes as required: the local application folder, the source folder, the debugger folder, the NuGet package folder, and NuGet fallback folder.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_run-task-reference" data-needslink="_run-task-reference">Run task reference</h2>
+<p>Here are all properties available for configuring <code>docker-run</code> task. All properties are optional unless indicated otherwise.</p>
+<table class="table table-striped">
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>dockerRun</code></td>
+<td>Options for controlling the <code>docker run</code> command executed (<a href="#_dockerrun-object-properties">see below</a>). <br/> Required unless <code>platform</code> is set.</td>
+</tr>
+<tr>
+<td><code>platform</code></td>
+<td>Determines the platform: .NET (<code>netcore</code>) or Node.js (<code>node</code>) and default settings for <code>docker run</code> command.</td>
+</tr>
+<tr>
+<td><code>node</code></td>
+<td>For Node.js projects, this controls various options (<a href="#_node-object-properties-dockerrun-task">see below</a>).</td>
+</tr>
+<tr>
+<td><code>python</code></td>
+<td>For Python projects, this controls various options (<a href="#_python-object-properties-dockerrun-task">see below</a>).</td>
+</tr>
+<tr>
+<td><code>netCore</code></td>
+<td>For .NET projects, this controls various options (<a href="#_netcore-object-properties-dockerrun-task">see below</a>).</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_dockerrun-object-properties" data-needslink="_dockerrun-object-properties">dockerRun object properties</h3>
+<table class="table table-striped">
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+<th>CLI Equivalent</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>image</code></td>
+<td>The name (tag) of the image to run. <br/> Required unless inferred from the platform.</td>
+<td><code>IMAGE</code></td>
+</tr>
+<tr>
+<td><code>command</code></td>
+<td>The command to run upon starting the container. <br/> Required, unless inferred from the platform.</td>
+<td><code>COMMAND [ARG...]</code></td>
+</tr>
+<tr>
+<td><code>containerName</code></td>
+<td>The name given to the started container. <br/> Required, unless inferred from the platform.</td>
+<td><code>--name</code></td>
+</tr>
+<tr>
+<td><code>env</code></td>
+<td>Environment variables set in the container. This is a list of key-value pairs.</td>
+<td><code>-e</code> or <code>--env</code></td>
+</tr>
+<tr>
+<td><code>envFiles</code></td>
+<td>This is a list of <code>.env</code> files.</td>
+<td><code>--env-file</code></td>
+</tr>
+<tr>
+<td><code>labels</code></td>
+<td>Labels given to the started container. This is a list of key-value pairs.</td>
+<td><code>--label</code></td>
+</tr>
+<tr>
+<td><code>network</code></td>
+<td>The name of the network to which the container will be connected.</td>
+<td><code>--network</code></td>
+</tr>
+<tr>
+<td><code>networkAlias</code></td>
+<td>The network-scoped alias for the started container.</td>
+<td><code>--network-alias</code></td>
+</tr>
+<tr>
+<td><code>os</code></td>
+<td>Default is <code>Linux</code>, the other option is <code>Windows</code>. The container operating system used.</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td><code>ports</code></td>
+<td>The ports to publish (map) from container to host. This is a list of objects (<a href="#_ports-object-properties">see below</a>).</td>
+<td><code>-p</code> or <code>--publish</code></td>
+</tr>
+<tr>
+<td><code>portsPublishAll</code></td>
+<td>Whether to publish all ports exposed by the Docker image.  Defaults to <code>true</code> if no ports are explicitly published.</td>
+<td><code>-P</code></td>
+</tr>
+<tr>
+<td><code>extraHosts</code></td>
+<td>The hosts to add to the container for DNS resolution. This is a list of objects (<a href="#_extrahosts-object-properties">see below</a>).</td>
+<td><code>--add-host</code></td>
+</tr>
+<tr>
+<td><code>volumes</code></td>
+<td>The volumes to map into the started container. This is a list of objects (<a href="#_volumes-object-properties">see below</a>).</td>
+<td><code>-v</code> or <code>--volume</code></td>
+</tr>
+<tr>
+<td><code>remove</code></td>
+<td>Whether or not to remove the container after it stops.</td>
+<td><code>--rm</code></td>
+</tr>
+<tr>
+<td><code>customOptions</code></td>
+<td>Any extra parameters to add before the image argument. No attempt is made to resolve conflicts with other options or validate this option.</td>
+<td>(any)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_ports-object-properties" data-needslink="_ports-object-properties">ports object properties</h3>
+<table class="table table-striped">
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>containerPort</code></td>
+<td>The port number bound on the container. <br/> Required.</td>
+<td></td>
+</tr>
+<tr>
+<td><code>hostPort</code></td>
+<td>The port number bound on the host.</td>
+<td>(randomly selected by Docker)</td>
+</tr>
+<tr>
+<td><code>protocol</code></td>
+<td>The protocol for the binding (<code>tcp</code> or <code>udp</code>).</td>
+<td><code>tcp</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="_extrahosts-object-properties" data-needslink="_extrahosts-object-properties">extraHosts object properties</h3>
+<table class="table table-striped">
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>hostname</code></td>
+<td>The hostname for DNS resolution. <br/> Required.</td>
+</tr>
+<tr>
+<td><code>ip</code></td>
+<td>The IP address associated with the above hostname. <br/> Required.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_volumes-object-properties" data-needslink="_volumes-object-properties">volumes object properties</h3>
+<table class="table table-striped">
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>localPath</code></td>
+<td>The path on the local machine that will be mapped. <br/> Required.</td>
+<td></td>
+</tr>
+<tr>
+<td><code>containerPath</code></td>
+<td>The path in the container to which the local path will be mapped. <br/> Required.</td>
+<td></td>
+</tr>
+<tr>
+<td><code>permissions</code></td>
+<td>Permissions the container has on the mapped path. Can be <code>ro</code> (read-only) or <code>rw</code> (read-write).</td>
+<td>Container dependent.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_node-object-properties-dockerrun-task" data-needslink="_node-object-properties-dockerrun-task">node object properties (<code>docker-run</code> task)</h3>
+<table class="table table-striped">
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>package</code></td>
+<td>The path to the <code>package.json</code> file associated with the <code>docker-run</code> task.</td>
+<td>The file <code>package.json</code> in the root workspace folder.</td>
+</tr>
+<tr>
+<td><code>enableDebugging</code></td>
+<td>Whether or not to enable debugging within the container.</td>
+<td><code>false</code></td>
+</tr>
+<tr>
+<td><code>inspectMode</code></td>
+<td>Defines the initial interaction between the application and the debugger (<code>default</code> or <code>break</code>). <br/> The value <code>default</code> allows the application to run until the debugger attaches. <br/> The value <code>break</code> prevents the application from running until the debugger attaches.</td>
+<td><code>default</code></td>
+</tr>
+<tr>
+<td><code>inspectPort</code></td>
+<td>The port on which debugging should occur.</td>
+<td><code>9229</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="_python-object-properties-dockerrun-task" data-needslink="_python-object-properties-dockerrun-task">python object properties (<code>docker-run</code> task)</h3>
+<table class="table table-striped">
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>args</code></td>
+<td>Arguments passed to the Python app.</td>
+<td>Platform dependent. Defaults of scaffolding shown <a href="#_python-docker-run">above</a></td>
+</tr>
+<tr>
+<td><code>debugPort</code></td>
+<td>The port that the debugger will listen on.</td>
+<td><code>5678</code></td>
+</tr>
+<tr>
+<td><code>wait</code></td>
+<td>Whether to wait for debugger to attach.</td>
+<td><code>true</code></td>
+</tr>
+<tr>
+<td><code>module</code></td>
+<td>The Python module to run (only module <strong>or</strong> file should be chosen).</td>
+<td></td>
+</tr>
+<tr>
+<td><code>file</code></td>
+<td>The Python file to run (only module <strong>or</strong> file should be chosen).</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="_netcore-object-properties-dockerrun-task" data-needslink="_netcore-object-properties-dockerrun-task">netCore object properties (<code>docker-run</code> task)</h3>
+<table class="table table-striped">
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>appProject</code></td>
+<td>The .NET project file (<code>.csproj</code>, <code>.fsproj</code>, etc.) associated with <code>docker-run</code> task. <br/> Required.</td>
+</tr>
+<tr>
+<td><code>configureSsl</code></td>
+<td>Whether to configure ASP.NET Core SSL certificates and other settings to enable SSL on the service in the container.</td>
+</tr>
+<tr>
+<td><code>enableDebugging</code></td>
+<td>Whether to enable the started container for debugging. This will infer additional volume mappings and other options necessary for debugging.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_docker-compose-task" data-needslink="_docker-compose-task">Docker Compose task</h2>
+<p>The <code>docker-compose</code> task in <code>tasks.json</code> creates and starts Docker containers using the Docker Compose command line (CLI). The task can be used by itself, or as part of a chain of tasks to debug an application within a Docker container.</p>
+<p>The most important configuration setting for the <code>docker-compose</code> task is <code>dockerCompose</code>:</p>
+<ul>
+<li>The <code>dockerCompose</code> object specifies parameters for the Docker Compose command. Values specified by this object are applied directly to Docker Compose CLI invocation.</li>
+</ul>
+<p>See <a href="#_compose-task-reference">property reference</a> for full list of all task properties.</p>
+<p><strong>Example configuration</strong></p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #000000">{</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;version&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;2.0.0&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;tasks&quot;</span><span style="color: #000000">: [</span></span>
+<span class="line"><span style="color: #000000">    {</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #0451A5">&quot;label&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;Run docker-compose up&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #0451A5">&quot;type&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;docker-compose&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #0451A5">&quot;dockerCompose&quot;</span><span style="color: #000000">: {</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #0451A5">&quot;up&quot;</span><span style="color: #000000">: {</span></span>
+<span class="line"><span style="color: #000000">          </span><span style="color: #0451A5">&quot;detached&quot;</span><span style="color: #000000">: </span><span style="color: #0000FF">true</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">          </span><span style="color: #0451A5">&quot;build&quot;</span><span style="color: #000000">: </span><span style="color: #0000FF">true</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">          </span><span style="color: #0451A5">&quot;services&quot;</span><span style="color: #000000">: [</span><span style="color: #A31515">&quot;myservice&quot;</span><span style="color: #000000">]</span></span>
+<span class="line"><span style="color: #000000">        },</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #0451A5">&quot;files&quot;</span><span style="color: #000000">: [</span></span>
+<span class="line"><span style="color: #000000">          </span><span style="color: #A31515">&quot;${workspaceFolder}/docker-compose.yml&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">          </span><span style="color: #A31515">&quot;${workspaceFolder}/docker-compose.debug.yml&quot;</span></span>
+<span class="line"><span style="color: #000000">        ]</span></span>
+<span class="line"><span style="color: #000000">      }</span></span>
+<span class="line"><span style="color: #000000">    }</span></span>
+<span class="line"><span style="color: #000000">  ]</span></span>
+<span class="line"><span style="color: #000000">}</span></span>
+<span class="line"></span></code></pre>
+<h2 id="_compose-task-reference" data-needslink="_compose-task-reference">Compose task reference</h2>
+<p>Here are all properties available for configuring <code>docker-compose</code> task. All properties are optional unless indicated otherwise.</p>
+<table class="table table-striped">
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>dockerCompose</code></td>
+<td>Options for controlling the <code>docker-compose</code> command executed (<a href="#_dockercompose-object-properties">see below</a>). <br/> Required.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_dockercompose-object-properties" data-needslink="_dockercompose-object-properties">dockerCompose object properties</h3>
+<table class="table table-striped">
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+<th>CLI Equivalent</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>up</code></td>
+<td>Run a <code>docker-compose up</code> command. <br/> Either this or <code>down</code> must be specified, but not both.</td>
+<td><code>docker-compose up</code></td>
+</tr>
+<tr>
+<td><code>down</code></td>
+<td>Run a <code>docker-compose down</code> command. <br/> Either this or <code>up</code> must be specified, but not both.</td>
+<td><code>docker-compose down</code></td>
+</tr>
+<tr>
+<td><code>files</code></td>
+<td>The list of Docker Compose YAML files to use in the <code>docker-compose</code> command. If not specified, the Docker Compose CLI looks for <code>docker-compose.yml</code> and <code>docker-compose.override.yml</code>.</td>
+<td><code>-f &lt;file&gt;</code></td>
+</tr>
+<tr>
+<td><code>envFile</code></td>
+<td>File of environment variables read in and applied to the containers.</td>
+<td><code>--env-file &lt;file&gt;</code></td>
+</tr>
+<tr>
+<td><code>projectName</code></td>
+<td>Alternate project name to use when naming and labeling Docker objects. If using an alternate project name when composing up, the same project name must be specified when composing down.</td>
+<td><code>--project-name &lt;name&gt;</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="_up-object-properties" data-needslink="_up-object-properties">up object properties</h3>
+<table class="table table-striped">
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+<th>CLI Equivalent</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>detached</code></td>
+<td>Whether or not to run detached.</td>
+<td><code>-d</code></td>
+<td><code>true</code></td>
+</tr>
+<tr>
+<td><code>build</code></td>
+<td>Whether or not to build before running.</td>
+<td><code>--build</code></td>
+<td><code>true</code></td>
+</tr>
+<tr>
+<td><code>scale</code></td>
+<td>Number of instances of each service to run. This is a list of key-value pairs.</td>
+<td><code>--scale SERVICE=NUM</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>services</code></td>
+<td>A subset of the services to start. Cannot be combined with <code>profiles</code>.</td>
+<td><code>[SERVICE...]</code></td>
+<td>(all)</td>
+</tr>
+<tr>
+<td><code>profiles</code></td>
+<td>A subset of the profiles to start. Cannot be combined with <code>services</code>.</td>
+<td><code>--profile &lt;profile&gt;</code></td>
+<td>(all)</td>
+</tr>
+<tr>
+<td><code>customOptions</code></td>
+<td>Any extra parameters to add after the <code>up</code> argument. No attempt is made to resolve conflicts with other options or validate this option.</td>
+<td>(any)</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="_down-object-properties" data-needslink="_down-object-properties">down object properties</h3>
+<table class="table table-striped">
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+<th>CLI Equivalent</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>removeImages</code></td>
+<td>Whether to remove images, and which. <code>all</code> will remove all images used by any service, <code>local</code> will remove only images without a custom tag. Leaving this unset will remove no images.</td>
+<td><code>--rmi</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>removeVolumes</code></td>
+<td>Whether or not to remove named volumes.</td>
+<td><code>-v</code></td>
+<td><code>false</code></td>
+</tr>
+<tr>
+<td><code>customOptions</code></td>
+<td>Any extra parameters to add after the <code>down</code> argument. No attempt is made to resolve conflicts with other options or validate this option.</td>
+<td>(any)</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="_command-customization" data-needslink="_command-customization">Command customization</h2>
+<p>The Docker extension executes a number of Docker CLI commands when you perform various operations, such as to build images, run containers, attach to containers, and view container logs. Some of these commands have a large number of optional arguments, often used in very specific scenarios. Many of these commands can be customized.</p>
+<p>For example, the tokens <code>${serviceList}</code> and <code>${profileList}</code> in the <a href="#_docker-compose-up">Compose Up</a> command allows for easily starting a subset of the services within your Docker Compose YAML file(s).</p>
+<p>For each of these customizable Docker commands, a configuration setting is available to set the template of what to execute. Alternatively, you can define multiple templates, optionally with a regular expression, which when matched, hints the context in which a template should be used. The templates support some tokens similar to <code>launch.json</code> and <code>tasks.json</code>, for example, <code>${workspaceFolder}</code>.</p>
+<h3 id="_settings-json-schema" data-needslink="_settings-json-schema">Settings JSON schema</h3>
+<p>You have two options for configuring each of the templates (listed below). The first option is a single template that overrides the default behavior:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #000000">{</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;docker.commands.build&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;docker build --rm -f </span><span style="color: #EE0000">\&quot;</span><span style="color: #A31515">${dockerfile}</span><span style="color: #EE0000">\&quot;</span><span style="color: #A31515"> -t ${tag} </span><span style="color: #EE0000">\&quot;</span><span style="color: #A31515">${context}</span><span style="color: #EE0000">\&quot;</span><span style="color: #A31515">&quot;</span></span>
+<span class="line"><span style="color: #000000">}</span></span>
+<span class="line"></span></code></pre>
+<p>The second option is multiple templates that will be chosen based on the <code>match</code> regular expression, as well as user input.</p>
+<p>For example, three templates are shown in the following example:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #000000">{</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;docker.commands.build&quot;</span><span style="color: #000000">: [</span></span>
+<span class="line"><span style="color: #000000">    {</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #0451A5">&quot;label&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;Default build command&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #0451A5">&quot;template&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;docker build --rm -f </span><span style="color: #EE0000">\&quot;</span><span style="color: #A31515">${dockerfile}</span><span style="color: #EE0000">\&quot;</span><span style="color: #A31515"> -t ${tag} </span><span style="color: #EE0000">\&quot;</span><span style="color: #A31515">${context}</span><span style="color: #EE0000">\&quot;</span><span style="color: #A31515">&quot;</span></span>
+<span class="line"><span style="color: #000000">    },</span></span>
+<span class="line"><span style="color: #000000">    {</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #0451A5">&quot;label&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;Alpine-specific build command&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #0451A5">&quot;template&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;docker build -p 1234:1234 -f </span><span style="color: #EE0000">\&quot;</span><span style="color: #A31515">${dockerfile}</span><span style="color: #EE0000">\&quot;</span><span style="color: #A31515"> -t ${tag} </span><span style="color: #EE0000">\&quot;</span><span style="color: #A31515">${context}</span><span style="color: #EE0000">\&quot;</span><span style="color: #A31515">&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #0451A5">&quot;match&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;alpine&quot;</span></span>
+<span class="line"><span style="color: #000000">    }</span></span>
+<span class="line"><span style="color: #000000">  ]</span></span>
+<span class="line"><span style="color: #000000">}</span></span>
+<span class="line"></span></code></pre>
+<h3 id="_selection-behavior" data-needslink="_selection-behavior">Selection behavior</h3>
+<p>The command template chosen to execute is selected based on the following rules:</p>
+<ol>
+<li>If no setting is configured, the default command template is chosen.</li>
+<li>If only a single template is configured (the first example above), that template is chosen.</li>
+<li>If multiple templates are configured:
+<ol>
+<li>Constrained templates are checked. A constrained template has <code>match</code>. The <code>match</code> regular expression is compared against contextual hints--for example, image name, container name, etc.</li>
+<li>If multiple constrained templates apply, the user will be prompted to choose. If only one applies, the user will not be prompted.</li>
+<li>If there no applicable constrained templates, unconstrained templates are checked. An unconstrained template does not have <code>match</code>, and is therefore always applicable.</li>
+<li>If multiple unconstrained templates apply, the user will be prompted to choose. If only one applies, the user will not be prompted.</li>
+</ol>
+</li>
+</ol>
+<h3 id="_docker-build" data-needslink="_docker-build">Docker Build</h3>
+<table class="table table-striped">
+<thead>
+<tr>
+<th>Configuration Setting</th>
+<th>Default Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>docker.commands.build</code></td>
+<td><code>${containerCommand} build --rm -f &quot;${dockerfile}&quot; -t ${tag} &quot;${context}&quot;</code></td>
+</tr>
+</tbody>
+</table>
+<p>Supported tokens:</p>
+<table class="table table-striped">
+<thead>
+<tr>
+<th>Token</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>${containerCommand}</code></td>
+<td>The CLI command / executable used to execute container commands.</td>
+</tr>
+<tr>
+<td><code>${dockerfile}</code></td>
+<td>The workspace-relative path of the selected <code>Dockerfile</code>.</td>
+</tr>
+<tr>
+<td><code>${tag}</code></td>
+<td>The value entered/confirmed by the user upon invoking the build command. If previously built, defaults to the previously entered value for that <code>Dockerfile</code>.</td>
+</tr>
+<tr>
+<td><code>${context}</code></td>
+<td>If set, the value of the <code>docker.imageBuildContextPath</code> configuration setting. Otherwise, the workspace-relative folder in which the <code>Dockerfile</code> resides.</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>Note</strong>: If the <code>docker.commands.build</code> setting does not contain the <code>${tag}</code> token, the user will <strong>not</strong> be prompted to enter/confirm a tag.</p>
+</blockquote>
+<blockquote>
+<p><strong>Note</strong>: The <code>match</code> regular expression will be compared against the selected Dockerfile name and the workspace folder name.</p>
+</blockquote>
+<h3 id="_docker-run" data-needslink="_docker-run">Docker Run</h3>
+<table class="table table-striped">
+<thead>
+<tr>
+<th>Configuration Setting</th>
+<th>Default Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>docker.commands.run</code></td>
+<td><code>${containerCommand} run --rm -d ${exposedPorts} ${tag}</code></td>
+</tr>
+<tr>
+<td><code>docker.commands.runInteractive</code></td>
+<td><code>${containerCommand} run --rm -it ${exposedPorts} ${tag}</code></td>
+</tr>
+</tbody>
+</table>
+<p>Supported tokens:</p>
+<table class="table table-striped">
+<thead>
+<tr>
+<th>Token</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>${containerCommand}</code></td>
+<td>The CLI command / executable used to execute container commands.</td>
+</tr>
+<tr>
+<td><code>${exposedPorts}</code></td>
+<td>Generated from the list of exposed ports in the image (ultimately from the <code>Dockerfile</code>), where each exposed port is mapped to the same port on the local machine.  For example, <code>&quot;EXPOSE 5000 5001&quot;</code> would generate <code>&quot;-p 5000:5000 -p 5001:5001&quot;</code>.</td>
+</tr>
+<tr>
+<td><code>${tag}</code></td>
+<td>The full tag of the selected image.</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>Note</strong>: The <code>match</code> regular expression will be compared against the full tag of the selected image.</p>
+</blockquote>
+<h3 id="_docker-attach" data-needslink="_docker-attach">Docker Attach</h3>
+<table class="table table-striped">
+<thead>
+<tr>
+<th>Configuration Setting</th>
+<th>Default Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>docker.commands.attach</code></td>
+<td><code>${containerCommand} exec -it ${containerId} ${shellCommand}</code></td>
+</tr>
+</tbody>
+</table>
+<p>Supported tokens:</p>
+<table class="table table-striped">
+<thead>
+<tr>
+<th>Token</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>${containerCommand}</code></td>
+<td>The CLI command / executable used to execute container commands.</td>
+</tr>
+<tr>
+<td><code>${containerId}</code></td>
+<td>The ID of the container to attach to.</td>
+</tr>
+<tr>
+<td><code>${shellCommand}</code></td>
+<td>If <code>bash</code> is present in the container, it is substituted here, otherwise <code>sh</code>. In Windows containers, <code>cmd</code> is always used.</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>Note</strong>: The <code>match</code> regular expression will be compared against the container name and full tag of the container image.</p>
+</blockquote>
+<h3 id="_docker-logs" data-needslink="_docker-logs">Docker Logs</h3>
+<table class="table table-striped">
+<thead>
+<tr>
+<th>Configuration Setting</th>
+<th>Default Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>docker.commands.logs</code></td>
+<td><code>${containerCommand} logs -f ${containerId}</code></td>
+</tr>
+</tbody>
+</table>
+<p>Supported tokens:</p>
+<table class="table table-striped">
+<thead>
+<tr>
+<th>Token</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>${containerCommand}</code></td>
+<td>The CLI command / executable used to execute container commands.</td>
+</tr>
+<tr>
+<td><code>${containerId}</code></td>
+<td>The ID of the container to view the logs for.</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>Note</strong>: The <code>match</code> regular expression will be compared against the container name and full tag of the container image.</p>
+</blockquote>
+<h3 id="_docker-compose-up" data-needslink="_docker-compose-up">Docker Compose Up</h3>
+<table class="table table-striped">
+<thead>
+<tr>
+<th>Configuration Setting</th>
+<th>Default Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>docker.commands.composeUp</code></td>
+<td><code>${composeCommand} ${configurationFile} up ${detached} ${build}</code></td>
+</tr>
+</tbody>
+</table>
+<p>Supported tokens:</p>
+<table class="table table-striped">
+<thead>
+<tr>
+<th>Token</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>${configurationFile}</code></td>
+<td>Set to <code>-f</code> plus the workspace-relative path to the selected Docker Compose YAML file.</td>
+</tr>
+<tr>
+<td><code>${detached}</code></td>
+<td>Set to <code>-d</code> if the configuration setting <code>docker.dockerComposeDetached</code> is set to <code>true</code>. Otherwise, set to <code>&quot;&quot;</code>.</td>
+</tr>
+<tr>
+<td><code>${build}</code></td>
+<td>Set to <code>--build</code> if the configuration setting <code>docker.dockerComposeBuild</code> is set to <code>true</code>. Otherwise, set to <code>&quot;&quot;</code>.</td>
+</tr>
+<tr>
+<td><code>${serviceList}</code></td>
+<td>If specified, prompts for a subset of the services to start when the command is run.</td>
+</tr>
+<tr>
+<td><code>${profileList}</code></td>
+<td>If specified and the Docker Compose YAML file contains profiles, prompts for a subset of the profiles to start when the command is run.</td>
+</tr>
+<tr>
+<td><code>${composeCommand}</code></td>
+<td>Set to the value of the <code>docker.composeCommand</code> setting if set, otherwise the extension will try to automatically determine the command to use (<code>docker compose</code> or <code>docker-compose</code>).</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_docker-compose-down" data-needslink="_docker-compose-down">Docker Compose Down</h3>
+<table class="table table-striped">
+<thead>
+<tr>
+<th>Configuration Setting</th>
+<th>Default Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>docker.commands.composeDown</code></td>
+<td><code>${composeCommand} ${configurationFile} down</code></td>
+</tr>
+</tbody>
+</table>
+<p>Supported tokens:</p>
+<table class="table table-striped">
+<thead>
+<tr>
+<th>Token</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>${configurationFile}</code></td>
+<td>Set to <code>-f</code> plus the workspace-relative path to the selected Docker Compose YAML file.</td>
+</tr>
+<tr>
+<td><code>${composeCommand}</code></td>
+<td>Set to the value of the <code>docker.composeCommand</code> setting if set, otherwise the extension will try to automatically determine the command to use (<code>docker compose</code> or <code>docker-compose</code>).</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_additional-supported-tokens" data-needslink="_additional-supported-tokens">Additional supported tokens</h3>
+<p>In addition to the command-specific supported tokens, the following tokens are supported in all command templates:</p>
+<table class="table table-striped">
+<thead>
+<tr>
+<th>Token</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>${workspaceFolder}</code></td>
+<td>The selected workspace folder path.</td>
+</tr>
+<tr>
+<td><code>${config:some.setting.identifier}</code></td>
+<td>The value of any configuration setting, as long as it is a string, number, or boolean. These setting identifiers can be arbitrarily defined and do not need to belong to Visual Studio Code or to any extension.</td>
+</tr>
+<tr>
+<td><code>${env:Name}</code></td>
+<td>The value of an environment variable.</td>
+</tr>
+<tr>
+<td><code>${command:commandID}</code></td>
+<td>The string return value of a command.</td>
+</tr>
+</tbody>
+</table>
+
+            <div class="feedback"></div>
+            
+            <div class="body-footer">4/18/2022</div>
+            
+        </div>
+        <div class="col-sm-3 col-md-2 docs-subnavbar-container">
+            <nav id="docs-subnavbar" aria-label="On Page" data-spy="affix" data-offset-top="20">
+                
+                <h4><span class="sr-only">In this article there are 7 sections</span><span
+                        aria-hidden="true">In this article</span></h4>
+                <ul class="nav">
+                    
+                    <li><a href="#_docker-build-task">Docker build task</a></li>
+                    
+                    <li><a href="#_build-task-reference">Build task reference</a></li>
+                    
+                    <li><a href="#_docker-run-task">Docker run task</a></li>
+                    
+                    <li><a href="#_run-task-reference">Run task reference</a></li>
+                    
+                    <li><a href="#_docker-compose-task">Docker Compose task</a></li>
+                    
+                    <li><a href="#_compose-task-reference">Compose task reference</a></li>
+                    
+                    <li><a href="#_command-customization">Command customization</a></li>
+                    
+                </ul>
+                
+                <div class="connect-widget"></div>
+            </nav>
+        </div>
+    </div>
+</div>
+      </div>
+  </div>
+
+  <footer role="contentinfo">
+      <div class="container">
+          <div class="row">
+              <div class="left col-md-7">
+                  <ul class="links">
+                      <li>
+                          <span class="message">Hello from Seattle.</span>
+                      </li>
+                      <li>
+                          <a href="https://go.microsoft.com/fwlink/?LinkID=533687" onclick="followOnTwitter()" tabindex="0">Follow @code</a>
+                      </li>
+                      <li>
+                          <div class="github-star-button">
+                              <iframe src="../../assets/github-button29be.html?user=Microsoft&amp;repo=vscode&amp;type=star&amp;count=true"
+                                  frameborder="0" scrolling="0" width="130px" height="20px" title="GitHub follow button" loading="lazy"></iframe>
+                          </div>
+                      </li>
+  
+                      <script>
+                          function followOnTwitter() {
+                              var windowFeatures = "location=yes,height=600,width=550,scrollbars=yes,status=yes";
+                              var originalReferer = "&original_referer=" + document.URL;
+                              var screenName = "&screen_name=code";
+                              var URL = "https://twitter.com/intent/follow?" + originalReferer + screenName;
+                              window.open(URL, "_blank", windowFeatures);
+                          }
+  
+                          function manageConsent() {
+                              if(WcpConsent.siteConsent.isConsentRequired){
+                                  WcpConsent.siteConsent.manageConsent();
+                              }
+                          }
+                      </script>
+                  </ul>
+              </div>
+              <div class="right col-md-5">
+                  <ul class="links">
+                      <li><a id="footer-support-link" href="https://support.serviceshub.microsoft.com/supportforbusiness/create?sapId=d66407ed-3967-b000-4cfb-2c318cad363d"
+                              target="_blank">Support</a></li>
+                      <li><a id="footer-privacy-link" href="https://privacy.microsoft.com/privacystatement"
+                              target="_blank">Privacy</a></li>
+                      <li style="display: none;"><a id="footer-cookie-link" style="cursor: pointer;" onclick="manageConsent()"
+                              target="_blank">Manage Cookies</a></li>
+                      <li><a id="footer-terms-link" href="https://www.microsoft.com/legal/terms-of-use"
+                              target="_blank">Terms of Use</a></li>
+                      <li><a id="footer-license-link" href="../../License.html">License</a></li>
+                  </ul>
+                  <div class="copyright">
+                      <a id="footer-microsoft-link" class="logo" href="https://www.microsoft.com/">
+                          <img class="microsoft-logo" src="../../assets/images/microsoft-logo.png" height="20" alt="Microsoft homepage"/>
+                          <img class="microsoft-logo-inverted" src="../../assets/images/microsoft-logo-inverted.png" height="20" alt="Microsoft homepage" />
+                      </a>
+                      <span>&copy; 2023 Microsoft</span>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </footer>
+  <script src="../../dist/index.js"></script>
+
+  
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "SoftwareApplication",
+      "name" : "Visual Studio Code",
+      "softwareVersion": "1.74",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "applicationCategory": "DeveloperApplication",
+      "applicationSubCategory": "Text Editor",
+      "alternateName": "VS Code",
+      "datePublished": "2021-11-03",
+      "operatingSystem": "Mac, Linux, Windows",
+      "logo": "https://code.visualstudio.com/assets/apple-touch-icon.png",
+      "screenshot": "https://code.visualstudio.com/assets/home/home-screenshot-win.png",
+      "releaseNotes": "https://code.visualstudio.com/updates",
+      "downloadUrl": "https://code.visualstudio.com/download",
+      "license": "https://code.visualstudio.com/license",
+      "softwareRequirements": "https://code.visualstudio.com/docs/supporting/requirements",
+      "url" : "https://code.visualstudio.com",
+      "author": {
+        "@type": "Organization",
+        "name": "Microsoft"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Microsoft"
+      },
+      "maintainer": {
+        "@type": "Organization",
+        "name": "Microsoft"
+      },
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://code.visualstudio.com/Search?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      },
+      "sameAs" : [
+        "https://en.wikipedia.org/wiki/Visual_Studio_Code",
+        "https://twitter.com/code",
+        "https://www.youtube.com/code",
+        "https://www.tiktok.com/@vscode",
+        "https://github.com/microsoft/vscode"
+      ]
+    }
+  </script>
+</body>
+
+<!-- Mirrored from code.visualstudio.com/docs/containers/reference by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 04 Jan 2023 10:16:27 GMT -->
+</html>

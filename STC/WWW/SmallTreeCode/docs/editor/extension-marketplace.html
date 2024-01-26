@@ -1,0 +1,1788 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Mirrored from code.visualstudio.com/docs/editor/extension-marketplace by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 04 Jan 2023 09:50:38 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="google-site-verification" content="hNs7DXrTySP_X-0P_AC0WulAXvUwgSXEmgfcO2r79dw" />
+
+  <!-- Twitter and Facebook OpenGraph Metadata-->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@code" />
+
+  <meta name="description" content="Discover, add, update, disable and uninstall Visual Studio Code extensions (plug-ins) through the Extension Marketplace." />
+<meta name="keywords" content="" />
+<meta name="ms.prod" content="vs-code" />
+<meta name="ms.TOCTitle" content="Extension Marketplace" />
+<meta name="ms.ContentId" content="319916C4-93F2-471F-B448-FD416736C40C" />
+<meta name="ms.date" content="12/7/2022" />
+<meta name="ms.topic" content="conceptual" />
+<!-- Twitter and Facebook OpenGraph Metadata-->
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="og:url" content="extension-marketplace.html" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Managing Extensions in Visual Studio Code" />
+<meta property="og:description" content="Discover, add, update, disable and uninstall Visual Studio Code extensions (plug-ins) through the Extension Marketplace." />
+
+<meta property="og:image" content="../../opengraphimg/opengraph-docs.png" />
+
+
+
+  <link rel="shortcut icon" href="../../favicon.ico" sizes="128x128" />
+  <link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+
+  <title>Managing Extensions in Visual Studio Code</title>
+
+  <link rel="stylesheet" href="../../vendor/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../../dist/style.css">
+
+  <script type="text/javascript" src="../../../js.monitor.azure.com/scripts/c/ms.analytics-web-3.min.js"></script>
+  <script>
+  window.appInsights = new oneDS.ApplicationInsights();
+  window.appInsights.initialize({
+    instrumentationKey: "1a3eb3104447440391ad5f2a6ee06a0a-62879566-bc58-4741-9650-302bf2af703f-7103",
+    webAnalyticsConfiguration:{ // Web Analytics Plugin configuration
+        urlCollectQuery:true, 
+        autoCapture: {
+          scroll: true,
+          pageView: true,
+          onLoad: true,
+          onUnload: true,
+          click: true,
+          resize: true,
+          jsError: true
+        }
+    }
+  }, []);
+  </script>
+  
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','../../../www.google-analytics.com/analytics.js','ga');
+  </script>  
+  <link rel="alternate" type="application/atom+xml" title="RSS Feed for code.visualstudio.com" href="../../feed.xml" />
+</head>
+
+<body>
+  <!-- EU Cookie Compliance JS -->
+  <script src="../../../wcpstatic.microsoft.com/mscc/lib/v2/wcp-consent.js"></script>
+
+  <div id="main">
+          <div class="navbar-fixed-container">
+              <div class="navbar navbar-inverse navbar-fixed-top ">
+                  <div id='cookie-banner'></div>        <nav role="navigation" aria-label="Top Level">
+                      <div class="container">
+                          <div class="nav navbar-header">
+                              <a role="button" id="skip-to-content" class="link-button" href="#main-content">Skip to content<i>&nbsp;</i><span class="glyphicon glyphicon-menu-down"></span></a>
+                              <a class="navbar-brand" id="navbar-brand" href="../../index.html">Visual Studio Code</a>
+                              <button type="button" class="navbar-toggle" role="navigation" data-toggle="collapse" data-target=".navbar-collapse" aria-label="Toggle Navigation Menu">
+                                  <span class="icon-bar"></span>
+                                  <span class="icon-bar"></span>
+                                  <span class="icon-bar"></span>
+                              </button>
+                          </div>
+                          <div class="navbar-collapse collapse" role="navigation">
+                              <ul class="nav navbar-nav navbar-left">
+                                  <li class="active" ><a id="nav-docs" href="../../docs.html">Docs</a></li>
+                                  <li ><a id="nav-updates" href="../../updates/v1_74.html">Updates</a></li>
+                                  <li ><a id="nav-blogs" href="../../blogs.html">Blog</a></li>
+                                  <li ><a id="nav-extend" href="../../api.html">API</a></li>
+                                  <li><a href="https://marketplace.visualstudio.com/VSCode" target="_blank" id="nav-extensions">Extensions</a></li>
+                                  <li ><a id="nav-faqs" href="../supporting/faq.html">FAQ</a></li>
+                                  <li ><a id="nav-learn" href="../../learn.html">Learn</a></li>
+                                  <li class='search visible-xs visible-sm'
+                                      ><a href="../../Search.html">Search</a></li>
+                              </ul>
+          
+                              <ul class="nav navbar-nav navbar-right" role="presentation">
+                                  <!-- Floating search icon -->
+                                  <li>
+                                      <a href="../../Search.html" title="Search" class="btn search-btn" id="nav-search">
+                                          <img class="search-icon" src="../../assets/icons/search.svg" width="16px" height="16px" alt="Search"/>
+                                          <img class="search-icon-inverted" src="../../assets/icons/search_dark.svg" width="16px" height="16px" alt="Search" />
+                                      </a>
+                                  </li>
+                                  <!-- Actual search icon -->
+                                  <li class="search" role="presentation">
+                                      <form class="nav-search search-form" role="search" aria-label="Search">
+                                          <div class="input-group" role="presentation">
+                                              <input type="text" name="q" class="search-box form-control" placeholder="Search Docs" aria-label="Search text"/>
+                                              <span class="input-group-btn">
+                                                  <button tabindex="0" class="btn" type="submit" aria-label="Search">
+                                                          <img class="search-icon" src="../../assets/icons/search.svg" width="16px" height="16px" alt="Search" />
+                                                          <img class="search-icon-inverted" src="../../assets/icons/search_dark.svg" width="16px" height="16px" alt="Search" />
+                                                  </button>
+                                              </span>
+                                          </div>
+                                      </form>                        </li>
+                                  <!-- this was hiden in the home and download page, keeping it for now -->
+                                  <li><a class="link-button" href="../../Download.html" id="nav-download">
+                                      <img class="download-icon" src="../../assets/icons/download.svg" width="16px" height="16px" alt="Download VS Code"/>
+                                      <img class="download-icon-inverted" src="../../assets/icons/download-black.svg" width="16px" height="16px" alt="Download VS Code" />
+                                      <span>Download</span>
+                                  </a></li>
+                              </ul>
+                          </div>
+                      </div>
+                  </nav>
+              </div>
+          </div>          <div class="updates-banner  ">
+              <div class="container">
+                  <p class="message"><a href="../../updates/v1_74.html" id="banner-link-updates">Version 1.74</a> is now available! Read about the new features and fixes from November.</p> 
+              </div>
+              <div tabindex="0" role="button" title="Dismiss this update" class="dismiss-btn" id="banner-dismiss-btn"><span class="sr-only">Dismiss this update</span><span aria-hidden="true" class="glyph-icon"></span></div>
+          </div>      <div role="main" id="main-content">
+        <script>
+    function closeReportIssue() {
+        var element = document.getElementById('surveypopup');
+        element.parentElement.removeChild(element);
+    }
+
+    function reportIssue(tutorial, page) {
+        var div = document.createElement('div');
+        div.innerHTML = '<div id="surveypopup" class="overlay visible"><div class="surveypopup"><div id="surveytitle">Tell us more<a href="javascript:void(0)" onclick="closeReportIssue()">X</a></div><div id="surveydiv"><iframe frameBorder="0" scrolling="0" src="https://www.research.net/r/PWZWZ52?tutorial=' + tutorial + '&step=' + page + '"></iframe></div></div></div>';
+        document.body.appendChild(div.children[0]);
+    }
+
+    function pushCodingPackEvent(language, os) {
+        let id = `${language}-${os}-coding-pack`;
+        var analytics = window.vscodeAnalytics;
+
+        analytics && analytics.event(
+            'click',
+            'download',
+            id,
+        );
+    }
+</script>
+
+<div class="container body-content docs">
+    <div class="row">
+        <div class="col-md-2 docs-navbar-container">
+            <nav id="docs-navbar" aria-label="Topics" class="docs-nav visible-md visible-lg">
+            	<ul class="nav" id="main-nav">
+            		<li >
+            			<a class="docs-home" href="../../docs.html" >Overview</a>
+            		</li>
+            		
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#setup-articles" data-parent="#main-nav" data-toggle="collapse">Setup</a>
+            					<ul id="setup-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../setup/setup-overview.html" >Overview</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../setup/linux.html" >Linux</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../setup/mac.html" >macOS</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../setup/windows.html" >Windows</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../setup/raspberry-pi.html" >Raspberry Pi</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../setup/network.html" >Network</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../setup/additional-components.html" >Additional Components</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../setup/enterprise.html" >Enterprise</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../setup/uninstall.html" >Uninstall</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#getstarted-articles" data-parent="#main-nav" data-toggle="collapse">Get Started</a>
+            					<ul id="getstarted-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../getstarted/introvideos.html" >Intro Videos</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../getstarted/tips-and-tricks.html" >Tips and Tricks</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../getstarted/userinterface.html" >User Interface</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../getstarted/themes.html" >Themes</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../getstarted/settings.html" >Settings</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../getstarted/keybindings.html" >Key Bindings</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../getstarted/locales.html" >Display Language</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../getstarted/telemetry.html" >Telemetry</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel active expanded">
+            					<a class="area" role="button" href="#editor-articles" data-parent="#main-nav" data-toggle="collapse">User Guide</a>
+            					<ul id="editor-articles" class="collapse in">
+            					
+            						<li >
+            							<a href="codebasics.html" >Basic Editing</a>
+            						</li>
+            					
+            						<li class="active">
+            							<a href="extension-marketplace.html" aria-label="Current Page: Extension Marketplace">Extension Marketplace</a>
+            						</li>
+            					
+            						<li >
+            							<a href="intellisense.html" >IntelliSense</a>
+            						</li>
+            					
+            						<li >
+            							<a href="editingevolved.html" >Code Navigation</a>
+            						</li>
+            					
+            						<li >
+            							<a href="refactoring.html" >Refactoring</a>
+            						</li>
+            					
+            						<li >
+            							<a href="debugging.html" >Debugging</a>
+            						</li>
+            					
+            						<li >
+            							<a href="vscode-web.html" >VS Code for the Web</a>
+            						</li>
+            					
+            						<li >
+            							<a href="tasks.html" >Tasks</a>
+            						</li>
+            					
+            						<li >
+            							<a href="settings-sync.html" >Settings Sync</a>
+            						</li>
+            					
+            						<li >
+            							<a href="userdefinedsnippets.html" >Snippets</a>
+            						</li>
+            					
+            						<li >
+            							<a href="emmet.html" >Emmet</a>
+            						</li>
+            					
+            						<li >
+            							<a href="command-line.html" >Command Line Interface</a>
+            						</li>
+            					
+            						<li >
+            							<a href="workspace-trust.html" >Workspace Trust</a>
+            						</li>
+            					
+            						<li >
+            							<a href="multi-root-workspaces.html" >Multi-root Workspaces</a>
+            						</li>
+            					
+            						<li >
+            							<a href="accessibility.html" >Accessibility</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#sourcecontrol-articles" data-parent="#main-nav" data-toggle="collapse">Source Control</a>
+            					<ul id="sourcecontrol-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../sourcecontrol/overview.html" >Overview</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../sourcecontrol/github.html" >Collaborate on GitHub</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../sourcecontrol/faq.html" >FAQ</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#terminal-articles" data-parent="#main-nav" data-toggle="collapse">Terminal</a>
+            					<ul id="terminal-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../terminal/basics.html" >Terminal Basics</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../terminal/profiles.html" >Terminal Profiles</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../terminal/shell-integration.html" >Shell Integration</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../terminal/appearance.html" >Appearance</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../terminal/advanced.html" >Advanced</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#languages-articles" data-parent="#main-nav" data-toggle="collapse">Languages</a>
+            					<ul id="languages-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../languages/overview.html" >Overview</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/javascript.html" >JavaScript</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/json.html" >JSON</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/html.html" >HTML</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/css.html" >CSS, SCSS and Less</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/typescript.html" >TypeScript</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/markdown.html" >Markdown</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/powershell.html" >PowerShell</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/cpp.html" >C++</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/java.html" >Java</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/php.html" >PHP</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/python.html" >Python</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/julia.html" >Julia</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/r.html" >R</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/rust.html" >Rust</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/go.html" >Go</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/tsql.html" >T-SQL</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/csharp.html" >C#</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/dotnet.html" >.NET</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#nodejs-articles" data-parent="#main-nav" data-toggle="collapse">Node.js / JavaScript</a>
+            					<ul id="nodejs-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../nodejs/working-with-javascript.html" >Working with JavaScript</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../nodejs/nodejs-tutorial.html" >Node.js Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../nodejs/nodejs-debugging.html" >Node.js Debugging</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../nodejs/nodejs-deployment.html" >Deploy Node.js Apps</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../nodejs/browser-debugging.html" >Browser Debugging</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../nodejs/angular-tutorial.html" >Angular Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../nodejs/reactjs-tutorial.html" >React Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../nodejs/vuejs-tutorial.html" >Vue Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../nodejs/emberjs-tutorial.html" >Ember Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../nodejs/debugging-recipes.html" >Debugging Recipes</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../nodejs/profiling.html" >Performance Profiling</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../nodejs/extensions.html" >Extensions</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#typescript-articles" data-parent="#main-nav" data-toggle="collapse">TypeScript</a>
+            					<ul id="typescript-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../typescript/typescript-tutorial.html" >Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../typescript/typescript-compiling.html" >Compiling</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../typescript/typescript-editing.html" >Editing</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../typescript/typescript-refactoring.html" >Refactoring</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../typescript/typescript-debugging.html" >Debugging</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#python-articles" data-parent="#main-nav" data-toggle="collapse">Python</a>
+            					<ul id="python-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../python/python-tutorial.html" >Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../python/editing.html" >Editing Code</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../python/linting.html" >Linting</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../python/debugging.html" >Debugging</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../python/environments.html" >Environments</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../python/testing.html" >Testing</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../datascience/overview.html" >Data Science</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../python/jupyter-support-py.html" >Python Interactive</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../python/tutorial-django.html" >Django Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../python/tutorial-flask.html" >Flask Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../containers/quickstart-python.html" >Create containers</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../python/python-on-azure.html" >Deploy Python Apps</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../python/python-web.html" >Python in the Web</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../python/settings-reference.html" >Settings Reference</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#java-articles" data-parent="#main-nav" data-toggle="collapse">Java</a>
+            					<ul id="java-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../java/java-tutorial.html" >Getting Started</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-editing.html" >Navigate and Edit</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-refactoring.html" >Refactoring</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-linting.html" >Formatting and Linting</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-project.html" >Project Management</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-build.html" >Build Tools</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-debugging.html" >Run and Debug</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-testing.html" >Testing</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-spring-boot.html" >Spring Boot</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-tomcat-jetty.html" >Application Servers</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-on-azure.html" >Deploy Java Apps</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-gui.html" >GUI Applications</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/extensions.html" >Extensions</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-faq.html" >FAQ</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#cpp-articles" data-parent="#main-nav" data-toggle="collapse">C++</a>
+            					<ul id="cpp-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../cpp/introvideos-cpp.html" >Intro Videos</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../cpp/config-linux.html" >GCC on Linux</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../cpp/config-mingw.html" >GCC on Windows</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../cpp/config-wsl.html" >GCC on Windows Subsystem for Linux</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../cpp/config-clang-mac.html" >Clang on macOS</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../cpp/config-msvc.html" >Microsoft C++ on Windows</a>
+            						</li>
+            					
+            						<li >
+            							<a href="https://github.com/microsoft/vscode-cmake-tools/blob/main/docs/README.md" >Build with CMake</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../cpp/cmake-linux.html" >CMake Tools on Linux</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../cpp/cpp-ide.html" >Editing</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../cpp/cpp-debug.html" >Debugging</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../cpp/launch-json-reference.html" >Configure debugging</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../cpp/customize-default-settings-cpp.html" >Settings</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../cpp/configure-intellisense-crosscompilation.html" >Configure IntelliSense for cross-compiling</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../cpp/faq-cpp.html" >FAQ</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#containers-articles" data-parent="#main-nav" data-toggle="collapse">Docker</a>
+            					<ul id="containers-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../containers/overview.html" >Overview</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../containers/quickstart-node.html" >Node.js</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../containers/quickstart-python.html" >Python</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../containers/quickstart-aspnet-core.html" >ASP.NET Core</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../containers/debug-common.html" >Debug</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../containers/docker-compose.html" >Docker Compose</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../containers/quickstart-container-registries.html" >Registries</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../containers/app-service.html" >Deploy to Azure</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../containers/choosing-dev-environment.html" >Choose a dev environment</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../containers/reference.html" >Customize</a>
+            						</li>
+            					
+            						<li >
+            							<a href="https://learn.microsoft.com/visualstudio/bridge/bridge-to-kubernetes-vs-code" >Develop with Kubernetes</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../containers/troubleshooting.html" >Tips and Tricks</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#datascience-articles" data-parent="#main-nav" data-toggle="collapse">Data Science</a>
+            					<ul id="datascience-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../datascience/overview.html" >Overview</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../datascience/jupyter-notebooks.html" >Jupyter Notebooks</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../datascience/data-science-tutorial.html" >Data Science Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../python/jupyter-support-py.html" >Python Interactive</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../datascience/pytorch-support.html" >PyTorch Support</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../datascience/azure-machine-learning.html" >Azure Machine Learning</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#azure-articles" data-parent="#main-nav" data-toggle="collapse">Azure</a>
+            					<ul id="azure-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../azure/extensions.html" >Extensions</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../azure/deployment.html" >Deployment</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../azure/remote-debugging.html" >Remote Debugging for Node.js</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../containers/overview.html" >Docker</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../azure/mongodb.html" >MongoDB</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../azure/kubernetes.html" >Kubernetes</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../azure/aksextensions.html" >Azure Kubernetes Service</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#remote-articles" data-parent="#main-nav" data-toggle="collapse">Remote</a>
+            					<ul id="remote-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../remote/remote-overview.html" >Overview</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../remote/ssh.html" >SSH</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../devcontainers/containers.html" >Dev Containers</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../remote/wsl.html" >Windows Subsystem for Linux</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../remote/codespaces.html" >GitHub Codespaces</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../remote/vscode-server.html" >VS Code Server</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../remote/tunnels.html" >Tunnels</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../remote/ssh-tutorial.html" >SSH Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../remote/wsl-tutorial.html" >WSL Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../remote/troubleshooting.html" >Tips and Tricks</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../remote/faq.html" >FAQ</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#devcontainers-articles" data-parent="#main-nav" data-toggle="collapse">Dev Containers</a>
+            					<ul id="devcontainers-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../devcontainers/containers.html" >Overview</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../devcontainers/tutorial.html" >Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../devcontainers/attach-container.html" >Attach to Container</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../devcontainers/create-dev-container.html" >Create a Dev Container</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../../remote/advancedcontainers/overview.html" >Advanced Containers</a>
+            						</li>
+            					
+            						<li >
+            							<a href="https://containers.dev/implementors/json_reference" >devcontainer.json</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../devcontainers/devcontainer-cli.html" >Dev Container CLI</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../devcontainers/tips-and-tricks.html" >Tips and Tricks</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../devcontainers/faq.html" >FAQ</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            		
+            	</ul>
+            </nav>
+            <nav id="small-nav" aria-label="Topics" class="docs-nav hidden-md hidden-lg">
+            	<h4>Topics</h4>
+            	<select id="small-nav-dropdown" aria-label="topics">
+            		<option value="/docs" >Overview</option>
+            		
+            			
+            		
+            			
+            				<optgroup label="Setup">
+            				
+            					<option value="/docs/setup/setup-overview" >Overview</option>
+            				
+            					<option value="/docs/setup/linux" >Linux</option>
+            				
+            					<option value="/docs/setup/mac" >macOS</option>
+            				
+            					<option value="/docs/setup/windows" >Windows</option>
+            				
+            					<option value="/docs/setup/raspberry-pi" >Raspberry Pi</option>
+            				
+            					<option value="/docs/setup/network" >Network</option>
+            				
+            					<option value="/docs/setup/additional-components" >Additional Components</option>
+            				
+            					<option value="/docs/setup/enterprise" >Enterprise</option>
+            				
+            					<option value="/docs/setup/uninstall" >Uninstall</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Get Started">
+            				
+            					<option value="/docs/getstarted/introvideos" >Intro Videos</option>
+            				
+            					<option value="/docs/getstarted/tips-and-tricks" >Tips and Tricks</option>
+            				
+            					<option value="/docs/getstarted/userinterface" >User Interface</option>
+            				
+            					<option value="/docs/getstarted/themes" >Themes</option>
+            				
+            					<option value="/docs/getstarted/settings" >Settings</option>
+            				
+            					<option value="/docs/getstarted/keybindings" >Key Bindings</option>
+            				
+            					<option value="/docs/getstarted/locales" >Display Language</option>
+            				
+            					<option value="/docs/getstarted/telemetry" >Telemetry</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="User Guide">
+            				
+            					<option value="/docs/editor/codebasics" >Basic Editing</option>
+            				
+            					<option value="/docs/editor/extension-marketplace" selected>Extension Marketplace</option>
+            				
+            					<option value="/docs/editor/intellisense" >IntelliSense</option>
+            				
+            					<option value="/docs/editor/editingevolved" >Code Navigation</option>
+            				
+            					<option value="/docs/editor/refactoring" >Refactoring</option>
+            				
+            					<option value="/docs/editor/debugging" >Debugging</option>
+            				
+            					<option value="/docs/editor/vscode-web" >VS Code for the Web</option>
+            				
+            					<option value="/docs/editor/tasks" >Tasks</option>
+            				
+            					<option value="/docs/editor/settings-sync" >Settings Sync</option>
+            				
+            					<option value="/docs/editor/userdefinedsnippets" >Snippets</option>
+            				
+            					<option value="/docs/editor/emmet" >Emmet</option>
+            				
+            					<option value="/docs/editor/command-line" >Command Line Interface</option>
+            				
+            					<option value="/docs/editor/workspace-trust" >Workspace Trust</option>
+            				
+            					<option value="/docs/editor/multi-root-workspaces" >Multi-root Workspaces</option>
+            				
+            					<option value="/docs/editor/accessibility" >Accessibility</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Source Control">
+            				
+            					<option value="/docs/sourcecontrol/overview" >Overview</option>
+            				
+            					<option value="/docs/sourcecontrol/github" >Collaborate on GitHub</option>
+            				
+            					<option value="/docs/sourcecontrol/faq" >FAQ</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Terminal">
+            				
+            					<option value="/docs/terminal/basics" >Terminal Basics</option>
+            				
+            					<option value="/docs/terminal/profiles" >Terminal Profiles</option>
+            				
+            					<option value="/docs/terminal/shell-integration" >Shell Integration</option>
+            				
+            					<option value="/docs/terminal/appearance" >Appearance</option>
+            				
+            					<option value="/docs/terminal/advanced" >Advanced</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Languages">
+            				
+            					<option value="/docs/languages/overview" >Overview</option>
+            				
+            					<option value="/docs/languages/javascript" >JavaScript</option>
+            				
+            					<option value="/docs/languages/json" >JSON</option>
+            				
+            					<option value="/docs/languages/html" >HTML</option>
+            				
+            					<option value="/docs/languages/css" >CSS, SCSS and Less</option>
+            				
+            					<option value="/docs/languages/typescript" >TypeScript</option>
+            				
+            					<option value="/docs/languages/markdown" >Markdown</option>
+            				
+            					<option value="/docs/languages/powershell" >PowerShell</option>
+            				
+            					<option value="/docs/languages/cpp" >C++</option>
+            				
+            					<option value="/docs/languages/java" >Java</option>
+            				
+            					<option value="/docs/languages/php" >PHP</option>
+            				
+            					<option value="/docs/languages/python" >Python</option>
+            				
+            					<option value="/docs/languages/julia" >Julia</option>
+            				
+            					<option value="/docs/languages/r" >R</option>
+            				
+            					<option value="/docs/languages/rust" >Rust</option>
+            				
+            					<option value="/docs/languages/go" >Go</option>
+            				
+            					<option value="/docs/languages/tsql" >T-SQL</option>
+            				
+            					<option value="/docs/languages/csharp" >C#</option>
+            				
+            					<option value="/docs/languages/dotnet" >.NET</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Node.js / JavaScript">
+            				
+            					<option value="/docs/nodejs/working-with-javascript" >Working with JavaScript</option>
+            				
+            					<option value="/docs/nodejs/nodejs-tutorial" >Node.js Tutorial</option>
+            				
+            					<option value="/docs/nodejs/nodejs-debugging" >Node.js Debugging</option>
+            				
+            					<option value="/docs/nodejs/nodejs-deployment" >Deploy Node.js Apps</option>
+            				
+            					<option value="/docs/nodejs/browser-debugging" >Browser Debugging</option>
+            				
+            					<option value="/docs/nodejs/angular-tutorial" >Angular Tutorial</option>
+            				
+            					<option value="/docs/nodejs/reactjs-tutorial" >React Tutorial</option>
+            				
+            					<option value="/docs/nodejs/vuejs-tutorial" >Vue Tutorial</option>
+            				
+            					<option value="/docs/nodejs/emberjs-tutorial" >Ember Tutorial</option>
+            				
+            					<option value="/docs/nodejs/debugging-recipes" >Debugging Recipes</option>
+            				
+            					<option value="/docs/nodejs/profiling" >Performance Profiling</option>
+            				
+            					<option value="/docs/nodejs/extensions" >Extensions</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="TypeScript">
+            				
+            					<option value="/docs/typescript/typescript-tutorial" >Tutorial</option>
+            				
+            					<option value="/docs/typescript/typescript-compiling" >Compiling</option>
+            				
+            					<option value="/docs/typescript/typescript-editing" >Editing</option>
+            				
+            					<option value="/docs/typescript/typescript-refactoring" >Refactoring</option>
+            				
+            					<option value="/docs/typescript/typescript-debugging" >Debugging</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Python">
+            				
+            					<option value="/docs/python/python-tutorial" >Tutorial</option>
+            				
+            					<option value="/docs/python/editing" >Editing Code</option>
+            				
+            					<option value="/docs/python/linting" >Linting</option>
+            				
+            					<option value="/docs/python/debugging" >Debugging</option>
+            				
+            					<option value="/docs/python/environments" >Environments</option>
+            				
+            					<option value="/docs/python/testing" >Testing</option>
+            				
+            					<option value="/docs/python/data-science" >Data Science</option>
+            				
+            					<option value="/docs/python/jupyter-support-py" >Python Interactive</option>
+            				
+            					<option value="/docs/python/tutorial-django" >Django Tutorial</option>
+            				
+            					<option value="/docs/python/tutorial-flask" >Flask Tutorial</option>
+            				
+            					<option value="/docs/python/tutorial-create-containers" >Create containers</option>
+            				
+            					<option value="/docs/python/python-on-azure" >Deploy Python Apps</option>
+            				
+            					<option value="/docs/python/python-web" >Python in the Web</option>
+            				
+            					<option value="/docs/python/settings-reference" >Settings Reference</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Java">
+            				
+            					<option value="/docs/java/java-tutorial" >Getting Started</option>
+            				
+            					<option value="/docs/java/java-editing" >Navigate and Edit</option>
+            				
+            					<option value="/docs/java/java-refactoring" >Refactoring</option>
+            				
+            					<option value="/docs/java/java-linting" >Formatting and Linting</option>
+            				
+            					<option value="/docs/java/java-project" >Project Management</option>
+            				
+            					<option value="/docs/java/java-build" >Build Tools</option>
+            				
+            					<option value="/docs/java/java-debugging" >Run and Debug</option>
+            				
+            					<option value="/docs/java/java-testing" >Testing</option>
+            				
+            					<option value="/docs/java/java-spring-boot" >Spring Boot</option>
+            				
+            					<option value="/docs/java/java-tomcat-jetty" >Application Servers</option>
+            				
+            					<option value="/docs/java/java-on-azure" >Deploy Java Apps</option>
+            				
+            					<option value="/docs/java/java-gui" >GUI Applications</option>
+            				
+            					<option value="/docs/java/extensions" >Extensions</option>
+            				
+            					<option value="/docs/java/java-faq" >FAQ</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="C++">
+            				
+            					<option value="/docs/cpp/introvideos-cpp" >Intro Videos</option>
+            				
+            					<option value="/docs/cpp/config-linux" >GCC on Linux</option>
+            				
+            					<option value="/docs/cpp/config-mingw" >GCC on Windows</option>
+            				
+            					<option value="/docs/cpp/config-wsl" >GCC on Windows Subsystem for Linux</option>
+            				
+            					<option value="/docs/cpp/config-clang-mac" >Clang on macOS</option>
+            				
+            					<option value="/docs/cpp/config-msvc" >Microsoft C++ on Windows</option>
+            				
+            					<option value="/docs/cpp/build-with-cmake" >Build with CMake</option>
+            				
+            					<option value="/docs/cpp/cmake-linux" >CMake Tools on Linux</option>
+            				
+            					<option value="/docs/cpp/cpp-ide" >Editing</option>
+            				
+            					<option value="/docs/cpp/cpp-debug" >Debugging</option>
+            				
+            					<option value="/docs/cpp/launch-json-reference" >Configure debugging</option>
+            				
+            					<option value="/docs/cpp/customize-default-settings-cpp" >Settings</option>
+            				
+            					<option value="/docs/cpp/configure-intellisense-crosscompilation" >Configure IntelliSense for cross-compiling</option>
+            				
+            					<option value="/docs/cpp/faq-cpp" >FAQ</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Docker">
+            				
+            					<option value="/docs/containers/overview" >Overview</option>
+            				
+            					<option value="/docs/containers/quickstart-node" >Node.js</option>
+            				
+            					<option value="/docs/containers/quickstart-python" >Python</option>
+            				
+            					<option value="/docs/containers/quickstart-aspnet-core" >ASP.NET Core</option>
+            				
+            					<option value="/docs/containers/debug-common" >Debug</option>
+            				
+            					<option value="/docs/containers/docker-compose" >Docker Compose</option>
+            				
+            					<option value="/docs/containers/quickstart-container-registries" >Registries</option>
+            				
+            					<option value="/docs/containers/app-service" >Deploy to Azure</option>
+            				
+            					<option value="/docs/containers/choosing-dev-environment" >Choose a dev environment</option>
+            				
+            					<option value="/docs/containers/reference" >Customize</option>
+            				
+            					<option value="/docs/containers/bridge-to-kubernetes" >Develop with Kubernetes</option>
+            				
+            					<option value="/docs/containers/troubleshooting" >Tips and Tricks</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Data Science">
+            				
+            					<option value="/docs/datascience/overview" >Overview</option>
+            				
+            					<option value="/docs/datascience/jupyter-notebooks" >Jupyter Notebooks</option>
+            				
+            					<option value="/docs/datascience/data-science-tutorial" >Data Science Tutorial</option>
+            				
+            					<option value="/docs/datascience/python-interactive" >Python Interactive</option>
+            				
+            					<option value="/docs/datascience/pytorch-support" >PyTorch Support</option>
+            				
+            					<option value="/docs/datascience/azure-machine-learning" >Azure Machine Learning</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Azure">
+            				
+            					<option value="/docs/azure/extensions" >Extensions</option>
+            				
+            					<option value="/docs/azure/deployment" >Deployment</option>
+            				
+            					<option value="/docs/azure/remote-debugging" >Remote Debugging for Node.js</option>
+            				
+            					<option value="/docs/azure/docker" >Docker</option>
+            				
+            					<option value="/docs/azure/mongodb" >MongoDB</option>
+            				
+            					<option value="/docs/azure/kubernetes" >Kubernetes</option>
+            				
+            					<option value="/docs/azure/aksextensions" >Azure Kubernetes Service</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Remote">
+            				
+            					<option value="/docs/remote/remote-overview" >Overview</option>
+            				
+            					<option value="/docs/remote/ssh" >SSH</option>
+            				
+            					<option value="/docs/remote/dev-containers" >Dev Containers</option>
+            				
+            					<option value="/docs/remote/wsl" >Windows Subsystem for Linux</option>
+            				
+            					<option value="/docs/remote/codespaces" >GitHub Codespaces</option>
+            				
+            					<option value="/docs/remote/vscode-server" >VS Code Server</option>
+            				
+            					<option value="/docs/remote/tunnels" >Tunnels</option>
+            				
+            					<option value="/docs/remote/ssh-tutorial" >SSH Tutorial</option>
+            				
+            					<option value="/docs/remote/wsl-tutorial" >WSL Tutorial</option>
+            				
+            					<option value="/docs/remote/troubleshooting" >Tips and Tricks</option>
+            				
+            					<option value="/docs/remote/faq" >FAQ</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Dev Containers">
+            				
+            					<option value="/docs/devcontainers/containers" >Overview</option>
+            				
+            					<option value="/docs/devcontainers/tutorial" >Tutorial</option>
+            				
+            					<option value="/docs/devcontainers/attach-container" >Attach to Container</option>
+            				
+            					<option value="/docs/devcontainers/create-dev-container" >Create a Dev Container</option>
+            				
+            					<option value="/docs/devcontainers/containers-advanced" >Advanced Containers</option>
+            				
+            					<option value="/docs/devcontainers/devcontainerjson-reference" >devcontainer.json</option>
+            				
+            					<option value="/docs/devcontainers/devcontainer-cli" >Dev Container CLI</option>
+            				
+            					<option value="/docs/devcontainers/tips-and-tricks" >Tips and Tricks</option>
+            				
+            					<option value="/docs/devcontainers/faq" >FAQ</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            		
+            	</select>
+            </nav>        </div>
+        <div class="col-sm-9 col-md-8 body">
+            <div class="edit-github pull-right">
+                <a href="https://vscode.dev/github/microsoft/vscode-docs/blob/main/docs/editor/extension-marketplace.md"
+                    class="btn btn-default" title="Edit this document in vscode.dev">
+                    <span class="glyphicon glyphicon-pencil"></span>
+                    <span class="hidden-xs">Edit</span>
+                </a>
+            </div>
+            <h1>Extension Marketplace</h1>
+<p><strong>Increase the power of Visual Studio Code through Extensions</strong></p>
+<p>The features that Visual Studio Code includes out-of-the-box are just the start. VS Code extensions let you add languages, debuggers, and tools to your installation to support your development workflow. VS Code's rich extensibility model lets extension authors plug directly into the VS Code UI and contribute functionality through the same APIs used by VS Code.  This article explains how to find, install, and manage VS Code extensions from the <a href="https://marketplace.visualstudio.com/VSCode" class="external-link" target="_blank">Visual Studio Code Marketplace</a>.</p>
+<h2 id="_browse-for-extensions" data-needslink="_browse-for-extensions">Browse for extensions</h2>
+<p>You can browse and install extensions from within VS Code. Bring up the Extensions view by clicking on the Extensions icon in the <strong>Activity Bar</strong> on the side of VS Code or the <strong>View: Extensions</strong> command (<span class="dynamic-keybinding" data-commandId="workbench.view.extensions" data-osx="⇧⌘X" data-win="Ctrl+Shift+X" data-linux="Ctrl+Shift+X"><span class="keybinding">⇧⌘X</span> (Windows, Linux <span class="keybinding">Ctrl+Shift+X</span>)</span>).</p>
+<p><img src="../../assets/docs/editor/extension-marketplace/extensions-view-icon.png" alt="Extensions view icon" loading="lazy"></p>
+<p>This will show you a list of the most popular VS Code extensions on the <a href="https://marketplace.visualstudio.com/VSCode" class="external-link" target="_blank">VS Code Marketplace</a>.</p>
+<p><img src="../../assets/docs/editor/extension-marketplace/extensions-popular.png" alt="popular extensions" loading="lazy"></p>
+<p>Each extension in the list includes a brief description, the publisher, the download count, and a five star rating. You can select the extension item to display the extension's details page where you can learn more.</p>
+<blockquote>
+<p><strong>Note:</strong> If your computer's Internet access goes through a proxy server, you will need to configure the proxy server. See <a href="../setup/network.html#_proxy-server-support">Proxy server support</a> for details.</p>
+</blockquote>
+<h2 id="_install-an-extension" data-needslink="_install-an-extension">Install an extension</h2>
+<p>To install an extension, select the <strong>Install</strong> button. Once the installation is complete, the <strong>Install</strong> button will change to the <strong>Manage</strong> gear button.</p>
+<h3 id="_find-and-install-an-extension" data-needslink="_find-and-install-an-extension">Find and install an extension</h3>
+<p>For example, let's install the popular <a href="https://marketplace.visualstudio.com/items?itemName=wayou.vscode-todo-highlight" class="external-link" target="_blank">TODO Highlight</a> extension. This extension highlights text like 'TODO:' and 'FIXME:' in your source code so you can quickly find undone sections.</p>
+<p><img src="../../assets/docs/editor/extension-marketplace/todo-highlighting.png" alt="TODO Highlight extension highlighting in the editor" loading="lazy"></p>
+<p>In the Extensions view (<span class="dynamic-keybinding" data-commandId="workbench.view.extensions" data-osx="⇧⌘X" data-win="Ctrl+Shift+X" data-linux="Ctrl+Shift+X"><span class="keybinding">⇧⌘X</span> (Windows, Linux <span class="keybinding">Ctrl+Shift+X</span>)</span>), type 'todo' in the search box to filter the Marketplace offerings to extensions with 'todo' in the title or metadata. You should see the <strong>TODO Highlight</strong> extension in the list.</p>
+<p><img src="../../assets/docs/editor/extension-marketplace/search-for-todo-extension.png" alt="Search for todo in the Extensions view" loading="lazy"></p>
+<p>An extension is uniquely identified by its publisher and extension IDs. If you select the <strong>TODO Highlight</strong> extension, you will see the Extension details page, where you can find the extension ID, in this case, <code>wayou.vscode-todo-highlight</code>. Knowing the extension ID can be helpful if there are several similarly named extensions.</p>
+<p><img src="../../assets/docs/editor/extension-marketplace/todo-highlight-details.png" alt="TODO Highlight extension details with extension ID highlighted" loading="lazy"></p>
+<p>Select the <strong>Install</strong> button, and VS Code will download and install the extension from the Marketplace. When the installation is complete, the <strong>Install</strong> button will be replaced with a <strong>Manage</strong> gear button.</p>
+<p><img src="../../assets/docs/editor/extension-marketplace/manage-button.png" alt="Manage gear button" loading="lazy"></p>
+<p>To see the TODO Highlight extension in action, open any source code file and add the text 'TODO:' and you will see the text highlighted.</p>
+<p>The TODO Highlight extension contributes the commands, <strong>TODO-Highlight: List highlighted annotations</strong> and <strong>TODO-Highlight: Toggle highlight</strong>, that you can find in the Command Palette (<span class="dynamic-keybinding" data-commandId="workbench.action.showCommands" data-osx="⇧⌘P" data-win="Ctrl+Shift+P" data-linux="Ctrl+Shift+P"><span class="keybinding">⇧⌘P</span> (Windows, Linux <span class="keybinding">Ctrl+Shift+P</span>)</span>). The <strong>TODO-Highlight: Toggle highlight</strong> command lets you quickly disable or enable highlighting.</p>
+<p><img src="../../assets/docs/editor/extension-marketplace/todo-highlight-commands.png" alt="TODO Highlight commands in the Command Palette" loading="lazy"></p>
+<p>The extension also provides settings for tuning its behavior, which you can find in the Settings editor (<span class="dynamic-keybinding" data-commandId="workbench.action.openSettings" data-osx="⌘," data-win="Ctrl+," data-linux="Ctrl+,"><span class="keybinding">⌘,</span> (Windows, Linux <span class="keybinding">Ctrl+,</span>)</span>). For example, you might want the text search to be case insensitive and you can uncheck the <strong>Todohighlight: Is Case Sensitive</strong> setting.</p>
+<p><img src="../../assets/docs/editor/extension-marketplace/todo-highlight-settings.png" alt="TODO Highlight settings in the Settings editor" loading="lazy"></p>
+<p>If an extension doesn't provide the functionality you want, you can always <strong>Uninstall</strong> the extension from the <strong>Manage</strong> button context menu.</p>
+<p><img src="../../assets/docs/editor/extension-marketplace/todo-highlight-uninstall.png" alt="Uninstall the TODO Highlight extension" loading="lazy"></p>
+<p>This has been just one example of how to install and use an extension. The VS Code Marketplace has thousands of extensions supporting hundreds of programming languages and tasks. Everything from full featured language support for <a href="https://marketplace.visualstudio.com/items?itemName=redhat.java" class="external-link" target="_blank">Java</a>, <a href="https://marketplace.visualstudio.com/items?itemName=ms-python.python" class="external-link" target="_blank">Python</a>, <a href="https://marketplace.visualstudio.com/items?itemName=golang.Go" class="external-link" target="_blank">Go</a>, and <a href="https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools" class="external-link" target="_blank">C++</a> to simple extensions that <a href="https://marketplace.visualstudio.com/items?itemName=nwallace.createGUID" class="external-link" target="_blank">create GUIDs</a>, change the <a href="https://marketplace.visualstudio.com/items?itemName=PKief.material-icon-theme" class="external-link" target="_blank">color theme</a>, or add <a href="https://marketplace.visualstudio.com/items?itemName=tonybaloney.vscode-pets" class="external-link" target="_blank">virtual pets</a> to the editor.</p>
+<h3 id="_extension-details" data-needslink="_extension-details">Extension details</h3>
+<p>On the extension details page, you can read the extension's README and review the extension's:</p>
+<ul>
+<li><strong>Feature Contributions</strong> - The extension's additions to VS Code such as settings, commands and keyboard shortcuts, language grammars, debugger, etc.</li>
+<li><strong>Changelog</strong> - The extension repository CHANGELOG if available.</li>
+<li><strong>Dependencies</strong> - Lists if the extension depends on any other extensions.</li>
+</ul>
+<p><img src="../../assets/docs/editor/extension-marketplace/extension-contributions.png" alt="extension contributions" loading="lazy"></p>
+<p>If an extension is an Extension Pack, the <strong>Extension Pack</strong> section will display which extensions will be installed when you install the pack. <a href="../../api/references/extension-manifest.html#_extension-packs">Extension Packs</a> bundle separate extensions together so they can be easily installed at one time.</p>
+<p><img src="../../assets/docs/editor/extension-marketplace/extension-pack.png" alt="Azure Tools extension pack" loading="lazy"></p>
+<h3 id="_extensions-view-filter-and-commands" data-needslink="_extensions-view-filter-and-commands">Extensions view filter and commands</h3>
+<p>You can filter the Extensions view with the <strong>Filter Extensions</strong> context menu.</p>
+<p><img src="../../assets/docs/editor/extension-marketplace/extensions-view-filter-menu.png" alt="Extensions view filter context menu" loading="lazy"></p>
+<p>There are filters to show:</p>
+<ul>
+<li>The list of currently installed extensions</li>
+<li>The list of outdated extensions that can be updated</li>
+<li>The list of currently enabled/disabled extensions</li>
+<li>The list of recommended extensions based on your workspace</li>
+<li>The list of globally popular extensions</li>
+</ul>
+<p>You can sort the extension list by <strong>Install Count</strong> or <strong>Rating</strong> in either ascending or descending order. You can learn more about extension search filters <a href="#_extensions-view-filters">below</a>.</p>
+<p>You can run additional Extensions view commands via the <code>...</code> <strong>View and More Actions</strong> button.</p>
+<p><img src="../../assets/docs/editor/extension-marketplace/more-button.png" alt="more button" loading="lazy"></p>
+<p>Through this context menu you can control extension updates, enable or disable all extensions, and use the <a href="../../blogs/2021/02/16/extension-bisect.html">Extension Bisect</a> utility to isolate problematic extension behavior.</p>
+<p><img src="../../assets/docs/editor/extension-marketplace/more-dropdown.png" alt="more dropdown" loading="lazy"></p>
+<h3 id="_search-for-an-extension" data-needslink="_search-for-an-extension">Search for an extension</h3>
+<p>You can clear the Search box at the top of the Extensions view and type in the name of the extension, tool, or programming language you're looking for.</p>
+<p>For example, typing 'python' will bring up a list of Python language extensions:</p>
+<p><img src="../../assets/docs/editor/extension-marketplace/extensions-python.png" alt="python extensions" loading="lazy"></p>
+<p>If you know the exact identifier for an extension you're looking for, you can use the <code>@id:</code> prefix, for example <code>@id:octref.vetur</code>. Additionally, to filter or sort results, you can use the <a href="#_extensions-view-filters">filter</a> and <a href="#_sorting">sort</a> commands, detailed below.</p>
+<h2 id="_manage-extensions" data-needslink="_manage-extensions">Manage extensions</h2>
+<p>VS Code makes it easy to manage your extensions. You can install, disable, update, and uninstall extensions through the Extensions view, the <strong>Command Palette</strong> (commands have the <strong>Extensions:</strong> prefix) or command-line switches.</p>
+<h3 id="_list-installed-extensions" data-needslink="_list-installed-extensions">List installed extensions</h3>
+<p>By default, the Extensions view will show the extensions you currently have enabled, all extensions that are recommended for you, and a collapsed view of all extensions you have disabled. You can use the <strong>Show Installed Extensions</strong> command, available in the <strong>Command Palette</strong> (<span class="dynamic-keybinding" data-commandId="workbench.action.showCommands" data-osx="⇧⌘P" data-win="Ctrl+Shift+P" data-linux="Ctrl+Shift+P"><span class="keybinding">⇧⌘P</span> (Windows, Linux <span class="keybinding">Ctrl+Shift+P</span>)</span>) or the <strong>More Actions</strong> (<code>...</code>) dropdown menu, to clear any text in the search box and show the list of all installed extensions, which includes those that have been disabled.</p>
+<h3 id="_uninstall-an-extension" data-needslink="_uninstall-an-extension">Uninstall an extension</h3>
+<p>To uninstall an extension, select the <strong>Manage</strong> gear button at the right of an extension entry and then choose <strong>Uninstall</strong> from the dropdown menu. This will uninstall the extension and prompt you to reload VS Code.</p>
+<p><img src="../../assets/docs/editor/extension-marketplace/uninstall-extension.png" alt="uninstall an extension" loading="lazy"></p>
+<h3 id="_disable-an-extension" data-needslink="_disable-an-extension">Disable an extension</h3>
+<p>If you don't want to permanently remove an extension, you can instead temporarily disable the extension by clicking the gear button at the right of an extension entry. You can disable an extension globally or just for your current Workspace. You will be prompted to reload VS Code after you disable an extension.</p>
+<p>If you want to quickly disable all installed extensions, there is a <strong>Disable All Installed Extensions</strong> command in the <strong>Command Palette</strong> and <strong>More Actions</strong> (<code>...</code>) dropdown menu.</p>
+<p>Extensions remain disabled for all VS Code sessions until you re-enable them.</p>
+<h3 id="_enable-an-extension" data-needslink="_enable-an-extension">Enable an extension</h3>
+<p>Similarly if you have disabled an extension (it will be in the <strong>Disabled</strong> section of the list and marked <em><strong>Disabled</strong></em>), you can re-enable it with the <strong>Enable</strong> or <strong>Enable (Workspace)</strong> commands in the dropdown menu.</p>
+<p><img src="../../assets/docs/editor/extension-marketplace/enable-extension.png" alt="enable extension" loading="lazy"></p>
+<p>There is also an <strong>Enable All Extensions</strong> command in the <strong>More Actions</strong> (<code>...</code>) dropdown menu.</p>
+<h3 id="_extension-autoupdate" data-needslink="_extension-autoupdate">Extension auto-update</h3>
+<p>VS Code checks for extension updates and installs them automatically. After an update, you will be prompted to reload VS Code. If you'd rather update your extensions manually, you can disable auto-update with the <strong>Disable Auto Updating Extensions</strong> command that sets the <code>extensions.autoUpdate</code> <a href="../getstarted/settings.html">setting</a> to <code>false</code>. If you don't want VS Code to even check for updates, you can set the <code>extensions.autoCheckUpdates</code> setting to false.</p>
+<h3 id="_update-an-extension-manually" data-needslink="_update-an-extension-manually">Update an extension manually</h3>
+<p>If you have extensions auto-update disabled, you can quickly look for extension updates by using the <strong>Show Outdated Extensions</strong> command that uses the <code>@outdated</code> filter. This will display any available updates for your currently installed extensions. Select the <strong>Update</strong> button for the outdated extension and the update will be installed and you'll be prompted to reload VS Code. You can also update all your outdated extensions at one time with the <strong>Update All Extensions</strong> command. If you also have automatic checking for updates disabled, you can use the <strong>Check for Extension Updates</strong> command to check which of your extensions can be updated.</p>
+<h2 id="_recommended-extensions" data-needslink="_recommended-extensions">Recommended extensions</h2>
+<p>You can see a list of recommended extensions using <strong>Show Recommended Extensions</strong>, which sets the <code>@recommended</code> <a href="#_extensions-view-filters">filter</a>. Extension recommendations can either be:</p>
+<ul>
+<li><strong>Workspace Recommendations</strong> - Recommended by other users of your current workspace.</li>
+<li><strong>Other Recommendations</strong> - Recommended based on recently opened files.</li>
+</ul>
+<p>See the section below to learn how to <a href="#_workspace-recommended-extensions">contribute</a> recommendations for other users in your project.</p>
+<h3 id="_ignoring-recommendations" data-needslink="_ignoring-recommendations">Ignoring recommendations</h3>
+<p>To dismiss a recommendation, select on the extension item to open the Details page and then select the <strong>Manage</strong> gear button to display the context menu. Select the <strong>Ignore Recommendation</strong> menu item. Ignored recommendations will no longer be recommended to you.</p>
+<p><img src="../../assets/docs/editor/extension-marketplace/ignore-recommendation.png" alt="Ignore extension recommendation" loading="lazy"></p>
+<h2 id="_configuring-extensions" data-needslink="_configuring-extensions">Configuring extensions</h2>
+<p>VS Code extensions may have very different configurations and requirements. Some extensions contribute <a href="../getstarted/settings.html">settings</a> to VS Code, which can be modified in the Settings editor. Other extensions may have their own configuration files. Extensions may also require installation and setup of additional components like compilers, debuggers, and command-line tools. Consult the extension's README (visible in the Extensions view details page) or go to the extension page on the <a href="https://marketplace.visualstudio.com/VSCode" class="external-link" target="_blank">VS Code Marketplace</a> (click on the extension name in the details page). Many extensions are open source and have a link to their repository on their Marketplace page.</p>
+<h2 id="_command-line-extension-management" data-needslink="_command-line-extension-management">Command line extension management</h2>
+<p>To make it easier to automate and configure VS Code, it is possible to list, install, and uninstall extensions from the <a href="command-line.html">command line</a>. When identifying an extension, provide the full name of the form <code>publisher.extension</code>, for example <code>ms-python.python</code>.</p>
+<p>Example:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #000000">code --extensions-dir &lt;dir&gt;</span></span>
+<span class="line"><span style="color: #000000">    Set the root path </span><span style="color: #AF00DB">for</span><span style="color: #000000"> extensions.</span></span>
+<span class="line"><span style="color: #000000">code --list-extensions</span></span>
+<span class="line"><span style="color: #000000">    List the installed extensions.</span></span>
+<span class="line"><span style="color: #000000">code --show-versions</span></span>
+<span class="line"><span style="color: #000000">    Show versions of installed extensions, when using --list-extension.</span></span>
+<span class="line"><span style="color: #000000">code --install-extension (&lt;extension-id&gt; | &lt;extension-vsix-path&gt;)</span></span>
+<span class="line"><span style="color: #000000">    Installs an extension.</span></span>
+<span class="line"><span style="color: #000000">code --uninstall-extension (&lt;extension-id&gt; | &lt;extension-vsix-path&gt;)</span></span>
+<span class="line"><span style="color: #000000">    Uninstalls an extension.</span></span>
+<span class="line"><span style="color: #000000">code --enable-proposed-api (&lt;extension-id&gt;)</span></span>
+<span class="line"><span style="color: #000000">    Enables proposed API features </span><span style="color: #AF00DB">for</span><span style="color: #000000"> extensions. Can receive one or more extension IDs to </span><span style="color: #795E26">enable</span><span style="color: #000000"> individually.</span></span>
+<span class="line"></span></code></pre>
+<p>You can see the extension ID on the extension details page under the Marketplace Info.</p>
+<p><img src="../../assets/docs/editor/extension-marketplace/extension-identifier.png" alt="extension identifier" loading="lazy"></p>
+<h2 id="_extensions-view-filters" data-needslink="_extensions-view-filters">Extensions view filters</h2>
+<p>The Extensions view search box supports filters to help you find and manage extensions. You may have seen filters such as <code>@installed</code> and <code>@recommended</code> if you used the commands <strong>Show Installed Extensions</strong> and <strong>Show Recommended Extensions</strong>. Also, there are filters available to let you sort by popularity or ratings and search by category (for example 'Linters') and tags (for example 'node'). You can see a complete listing of all filters and sort commands by typing <code>@</code> in the extensions search box and navigating through the suggestions:</p>
+<p><img src="../../assets/docs/editor/extension-marketplace/extension-search-filters.png" alt="intellisense on extension search filters" loading="lazy"></p>
+<p>Here are the Extensions view filters:</p>
+<ul>
+<li><code>@builtin</code> - Show extensions that come with VS Code. Grouped by type (Programming Languages, Themes, etc.).</li>
+<li><code>@disabled</code> - Show disabled installed extensions.</li>
+<li><code>@installed</code> - Show installed extensions.</li>
+<li><code>@outdated</code> - Show outdated installed extensions. A newer version is available on the Marketplace.</li>
+<li><code>@enabled</code> - Show enabled installed extensions. Extensions can be individually enabled/disabled.</li>
+<li><code>@recommended</code> - Show recommended extensions. Grouped as Workspace specific or general use.</li>
+<li><code>@category</code> - Show extensions belonging to specified category. Below are a few of supported categories. For a complete list, type <code>@category</code> and follow the options in the suggestion list:
+<ul>
+<li><code>@category:themes</code></li>
+<li><code>@category:formatters</code></li>
+<li><code>@category:linters</code></li>
+<li><code>@category:snippets</code></li>
+</ul>
+</li>
+</ul>
+<p>These filters can be combined as well. For example: Use <code>@installed @category:themes</code> to view all installed themes.</p>
+<p>If no filter is provided, the Extensions view displays the currently installed and recommended extensions.</p>
+<h3 id="_sorting" data-needslink="_sorting">Sorting</h3>
+<p>You can sort extensions with the <code>@sort</code> filter, which can take the following values:</p>
+<ul>
+<li><code>installs</code> - Sort by Marketplace installation count, in descending order.</li>
+<li><code>rating</code> - Sort by Marketplace rating (1-5 stars), in descending order.</li>
+<li><code>name</code> - Sort alphabetically by extension name.</li>
+</ul>
+<p><img src="../../assets/docs/editor/extension-marketplace/sort-install-count.png" alt="sort by install count" loading="lazy"></p>
+<h3 id="_categories-and-tags" data-needslink="_categories-and-tags">Categories and tags</h3>
+<p>Extensions can set <strong>Categories</strong> and <strong>Tags</strong> describing their features.</p>
+<p><img src="../../assets/docs/editor/extension-marketplace/categories-and-tags.png" alt="extension categories and tags" loading="lazy"></p>
+<p>You can filter on category and tag by using <code>category:</code> and <code>tag:</code>.</p>
+<p>Supported categories are: <code>[Programming Languages, Snippets, Linters, Themes, Debuggers, Formatters, Keymaps, SCM Providers, Other, Extension Packs, Language Packs, Data Science, Machine Learning, Visualization, Notebooks, Education, Testing]</code>. They can be accessed through IntelliSense in the extensions search box:</p>
+<p><img src="../../assets/docs/editor/extension-marketplace/extension-search-categories.png" alt="categories debuggers" loading="lazy"></p>
+<p>Note that you must surround the category name in quotes if it is more than one word (for example, <code>category:&quot;SCM Providers&quot;</code>).</p>
+<p>Tags may contain any string and are not provided by IntelliSense, so review the Marketplace to find helpful tags.</p>
+<h2 id="_install-from-a-vsix" data-needslink="_install-from-a-vsix">Install from a VSIX</h2>
+<p>You can manually install a VS Code extension packaged in a <code>.vsix</code> file. Using the <strong>Install from VSIX</strong> command in the Extensions view command dropdown, or the <strong>Extensions: Install from VSIX</strong> command in the <strong>Command Palette</strong>, point to the <code>.vsix</code> file.</p>
+<p>You can also install using the VS Code <code>--install-extension</code> command-line switch providing the path to the <code>.vsix</code> file.</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #000000">code --install-extension myextension.vsix</span></span>
+<span class="line"></span></code></pre>
+<p>You may provide the <code>--install-extension</code> multiple times on the command line to install multiple extensions at once.</p>
+<p>If you'd like to learn more about packaging and publishing extensions, see our <a href="../../api/working-with-extensions/publishing-extension.html">Publishing Extensions</a> article in the Extension API.</p>
+<h2 id="_workspace-recommended-extensions" data-needslink="_workspace-recommended-extensions">Workspace recommended extensions</h2>
+<p>A good set of extensions can make working with a particular workspace or programming language more productive and you'd often like to share this list with your team or colleagues. You can create a recommended list of extensions for a workspace with the <strong>Extensions: Configure Recommended Extensions (Workspace Folder)</strong> command.</p>
+<p>In a single folder workspace, the command creates an <code>extensions.json</code> file located in the workspace <code>.vscode</code> folder where you can add a list of extensions identifiers ({publisherName}.{extensionName}).</p>
+<p>In a <a href="multi-root-workspaces.html">multi-root workspace</a>, the command will open your <code>.code-workspace</code> file where you can list extensions under <code>extensions.recommendations</code>. You can still add extension recommendations to individual folders in a multi-root workspace by using the <strong>Extensions: Configure Recommended Extensions (Workspace Folder)</strong> command.</p>
+<p>An example <code>extensions.json</code> could be:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #000000">{</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;recommendations&quot;</span><span style="color: #000000">: [</span><span style="color: #A31515">&quot;dbaeumer.vscode-eslint&quot;</span><span style="color: #000000">, </span><span style="color: #A31515">&quot;esbenp.prettier-vscode&quot;</span><span style="color: #000000">]</span></span>
+<span class="line"><span style="color: #000000">}</span></span>
+<span class="line"></span></code></pre>
+<p>which recommends a linter extension and a code formatter extension.</p>
+<p>An extension is identified using its publisher name and extension identifier <code>publisher.extension</code>. You can see the name on the extension's detail page. VS Code will provide you with auto-completion for installed extensions inside these files.</p>
+<p><img src="../../assets/docs/editor/extension-marketplace/extension-identifier.png" alt="Extension identifier" loading="lazy">.</p>
+<p>VS Code prompts a user to install the recommended extensions when a workspace is opened for the first time. The user can also review the list with the <strong>Extensions: Show Recommended Extensions</strong> command.</p>
+<p><img src="../../assets/docs/editor/extension-marketplace/recommendations.png" alt="Show Recommendations" loading="lazy"></p>
+<h2 id="_next-steps" data-needslink="_next-steps">Next steps</h2>
+<p>Here are a few topics you may find interesting...</p>
+<ul>
+<li><a href="../../api.html">Extension API</a> - Start learning about the VS Code extension API.</li>
+<li><a href="../../api/get-started/your-first-extension.html">Your First Extension</a> - Try creating a simple Hello World extension.</li>
+<li><a href="../../api/working-with-extensions/publishing-extension.html">Publishing to the Marketplace</a> - Publish your own extension to the VS Code Marketplace.</li>
+</ul>
+<h2 id="_common-questions" data-needslink="_common-questions">Common questions</h2>
+<h3 id="_where-are-extensions-installed" data-needslink="_where-are-extensions-installed">Where are extensions installed?</h3>
+<p>Extensions are installed in a per user extensions folder. Depending on your platform, the location is in the following folder:</p>
+<ul>
+<li><strong>Windows</strong> <code>%USERPROFILE%\.vscode\extensions</code></li>
+<li><strong>macOS</strong> <code>~/.vscode/extensions</code></li>
+<li><strong>Linux</strong> <code>~/.vscode/extensions</code></li>
+</ul>
+<p>You can change the location by launching VS Code with the <code>--extensions-dir &lt;dir&gt;</code> command-line <a href="command-line.html">option</a>.</p>
+<h3 id="_whenever-i-try-to-install-any-extension-i-get-a-connect-etimedout-error" data-needslink="_whenever-i-try-to-install-any-extension-i-get-a-connect-etimedout-error">Whenever I try to install any extension, I get a connect ETIMEDOUT error</h3>
+<p>You may see this error if your machine is going through a proxy server to access the Internet.  See the <a href="../setup/network.html#_proxy-server-support">Proxy server support</a> section in the setup topic for details.</p>
+<h3 id="_can-i-download-an-extension-directly-from-the-marketplace" data-needslink="_can-i-download-an-extension-directly-from-the-marketplace">Can I download an extension directly from the Marketplace?</h3>
+<p>Some users prefer to download an extension once from the Marketplace and then install it multiple times from a local share. This is useful when there are connectivity concerns or if your development team wants to use a fixed set of extensions.</p>
+<p>To download an extension, navigate to the details page for the specific extension within the <a href="https://marketplace.visualstudio.com/vscode" class="external-link" target="_blank">Marketplace</a>. On that page, there is a <strong>Download Extension</strong> link in the <strong>Resources</strong> section, which is located on the right-hand side of the page.</p>
+<p>Once downloaded, you can then install the extension via the <strong>Install from VSIX</strong> command in the Extensions view command dropdown.</p>
+<h3 id="_can-i-stop-vs-code-from-providing-extension-recommendations" data-needslink="_can-i-stop-vs-code-from-providing-extension-recommendations">Can I stop VS Code from providing extension recommendations?</h3>
+<p>Yes, if you would prefer to not have VS Code display extension recommendations in the Extensions view or through notifications, you can modify the following settings:</p>
+<ul>
+<li><code>extensions.showRecommendationsOnlyOnDemand</code> - Set to true to remove the <strong>RECOMMENDED</strong> section.</li>
+<li><code>extensions.ignoreRecommendations</code> - Set to true to silence extension recommendation notifications.</li>
+</ul>
+<p>The <strong>Show Recommended Extensions</strong> command is always available if you want to see recommendations.</p>
+<h3 id="_can-i-trust-extensions-from-the-marketplace" data-needslink="_can-i-trust-extensions-from-the-marketplace">Can I trust extensions from the Marketplace?</h3>
+<p>The Marketplace runs a virus scan on each extension package that's published to ensure its safety. The virus scan is run for each new extension and for each extension update. Until the scan is all clear, the extension won't be published in the Marketplace for public usage.</p>
+<p>The Marketplace also prevents extension authors from name-squatting on official publishers such as Microsoft and RedHat.</p>
+<p>If a malicious extension is reported and verified, or a vulnerability is found in an extension dependency:</p>
+<ol>
+<li>The extension is removed from the Marketplace.</li>
+<li>The extension is added to a kill list so that if it has been installed, it will be automatically uninstalled by VS Code.</li>
+</ol>
+<p>The Marketplace also provides you with resources to make an informed decision about the extensions you install:</p>
+<ul>
+<li><strong>Ratings &amp; Review</strong> - Read what others think about the extension.</li>
+<li><strong>Q &amp; A</strong> - Review existing questions and the level of the publisher's responsiveness. You can also engage with the extension's publisher(s) if you have concerns.</li>
+<li><strong>Issues, Repository, and License</strong> - Check if the publisher has provided these and if they have the support you expect.</li>
+</ul>
+<p>If you do see an extension that looks suspicious, you can report the extension to the Marketplace with the <strong>Report Abuse</strong> link at the bottom of the extension <strong>More Info</strong> section.</p>
+
+            <div class="feedback"></div>
+            
+            <div class="body-footer">12/7/2022</div>
+            
+        </div>
+        <div class="col-sm-3 col-md-2 docs-subnavbar-container">
+            <nav id="docs-subnavbar" aria-label="On Page" data-spy="affix" data-offset-top="20">
+                
+                <h4><span class="sr-only">In this article there are 11 sections</span><span
+                        aria-hidden="true">In this article</span></h4>
+                <ul class="nav">
+                    
+                    <li><a href="#_browse-for-extensions">Browse for extensions</a></li>
+                    
+                    <li><a href="#_install-an-extension">Install an extension</a></li>
+                    
+                    <li><a href="#_manage-extensions">Manage extensions</a></li>
+                    
+                    <li><a href="#_recommended-extensions">Recommended extensions</a></li>
+                    
+                    <li><a href="#_configuring-extensions">Configuring extensions</a></li>
+                    
+                    <li><a href="#_command-line-extension-management">Command line extension management</a></li>
+                    
+                    <li><a href="#_extensions-view-filters">Extensions view filters</a></li>
+                    
+                    <li><a href="#_install-from-a-vsix">Install from a VSIX</a></li>
+                    
+                    <li><a href="#_workspace-recommended-extensions">Workspace recommended extensions</a></li>
+                    
+                    <li><a href="#_next-steps">Next steps</a></li>
+                    
+                    <li><a href="#_common-questions">Common questions</a></li>
+                    
+                </ul>
+                
+                <div class="connect-widget"></div>
+            </nav>
+        </div>
+    </div>
+</div>
+      </div>
+  </div>
+
+  <footer role="contentinfo">
+      <div class="container">
+          <div class="row">
+              <div class="left col-md-7">
+                  <ul class="links">
+                      <li>
+                          <span class="message">Hello from Seattle.</span>
+                      </li>
+                      <li>
+                          <a href="https://go.microsoft.com/fwlink/?LinkID=533687" onclick="followOnTwitter()" tabindex="0">Follow @code</a>
+                      </li>
+                      <li>
+                          <div class="github-star-button">
+                              <iframe src="../../assets/github-button29be.html?user=Microsoft&amp;repo=vscode&amp;type=star&amp;count=true"
+                                  frameborder="0" scrolling="0" width="130px" height="20px" title="GitHub follow button" loading="lazy"></iframe>
+                          </div>
+                      </li>
+  
+                      <script>
+                          function followOnTwitter() {
+                              var windowFeatures = "location=yes,height=600,width=550,scrollbars=yes,status=yes";
+                              var originalReferer = "&original_referer=" + document.URL;
+                              var screenName = "&screen_name=code";
+                              var URL = "https://twitter.com/intent/follow?" + originalReferer + screenName;
+                              window.open(URL, "_blank", windowFeatures);
+                          }
+  
+                          function manageConsent() {
+                              if(WcpConsent.siteConsent.isConsentRequired){
+                                  WcpConsent.siteConsent.manageConsent();
+                              }
+                          }
+                      </script>
+                  </ul>
+              </div>
+              <div class="right col-md-5">
+                  <ul class="links">
+                      <li><a id="footer-support-link" href="https://support.serviceshub.microsoft.com/supportforbusiness/create?sapId=d66407ed-3967-b000-4cfb-2c318cad363d"
+                              target="_blank">Support</a></li>
+                      <li><a id="footer-privacy-link" href="https://privacy.microsoft.com/privacystatement"
+                              target="_blank">Privacy</a></li>
+                      <li style="display: none;"><a id="footer-cookie-link" style="cursor: pointer;" onclick="manageConsent()"
+                              target="_blank">Manage Cookies</a></li>
+                      <li><a id="footer-terms-link" href="https://www.microsoft.com/legal/terms-of-use"
+                              target="_blank">Terms of Use</a></li>
+                      <li><a id="footer-license-link" href="../../License.html">License</a></li>
+                  </ul>
+                  <div class="copyright">
+                      <a id="footer-microsoft-link" class="logo" href="https://www.microsoft.com/">
+                          <img class="microsoft-logo" src="../../assets/images/microsoft-logo.png" height="20" alt="Microsoft homepage"/>
+                          <img class="microsoft-logo-inverted" src="../../assets/images/microsoft-logo-inverted.png" height="20" alt="Microsoft homepage" />
+                      </a>
+                      <span>&copy; 2023 Microsoft</span>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </footer>
+  <script src="../../dist/index.js"></script>
+
+  
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "SoftwareApplication",
+      "name" : "Visual Studio Code",
+      "softwareVersion": "1.74",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "applicationCategory": "DeveloperApplication",
+      "applicationSubCategory": "Text Editor",
+      "alternateName": "VS Code",
+      "datePublished": "2021-11-03",
+      "operatingSystem": "Mac, Linux, Windows",
+      "logo": "https://code.visualstudio.com/assets/apple-touch-icon.png",
+      "screenshot": "https://code.visualstudio.com/assets/home/home-screenshot-win.png",
+      "releaseNotes": "https://code.visualstudio.com/updates",
+      "downloadUrl": "https://code.visualstudio.com/download",
+      "license": "https://code.visualstudio.com/license",
+      "softwareRequirements": "https://code.visualstudio.com/docs/supporting/requirements",
+      "url" : "https://code.visualstudio.com",
+      "author": {
+        "@type": "Organization",
+        "name": "Microsoft"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Microsoft"
+      },
+      "maintainer": {
+        "@type": "Organization",
+        "name": "Microsoft"
+      },
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://code.visualstudio.com/Search?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      },
+      "sameAs" : [
+        "https://en.wikipedia.org/wiki/Visual_Studio_Code",
+        "https://twitter.com/code",
+        "https://www.youtube.com/code",
+        "https://www.tiktok.com/@vscode",
+        "https://github.com/microsoft/vscode"
+      ]
+    }
+  </script>
+</body>
+
+<!-- Mirrored from code.visualstudio.com/docs/editor/extension-marketplace by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 04 Jan 2023 09:51:07 GMT -->
+</html>

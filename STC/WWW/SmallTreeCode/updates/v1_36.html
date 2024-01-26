@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Mirrored from code.visualstudio.com/updates/v1_36 by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 04 Jan 2023 12:15:10 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="google-site-verification" content="hNs7DXrTySP_X-0P_AC0WulAXvUwgSXEmgfcO2r79dw" />
+
+  <!-- Twitter and Facebook OpenGraph Metadata-->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@code" />
+
+  <meta name="description" content="See what is new in the Visual Studio Code June 2019 Release (1.36)" />
+<meta name="keywords" content="" />
+<!-- Twitter and Facebook OpenGraph Metadata-->
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="og:url" content="v1_36.html" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Visual Studio Code June 2019" />
+<meta property="og:description" content="See what is new in the Visual Studio Code June 2019 Release (1.36)" />
+
+<meta property="og:image" content="../assets/updates/1_36/release-highlights.png" />
+
+
+
+  <link rel="shortcut icon" href="../favicon.ico" sizes="128x128" />
+  <link rel="apple-touch-icon" href="../apple-touch-icon.png">
+
+  <title>Visual Studio Code June 2019</title>
+
+  <link rel="stylesheet" href="../vendor/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../dist/style.css">
+
+  <script type="text/javascript" src="../../js.monitor.azure.com/scripts/c/ms.analytics-web-3.min.js"></script>
+  <script>
+  window.appInsights = new oneDS.ApplicationInsights();
+  window.appInsights.initialize({
+    instrumentationKey: "1a3eb3104447440391ad5f2a6ee06a0a-62879566-bc58-4741-9650-302bf2af703f-7103",
+    webAnalyticsConfiguration:{ // Web Analytics Plugin configuration
+        urlCollectQuery:true, 
+        autoCapture: {
+          scroll: true,
+          pageView: true,
+          onLoad: true,
+          onUnload: true,
+          click: true,
+          resize: true,
+          jsError: true
+        }
+    }
+  }, []);
+  </script>
+  
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','../../www.google-analytics.com/analytics.js','ga');
+  </script>  
+  <link rel="alternate" type="application/atom+xml" title="RSS Feed for code.visualstudio.com" href="../feed.xml" />
+</head>
+
+<body>
+  <!-- EU Cookie Compliance JS -->
+  <script src="../../wcpstatic.microsoft.com/mscc/lib/v2/wcp-consent.js"></script>
+
+  <div id="main">
+          <div class="navbar-fixed-container">
+              <div class="navbar navbar-inverse navbar-fixed-top ">
+                  <div id='cookie-banner'></div>        <nav role="navigation" aria-label="Top Level">
+                      <div class="container">
+                          <div class="nav navbar-header">
+                              <a role="button" id="skip-to-content" class="link-button" href="#main-content">Skip to content<i>&nbsp;</i><span class="glyphicon glyphicon-menu-down"></span></a>
+                              <a class="navbar-brand" id="navbar-brand" href="../index.html">Visual Studio Code</a>
+                              <button type="button" class="navbar-toggle" role="navigation" data-toggle="collapse" data-target=".navbar-collapse" aria-label="Toggle Navigation Menu">
+                                  <span class="icon-bar"></span>
+                                  <span class="icon-bar"></span>
+                                  <span class="icon-bar"></span>
+                              </button>
+                          </div>
+                          <div class="navbar-collapse collapse" role="navigation">
+                              <ul class="nav navbar-nav navbar-left">
+                                  <li ><a id="nav-docs" href="../docs.html">Docs</a></li>
+                                  <li class="active" ><a id="nav-updates" href="v1_74.html">Updates</a></li>
+                                  <li ><a id="nav-blogs" href="../blogs.html">Blog</a></li>
+                                  <li ><a id="nav-extend" href="../api.html">API</a></li>
+                                  <li><a href="https://marketplace.visualstudio.com/VSCode" target="_blank" id="nav-extensions">Extensions</a></li>
+                                  <li ><a id="nav-faqs" href="../docs/supporting/faq.html">FAQ</a></li>
+                                  <li ><a id="nav-learn" href="../learn.html">Learn</a></li>
+                                  <li class='search visible-xs visible-sm'
+                                      ><a href="../Search.html">Search</a></li>
+                              </ul>
+          
+                              <ul class="nav navbar-nav navbar-right" role="presentation">
+                                  <!-- Floating search icon -->
+                                  <li>
+                                      <a href="../Search.html" title="Search" class="btn search-btn" id="nav-search">
+                                          <img class="search-icon" src="../assets/icons/search.svg" width="16px" height="16px" alt="Search"/>
+                                          <img class="search-icon-inverted" src="../assets/icons/search_dark.svg" width="16px" height="16px" alt="Search" />
+                                      </a>
+                                  </li>
+                                  <!-- Actual search icon -->
+                                  <li class="search" role="presentation">
+                                      <form class="nav-search search-form" role="search" aria-label="Search">
+                                          <div class="input-group" role="presentation">
+                                              <input type="text" name="q" class="search-box form-control" placeholder="Search Docs" aria-label="Search text"/>
+                                              <span class="input-group-btn">
+                                                  <button tabindex="0" class="btn" type="submit" aria-label="Search">
+                                                          <img class="search-icon" src="../assets/icons/search.svg" width="16px" height="16px" alt="Search" />
+                                                          <img class="search-icon-inverted" src="../assets/icons/search_dark.svg" width="16px" height="16px" alt="Search" />
+                                                  </button>
+                                              </span>
+                                          </div>
+                                      </form>                        </li>
+                                  <!-- this was hiden in the home and download page, keeping it for now -->
+                                  <li><a class="link-button" href="../Download.html" id="nav-download">
+                                      <img class="download-icon" src="../assets/icons/download.svg" width="16px" height="16px" alt="Download VS Code"/>
+                                      <img class="download-icon-inverted" src="../assets/icons/download-black.svg" width="16px" height="16px" alt="Download VS Code" />
+                                      <span>Download</span>
+                                  </a></li>
+                              </ul>
+                          </div>
+                      </div>
+                  </nav>
+              </div>
+          </div>          <div class="updates-banner  ">
+              <div class="container">
+                  <p class="message"><a href="v1_74.html" id="banner-link-updates">Version 1.74</a> is now available! Read about the new features and fixes from November.</p> 
+              </div>
+              <div tabindex="0" role="button" title="Dismiss this update" class="dismiss-btn" id="banner-dismiss-btn"><span class="sr-only">Dismiss this update</span><span aria-hidden="true" class="glyph-icon"></span></div>
+          </div>      <div role="main" id="main-content">
+        <div class="container body-content docs releases">
+    <div class="row">
+        <div class="col-md-2 docs-navbar-container">
+            <nav id="docs-navbar" aria-label="Updates" class="docs-nav updates-nav visible-md visible-lg">
+            	<h4>Updates</h4>
+            	<ul class="nav">
+            		
+            			<li >
+            				<a href="v1_74.html" >November 2022</a>
+            			</li>
+            		
+            			<li >
+            				<a href="v1_73.html" >October 2022</a>
+            			</li>
+            		
+            			<li >
+            				<a href="v1_72.html" >September 2022</a>
+            			</li>
+            		
+            			<li >
+            				<a href="v1_71.html" >August 2022</a>
+            			</li>
+            		
+            			<li >
+            				<a href="v1_70.html" >July 2022</a>
+            			</li>
+            		
+            			<li >
+            				<a href="v1_69.html" >June 2022</a>
+            			</li>
+            		
+            			<li >
+            				<a href="v1_68.html" >May 2022</a>
+            			</li>
+            		
+            			<li >
+            				<a href="v1_67.html" >April 2022</a>
+            			</li>
+            		
+            			<li >
+            				<a href="v1_66.html" >March 2022</a>
+            			</li>
+            		
+            			<li >
+            				<a href="v1_65.html" >February 2022</a>
+            			</li>
+            		
+            			<li >
+            				<a href="v1_64.html" >January 2022</a>
+            			</li>
+            		
+            			<li >
+            				<a href="v1_63.html" >November 2021</a>
+            			</li>
+            		
+            			<li >
+            				<a href="v1_62.html" >October 2021</a>
+            			</li>
+            		
+            			<li >
+            				<a href="v1_61.html" >September 2021</a>
+            			</li>
+            		
+            			<li >
+            				<a href="v1_60.html" >August 2021</a>
+            			</li>
+            		
+            			<li >
+            				<a href="v1_59.html" >July 2021</a>
+            			</li>
+            		
+            			<li >
+            				<a href="v1_58.html" >June 2021</a>
+            			</li>
+            		
+            			<li >
+            				<a href="v1_57.html" >May 2021</a>
+            			</li>
+            		
+            			<li >
+            				<a href="v1_56.html" >April 2021</a>
+            			</li>
+            		
+            			<li >
+            				<a href="v1_55.html" >March 2021</a>
+            			</li>
+            		
+            			<li >
+            				<a href="v1_54.html" >February 2021</a>
+            			</li>
+            		
+            			<li >
+            				<a href="v1_53.html" >January 2021</a>
+            			</li>
+            		
+            	</ul>
+            </nav>
+            <nav id="small-nav" aria-label="Updates" class="docs-nav updates-nav hidden-md hidden-lg">
+            	<h4>Updates</h4>
+            	<select id="small-nav-dropdown" aria-label="updates">
+            		
+            			<option value="/updates/v1_74" >November 2022</option>
+            		
+            			<option value="/updates/v1_73" >October 2022</option>
+            		
+            			<option value="/updates/v1_72" >September 2022</option>
+            		
+            			<option value="/updates/v1_71" >August 2022</option>
+            		
+            			<option value="/updates/v1_70" >July 2022</option>
+            		
+            			<option value="/updates/v1_69" >June 2022</option>
+            		
+            			<option value="/updates/v1_68" >May 2022</option>
+            		
+            			<option value="/updates/v1_67" >April 2022</option>
+            		
+            			<option value="/updates/v1_66" >March 2022</option>
+            		
+            			<option value="/updates/v1_65" >February 2022</option>
+            		
+            			<option value="/updates/v1_64" >January 2022</option>
+            		
+            			<option value="/updates/v1_63" >November 2021</option>
+            		
+            			<option value="/updates/v1_62" >October 2021</option>
+            		
+            			<option value="/updates/v1_61" >September 2021</option>
+            		
+            			<option value="/updates/v1_60" >August 2021</option>
+            		
+            			<option value="/updates/v1_59" >July 2021</option>
+            		
+            			<option value="/updates/v1_58" >June 2021</option>
+            		
+            			<option value="/updates/v1_57" >May 2021</option>
+            		
+            			<option value="/updates/v1_56" >April 2021</option>
+            		
+            			<option value="/updates/v1_55" >March 2021</option>
+            		
+            			<option value="/updates/v1_54" >February 2021</option>
+            		
+            			<option value="/updates/v1_53" >January 2021</option>
+            		
+            	</select>
+            </nav>        </div>
+        <div class="col-sm-9 col-md-8 body">
+            <h1>June 2019 (version 1.36)</h1>
+<p><strong>Update 1.36.1</strong>: The update addresses these <a href="https://github.com/microsoft/vscode/milestone/99?closed=1" class="external-link" target="_blank">issues</a>.</p>
+<p>Downloads: Windows: <a href="https://update.code.visualstudio.com/1.36.1/win32-x64-user/stable">User</a> <a href="https://update.code.visualstudio.com/1.36.1/win32-x64/stable">System</a> | Mac: <a href="https://update.code.visualstudio.com/1.36.1/darwin/stable">Intel</a> | Linux: <a href="https://update.code.visualstudio.com/1.36.1/linux-deb-x64/stable">deb</a> <a href="https://update.code.visualstudio.com/1.36.1/linux-rpm-x64/stable">rpm</a> <a href="https://update.code.visualstudio.com/1.36.1/linux-x64/stable">tarball</a> <a href="https://update.code.visualstudio.com/1.36.1/linux-snap-x64/stable">snap</a></p>
+<hr>
+<p>Welcome to the June 2019 release of Visual Studio Code. There are a number of updates in this version that we hope you will like, some of the key highlights include:</p>
+<ul>
+<li><strong><a href="#_hide-individual-status-bar-items">Hide/show status bar items</a></strong> - Only display your preferred status bar items.</li>
+<li><strong><a href="#_tree-indent-guides">Indent guides in explorers</a></strong> - Clearly highlights your project's folder structure.</li>
+<li><strong><a href="#_better-default-shell-selector">Better terminal shell selector</a></strong> - Easily select the default shell to use in the Integrated Terminal.</li>
+<li><strong><a href="#_sequential-dependency-execution">Sequential task execution</a></strong> - Control the order of task and subtask execution.</li>
+<li><strong><a href="#_jump-to-cursor">Jump to cursor debugging</a></strong> - Skip code execution as you jump to a new location.</li>
+<li><strong><a href="#_disable-console-word-wrap">Disable debug console word wrap</a></strong> - Lets you keep debugging output to one line.</li>
+<li><strong><a href="#_javascript-and-typescript-nightly-extension">JavaScript/TypeScript nightly builds</a></strong> - New extension integrates JS/TS nightly builds.</li>
+<li><strong><a href="#_installer-for-java-developers">New Java installer</a></strong> - Installs VS Code, the Java extension pack, and required Java dependencies.</li>
+<li><strong><a href="#_remote-development-preview">Remote Development (Preview) improvements</a></strong> - Save to local file system, drag and drop files to remotes, and more.</li>
+</ul>
+<blockquote>
+<p>If you'd like to read these release notes online, go to <a href="v1_74.html">Updates</a> on <a href="../index.html">code.visualstudio.com</a>.</p>
+</blockquote>
+<p><strong>Insiders:</strong> Want to see new features as soon as possible? You can download the nightly <a href="../insiders/index.html">Insiders</a> build and try the latest updates as soon as they are available. And for the latest Visual Studio Code news, updates, and content, follow us on Twitter <a href="https://twitter.com/code" class="external-link" target="_blank">@code</a>!</p>
+<h2 id="_workbench" data-needslink="_workbench">Workbench</h2>
+<h3 id="_hide-individual-status-bar-items" data-needslink="_hide-individual-status-bar-items">Hide individual status bar items</h3>
+<p>There is now a context menu for the status bar to hide and show individual entries.</p>
+<p><img src="../assets/updates/1_36/status-bar.gif" alt="Hide entries in the status bar" loading="lazy"></p>
+<p>The configuration is persisted globally across all workspaces.</p>
+<p><strong>Note</strong>: The setting <code>workbench.statusBar.feedback.visible</code> was removed in favor of this new approach. You can hide the feedback smiley using the status bar context menu.</p>
+<h3 id="_tree-indent-guides" data-needslink="_tree-indent-guides">Tree indent guides</h3>
+<p>The tree widget now supports indent guides. This means indent guides are now available in the File Explorer, Search view, Debug views, etc.</p>
+<p><img src="../assets/updates/1_36/tree-indent-guides.png" alt="Explorer with indentation guides" loading="lazy"></p>
+<p>As before, you can control the tree's indentation level using the <code>workbench.tree.indent</code> setting and now you can also control how indent guides behave with the <code>workbench.tree.renderIndentGuides</code> setting.</p>
+<p>The possible values for <code>workbench.tree.renderIndentGuides</code> are:</p>
+<ul>
+<li><code>onHover</code> - Show indent guide lines when hovering on a tree. The default behavior.</li>
+<li><code>always</code> - Always show indent guide lines in a tree.</li>
+<li><code>none</code> - Don't show indent guides.</li>
+</ul>
+<h3 id="_drag-and-drop-a-folder-to-copy" data-needslink="_drag-and-drop-a-folder-to-copy">Drag and drop a folder to copy</h3>
+<p>It is now possible to drag and drop a folder from outside VS Code into the File Explorer to copy it. Previously, when dropping a folder into the VS Code Explorer, we would always open a workspace containing that folder. Now it is possible to just copy the folder content.</p>
+<p><img src="../assets/updates/1_36/dnd-copy.png" alt="Explorer drag and drop to copy" loading="lazy"></p>
+<h3 id="_copy-paste-filename-incrementor-change" data-needslink="_copy-paste-filename-incrementor-change">Copy paste filename incrementor change</h3>
+<p>When copy pasting files and folders that are duplicates inside the VS Code Explorer, VS Code increments the name of the pasted file. The way we were doing the incremental naming sometimes led to unexpected results.</p>
+<p>To try to simplify naming, we now increment the filename the following way:</p>
+<p>&quot;hello.txt&quot; -&gt; &quot;hello copy.txt&quot; -&gt; &quot;hello copy 2.txt&quot; -&gt; &quot;hello copy 3.txt&quot;</p>
+<h3 id="_disable-alt-key-focus-of-the-custom-menu-bar" data-needslink="_disable-alt-key-focus-of-the-custom-menu-bar">Disable Alt key focus of the custom menu bar</h3>
+<p>Many users have asked to disable the behavior of focusing the custom menu bar when the Alt-key is pressed. To prevent this behavior, set the new setting, <code>window.customMenuBarAltFocus</code>, to <code>false</code>.</p>
+<h3 id="_minimap-search-decorations" data-needslink="_minimap-search-decorations">Minimap search decorations</h3>
+<p>When searching within a file, the resulting matches will now be highlighted both within the file and in the minimap:</p>
+<p><img src="../assets/updates/1_36/minimap_search.png" alt="Show search results in the minimap" loading="lazy"></p>
+<h3 id="_updated-warning-colors" data-needslink="_updated-warning-colors">Updated warning colors</h3>
+<p>We've updated <code>list.warningForeground</code> and <code>editorWarning.foreground</code> to better match the rest of the editor warning colors. You'll see this updated color in the File Explorer, Peek error view, and editor squiggles:</p>
+<p><img src="../assets/updates/1_36/warning-color.png" alt="Warning color update" loading="lazy"></p>
+<p>We also updated <code>editorOverviewRuler.findMatchForeground</code> to better stand out with the updated warning colors in the ruler:</p>
+<p><img src="../assets/updates/1_36/find-match-ruler-color.png" alt="Find match color update" loading="lazy"></p>
+<h3 id="_online-services-settings" data-needslink="_online-services-settings">Online services settings</h3>
+<p>VS Code uses online services for various purposes such as downloading product updates, finding, installing and updating extensions, or providing Natural Language Search within the Settings editor. You can choose to turn on/off features that use these services through your user settings, which you can filter with the tag <code>@tag:usesOnlineServices</code>. There is now a command <strong>File</strong> &gt; <strong>Preferences</strong> &gt; <strong>Online Services Settings</strong> (<strong>Code</strong> &gt; <strong>Preferences</strong> &gt; <strong>Online Services Settings</strong> on macOS) which applies the tag in the Settings editor.</p>
+<p><img src="../assets/updates/1_36/online-services-settings.png" alt="online services settings" loading="lazy"></p>
+<p>For more information, see our <a href="../docs/getstarted/telemetry.html">telemetry documentation</a>.</p>
+<h2 id="_integrated-terminal" data-needslink="_integrated-terminal">Integrated Terminal</h2>
+<h3 id="_better-default-shell-selector" data-needslink="_better-default-shell-selector">Better default shell selector</h3>
+<p>Windows has had the <strong>Select Default Shell</strong> command for some time and last release it was added to the Integrated Terminal dropdown menu. This command is now also available on macOS and Linux and exposes the shells registered on the system by reading the <code>/etc/shells</code> file.</p>
+<p><img src="../assets/updates/1_36/terminal-mac-shell-selector.png" alt="Default shell selector on macOS" loading="lazy"></p>
+<h3 id="_launch-terminals-with-clean-environments" data-needslink="_launch-terminals-with-clean-environments">Launch terminals with clean environments</h3>
+<p>The Integrated Terminal in VS Code has always acted a little differently to normal terminals, particularly on Linux and macOS. The reason is that the environment was always inherited from VS Code's window (instance) and VS Code/Electron-related environment variables were removed, whereas a normal terminal would typically be launched from the Dock/Start menu and use the system environment. This could cause issues in certain scenarios, for example Python virtual environments were broken because of how they use the <code>$PATH</code> variable.</p>
+<p>There's a new preview option, <code>terminal.integrated.inheritEnv</code>, that when <code>false</code> causes the terminal to not use VS Code's environment.</p>
+<p>Instead, depending on the platform, it will do the following:</p>
+<ul>
+<li><strong>Linux</strong>: Fetch and use the environment of the parent process of VS Code's &quot;main process&quot;.</li>
+<li><strong>macOS</strong>: Pull a handful of important environment variables off the current environment and only include them. Eventually we would like macOS to behave the same as Linux but there are currently issues with fetching environments.</li>
+<li><strong>Windows</strong>: Currently this setting does not affect Windows.</li>
+</ul>
+<p>The main visible result of setting <code>inheritEnv</code> to <code>false</code> is that <code>$SHLVL</code> (shell level) should now be 1 and <code>$PATH</code> should not include duplicate paths, provided your launch scripts don't intentionally include them.</p>
+<p>The default value for <code>terminal.integrated.inheritEnv</code> is <code>true</code>, which is the previous behavior, but we will probably switch the value to <code>false</code> in the future.</p>
+<h3 id="_change-to-ctrl" data-needslink="_change-to-ctrl">Change to Ctrl+\</h3>
+<p>Previously, <code>Ctrl+\</code> was mapped to the command to split the terminal on Linux and Windows but this has been changed to pass <code>SIGQUIT</code> through to the shell, as most people would expect a terminal to do. If you want the old behavior, you can add this keyboard shortcut to your <code>keybindings.json</code> file.</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #000000">{</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;key&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;ctrl+</span><span style="color: #EE0000">\\</span><span style="color: #A31515">&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;command&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;workbench.action.terminal.split&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;when&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;terminalFocus&quot;</span></span>
+<span class="line"><span style="color: #000000">}</span></span>
+<span class="line"></span></code></pre>
+<h2 id="_tasks" data-needslink="_tasks">Tasks</h2>
+<h3 id="_sequential-dependency-execution" data-needslink="_sequential-dependency-execution">Sequential dependency execution</h3>
+<p>The <code>dependsOn</code> task attribute still defaults to running all dependencies in parallel, but now you can specify <code>&quot;dependsOrder&quot;: &quot;sequence&quot;</code> and have your task dependencies executed in the order they are listed in <code>dependsOn</code>. Any background/watch tasks used in <code>dependsOn</code> must have a problem matcher that tracks when they are &quot;done&quot;.</p>
+<p>The example task below runs task Two, task Three, and then task One.</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #000000">{</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;label&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;One&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;type&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;shell&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;command&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;echo Hello &quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;dependsOrder&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;sequence&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;dependsOn&quot;</span><span style="color: #000000">: [</span><span style="color: #A31515">&quot;Two&quot;</span><span style="color: #000000">, </span><span style="color: #A31515">&quot;Three&quot;</span><span style="color: #000000">]</span></span>
+<span class="line"><span style="color: #000000">}</span></span>
+<span class="line"></span></code></pre>
+<h3 id="_problem-matcher-path-detection" data-needslink="_problem-matcher-path-detection">Problem matcher path detection</h3>
+<p>When task output is scanned for problems, information about the path is provided using the <code>fileLocation</code> problem matcher attribute. In addition to the existing <code>relative</code> and <code>absolute</code> options, you can now specify <code>autoDetect</code>. When using <code>autoDetect</code>, the task system will automatically try to determine whether the paths in the problems are relative or absolute.</p>
+<h2 id="_languages" data-needslink="_languages">Languages</h2>
+<h3 id="_typescript-352" data-needslink="_typescript-352">TypeScript 3.5.2</h3>
+<p>This release includes TypeScript 3.5.2, a small update that <a href="https://github.com/microsoft/TypeScript/milestone/97?closed=1" class="external-link" target="_blank">fixes a few important bugs</a>.</p>
+<h3 id="_use-syntax-only-feature-of-javascript-and-typescript-more-quickly" data-needslink="_use-syntax-only-feature-of-javascript-and-typescript-more-quickly">Use syntax only feature of JavaScript and TypeScript more quickly</h3>
+<p>VS Code's JavaScript and TypeScript language features is powered by a <a href="https://github.com/microsoft/TypeScript/wiki/Standalone-Server-(tsserver)" class="external-link" target="_blank">TypeScript server</a>. This server powers complex features such as IntelliSense and error reporting, along with simpler features such as code folding and document outlines.</p>
+<p>Features such as IntelliSense require that the TypeScript server evaluate the entire JavaScript or TypeScript project before it can return any results, and this can take time for larger projects. While this processing is happening, the server is not able to handle any other requests, including requests for simple features like code folding that only require a basic semantic understanding of the current file. You may have seen this issue if you've ever noticed a delay before code folding or the document outline become available.</p>
+<p>In order to let you start working with your code faster, we've added a new experimental option whereby VS Code uses two TypeScript servers: one that only handles simple syntax-based operations, and a complete one that handles project processing, IntelliSense, error reporting, and other advanced language features. To enable this behavior, set <code>&quot;typescript.experimental.useSeparateSyntaxServer&quot;: true</code>. This setting requires using TypeScript 3.4 or newer in your workspace.</p>
+<h2 id="_debugging" data-needslink="_debugging">Debugging</h2>
+<h3 id="_jump-to-cursor" data-needslink="_jump-to-cursor">Jump to cursor</h3>
+<p>We have added a new debug command <strong>Jump to Cursor</strong>, which lets you move program execution to a new location without executing any of the code in between. If <strong>Jump to Cursor</strong> is supported by a debugger, the new command appears in the editor context menu and Command Palette while debugging. Currently this command is only available from the C# extension, but other debug extensions should follow soon.</p>
+<p><img src="../assets/updates/1_36/jump-to-cursor.gif" alt="Jump to cursor debugger command" loading="lazy"></p>
+<h3 id="_disable-console-word-wrap" data-needslink="_disable-console-word-wrap">Disable console word wrap</h3>
+<p>A new setting, <code>debug.console.wordWrap</code>, controls whether word wrap is enabled in the Debug Console. By default, all lines are wrapped. If the setting is turned off, the lines will no longer break in the Debug Console and there is a horizontal scrollbar.</p>
+<h3 id="_nodejs-debug-configuration-attribute-usewsl-is-deprecated" data-needslink="_nodejs-debug-configuration-attribute-usewsl-is-deprecated">Node.js debug configuration attribute useWSL is deprecated</h3>
+<p>With the <a href="https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-wsl" class="external-link" target="_blank">WSL</a> extension, universal <a href="https://learn.microsoft.com/windows/wsl" class="external-link" target="_blank">Windows Subsystem for Linux</a> (WSL) support has arrived in VS Code. Now all extensions can be used in WSL in a seamless way.</p>
+<p>Consequently, we are planning to remove the now obsolete WSL support we added to VS Code's Node.js debugger two years ago. As a first step toward this goal, we are deprecating the <code>useWSL</code> debug configuration attribute. Starting with this milestone, the attribute will show up with a squiggly when opening a <code>launch.json</code> file in the editor. In addition, a notification appears when a debug session is launched that contains a <code>useWSL</code>.</p>
+<p>Here are the steps for migrating an existing project that uses the <code>useWSL</code> flag to debugging with the <a href="https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-wsl" class="external-link" target="_blank">WSL</a> extension:</p>
+<ul>
+<li>Make sure that you have the WSL extension installed.</li>
+<li>Open the folder of your project in VS Code.</li>
+<li>Reopen the project in WSL by using the <strong>WSL: Reopen Folder in WSL</strong> command.</li>
+<li>Press <span class="dynamic-keybinding" data-commandId="workbench.action.debug.start" data-osx="F5" data-win="F5" data-linux="F5"><span class="keybinding">F5</span></span>.</li>
+<li>Remove the <code>useWSL</code> flag from the debug configuration.</li>
+</ul>
+<p>For more information, see our <a href="../docs/remote/wsl.html">Developing in WSL</a> documentation.</p>
+<h2 id="_contributions-to-extensions" data-needslink="_contributions-to-extensions">Contributions to extensions</h2>
+<h3 id="_javascript-and-typescript-nightly-extension" data-needslink="_javascript-and-typescript-nightly-extension">JavaScript and TypeScript nightly extension</h3>
+<p>The new <a href="https://marketplace.visualstudio.com/items?itemName=ms-vscode.vscode-typescript-next" class="external-link" target="_blank">JavaScript and TypeScript nightly extension</a> uses the nightly build of TypeScript (typescript@next) for VS Code's built-in TypeScript version, which powers JavaScript and TypeScript IntelliSense. This makes it easy to test the latest TypeScript features and provide feedback about them!</p>
+<h3 id="_tslint-12" data-needslink="_tslint-12">TSLint 1.2</h3>
+<p>We've published a new version of the <a href="https://marketplace.visualstudio.com/items?itemName=ms-vscode.vscode-typescript-tslint-plugin" class="external-link" target="_blank">TSLint extension</a> that fixes a few important bugs. This release also adds a warning indicator to the VS Code status bar if there is a <code>tslint.json</code> file in a workspace but TSLint itself is not properly installed.</p>
+<h3 id="_installer-for-java-developers" data-needslink="_installer-for-java-developers">Installer for Java developers</h3>
+<p>There is a new <a href="https://devblogs.microsoft.com/visualstudio/announcing-visual-studio-code-java-installer/" class="external-link" target="_blank">Visual Studio Code Installer for Java</a> to help first-time developers set up their Java environment. When you <a href="https://aka.ms/vscode-java-installer-win" class="external-link" target="_blank">run the Java Pack Installer</a>, it automatically detects whether the JDK (Java Development Kit), Visual Studio Code, and required extensions are already installed. If not, the installer can download and configure the missing dependencies for you. You can also use the installer to add the Java-related components to your existing Visual Studio Code installation.</p>
+<p><img src="../assets/updates/1_36/java-installer.png" alt="The Java installer UI" loading="lazy"></p>
+<p>With the Java extensions installed, Visual Studio Code provides comprehensive Java development features such as smart code completion, refactoring, debugging, and testing as well as project management and application server integration.</p>
+<h3 id="_remote-development-preview" data-needslink="_remote-development-preview">Remote Development (Preview)</h3>
+<p>Work has continued on the <a href="https://aka.ms/vscode-remote/download/extension" class="external-link" target="_blank">Remote Development</a> extensions, which allow you to use a container, remote machine, or the <a href="https://learn.microsoft.com/windows/wsl" class="external-link" target="_blank">Windows Subsystem for Linux</a> (WSL) as a full-featured development environment. You can learn about new extension features and bug fixes in the <a href="https://github.com/microsoft/vscode-docs/blob/main/remote-release-notes/v1_36.md" class="external-link" target="_blank">Remote Development release notes</a>.</p>
+<p>And to learn more about developing Linux applications on Windows, see this <a href="https://devblogs.microsoft.com/commandline/take-your-linux-development-experience-in-windows-to-the-next-level-with-wsl-and-visual-studio-code-remote/" class="external-link" target="_blank">Linux development with WSL and Visual Studio Code Remote</a> blog post from the Windows Developer Platform team.</p>
+<h3 id="_debugger-for-chrome-as-remote-ui-extension" data-needslink="_debugger-for-chrome-as-remote-ui-extension">Debugger for Chrome as remote UI extension</h3>
+<p>If you are working on a web project in a remote window, you can use the <a href="https://marketplace.visualstudio.com/items?itemName=msjsdiag.debugger-for-chrome" class="external-link" target="_blank">Debugger for Chrome extension</a> to debug it in a local Chrome window. Just install the extension, start your dev server on the remote, forward the server's port, and start your launch configuration. See the <a href="https://github.com/microsoft/vscode-chrome-debug#usage-with-remote-vs-code-extensions" class="external-link" target="_blank">extension README</a> for details.</p>
+<h2 id="_extension-authoring" data-needslink="_extension-authoring">Extension authoring</h2>
+<h3 id="_splitting-vscode-package-into-typesvscode-and-vscodetest" data-needslink="_splitting-vscode-package-into-typesvscode-and-vscodetest">Splitting vscode package into @types/vscode and vscode-test</h3>
+<p>During the <a href="../blogs/2018/11/26/event-stream.html">event-stream incident</a> last year, we found that the <code>vscode</code> package was affected as its 223 transitive dependencies included <code>event-stream</code>. These dependencies also cause GitHub security alerts from time to time for many VS Code extensions. To address dependency complexity, we started slimming down the <code>vscode</code> package.</p>
+<p>The <code>vscode</code> package had served two purposes:</p>
+<ul>
+<li>Pull down <code>vscode.d.ts</code> for extension development.</li>
+<li>Run integration tests by downloading and launching a local copy of VS Code.</li>
+</ul>
+<p>Now we are splitting <code>vscode</code> into <code>@types/vscode</code> and <code>vscode-test</code>, two packages with more focused functionality.</p>
+<ul>
+<li><a href="https://www.npmjs.com/package/@types/vscode" class="external-link" target="_blank"><code>@types/vscode</code></a> contains <code>vscode.d.ts</code> for each release. For example, <code>npm i @types/vscode@1.34.0</code> installs the VS Code 1.34 Extension API. Unlike <code>vscode</code>, which pulls down <code>vscode.d.ts</code> through a <code>postinstall</code> script, this package can be fully cached by package managers.</li>
+<li><a href="https://github.com/microsoft/vscode-test" class="external-link" target="_blank"><code>vscode-test</code></a> provides a set of APIs to run integration tests with VS Code. The old <code>vscode</code> package will continue to work, but new features will only go to <code>vscode-test</code>. We suggest that you switch over to <code>vscode-test</code>, which features a slimmer dependency graph and a more flexible, explicitly documented API. You can learn more about using <code>vscode-test</code> in the <a href="../api/working-with-extensions/testing-extension.html">Testing Extensions</a> article.</li>
+</ul>
+<p>Additionally:</p>
+<ul>
+<li><a href="https://github.com/microsoft/vscode-dts" class="external-link" target="_blank"><code>vscode-dts</code></a> allows you to quickly download any version of the VS Code API via CLI.</li>
+<li><a href="https://github.com/microsoft/vscode-vsce" class="external-link" target="_blank"><code>vsce</code></a> now checks <code>@types/vscode</code> version against <code>engines.vscode</code> to prevent you from using a new API incompatible with older versions of VS Code.</li>
+<li>The <a href="https://github.com/microsoft/vscode-extension-samples/tree/main/helloworld-test-sample" class="external-link" target="_blank"><code>helloworld-test-sample</code></a>, <a href="../api/working-with-extensions/testing-extension.html">Testing Extensions</a> page, and <a href="../api/working-with-extensions/continuous-integration.html">Continuous Integration</a> page are updated to use <code>vscode-test</code>.</li>
+<li>The <a href="../api/working-with-extensions/testing-extension.html">Testing Extensions</a> page contains a <a href="../api/working-with-extensions/testing-extension.html#migrating-from-vscode">migration guide</a> to help you transition from <code>vscode</code> to <code>@types/vscode</code> and <code>vscode-test</code>.</li>
+<li>All VS Code <a href="https://github.com/microsoft/vscode-extension-samples" class="external-link" target="_blank">sample extensions</a> now use <code>@types/vscode</code>.</li>
+<li>The VS Code <a href="https://github.com/microsoft/vscode-generator-code" class="external-link" target="_blank">extension generator</a> scaffolds extensions using the <code>@types/vscode</code> and <code>vscode-test</code> packages.</li>
+</ul>
+<h3 id="_nodejs-update" data-needslink="_nodejs-update">Node.js update</h3>
+<p>The Electron version that VS Code runs on has been updated and brings with it an update to Node.js from <code>10.2.0</code> to <code>10.11.0</code>. All extensions will now run on this newer version of Node.js.</p>
+<h3 id="_apis-for-remote" data-needslink="_apis-for-remote">APIs for remote</h3>
+<p>There is a new property <code>vscode.env.remoteName</code> that is defined whenever a remote extension host runs. Its value is defined by the extension bootstrapping the remote extension host and the value is available on the local and remote extension hosts.</p>
+<p>Extensions that need to know whether they run on the remote or local extension host can use <code>Extension#extensionKind</code>, which is either <code>ExtensionKind.UI</code> or <code>ExtensionKind.Workspace</code>. The value represents what's defined in the extension's <code>package.json</code> file or overridden by the user. When no remote extension host exists, the value is always <code>ExtensionKind.UI</code>.</p>
+<h3 id="_documentlinktooltip" data-needslink="_documentlinktooltip">DocumentLink.tooltip</h3>
+<p>The new <code>DocumentLink.tooltip</code> property allows a <code>DocumentLinkProvider</code> to customize the text displayed when a user hovers over a document link:</p>
+<p><img src="../assets/updates/1_36/api-documentlink-tooltip.png" alt="Custom hover text displayed for a Markdown link" loading="lazy"></p>
+<p>VS Code includes instructions on how to activate the link (<code>cmd + click</code> in the example above) along with the <code>tooltip</code> text.</p>
+<h3 id="_port-forwarding-and-port-mapping-now-support-127001-in-addition-to-localhost" data-needslink="_port-forwarding-and-port-mapping-now-support-127001-in-addition-to-localhost">Port forwarding and port mapping now support '127.0.0.1' in addition to 'localhost'</h3>
+<p>The <code>vscode.env.openExternal</code> API opens an URI using the default external application. When <code>openExternal</code> is called by a remote extension on a local URI, such as <code>http://localhost:8080</code>, VS Code automatically opens a tunnel that connects a port on the local machine to the opened port on the remote machine. This automatic tunneling previously was only enabled for 'localhost' URIs but it is now enabled for '127.0.0.1' as well.</p>
+<p>Additionally, the <a href="../api/extension-guides/webview.html">webview</a> port mapping API now handles '127.0.0.1' in addition to 'localhost' URIs.</p>
+<h3 id="_more-properties-marked-as-readonly-or-readonlyarray" data-needslink="_more-properties-marked-as-readonly-or-readonlyarray">More properties marked as readonly or ReadonlyArray</h3>
+<p>More properties in the VS Code API are now marked as readonly in <code>vscode.d.ts</code> to better express their intent to extensions.</p>
+<p>Notable changes include:</p>
+<ul>
+<li>All fields on event interfaces are now readonly. Event objects should never be mutated as the same object can be dispatched to multiple listeners.</li>
+<li>The methods on <code>DiagnosticCollection</code> now take readonly arrays. This change was made because you can only update a <code>DiagnosticCollection</code> through its methods, not by mutating an array previously passed to it.</li>
+<li><code>Extensions.all</code> is now a readonly array since it cannot be mutated.</li>
+<li><code>TextEditor.insertSnippet</code> now takes readonly arrays since it does not mutate its parameters.</li>
+</ul>
+<p>These new <code>readonly</code> modifiers may cause compile errors for extension code that explicitly typed out the non-readonly types that the VS Code API was previously using:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #001080">vscode</span><span style="color: #000000">.</span><span style="color: #001080">window</span><span style="color: #000000">.</span><span style="color: #795E26">onDidChangeTextEditorSelection</span><span style="color: #000000">(</span><span style="color: #001080">e</span><span style="color: #000000"> </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #008000">// Error: `e.selections` is now a readonly array but</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #008000">// our `updateForSelections` function takes a mutable array</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #795E26">updateForSelections</span><span style="color: #000000">(</span><span style="color: #001080">e</span><span style="color: #000000">.</span><span style="color: #001080">selections</span><span style="color: #000000">);</span></span>
+<span class="line"><span style="color: #000000">});</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #0000FF">function</span><span style="color: #000000"> </span><span style="color: #795E26">updateForSelections</span><span style="color: #000000">(</span><span style="color: #001080">selections</span><span style="color: #000000">: </span><span style="color: #267F99">vscode</span><span style="color: #000000">.</span><span style="color: #267F99">Selection</span><span style="color: #000000">[]) {</span></span>
+<span class="line"><span style="color: #000000">    ...</span></span>
+<span class="line"><span style="color: #000000">}</span></span>
+<span class="line"></span></code></pre>
+<p>To fix this, propagate the <code>readonly</code> modifier through your extension's source code as well:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #001080">vscode</span><span style="color: #000000">.</span><span style="color: #001080">window</span><span style="color: #000000">.</span><span style="color: #795E26">onDidChangeTextEditorSelection</span><span style="color: #000000">(</span><span style="color: #001080">e</span><span style="color: #000000"> </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #795E26">updateForSelections</span><span style="color: #000000">(</span><span style="color: #001080">e</span><span style="color: #000000">.</span><span style="color: #001080">selections</span><span style="color: #000000">);</span></span>
+<span class="line"><span style="color: #000000">});</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #0000FF">function</span><span style="color: #000000"> </span><span style="color: #795E26">updateForSelections</span><span style="color: #000000">(</span><span style="color: #001080">selections</span><span style="color: #000000">: </span><span style="color: #0000FF">readonly</span><span style="color: #000000"> </span><span style="color: #267F99">vscode</span><span style="color: #000000">.</span><span style="color: #267F99">Selection</span><span style="color: #000000">[]) {</span></span>
+<span class="line"><span style="color: #000000">    ...</span></span>
+<span class="line"><span style="color: #000000">}</span></span>
+<span class="line"></span></code></pre>
+<h3 id="_terminaloptionshidefromuser" data-needslink="_terminaloptionshidefromuser">TerminalOptions.hideFromUser</h3>
+<p>The <code>runInBackground</code> terminal <code>hideFromUser</code> option is now in the stable API. Use this option to completely hide a terminal from the user until <code>Terminal.show()</code> is called:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">term</span><span style="color: #000000"> = </span><span style="color: #001080">window</span><span style="color: #000000">.</span><span style="color: #795E26">createTerminal</span><span style="color: #000000">({ </span><span style="color: #001080">hideFromUser:</span><span style="color: #000000"> </span><span style="color: #0000FF">true</span><span style="color: #000000"> });</span></span>
+<span class="line"><span style="color: #001080">term</span><span style="color: #000000">.</span><span style="color: #795E26">sendText</span><span style="color: #000000">(</span><span style="color: #A31515">&#39;do something&#39;</span><span style="color: #000000">);</span></span>
+<span class="line"></span></code></pre>
+<p>Combined with the <code>sendText</code> and <code>onDidWriteData</code> APIs, it's possible for an extension to interact with an interactive terminal, for example, to set up a connection, and only call <code>Terminal.show()</code> if something goes wrong.</p>
+<h3 id="_comment-reactions" data-needslink="_comment-reactions">Comment reactions</h3>
+<p>The Comments API now supports displaying and managing user reactions on comments. When <code>Comment.reactions</code> is present, reactions will be rendered under the comment body.</p>
+<p>If an extension registers a reaction handler with <code>CommentController.reactionHandler</code>, users will be able to respond to the existing reactions or use the reactions picker to create a new reaction.</p>
+<p><img src="../assets/updates/1_36/comment-reaction.png" alt="Comment reactions UI" loading="lazy"></p>
+<h2 id="_proposed-extension-apis" data-needslink="_proposed-extension-apis">Proposed extension APIs</h2>
+<p>Every milestone comes with new proposed APIs and extension authors can try them out. As always we are keen on your feedback. This is what you have to do to try out a proposed API:</p>
+<ul>
+<li>You must use Insiders because proposed APIs change frequently.</li>
+<li>You must have this line in the <code>package.json</code> file of your extension: <code>&quot;enableProposedApi&quot;: true</code>.</li>
+<li>Copy the latest version of the <a href="https://github.com/microsoft/vscode/blob/main/src/vs/vscode.proposed.d.ts" class="external-link" target="_blank">vscode.proposed.d.ts</a> file into your project.</li>
+</ul>
+<p>Note that you cannot publish an extension that uses a proposed API. We may likely make breaking changes in the next release and we never want to break existing extensions.</p>
+<h3 id="_vscodeworkspacefs" data-needslink="_vscodeworkspacefs">vscode.workspace.fs</h3>
+<p>There is proposed API to allow extensions to interact with <a href="https://github.com/microsoft/vscode/blob/b1dd5ab40e08315fcc8f58310556479738a5e7b2/src/vs/vscode.d.ts#L5642" class="external-link" target="_blank">file system providers</a>. The API lets extensions create, read, write, and delete files and folders from arbitrary file systems. For example, a language extension can now load source files that are provided from an ftp-server or another remote source.</p>
+<p>The API is accessed via a new property on the workspace-object: <code>vscode.workspace.fs</code>. Give it a try and feel free to leave feedback on <a href="https://github.com/microsoft/vscode/issues/48034" class="external-link" target="_blank">issue #48034</a>.</p>
+<h3 id="_updated-api-for-code-insets" data-needslink="_updated-api-for-code-insets">Updated API for code insets</h3>
+<p>We have refactored and simplified the code insets proposal. Instead of using the provider-pattern, it is now more like the text decorations API.</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #AF00DB">export</span><span style="color: #000000"> </span><span style="color: #0000FF">function</span><span style="color: #000000"> </span><span style="color: #795E26">createWebviewTextEditorInset</span><span style="color: #000000">(</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #001080">editor</span><span style="color: #000000">: </span><span style="color: #267F99">TextEditor</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #001080">line</span><span style="color: #000000">: </span><span style="color: #267F99">number</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #001080">height</span><span style="color: #000000">: </span><span style="color: #267F99">number</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #001080">options</span><span style="color: #000000">?: </span><span style="color: #267F99">WebviewOptions</span></span>
+<span class="line"><span style="color: #000000">): </span><span style="color: #267F99">WebviewEditorInset</span><span style="color: #000000">;</span></span>
+<span class="line"></span></code></pre>
+<p>Given an editor, a line, and a height, you can create insets. Insets then use the <a href="https://github.com/microsoft/vscode/blob/b1dd5ab40e08315fcc8f58310556479738a5e7b2/src/vs/vscode.d.ts#L5817" class="external-link" target="_blank">Webview</a> that's already known from the <code>WebviewPanel</code>. As with decorations, insets are being disposed once their containing editor closes.</p>
+<h3 id="_webviewresourceroot" data-needslink="_webviewresourceroot">Webview.resourceRoot</h3>
+<p>The proposed <code>resourceRoot</code> constant on webviews exposes the root from which local resources are loaded in webviews.</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">panel</span><span style="color: #000000"> = </span><span style="color: #001080">vscode</span><span style="color: #000000">.</span><span style="color: #001080">window</span><span style="color: #000000">.</span><span style="color: #795E26">createWebviewPanel</span><span style="color: #000000">(</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #001080">CatCodingPanel</span><span style="color: #000000">.</span><span style="color: #001080">viewType</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #A31515">&#39;Cat Coding&#39;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #001080">vscode</span><span style="color: #000000">.</span><span style="color: #001080">ViewColumn</span><span style="color: #000000">.</span><span style="color: #001080">One</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">  {</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #008000">// Restrict the webview to only loading local content from our extension&#39;s `media` directory.</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #001080">localResourceRoots:</span><span style="color: #000000"> [</span><span style="color: #001080">vscode</span><span style="color: #000000">.</span><span style="color: #001080">Uri</span><span style="color: #000000">.</span><span style="color: #795E26">file</span><span style="color: #000000">(</span><span style="color: #001080">path</span><span style="color: #000000">.</span><span style="color: #795E26">join</span><span style="color: #000000">(</span><span style="color: #001080">extensionPath</span><span style="color: #000000">, </span><span style="color: #A31515">&#39;media&#39;</span><span style="color: #000000">))]</span></span>
+<span class="line"><span style="color: #000000">  }</span></span>
+<span class="line"><span style="color: #000000">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">resourceRoot</span><span style="color: #000000"> = </span><span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">panel</span><span style="color: #000000">.</span><span style="color: #001080">resourceRoot</span><span style="color: #000000">;</span></span>
+<span class="line"><span style="color: #001080">panel</span><span style="color: #000000">.</span><span style="color: #001080">html</span><span style="color: #000000"> = </span><span style="color: #A31515">`&lt;!DOCTYPE html&gt;</span></span>
+<span class="line"><span style="color: #A31515">&lt;html lang=&quot;en&quot;&gt;</span></span>
+<span class="line"><span style="color: #A31515">&lt;head&gt;</span></span>
+<span class="line"><span style="color: #A31515">    &lt;meta charset=&quot;UTF-8&quot;&gt;</span></span>
+<span class="line"><span style="color: #A31515">    &lt;meta http-equiv=&quot;Content-Security-Policy&quot; content=&quot;default-src &#39;none&#39;; img-src </span><span style="color: #0000FF">${</span><span style="color: #001080">resourceRoot</span><span style="color: #0000FF">}</span><span style="color: #A31515"> https:;&quot;&gt;</span></span>
+<span class="line"><span style="color: #A31515">    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;</span></span>
+<span class="line"><span style="color: #A31515">    &lt;title&gt;Cat Coding&lt;/title&gt;</span></span>
+<span class="line"><span style="color: #A31515">&lt;/head&gt;</span></span>
+<span class="line"><span style="color: #A31515">&lt;body&gt;</span></span>
+<span class="line"><span style="color: #A31515">    &lt;img src=&quot;</span><span style="color: #0000FF">${</span><span style="color: #001080">resourceRoot</span><span style="color: #0000FF">}</span><span style="color: #A31515">/</span><span style="color: #0000FF">${</span><span style="color: #001080">path</span><span style="color: #000000FF">.</span><span style="color: #795E26">join</span><span style="color: #000000FF">(</span><span style="color: #001080">extensionPath</span><span style="color: #000000FF">, </span><span style="color: #A31515">&#39;media&#39;</span><span style="color: #000000FF">)</span><span style="color: #0000FF">}</span><span style="color: #A31515">/cat.gif&quot; width=&quot;300&quot; /&gt;</span></span>
+<span class="line"><span style="color: #A31515">&lt;/body&gt;</span></span>
+<span class="line"><span style="color: #A31515">&lt;/html&gt;`</span><span style="color: #000000">;</span></span>
+<span class="line"></span></code></pre>
+<p>When VS Code is run on the desktop, <code>resourceRoot</code> will be <code>vscode-resource:</code>. However, the value may be different when VS Code is run in other environments, such a browser.</p>
+<h3 id="_api-to-get-the-default-shell" data-needslink="_api-to-get-the-default-shell">API to get the default shell</h3>
+<p>Since the <code>terminal.integrated.shell.&lt;platform&gt;</code> settings now default to <code>null</code>, extensions can no longer use that setting to detect the default shell. There is now a proposed API <code>vscode.env.shell</code> that will return the default shell for the terminal:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">shell</span><span style="color: #000000"> = </span><span style="color: #001080">vscode</span><span style="color: #000000">.</span><span style="color: #001080">env</span><span style="color: #000000">.</span><span style="color: #001080">shell</span><span style="color: #000000">;</span></span>
+<span class="line"><span style="color: #AF00DB">if</span><span style="color: #000000"> (</span><span style="color: #001080">shell</span><span style="color: #000000">.</span><span style="color: #795E26">search</span><span style="color: #000000">(</span><span style="color: #811F3F">/</span><span style="color: #D16969">(</span><span style="color: #811F3F">powershell</span><span style="color: #EE0000">|</span><span style="color: #811F3F">pwsh</span><span style="color: #D16969">)</span><span style="color: #811F3F">/</span><span style="color: #0000FF">i</span><span style="color: #000000">) !== -</span><span style="color: #098658">1</span><span style="color: #000000">) {</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #008000">// Do something special that PowerShell needs</span></span>
+<span class="line"><span style="color: #000000">}</span></span>
+<span class="line"></span></code></pre>
+<h3 id="_language-server-protocol" data-needslink="_language-server-protocol">Language Server Protocol</h3>
+<p>A new version of the <a href="https://github.com/microsoft/language-server-protocol/blob/main/indexFormat/specification.md" class="external-link" target="_blank">Language Server Index Format</a> tools for TypeScript have been implemented. The new versions have an improved format for easier importing of large dumps into databases without making it database specific. See the instructions in the <a href="https://github.com/microsoft/lsif-node/blob/main/README.md" class="external-link" target="_blank">lsif-node</a> repository for details on running these tools.</p>
+<h2 id="_engineering" data-needslink="_engineering">Engineering</h2>
+<h3 id="_electron-40-update-and-electron-60-exploration" data-needslink="_electron-40-update-and-electron-60-exploration">Electron 4.0 update and Electron 6.0 exploration</h3>
+<p>In this milestone, we finished the exploration of bundling Electron 4 into VS Code, making it the first time this Electron version ships with stable. This is a major Electron release and comes with Chrome 69 and Node.js 10.11.0 (a major leap forward from our current version with Chrome 66 and Node.js 10.2.0).</p>
+<p>Unfortunately, we had to disable macOS simple fullscreen support (<code>&quot;window.nativeFullScreen&quot;: false</code>) for one release due to <a href="https://github.com/microsoft/vscode/issues/75054" class="external-link" target="_blank">issue #75054</a>. We expect to include a fix to our Insiders build early next month.</p>
+<p>We have started to explore updating to Electron 6, which we hope to push to Insiders soon.</p>
+<h3 id="_better-code-loading" data-needslink="_better-code-loading">Better code loading</h3>
+<p>Electron 4 gave us access to new script caching APIs. With the new caching APIs, <a href="https://v8.dev/blog/code-caching" class="external-link" target="_blank">cached data</a> can be created without affecting the very first start-up and can be created repeatedly to cover lazily parsed functions. That and improvements in our loader resulted in ~15% faster code loading.</p>
+<h3 id="_linux-32bit-support-ends" data-needslink="_linux-32bit-support-ends">Linux 32-bit support ends</h3>
+<p>VS Code is using the <a href="https://electronjs.org/" class="external-link" target="_blank">Electron framework</a> to run on multiple platforms. With this release, we move to Electron version 4.x, which means that VS Code will no longer run on Linux 32-bit. Please <a href="../download-2.html">update</a> to a 64-bit version of VS Code. All your settings and extensions will work as before, without the need to migrate anything. You can read the related <a href="https://electronjs.org/blog/linux-32bit-support" class="external-link" target="_blank">blog post from Electron</a> for more information.</p>
+<h3 id="_iframebased-webview-exploration" data-needslink="_iframebased-webview-exploration">iframe-based webview exploration</h3>
+<p>This iteration, we explored using normal iframes instead of Electron's <code>&lt;webview&gt;</code> tags to implement <a href="../api/extension-guides/webview.html">VS Code's webviews</a>. This work is primarily being done to support running VS Code in the browser, but <code>&lt;webview&gt;</code> is also fairly complex and has caused issues for us in the past. Our hope is that we eventually will be able to replace our use of <code>&lt;webview&gt;</code> with normal iframes.</p>
+<p>We've made significant progress on iframe-based webviews and can now successfully run many webviews from extensions in browsers, but there's still lots of work to be done. We will continue this exploration in July.</p>
+<h2 id="_notable-fixes" data-needslink="_notable-fixes">Notable fixes</h2>
+<ul>
+<li><a href="https://github.com/microsoft/vscode/issues/41356" class="external-link" target="_blank">41356</a>: hotkey to move to next/previous error should not move NVDA's focus outside the editor</li>
+<li><a href="https://github.com/microsoft/vscode/issues/45515" class="external-link" target="_blank">45515</a>: Uri#parse can break path-component</li>
+<li><a href="https://github.com/microsoft/vscode/issues/54084" class="external-link" target="_blank">54084</a>: Do not change debug touchbar buttons position when stepping</li>
+<li><a href="https://github.com/microsoft/vscode/issues/70248" class="external-link" target="_blank">70248</a>: The cls command doesn't clear the terminal (Windows 10 1903, ConPTY)</li>
+<li><a href="https://github.com/microsoft/vscode/issues/74710" class="external-link" target="_blank">74710</a>: Image preview should only draw &quot;transparent&quot; checkered background for the size of the image</li>
+<li><a href="https://github.com/microsoft/vscode/issues/75359" class="external-link" target="_blank">75359</a>: Variables pane does not update after changing value via debug console</li>
+<li><a href="https://github.com/microsoft/vscode/issues/41085" class="external-link" target="_blank">41085</a>: Git: File events don't work if .git is outside the opened folder</li>
+</ul>
+<h2 id="_thank-you" data-needslink="_thank-you">Thank you</h2>
+<p>Last but certainly not least, a big <em><strong>Thank You!</strong></em> to the following folks that helped to make VS Code even better:</p>
+<p>Contributions to <code>vscode</code>:</p>
+<ul>
+<li><a href="https://github.com/abbychau" class="external-link" target="_blank">Abby (@abbychau)</a>: Add an option to allow to open in new window after git initializing or cloning  <a href="https://github.com/microsoft/vscode/pull/69763" class="external-link" target="_blank">PR #69763</a></li>
+<li><a href="https://github.com/andrius-pra" class="external-link" target="_blank">Andrius (@andrius-pra)</a>: Sync languages provided by Typescript plugins <a href="https://github.com/microsoft/vscode/pull/75371" class="external-link" target="_blank">PR #75371</a></li>
+<li><a href="https://github.com/apupier" class="external-link" target="_blank">Aurélien Pupier (@apupier)</a>: Add License field to package.jsons #68423 <a href="https://github.com/microsoft/vscode/pull/68771" class="external-link" target="_blank">PR #68771</a></li>
+<li><a href="https://github.com/Ash258" class="external-link" target="_blank">Jakub Čábera (@Ash258)</a>: shellscript: Add folding markers <a href="https://github.com/microsoft/vscode/pull/75828" class="external-link" target="_blank">PR #75828</a></li>
+<li><a href="https://github.com/asztal" class="external-link" target="_blank">Lee Houghton (@asztal)</a>: Handle multiple users with /tmp/vscode-typescript <a href="https://github.com/microsoft/vscode/pull/75547" class="external-link" target="_blank">PR #75547</a></li>
+<li><a href="https://github.com/babakks" class="external-link" target="_blank">Babak K. Shandiz (@babakks)</a>: Added <code>cachedScrollTop</code> to SCM panel <a href="https://github.com/microsoft/vscode/pull/74723" class="external-link" target="_blank">PR #74723</a></li>
+<li><a href="https://github.com/burknator" class="external-link" target="_blank">Patrick Burke (@burknator)</a>: Makes status zoom button a IStatusbarEntry #74454 <a href="https://github.com/microsoft/vscode/pull/75618" class="external-link" target="_blank">PR #75618</a></li>
+<li><a href="https://github.com/chaseadamsio" class="external-link" target="_blank">Chase Adams (@chaseadamsio)</a>: Support theming of Quick Input / Quick Open  <a href="https://github.com/microsoft/vscode/pull/74041" class="external-link" target="_blank">PR #74041</a></li>
+<li><a href="https://github.com/coliff" class="external-link" target="_blank">Christian Oliff (@coliff)</a>: Recommend users install EditorConfig extension <a href="https://github.com/microsoft/vscode/pull/75391" class="external-link" target="_blank">PR #75391</a></li>
+<li><a href="https://github.com/hwhung0111" class="external-link" target="_blank">Hung-Wei Hung (@hwhung0111)</a>: Fix some typos in comment <a href="https://github.com/microsoft/vscode/pull/75565" class="external-link" target="_blank">PR #75565</a></li>
+<li><a href="https://github.com/jeanp413" class="external-link" target="_blank">Jean Pierre (@jeanp413)</a>
+<ul>
+<li>Delete breadcrumbs.filterOnType unused setting. <a href="https://github.com/microsoft/vscode/pull/75971" class="external-link" target="_blank">PR #75971</a></li>
+<li>Always focus explorer viewlet while creating new file/folder <a href="https://github.com/microsoft/vscode/pull/75040" class="external-link" target="_blank">PR #75040</a></li>
+<li>Call revealLastElement within runAtThisOrScheduleAtNextAnimationFrame in repl <a href="https://github.com/microsoft/vscode/pull/75043" class="external-link" target="_blank">PR #75043</a></li>
+<li>Simplify incrementFileName <a href="https://github.com/microsoft/vscode/pull/75398" class="external-link" target="_blank">PR #75398</a></li>
+</ul>
+</li>
+<li><a href="https://github.com/jk21" class="external-link" target="_blank">Jonas Kemper (@jk21)</a>: Package json info <a href="https://github.com/microsoft/vscode/pull/72763" class="external-link" target="_blank">PR #72763</a></li>
+<li><a href="https://github.com/malingyan2017" class="external-link" target="_blank">@malingyan2017</a>: Fix Recent list in dock does not show recent files/folders #74788 <a href="https://github.com/microsoft/vscode/pull/75108" class="external-link" target="_blank">PR #75108</a></li>
+<li><a href="https://github.com/meduzik" class="external-link" target="_blank">Denis Stepanov (@meduzik)</a>: Empty arguments in launch commands are now properly escaped <a href="https://github.com/microsoft/vscode/pull/25098" class="external-link" target="_blank">PR #25098</a></li>
+<li><a href="https://github.com/Olovan" class="external-link" target="_blank">Micah Smith (@Olovan)</a>: Fix for issue #35245 <a href="https://github.com/microsoft/vscode/pull/75357" class="external-link" target="_blank">PR #75357</a></li>
+<li><a href="https://github.com/orange4glace" class="external-link" target="_blank">@orange4glace</a>
+<ul>
+<li>fix: #75693 <a href="https://github.com/microsoft/vscode/pull/75695" class="external-link" target="_blank">PR #75695</a></li>
+<li>fix: #72626 <a href="https://github.com/microsoft/vscode/pull/75826" class="external-link" target="_blank">PR #75826</a></li>
+</ul>
+</li>
+<li><a href="https://github.com/ozyx" class="external-link" target="_blank">Jesse Mazzella (@ozyx)</a>: remove trailing '/' from repo url for baseFolderName <a href="https://github.com/microsoft/vscode/pull/75822" class="external-link" target="_blank">PR #75822</a></li>
+<li><a href="https://github.com/penx" class="external-link" target="_blank">Alasdair McLeay (@penx)</a>: Node module resolution for CSS import <a href="https://github.com/microsoft/vscode/pull/70693" class="external-link" target="_blank">PR #70693</a></li>
+<li><a href="https://github.com/piraces" class="external-link" target="_blank">Raul Piraces Alastuey (@piraces)</a>: Suppress MsgBox when Wizard is running in silent mode <a href="https://github.com/microsoft/vscode/pull/76215" class="external-link" target="_blank">PR #76215</a></li>
+<li><a href="https://github.com/remcohaszing" class="external-link" target="_blank">Remco Haszing (@remcohaszing)</a>
+<ul>
+<li>mark .config/git/config as properties file <a href="https://github.com/microsoft/vscode/pull/74802" class="external-link" target="_blank">PR #74802</a></li>
+<li>Add syntax highlighting for .gitmodules <a href="https://github.com/microsoft/vscode/pull/75332" class="external-link" target="_blank">PR #75332</a></li>
+</ul>
+</li>
+<li><a href="https://github.com/risenforces" class="external-link" target="_blank">Evgeny Zakharov (@risenforces)</a>: add window.disableMenuBarAltBehavior option <a href="https://github.com/microsoft/vscode/pull/73258" class="external-link" target="_blank">PR #73258</a></li>
+<li><a href="https://github.com/SamB" class="external-link" target="_blank">Samuel Bronson (@SamB)</a>: Fix typo: timemout -&gt; timeout <a href="https://github.com/microsoft/vscode/pull/75162" class="external-link" target="_blank">PR #75162</a></li>
+<li><a href="https://github.com/TBK" class="external-link" target="_blank">TBK (@TBK)</a>: Add support for APKBUILD <a href="https://github.com/microsoft/vscode/pull/75706" class="external-link" target="_blank">PR #75706</a></li>
+<li><a href="https://github.com/tchaloupka" class="external-link" target="_blank">Tomáš Chaloupka (@tchaloupka)</a>: Fix LANG env var for Czech <a href="https://github.com/microsoft/vscode/pull/75519" class="external-link" target="_blank">PR #75519</a></li>
+<li><a href="https://github.com/tony-xia" class="external-link" target="_blank">Tony Xia (@tony-xia)</a>
+<ul>
+<li>Fixed typos <a href="https://github.com/microsoft/vscode/pull/74545" class="external-link" target="_blank">PR #74545</a></li>
+<li>identfier -&gt; identifier, Servuce -&gt; Service <a href="https://github.com/microsoft/vscode/pull/74544" class="external-link" target="_blank">PR #74544</a></li>
+</ul>
+</li>
+<li><a href="https://github.com/waldyrious" class="external-link" target="_blank">Waldir Pimenta (@waldyrious)</a>: Fix spelling of the example abbreviation (e.g.) <a href="https://github.com/microsoft/vscode/pull/74785" class="external-link" target="_blank">PR #74785</a></li>
+</ul>
+<p>Contributions to our issue tracking:</p>
+<ul>
+<li><a href="https://github.com/gjsjohnmurray" class="external-link" target="_blank">John Murray (@gjsjohnmurray)</a></li>
+<li><a href="https://github.com/usernamehw" class="external-link" target="_blank">Alexander (@usernamehw)</a></li>
+<li><a href="https://github.com/eamodio" class="external-link" target="_blank">Eric Amodio (@eamodio)</a></li>
+<li><a href="https://github.com/jeanp413" class="external-link" target="_blank">Jean Pierre (@jeanp413)</a></li>
+<li><a href="https://github.com/DanTup" class="external-link" target="_blank">Danny Tuppeny (@DanTup)</a></li>
+</ul>
+<p>Please see our <a href="https://github.com/microsoft/vscode/wiki/Community-Issue-Tracking" class="external-link" target="_blank">Community Issue Tracking</a> page, if you want to help us manage incoming issues.</p>
+<p>Contributions to <code>vscode-css-languageservice</code>:</p>
+<ul>
+<li><a href="https://github.com/parzh" class="external-link" target="_blank">Dmitry Parzhitsky (@parzh)</a>: Fix pseudo-element specificity <a href="https://github.com/microsoft/vscode-css-languageservice/pull/154" class="external-link" target="_blank">PR #154</a></li>
+</ul>
+<p>Contributions to <code>vscode-html-languageservice</code>:</p>
+<ul>
+<li><a href="https://github.com/bitwiseman" class="external-link" target="_blank">Liam Newman (@bitwiseman)</a>: Update js-beautify to 1.10.0 <a href="https://github.com/microsoft/vscode-html-languageservice/pull/61" class="external-link" target="_blank">PR #61</a></li>
+<li><a href="https://github.com/Javey" class="external-link" target="_blank">Javey (@Javey)</a>: Make it can be compressed by uglify-js <a href="https://github.com/microsoft/vscode-html-languageservice/pull/64" class="external-link" target="_blank">PR #64</a></li>
+</ul>
+<p>Contributions to <code>language-server-protocol</code>:</p>
+<ul>
+<li><a href="https://github.com/DanTup" class="external-link" target="_blank">Danny Tuppeny (@DanTup)</a>: Fix typo &quot;must not sent&quot; -&gt; &quot;must not send&quot; <a href="https://github.com/microsoft/language-server-protocol/pull/747" class="external-link" target="_blank">PR #747</a></li>
+</ul>
+<p>Contributions to <code>debug-adapter-protocol</code>:</p>
+<ul>
+<li><a href="https://github.com/joelday" class="external-link" target="_blank">Joel Day (@joelday)</a>: Add Papyrus implementation <a href="https://github.com/microsoft/debug-adapter-protocol/pull/59" class="external-link" target="_blank">PR #59</a></li>
+</ul>
+<p>Contributions to <code>vscode-azurecli</code>:</p>
+<ul>
+<li><a href="https://github.com/mburleigh" class="external-link" target="_blank">Matthew Burleigh (@mburleigh)</a>: Open results in new editor <a href="https://github.com/microsoft/vscode-azurecli/pull/55" class="external-link" target="_blank">PR #55</a></li>
+<li><a href="https://github.com/mburleigh" class="external-link" target="_blank">Matthew Burleigh (@mburleigh)</a>: Add status bar item to indicate progress <a href="https://github.com/microsoft/vscode-azurecli/pull/56" class="external-link" target="_blank">PR #56</a></li>
+</ul>
+<p>Contributions to <code>vscode-vsce</code>:</p>
+<ul>
+<li><a href="https://github.com/atsutton" class="external-link" target="_blank">@atsutton</a>: Changed log level to info. <a href="https://github.com/microsoft/vscode-vsce/pull/369" class="external-link" target="_blank">PR #369</a></li>
+<li><a href="https://github.com/jamesgeorge007" class="external-link" target="_blank">James George (@jamesgeorge007)</a>
+<ul>
+<li>fix(chore): Minor refactor <a href="https://github.com/microsoft/vscode-vsce/pull/366" class="external-link" target="_blank">PR #366</a></li>
+<li>Remove stub type definition for commander <a href="https://github.com/microsoft/vscode-vsce/pull/359" class="external-link" target="_blank">PR #359</a></li>
+<li>Suggest matching commands if the user makes a typo <a href="https://github.com/microsoft/vscode-vsce/pull/358" class="external-link" target="_blank">PR #358</a></li>
+<li>Show up usage information the right way <a href="https://github.com/microsoft/vscode-vsce/pull/357" class="external-link" target="_blank">PR #357</a></li>
+</ul>
+</li>
+<li><a href="https://github.com/nagytech" class="external-link" target="_blank">Jonathan Nagy (@nagytech)</a>: Allow commit message to be specified <a href="https://github.com/microsoft/vscode-vsce/pull/365" class="external-link" target="_blank">PR #365</a></li>
+</ul>
+<p>Contributions to <code>vscode-recipes</code>:</p>
+<ul>
+<li><a href="https://github.com/mika76" class="external-link" target="_blank">Mladen Mihajlović (@mika76)</a>: Vue - Updated readme with info gathered from issues <a href="https://github.com/microsoft/vscode-recipes/pull/213" class="external-link" target="_blank">PR #213</a></li>
+<li><a href="https://github.com/doom777" class="external-link" target="_blank">Ephraim Khantsis (@doom777)</a>: update ng-test launch configuration <a href="https://github.com/microsoft/vscode-recipes/pull/212" class="external-link" target="_blank">PR #212</a></li>
+</ul>
+<p>Contributions to <code>localization</code>:</p>
+<p>There are over 800 <a href="https://github.com/microsoft/Localization/wiki" class="external-link" target="_blank">Cloud + AI Localization</a> community members using the Microsoft Localization Community Platform (MLCP), with over about 100 active contributors to Visual Studio Code. We appreciate your contributions, either by providing new translations, voting on translations, or suggesting process improvements.</p>
+<p>Here is a snapshot of <a href="https://microsoftl10n.github.io/VSCode/" class="external-link" target="_blank">contributors</a>. For details about the project including the contributor name list, visit the project site at <a href="https://aka.ms/vscodeloc" class="external-link" target="_blank">https://aka.ms/vscodeloc</a>.</p>
+<ul>
+<li><strong>Bosnian:</strong> Ismar Bašanović, Ernad Husremovic.</li>
+<li><strong>Bulgarian:</strong> Иван Иванов, Gheorghi Penkov.</li>
+<li><strong>Czech:</strong> Tadeáš Cvrček, Michal Franc, Jan Kos, Radim Hampl.</li>
+<li><strong>Danish:</strong> René Pape, Lars Vange Jørgensen, Martin Liversage, Lasse Stilvang, Anders Lund, Allan Kimmer Jensen, Anton Ariens.</li>
+<li><strong>Dutch:</strong> Leroy Witteveen, Luc Sieben, Maxim Janssens, Damien van Gageldonk, Tom Meulemans.</li>
+<li><strong>English (United Kingdom):</strong> Martin Littlecott, Alexander Ogilvie, Fabio Zuin, Mohit Nain, Sulkhan Ninidze, alshyab wa3ed, Tejas kale.</li>
+<li><strong>Finnish:</strong> Lasse Leppänen, Petri Niinimäki, Sebastian de Mel.</li>
+<li><strong>French:</strong> Antoine Griffard, Thierry DEMAN-BARCELÒ.</li>
+<li><strong>German:</strong> Julian Pritzi, Patrick Burke, Ettore Atalan, Meghana Garise.</li>
+<li><strong>Greek:</strong> Θοδωρής Τσιρπάνης, Charalampos Fanoulis, Vassilis Vouvonikos.</li>
+<li><strong>Hebrew:</strong> חיים לבוב, Eyal Ellenbogen.</li>
+<li><strong>Hindi:</strong> Sanyam Jain, Kishan K.</li>
+<li><strong>Hungarian:</strong> Boldi Kemény.</li>
+<li><strong>Chinese Simplified:</strong> 斌 项, paul cheung, 张锐, Yizhi Gu, Yiting Zhu, Justin Liu, Shi Liu, Pluwen, Joel Yang, Jieting Xu, Chen Yang, 涛 罗, 立飞 李, 雨齐 刘, cuibty wong, 建 周, XIANG ZUO.</li>
+<li><strong>Chinese Traditional:</strong> LikKee 沥祺 Richie, Winnie Lin, Jeremy.</li>
+<li><strong>Indonesian:</strong> Jakka Prihatna, Arif Fahmi, Septian Adi, Heston Sinuraya, Hendra Widjaja, Don Nisnoni, Eriawan Kusumawardhono, Bervianto Leo Pratama, Laurensius Dede Suhardiman, Rifani, rsyad, Christian Elbrianno.</li>
+<li><strong>Italian:</strong> andrea falco, Aldo Donetti.</li>
+<li><strong>Japanese:</strong> Michihito Kumamoto, Yoshihisa Ozaki, Aya Tokura, TENMYO Masakazu, 太郎 西岡.</li>
+<li><strong>Korean:</strong> Hongju, 우현 조, Hoyeon Han, Hong Kwon.</li>
+<li><strong>Latvian:</strong> Kaspars Bergs, Andris Vilde.</li>
+<li><strong>Lithuanian:</strong> Andrius Svylas, Tautvydas Derzinskas, Karolis Kundrotas, Martynas J..</li>
+<li><strong>Norwegian:</strong> Dag H. Baardsen, Ole Kristian Losvik.</li>
+<li><strong>Polish:</strong> Rafał Całka, Marcin Weksznejder, Jakub Żmidziński, Rafał Wolak, Szymon Seliga, Grzegorz Miros.</li>
+<li><strong>Portuguese (Brazil):</strong> Alessandro Trovato, Thiago Dupin Ugeda, Weslei A. de T. Marinho, Rafael Lima Teixeira, Gerardo Magela Machado da Silva, Marcos Albuquerque, Loiane Groner, Alessandro Fragnani, Judson Santiago, Andrei Bosco, Fábio Corrêa, Roberto Fonseca, Fabio Lux, Emmanuel Gomes Brandão, Guilherme Pais, Rodrigo Vieira, André Gama.</li>
+<li><strong>Portuguese(Portugal):</strong> Nuno Carapito, Pedro Daniel, José Rodrigues, Diogo Barros.</li>
+<li><strong>Romanian:</strong> Stefan Gabos.</li>
+<li><strong>Russian:</strong> Дмитрий Кирьянов, Анатолий Калужин.</li>
+<li><strong>Spanish:</strong> David Fernández Aldana, Ricardo Rubio, Thierry DEMAN, José María Aguilar.</li>
+<li><strong>Swedish:</strong> Johan Spånberg, Notetur Nomen.</li>
+<li><strong>Tamil:</strong> Merbin J Anselm, Jeyanthinath Muthuram, Boopesh Kumar, Nithun Harikrishnan, Vignesh Rajendran.</li>
+<li><strong>Turkish:</strong> Meryem Aytek, Fıratcan Sucu, Ahmetcan Aksu, Mehmet Yönügül, Ömer Sert, Anıl MISIRLIOĞLU, Misir Jafarov, Bruh Moment.</li>
+<li><strong>Ukrainian:</strong> Arthur Murauskas, Alexander Varchenko, Вадим Шашков, Евгений Коростылёв.</li>
+<li><strong>Vietnamese:</strong> Van-Tien Hoang, Vuong Bui, Chủ Tất.</li>
+</ul>
+<!-- In-product release notes styles.  Do not modify without also modifying regex in gulpfile.common.js -->
+
+            <div class="feedback"></div>
+        </div>
+        <div class="col-sm-3 col-md-2 docs-subnavbar-container">
+            <nav id="docs-subnavbar" aria-label="On Page" data-spy="affix" data-offset-top="20">
+                <h4><span class="sr-only">In this update, there are 11
+                        sections</span><span aria-hidden="true">In this update</span></h4>
+                <ul class="nav">
+                    
+                    <li><a href="#_workbench">Workbench</a></li>
+                    
+                    <li><a href="#_integrated-terminal">Integrated Terminal</a></li>
+                    
+                    <li><a href="#_tasks">Tasks</a></li>
+                    
+                    <li><a href="#_languages">Languages</a></li>
+                    
+                    <li><a href="#_debugging">Debugging</a></li>
+                    
+                    <li><a href="#_contributions-to-extensions">Contributions to extensions</a></li>
+                    
+                    <li><a href="#_extension-authoring">Extension authoring</a></li>
+                    
+                    <li><a href="#_proposed-extension-apis">Proposed extension APIs</a></li>
+                    
+                    <li><a href="#_engineering">Engineering</a></li>
+                    
+                    <li><a href="#_notable-fixes">Notable fixes</a></li>
+                    
+                    <li><a href="#_thank-you">Thank you</a></li>
+                    
+                </ul>
+                <div class="connect-widget"></div>
+            </nav>
+        </div>
+    </div>
+</div>
+      </div>
+  </div>
+
+  <footer role="contentinfo">
+      <div class="container">
+          <div class="row">
+              <div class="left col-md-7">
+                  <ul class="links">
+                      <li>
+                          <span class="message">Hello from Seattle.</span>
+                      </li>
+                      <li>
+                          <a href="https://go.microsoft.com/fwlink/?LinkID=533687" onclick="followOnTwitter()" tabindex="0">Follow @code</a>
+                      </li>
+                      <li>
+                          <div class="github-star-button">
+                              <iframe src="../assets/github-button29be.html?user=Microsoft&amp;repo=vscode&amp;type=star&amp;count=true"
+                                  frameborder="0" scrolling="0" width="130px" height="20px" title="GitHub follow button" loading="lazy"></iframe>
+                          </div>
+                      </li>
+  
+                      <script>
+                          function followOnTwitter() {
+                              var windowFeatures = "location=yes,height=600,width=550,scrollbars=yes,status=yes";
+                              var originalReferer = "&original_referer=" + document.URL;
+                              var screenName = "&screen_name=code";
+                              var URL = "https://twitter.com/intent/follow?" + originalReferer + screenName;
+                              window.open(URL, "_blank", windowFeatures);
+                          }
+  
+                          function manageConsent() {
+                              if(WcpConsent.siteConsent.isConsentRequired){
+                                  WcpConsent.siteConsent.manageConsent();
+                              }
+                          }
+                      </script>
+                  </ul>
+              </div>
+              <div class="right col-md-5">
+                  <ul class="links">
+                      <li><a id="footer-support-link" href="https://support.serviceshub.microsoft.com/supportforbusiness/create?sapId=d66407ed-3967-b000-4cfb-2c318cad363d"
+                              target="_blank">Support</a></li>
+                      <li><a id="footer-privacy-link" href="https://privacy.microsoft.com/privacystatement"
+                              target="_blank">Privacy</a></li>
+                      <li style="display: none;"><a id="footer-cookie-link" style="cursor: pointer;" onclick="manageConsent()"
+                              target="_blank">Manage Cookies</a></li>
+                      <li><a id="footer-terms-link" href="https://www.microsoft.com/legal/terms-of-use"
+                              target="_blank">Terms of Use</a></li>
+                      <li><a id="footer-license-link" href="../License.html">License</a></li>
+                  </ul>
+                  <div class="copyright">
+                      <a id="footer-microsoft-link" class="logo" href="https://www.microsoft.com/">
+                          <img class="microsoft-logo" src="../assets/images/microsoft-logo.png" height="20" alt="Microsoft homepage"/>
+                          <img class="microsoft-logo-inverted" src="../assets/images/microsoft-logo-inverted.png" height="20" alt="Microsoft homepage" />
+                      </a>
+                      <span>&copy; 2023 Microsoft</span>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </footer>
+  <script src="../dist/index.js"></script>
+
+  
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "SoftwareApplication",
+      "name" : "Visual Studio Code",
+      "softwareVersion": "1.74",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "applicationCategory": "DeveloperApplication",
+      "applicationSubCategory": "Text Editor",
+      "alternateName": "VS Code",
+      "datePublished": "2021-11-03",
+      "operatingSystem": "Mac, Linux, Windows",
+      "logo": "https://code.visualstudio.com/assets/apple-touch-icon.png",
+      "screenshot": "https://code.visualstudio.com/assets/home/home-screenshot-win.png",
+      "releaseNotes": "https://code.visualstudio.com/updates",
+      "downloadUrl": "https://code.visualstudio.com/download",
+      "license": "https://code.visualstudio.com/license",
+      "softwareRequirements": "https://code.visualstudio.com/docs/supporting/requirements",
+      "url" : "https://code.visualstudio.com",
+      "author": {
+        "@type": "Organization",
+        "name": "Microsoft"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Microsoft"
+      },
+      "maintainer": {
+        "@type": "Organization",
+        "name": "Microsoft"
+      },
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://code.visualstudio.com/Search?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      },
+      "sameAs" : [
+        "https://en.wikipedia.org/wiki/Visual_Studio_Code",
+        "https://twitter.com/code",
+        "https://www.youtube.com/code",
+        "https://www.tiktok.com/@vscode",
+        "https://github.com/microsoft/vscode"
+      ]
+    }
+  </script>
+</body>
+
+<!-- Mirrored from code.visualstudio.com/updates/v1_36 by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 04 Jan 2023 12:15:10 GMT -->
+</html>

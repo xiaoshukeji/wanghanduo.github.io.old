@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Mirrored from code.visualstudio.com/blogs/2019/05/02/remote-development by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 04 Jan 2023 12:15:16 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="google-site-verification" content="hNs7DXrTySP_X-0P_AC0WulAXvUwgSXEmgfcO2r79dw" />
+
+  <!-- Twitter and Facebook OpenGraph Metadata-->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@code" />
+
+  <meta name="description" content="VS Code remote support for WSL, Containers, and SSH" />
+<meta name="keywords" content="" />
+<!-- Twitter and Facebook OpenGraph Metadata-->
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="og:url" content="remote-development.html" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Remote Development with Visual Studio Code" />
+<meta property="og:description" content="VS Code remote support for WSL, Containers, and SSH" />
+
+<meta property="og:image" content="../../../../assets/blogs/2019/05/02/social-remote.png" />
+
+
+
+  <link rel="shortcut icon" href="../../../../favicon.ico" sizes="128x128" />
+  <link rel="apple-touch-icon" href="../../../../apple-touch-icon.png">
+
+  <title>Remote Development with Visual Studio Code</title>
+
+  <link rel="stylesheet" href="../../../../vendor/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../../../../dist/style.css">
+
+  <script type="text/javascript" src="../../../../../js.monitor.azure.com/scripts/c/ms.analytics-web-3.min.js"></script>
+  <script>
+  window.appInsights = new oneDS.ApplicationInsights();
+  window.appInsights.initialize({
+    instrumentationKey: "1a3eb3104447440391ad5f2a6ee06a0a-62879566-bc58-4741-9650-302bf2af703f-7103",
+    webAnalyticsConfiguration:{ // Web Analytics Plugin configuration
+        urlCollectQuery:true, 
+        autoCapture: {
+          scroll: true,
+          pageView: true,
+          onLoad: true,
+          onUnload: true,
+          click: true,
+          resize: true,
+          jsError: true
+        }
+    }
+  }, []);
+  </script>
+  
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','../../../../../www.google-analytics.com/analytics.js','ga');
+  </script>  
+  <link rel="alternate" type="application/atom+xml" title="RSS Feed for code.visualstudio.com" href="../../../../feed.xml" />
+</head>
+
+<body>
+  <!-- EU Cookie Compliance JS -->
+  <script src="../../../../../wcpstatic.microsoft.com/mscc/lib/v2/wcp-consent.js"></script>
+
+  <div id="main">
+          <div class="navbar-fixed-container">
+              <div class="navbar navbar-inverse navbar-fixed-top ">
+                  <div id='cookie-banner'></div>        <nav role="navigation" aria-label="Top Level">
+                      <div class="container">
+                          <div class="nav navbar-header">
+                              <a role="button" id="skip-to-content" class="link-button" href="#main-content">Skip to content<i>&nbsp;</i><span class="glyphicon glyphicon-menu-down"></span></a>
+                              <a class="navbar-brand" id="navbar-brand" href="../../../../index.html">Visual Studio Code</a>
+                              <button type="button" class="navbar-toggle" role="navigation" data-toggle="collapse" data-target=".navbar-collapse" aria-label="Toggle Navigation Menu">
+                                  <span class="icon-bar"></span>
+                                  <span class="icon-bar"></span>
+                                  <span class="icon-bar"></span>
+                              </button>
+                          </div>
+                          <div class="navbar-collapse collapse" role="navigation">
+                              <ul class="nav navbar-nav navbar-left">
+                                  <li ><a id="nav-docs" href="../../../../docs.html">Docs</a></li>
+                                  <li ><a id="nav-updates" href="../../../../updates/v1_74.html">Updates</a></li>
+                                  <li class="active" ><a id="nav-blogs" href="../../../../blogs.html">Blog</a></li>
+                                  <li ><a id="nav-extend" href="../../../../api.html">API</a></li>
+                                  <li><a href="https://marketplace.visualstudio.com/VSCode" target="_blank" id="nav-extensions">Extensions</a></li>
+                                  <li ><a id="nav-faqs" href="../../../../docs/supporting/faq.html">FAQ</a></li>
+                                  <li ><a id="nav-learn" href="../../../../learn.html">Learn</a></li>
+                                  <li class='search visible-xs visible-sm'
+                                      ><a href="../../../../Search.html">Search</a></li>
+                              </ul>
+          
+                              <ul class="nav navbar-nav navbar-right" role="presentation">
+                                  <!-- Floating search icon -->
+                                  <li>
+                                      <a href="../../../../Search.html" title="Search" class="btn search-btn" id="nav-search">
+                                          <img class="search-icon" src="../../../../assets/icons/search.svg" width="16px" height="16px" alt="Search"/>
+                                          <img class="search-icon-inverted" src="../../../../assets/icons/search_dark.svg" width="16px" height="16px" alt="Search" />
+                                      </a>
+                                  </li>
+                                  <!-- Actual search icon -->
+                                  <li class="search" role="presentation">
+                                      <form class="nav-search search-form" role="search" aria-label="Search">
+                                          <div class="input-group" role="presentation">
+                                              <input type="text" name="q" class="search-box form-control" placeholder="Search Docs" aria-label="Search text"/>
+                                              <span class="input-group-btn">
+                                                  <button tabindex="0" class="btn" type="submit" aria-label="Search">
+                                                          <img class="search-icon" src="../../../../assets/icons/search.svg" width="16px" height="16px" alt="Search" />
+                                                          <img class="search-icon-inverted" src="../../../../assets/icons/search_dark.svg" width="16px" height="16px" alt="Search" />
+                                                  </button>
+                                              </span>
+                                          </div>
+                                      </form>                        </li>
+                                  <!-- this was hiden in the home and download page, keeping it for now -->
+                                  <li><a class="link-button" href="../../../../Download.html" id="nav-download">
+                                      <img class="download-icon" src="../../../../assets/icons/download.svg" width="16px" height="16px" alt="Download VS Code"/>
+                                      <img class="download-icon-inverted" src="../../../../assets/icons/download-black.svg" width="16px" height="16px" alt="Download VS Code" />
+                                      <span>Download</span>
+                                  </a></li>
+                              </ul>
+                          </div>
+                      </div>
+                  </nav>
+              </div>
+          </div>          <div class="updates-banner  ">
+              <div class="container">
+                  <p class="message"><a href="../../../../updates/v1_74.html" id="banner-link-updates">Version 1.74</a> is now available! Read about the new features and fixes from November.</p> 
+              </div>
+              <div tabindex="0" role="button" title="Dismiss this update" class="dismiss-btn" id="banner-dismiss-btn"><span class="sr-only">Dismiss this update</span><span aria-hidden="true" class="glyph-icon"></span></div>
+          </div>      <div role="main" id="main-content">
+        <div class="container body-content docs blog">
+    <div class="row">
+        <div class="col-md-2 docs-navbar-container">
+            <nav id="docs-navbar" aria-label="Blog posts" class="docs-nav updates-nav visible-md visible-lg">
+            	<h4>Blog posts</h4>
+            	<ul class="nav">
+            		
+            			<li >
+            				<a href="../../../2022/12/07/remote-even-better.html" >Remote Development Even Better</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2022/11/28/vscode-sandbox.html" >VS Code Sandboxing</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2022/10/04/vscode-community-discussions.html" >VS Code Community Discussions</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2022/09/15/dev-container-features.html" >Dev Container Features</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2022/08/16/markdown-language-server.html" >Markdown Language Server</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2022/07/07/vscode-server.html" >The VS Code Server</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2022/05/18/dev-container-cli.html" >Dev container CLI</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2022/04/04/increase-productivity-with-containers.html" >Moving from Local to Remote Development</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2022/03/08/the-tutorial-problem.html" >The problem with tutorials</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2021/11/08/custom-notebooks.html" >Custom Notebooks</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2021/10/20/vscode-dev.html" >vscode.dev</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2021/10/11/webview-ui-toolkit.html" >Webview UI Toolkit</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2021/09/29/bracket-pair-colorization.html" >Bracket Pair Colorization</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2021/08/05/notebooks.html" >Notebooks</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2021/07/06/workspace-trust.html" >Workspace Trust</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2021/06/10/remote-repositories.html" >Remote Repositories</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2021/06/02/build-2021.html" >Build 2021</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2021/02/16/extension-bisect.html" >Extension bisect</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2020/12/03/chromebook-get-started.html" >VS Code on Chromebook</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2020/07/27/containers-edu.html" >Development Containers in Education</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2020/07/01/containers-wsl.html" >Dev Containers in WSL 2</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2020/06/09/go-extension.html" >The Go experience</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2020/05/14/vscode-build-2020.html" >VS Code at Build</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2020/05/06/github-issues-integration.html" >GitHub Issues Integration</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2020/03/02/docker-in-wsl2.html" >Docker in WSL 2</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2020/02/24/custom-data-format.html" >Custom Data Format</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2020/02/18/optimizing-ci.html" >Improving CI Build Times</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../10/31/inspecting-containers.html" >Inspecting Containers</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../10/03/remote-ssh-tips-and-tricks.html" >SSH Tips and Tricks</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../09/03/wsl2.html" >WSL 2</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../07/25/remote-ssh.html" >Remote SSH</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../23/strict-null.html" >Strict null checking</a>
+            			</li>
+            		
+            			<li class="active">
+            				<a href="remote-development.html" aria-label="Current Page: Remote Development">Remote Development</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../02/19/lsif.html" >Language Server Index Format</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2018/12/04/rich-navigation.html" >Rich Code Navigation</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2018/11/26/event-stream.html" >Event-Stream Package Security Update</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2018/09/12/engineering-with-azure-pipelines.html" >Using Azure Pipelines</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2018/09/10/introducing-github-pullrequests.html" >GitHub Pull Requests</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2018/08/07/debug-adapter-protocol-website.html" >New home for Debug Adapter Protocol</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2018/07/12/introducing-logpoints-and-auto-attach.html" >Logpoints and auto-attach</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2018/05/07/live-share-public-preview.html" >Live Share Preview</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2018/04/25/bing-settings-search.html" >Settings Search</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2018/03/23/text-buffer-reimplementation.html" >Text Buffer Reimplementation</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/12/20/chrome-debugging.html" >What's New for Chrome Debugging</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/11/16/connect.html" >Connect 2017</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/11/15/live-share.html" >Introducing Live Share</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/10/24/theicon.html" >The Icon Journey</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/10/03/terminal-renderer.html" >Integrated Terminal Performance</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/09/28/java-debug.html" >Java Debugging</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/08/07/emmet-2.html" >Emmet 2.0</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/06/20/great-looking-editor-roundup.html" >Fresh Paint</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/05/10/build-2017-demo.html" >Build 2017 Demo</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/04/10/sublime-text-roundup.html" >Sublime Text Extension Roundup</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/03/07/extension-pack-roundup.html" >Extension Packs</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/02/12/code-lens-roundup.html" >Extensions using CodeLens</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/02/08/syntax-highlighting-optimizations.html" >Optimizations in Syntax Highlighting</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/01/15/connect-nina-e2e.html" >Node.js Development with Visual Studio Code and Azure</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2016/12/12/roundup-customize.html" >Customize VS Code Extension Roundup</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2016/11/30/hot-exit-in-insiders.html" >Hot Exit Comes to Insiders</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2016/11/15/formatters-best-practices.html" >Creating a Formatter Extension</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2016/10/31/js_roundup_2.html" >JavaScript Extensions Part 2</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2016/09/14/js_roundup_1.html" >JavaScript Extensions Part 1</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2016/09/08/icon-themes.html" >File Icon Themes</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2016/07/29/extensions-roundup-git.html" >Extensions Roundup - Fun with Git</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2016/06/27/common-language-protocol.html" >The Language Server Protocol</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2016/05/04/extension-roundup-may.html" >Extensions Roundup</a>
+            			</li>
+            		
+            	</ul>
+            </nav>
+            <nav id="small-nav" aria-label="Blog posts" class="docs-nav updates-nav hidden-md hidden-lg">
+            	<h4>Blogs</h4>
+            	<select id="small-nav-dropdown" aria-label="blog posts">
+            		
+            			<option value="/blogs/2022/12/07/remote-even-better" >Remote Development Even Better</option>
+            		
+            			<option value="/blogs/2022/11/28/vscode-sandbox" >VS Code Sandboxing</option>
+            		
+            			<option value="/blogs/2022/10/04/vscode-community-discussions" >VS Code Community Discussions</option>
+            		
+            			<option value="/blogs/2022/09/15/dev-container-features" >Dev Container Features</option>
+            		
+            			<option value="/blogs/2022/08/16/markdown-language-server" >Markdown Language Server</option>
+            		
+            			<option value="/blogs/2022/07/07/vscode-server" >The VS Code Server</option>
+            		
+            			<option value="/blogs/2022/05/18/dev-container-cli" >Dev container CLI</option>
+            		
+            			<option value="/blogs/2022/04/04/increase-productivity-with-containers" >Moving from Local to Remote Development</option>
+            		
+            			<option value="/blogs/2022/03/08/the-tutorial-problem" >The problem with tutorials</option>
+            		
+            			<option value="/blogs/2021/11/08/custom-notebooks" >Custom Notebooks</option>
+            		
+            			<option value="/blogs/2021/10/20/vscode-dev" >vscode.dev</option>
+            		
+            			<option value="/blogs/2021/10/11/webview-ui-toolkit" >Webview UI Toolkit</option>
+            		
+            			<option value="/blogs/2021/09/29/bracket-pair-colorization" >Bracket Pair Colorization</option>
+            		
+            			<option value="/blogs/2021/08/05/notebooks" >Notebooks</option>
+            		
+            			<option value="/blogs/2021/07/06/workspace-trust" >Workspace Trust</option>
+            		
+            			<option value="/blogs/2021/06/10/remote-repositories" >Remote Repositories</option>
+            		
+            			<option value="/blogs/2021/06/02/build-2021" >Build 2021</option>
+            		
+            			<option value="/blogs/2021/02/16/extension-bisect" >Extension bisect</option>
+            		
+            			<option value="/blogs/2020/12/03/chromebook-get-started" >VS Code on Chromebook</option>
+            		
+            			<option value="/blogs/2020/07/27/containers-edu" >Development Containers in Education</option>
+            		
+            			<option value="/blogs/2020/07/01/containers-wsl" >Dev Containers in WSL 2</option>
+            		
+            			<option value="/blogs/2020/06/09/go-extension" >The Go experience</option>
+            		
+            			<option value="/blogs/2020/05/14/vscode-build-2020" >VS Code at Build</option>
+            		
+            			<option value="/blogs/2020/05/06/github-issues-integration" >GitHub Issues Integration</option>
+            		
+            			<option value="/blogs/2020/03/02/docker-in-wsl2" >Docker in WSL 2</option>
+            		
+            			<option value="/blogs/2020/02/24/custom-data-format" >Custom Data Format</option>
+            		
+            			<option value="/blogs/2020/02/18/optimizing-ci" >Improving CI Build Times</option>
+            		
+            			<option value="/blogs/2019/10/31/inspecting-containers" >Inspecting Containers</option>
+            		
+            			<option value="/blogs/2019/10/03/remote-ssh-tips-and-tricks" >SSH Tips and Tricks</option>
+            		
+            			<option value="/blogs/2019/09/03/wsl2" >WSL 2</option>
+            		
+            			<option value="/blogs/2019/07/25/remote-ssh" >Remote SSH</option>
+            		
+            			<option value="/blogs/2019/05/23/strict-null" >Strict null checking</option>
+            		
+            			<option value="/blogs/2019/05/02/remote-development" selected>Remote Development</option>
+            		
+            			<option value="/blogs/2019/02/19/lsif" >Language Server Index Format</option>
+            		
+            			<option value="/blogs/2018/12/04/rich-navigation" >Rich Code Navigation</option>
+            		
+            			<option value="/blogs/2018/11/26/event-stream" >Event-Stream Package Security Update</option>
+            		
+            			<option value="/blogs/2018/09/12/engineering-with-azure-pipelines" >Using Azure Pipelines</option>
+            		
+            			<option value="/blogs/2018/09/10/introducing-github-pullrequests" >GitHub Pull Requests</option>
+            		
+            			<option value="/blogs/2018/08/07/debug-adapter-protocol-website" >New home for Debug Adapter Protocol</option>
+            		
+            			<option value="/blogs/2018/07/12/introducing-logpoints-and-auto-attach" >Logpoints and auto-attach</option>
+            		
+            			<option value="/blogs/2018/05/07/live-share-public-preview" >Live Share Preview</option>
+            		
+            			<option value="/blogs/2018/04/25/bing-settings-search" >Settings Search</option>
+            		
+            			<option value="/blogs/2018/03/23/text-buffer-reimplementation" >Text Buffer Reimplementation</option>
+            		
+            			<option value="/blogs/2017/12/20/chrome-debugging" >What's New for Chrome Debugging</option>
+            		
+            			<option value="/blogs/2017/11/16/connect" >Connect 2017</option>
+            		
+            			<option value="/blogs/2017/11/15/live-share" >Introducing Live Share</option>
+            		
+            			<option value="/blogs/2017/10/24/theicon" >The Icon Journey</option>
+            		
+            			<option value="/blogs/2017/10/03/terminal-renderer" >Integrated Terminal Performance</option>
+            		
+            			<option value="/blogs/2017/09/28/java-debug" >Java Debugging</option>
+            		
+            			<option value="/blogs/2017/08/07/emmet-2.0" >Emmet 2.0</option>
+            		
+            			<option value="/blogs/2017/06/20/great-looking-editor-roundup" >Fresh Paint</option>
+            		
+            			<option value="/blogs/2017/05/10/build-2017-demo" >Build 2017 Demo</option>
+            		
+            			<option value="/blogs/2017/04/10/sublime-text-roundup" >Sublime Text Extension Roundup</option>
+            		
+            			<option value="/blogs/2017/03/07/extension-pack-roundup" >Extension Packs</option>
+            		
+            			<option value="/blogs/2017/02/12/code-lens-roundup" >Extensions using CodeLens</option>
+            		
+            			<option value="/blogs/2017/02/08/syntax-highlighting-optimizations" >Optimizations in Syntax Highlighting</option>
+            		
+            			<option value="/blogs/2017/01/15/connect-nina-e2e" >Node.js Development with Visual Studio Code and Azure</option>
+            		
+            			<option value="/blogs/2016/12/12/roundup-customize" >Customize VS Code Extension Roundup</option>
+            		
+            			<option value="/blogs/2016/11/30/hot-exit-in-insiders" >Hot Exit Comes to Insiders</option>
+            		
+            			<option value="/blogs/2016/11/15/formatters-best-practices" >Creating a Formatter Extension</option>
+            		
+            			<option value="/blogs/2016/10/31/js_roundup_2" >JavaScript Extensions Part 2</option>
+            		
+            			<option value="/blogs/2016/09/14/js_roundup_1" >JavaScript Extensions Part 1</option>
+            		
+            			<option value="/blogs/2016/09/08/icon-themes" >File Icon Themes</option>
+            		
+            			<option value="/blogs/2016/07/29/extensions-roundup-git" >Extensions Roundup - Fun with Git</option>
+            		
+            			<option value="/blogs/2016/06/27/common-language-protocol" >The Language Server Protocol</option>
+            		
+            			<option value="/blogs/2016/05/04/extension-roundup-may" >Extensions Roundup</option>
+            		
+            	</select>
+            </nav>        </div>
+        <div class="col-sm-9 col-md-8 body">
+            <h1>Remote Development with VS Code</h1>
+<p>May 2, 2019 by The VS Code Team, <a href="https://twitter.com/code" class="external-link" target="_blank">@code</a></p>
+<h2 id="_tldr" data-needslink="_tldr">TL;DR</h2>
+<p>Today we're excited to announce the preview of three new extensions for Visual Studio Code that enable seamless development in <a href="https://www.docker.com/resources/what-container" class="external-link" target="_blank">Containers</a>, remotely on physical or virtual machines, and with the <a href="https://learn.microsoft.com/windows/wsl" class="external-link" target="_blank">Windows Subsystem for Linux (WSL)</a>. You can <a href="#_get-started">get started</a> right away by installing the <a href="https://aka.ms/VSCodeRemoteExtensionPack" class="external-link" target="_blank">Remote Development Extension Pack</a>.</p>
+<p><strong>Note</strong>: You'll need to use the <a href="../../../../insiders/index.html">Insiders</a> build for now, but remote development support will eventually be available in the Stable release.</p>
+<p>Read on to learn how we got here.</p>
+<h2 id="_development-trends" data-needslink="_development-trends">Development Trends</h2>
+<p>With the growth in popularity of VS Code, we've had the privilege and opportunity to talk to more and more users with different development environments, many vastly different than our own, to try to identify ways in which we could move VS Code forward to address real developer pain points.</p>
+<p>An interesting pattern emerged during these conversations. We saw many developers trying to use VS Code to develop against containers and remote VMs configured with specific development and runtime stacks, simply because it is too hard, too disruptive, and in some cases impossible, to set up these development environments locally.</p>
+<p>We've all experienced this problem. Unless we feel it's time to flatten that machine :), we hesitate to try out a new stack like Rust, Go, Node, or Python3, for fear of &quot;messing up&quot; our current, well-tuned environment.</p>
+<p>Python developers want to switch to VS Code but can't, because they need to use <a href="https://matttrent.com/remote-development/" class="external-link" target="_blank">containers and virtual machines</a> as development environments configured for a specific Python stack.</p>
+<blockquote>
+<p><img src="../../../../assets/blogs/2019/05/02/vagrant-box-testimonial.png" alt="Vagrant Box testimonial" loading="lazy"></p>
+</blockquote>
+<p>Because the code bases are so large, we see engineers at shops like Facebook (and Microsoft!) use editors like vim to work remotely against secure and powerful &quot;developer VMs&quot;, using alternative cloud-based search and navigation services that scale beyond what even the best laptop can handle.</p>
+<p>Data Scientists building and training data models often need massive storage and compute services to analyze large datasets that can't be stored or processed even on a robust desktop.</p>
+<p>The rise in popularity of the <a href="https://learn.microsoft.com/windows/wsl/about" class="external-link" target="_blank">Windows Subsystem for Linux (WSL)</a> is powered in part because it makes it easy to set up a contained development environment, including the target operating system. In fact, <a href="https://github.com/microsoft/vscode/issues/13138" class="external-link" target="_blank">the third most commented issue in the VS Code repository</a> is to support running <code>code</code> from a Bash terminal in a Linux distro on Windows.</p>
+<blockquote>
+<p><img src="../../../../assets/blogs/2019/05/02/vscode-ubuntu-windows-testimonial.png" alt="VS Code Ubuntu on Windows testimonial" loading="lazy"></p>
+</blockquote>
+<h2 id="_challenges-with-current-solutions" data-needslink="_challenges-with-current-solutions">Challenges with Current Solutions</h2>
+<p>Throughout these conversations, we also kept hearing the same challenges developers face with this type of development.</p>
+<ul>
+<li>
+<p>Remote Desktop can work, but it is difficult or impossible to set up on some Linux distributions, and the development experience can be &quot;laggy&quot;.</p>
+</li>
+<li>
+<p>SSH and Vim (or local tools with file synchronization) work, but they can be slow, error prone, and generally <a href="https://stackoverflow.blog/2017/05/23/stack-overflow-helping-one-million-developers-exit-vim/" class="external-link" target="_blank">lack the productivity of modern development tools</a>.</p>
+</li>
+<li>
+<p>Browser-based tools are useful in a variety of scenarios, but developers don't want to give up the richness and familiarity that desktop tools provide, or their existing locally installed tool chains.</p>
+</li>
+</ul>
+<p>Worse (in our opinion!) developers had to sacrifice core VS Code experiences like IntelliSense (completions), linting, and debugging, in order to work against these environments.</p>
+<h2 id="_a-different-approach" data-needslink="_a-different-approach">A Different Approach</h2>
+<p>Hearing about these challenges we started to look into WSL support and it looked simple enough. Install VS Code and (<a href="https://devblogs.microsoft.com/commandline/do-not-change-linux-files-using-windows-apps-and-tools/" class="external-link" target="_blank">carefully at the time!</a>) edit the Windows file system as normal. We did work to <a href="../../../../docs/nodejs/nodejs-debugging.html#_remote-debugging">enable remote debugging for Node.js</a>, and we figured we could simply install a small script to enable launching <code>code</code> from the bash shell.</p>
+<p>But, it just wasn't right. It didn't make sense to do special work for every runtime, as we did for Node.js debugging. If you have Python 2.7 and Flask installed on Windows (or none at all!) and Python 3.7 and Django installed in the Linux distro, you wouldn't get proper completions or linting because VS Code was looking at the Windows versions of everything. Having to duplicate the development environment on both Windows and Linux defeated the purpose of having WSL at all.</p>
+<p>We convinced ourselves that what we needed was a way to run VS Code in two places at once, to run the developer tools locally and connect to a set of development services running remotely in the context of a physical or virtual machine (for example, a container or VM). This gives you a rich local development experience in the context of what is in the remote environment.</p>
+<p><img src="../../../../assets/blogs/2019/05/02/remote-environment.png" alt="Visual Studio Code connecting to remote environments" loading="lazy"></p>
+<h2 id="_introducing-the-vs-code-remote-extensions" data-needslink="_introducing-the-vs-code-remote-extensions">Introducing the VS Code Remote Extensions</h2>
+<p>Over the past few months, we've been working hard re-establishing proper boundaries between our code layers and eliminating assumptions about the local development environment. We've built three new extensions for working with remote workspaces running in WSL, Docker containers, or in physical and virtual machines over SSH.</p>
+<p><img src="../../../../assets/blogs/2019/05/02/remote-extensions.png" alt="Visual Studio Code Remote Extensions for WSL, Containers, and SSH" loading="lazy"></p>
+<p>The <strong><a href="https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-wsl" class="external-link" target="_blank">WSL</a></strong> extension lets you use the <a href="https://learn.microsoft.com/windows/wsl" class="external-link" target="_blank">Windows Subsystem for Linux (WSL)</a> as a full development environment, right from VS Code. This new, optimized support lets you:</p>
+<ul>
+<li>Use Windows to develop in a Linux-based environment, using platform-specific toolchains and utilities.</li>
+<li>Edit files located in WSL or the mounted Windows filesystem (for example <code>/mnt/c</code>).</li>
+<li>Run and debug your Linux-based applications on Windows.</li>
+</ul>
+<p>Commands and extensions are run directly in the Linux distro, so you don't have to worry about pathing issues, binary compatibility, or other cross-OS challenges. You're able to use VS Code in WSL just as you would from Windows.</p>
+<p>Check out this quick, 2-minute video to see how easy it is to develop in WSL.</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/mIHprjsSO9o" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen title="Visual Studio Code WSL"></iframe>
+<p>For more information, please see the <a href="https://aka.ms/vscode-remote/wsl" class="external-link" target="_blank">Developing in WSL</a> documentation.</p>
+<hr>
+<p>The <strong><a href="https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh" class="external-link" target="_blank">Remote - SSH</a></strong> extension lets you open folders or workspaces hosted on any remote machine, VM, or container with a running SSH server. Development over SSH lets you:</p>
+<ul>
+<li>Develop on larger, faster, or more specialized hardware than your local machine.</li>
+<li>Quickly swap between different, remote development environments and safely make updates without worrying about impacting your local machine.</li>
+<li>Debug an application running somewhere else, such as a customer site or in the cloud.</li>
+</ul>
+<p>For example, let's assume you are working on a deep learning project. You typically need a GPU-heavy virtual machine (such as an Azure <a href="https://aka.ms/dsvm" class="external-link" target="_blank">Data Science Virtual Machine</a>), configured with all of the tools and frameworks you need to train your models with large-scale data sets.</p>
+<p>You could use Vim over SSH or Jupyter Notebooks to edit your remote code, but you give up the richness of your local development tools. Instead, with the <strong>Remote - SSH</strong> extension, you simply connect to the VM, install the necessary extensions like <a href="https://marketplace.visualstudio.com/items?itemName=ms-python.python" class="external-link" target="_blank">Python</a>, and then you can leverage all of the great features of VS Code such as IntelliSense (completions), code navigation, and debugging, as if you were working locally.</p>
+<p>Check out this quick, 2-minute video to see how easy it is to develop on a virtual machine over SSH.</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/rh1Ag41J6IA" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen title="Visual Studio Code Remote - SSH"></iframe>
+<p>For more information, please see the <a href="https://aka.ms/vscode-remote/ssh" class="external-link" target="_blank">Developing using SSH</a> documentation.</p>
+<hr>
+<p>The <a href="https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers" class="external-link" target="_blank">Dev Containers</a> extension lets you use a <a href="https://docker.com/" class="external-link" target="_blank">Docker container</a> as your <a href="https://aka.ms/vscode-remote/containers/folder-setup" class="external-link" target="_blank">development container</a>. Containers make great development environments because:</p>
+<ul>
+<li>You can develop with a consistent and easily reproducible tool chain, on the same operating system you are deploying to.</li>
+<li>Containers are isolated, meaning you can quickly swap between different development environments without impacting your local machine.</li>
+<li>It easy for others to contribute to your project as they can easily develop, build, and test in a consistent development environment.</li>
+</ul>
+<p>A <code>devcontainer.json</code> file can be used to tell VS Code how to configure the development container, including the <code>Dockerfile</code> to use, ports to open, and extensions to install in the container. When VS Code finds a <code>devcontainer.json</code> in the workspace, it automatically builds (if necessary) the image, starts the container, and connects to it. Your files are mounted into the container so you can open files and start editing with full IntelliSense (completions), code navigation, debugging, and more.</p>
+<p>Check out this quick, 2-minute video to see Development Containers in action.</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/TVcoGLL6Smo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen title="Visual Studio Code Dev Containers"></iframe>
+<p>For more information on development containers, please see the <a href="https://aka.ms/vscode-remote/containers" class="external-link" target="_blank">Developing inside a Container</a> documentation as well as the <a href="https://github.com/search?q=org%3AMicrosoft+vscode-remote-try-&amp;unscoped_q=vscode-remote-try-" class="external-link" target="_blank">vscode-remote-try-* repositories</a> that contain samples you can use today.</p>
+<h2 id="_managing-extensions" data-needslink="_managing-extensions">Managing Extensions</h2>
+<p>When developing remotely, VS Code will attempt to infer where to install an extension, locally or remotely, based on the functionality it exposes. Extensions fall into one of two categories:</p>
+<ul>
+<li>
+<p>UI Extensions are installed locally. These extensions only customize the UI and do not access files in a workspace, which means they can run entirely on the local machine. Since they are installed locally, they are always available to you independent of the workspace you are working in. Examples of UI extensions are themes, snippets, language grammars, and keymaps.</p>
+</li>
+<li>
+<p>Workspace Extensions are installed remotely. They access files and folders in a workspace for editing, to provide IntelliSense (completions), GoTo Definition, debugging, and more. These extensions may customize the UI. These extensions run remotely so that they have full access to the file system and tools on the remote host.</p>
+</li>
+</ul>
+<p><img src="../../../../assets/blogs/2019/05/02/remote-local-extensions.png" alt="Remote and local extensions" loading="lazy"></p>
+<p>Most extensions have been updated and work properly in a remote environment, but if you encounter some that do not, please do submit an issue on the extension.</p>
+<h3 id="_extension-authors" data-needslink="_extension-authors">Extension Authors</h3>
+<p>If you are creating VS Code extensions, we've implemented new extension APIs that are remote aware. For example, instead of using the <code>open</code> package to load a browser window, an extension author should use the <code>vscode.env.openExternal</code> API, which will open the browser locally. Similarly, there is a new <code>clipboard</code> class, which will place contents on the local clipboard, as expected.</p>
+<p>Many more details can be found in the updated <a href="https://aka.ms/vscode-remote/developing-extensions" class="external-link" target="_blank">API Documentation</a>, including how to run, test, and debug your extension in a remote environment.</p>
+<h2 id="_get-started" data-needslink="_get-started">Get Started</h2>
+<p>Thanks for reading this far!</p>
+<p>Here are 3 quick steps to get started doing Visual Studio Code Remote Development:</p>
+<ol>
+<li>
+<p>Install the <a href="../../../../insiders/index.html">Insiders</a> build. You'll need this for remote development until it is available in Stable. The Insiders build ships daily with the latest features and bug fixes. If you are concerned about stability, don't be! We use the Insiders builds to develop VS Code and it can be installed side by side with Stable in case something does break (<a href="https://github.com/microsoft/vscode/issues/new" class="external-link" target="_blank">and let us know</a>).</p>
+</li>
+<li>
+<p>Get the <a href="https://aka.ms/VSCodeRemoteExtensionPack" class="external-link" target="_blank">Remote Development Extension Pack</a>, which installs support for WSL, SSH, and Containers and is the easiest way to get started. If you don't need them all, you can uninstall the individual extensions.</p>
+</li>
+<li>
+<p>Read the <a href="https://aka.ms/vscode-remote" class="external-link" target="_blank">Docs</a>. Try the <a href="https://github.com/search?q=org%3AMicrosoft+vscode-remote-try-&amp;unscoped_q=vscode-remote-try-" class="external-link" target="_blank">Dev Container samples</a>. If you develop with Python (many of you do!), check out Dan Taylor's <a href="https://devblogs.microsoft.com/python/remote-python-development-in-visual-studio-code?utm_campaign_id=vscblog" class="external-link" target="_blank">blog post on remote Python development</a>.</p>
+</li>
+</ol>
+<p>Last, if you run into problems, please <a href="https://github.com/microsoft/vscode-remote-release/issues" class="external-link" target="_blank">submit an issue</a>. For answers to common questions, see our <a href="../../../../docs/remote/faq.html">FAQ</a>.</p>
+<p>Let us know what you think!</p>
+<p>Happy Coding,</p>
+<p>The <a href="https://twitter.com/code" class="external-link" target="_blank">@code</a> team</p>
+
+        </div>
+        <div class="col-sm-3 col-md-2 docs-subnavbar-container">
+            <nav id="docs-subnavbar" aria-label="On Page" data-spy="affix" data-offset-top="20">
+                
+                <h4><span class="sr-only">In this blog post, there are 7
+                        sections</span><span aria-hidden="true">In this blog post</span></h4>
+                
+                <ul class="nav">
+                    
+                    <li><a href="#_tldr">TL;DR</a></li>
+                    
+                    <li><a href="#_development-trends">Development Trends</a></li>
+                    
+                    <li><a href="#_challenges-with-current-solutions">Challenges with Current Solutions</a></li>
+                    
+                    <li><a href="#_a-different-approach">A Different Approach</a></li>
+                    
+                    <li><a href="#_introducing-the-vs-code-remote-extensions">Introducing the VS Code Remote Extensions</a></li>
+                    
+                    <li><a href="#_managing-extensions">Managing Extensions</a></li>
+                    
+                    <li><a href="#_get-started">Get Started</a></li>
+                    
+                </ul>
+                <div class="connect-widget"></div>
+            </nav>
+        </div>
+    </div>
+</div>
+      </div>
+  </div>
+
+  <footer role="contentinfo">
+      <div class="container">
+          <div class="row">
+              <div class="left col-md-7">
+                  <ul class="links">
+                      <li>
+                          <span class="message">Hello from Seattle.</span>
+                      </li>
+                      <li>
+                          <a href="https://go.microsoft.com/fwlink/?LinkID=533687" onclick="followOnTwitter()" tabindex="0">Follow @code</a>
+                      </li>
+                      <li>
+                          <div class="github-star-button">
+                              <iframe src="../../../../assets/github-button29be.html?user=Microsoft&amp;repo=vscode&amp;type=star&amp;count=true"
+                                  frameborder="0" scrolling="0" width="130px" height="20px" title="GitHub follow button" loading="lazy"></iframe>
+                          </div>
+                      </li>
+  
+                      <script>
+                          function followOnTwitter() {
+                              var windowFeatures = "location=yes,height=600,width=550,scrollbars=yes,status=yes";
+                              var originalReferer = "&original_referer=" + document.URL;
+                              var screenName = "&screen_name=code";
+                              var URL = "https://twitter.com/intent/follow?" + originalReferer + screenName;
+                              window.open(URL, "_blank", windowFeatures);
+                          }
+  
+                          function manageConsent() {
+                              if(WcpConsent.siteConsent.isConsentRequired){
+                                  WcpConsent.siteConsent.manageConsent();
+                              }
+                          }
+                      </script>
+                  </ul>
+              </div>
+              <div class="right col-md-5">
+                  <ul class="links">
+                      <li><a id="footer-support-link" href="https://support.serviceshub.microsoft.com/supportforbusiness/create?sapId=d66407ed-3967-b000-4cfb-2c318cad363d"
+                              target="_blank">Support</a></li>
+                      <li><a id="footer-privacy-link" href="https://privacy.microsoft.com/privacystatement"
+                              target="_blank">Privacy</a></li>
+                      <li style="display: none;"><a id="footer-cookie-link" style="cursor: pointer;" onclick="manageConsent()"
+                              target="_blank">Manage Cookies</a></li>
+                      <li><a id="footer-terms-link" href="https://www.microsoft.com/legal/terms-of-use"
+                              target="_blank">Terms of Use</a></li>
+                      <li><a id="footer-license-link" href="../../../../License.html">License</a></li>
+                  </ul>
+                  <div class="copyright">
+                      <a id="footer-microsoft-link" class="logo" href="https://www.microsoft.com/">
+                          <img class="microsoft-logo" src="../../../../assets/images/microsoft-logo.png" height="20" alt="Microsoft homepage"/>
+                          <img class="microsoft-logo-inverted" src="../../../../assets/images/microsoft-logo-inverted.png" height="20" alt="Microsoft homepage" />
+                      </a>
+                      <span>&copy; 2023 Microsoft</span>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </footer>
+  <script src="../../../../dist/index.js"></script>
+
+  
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "SoftwareApplication",
+      "name" : "Visual Studio Code",
+      "softwareVersion": "1.74",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "applicationCategory": "DeveloperApplication",
+      "applicationSubCategory": "Text Editor",
+      "alternateName": "VS Code",
+      "datePublished": "2021-11-03",
+      "operatingSystem": "Mac, Linux, Windows",
+      "logo": "https://code.visualstudio.com/assets/apple-touch-icon.png",
+      "screenshot": "https://code.visualstudio.com/assets/home/home-screenshot-win.png",
+      "releaseNotes": "https://code.visualstudio.com/updates",
+      "downloadUrl": "https://code.visualstudio.com/download",
+      "license": "https://code.visualstudio.com/license",
+      "softwareRequirements": "https://code.visualstudio.com/docs/supporting/requirements",
+      "url" : "https://code.visualstudio.com",
+      "author": {
+        "@type": "Organization",
+        "name": "Microsoft"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Microsoft"
+      },
+      "maintainer": {
+        "@type": "Organization",
+        "name": "Microsoft"
+      },
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://code.visualstudio.com/Search?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      },
+      "sameAs" : [
+        "https://en.wikipedia.org/wiki/Visual_Studio_Code",
+        "https://twitter.com/code",
+        "https://www.youtube.com/code",
+        "https://www.tiktok.com/@vscode",
+        "https://github.com/microsoft/vscode"
+      ]
+    }
+  </script>
+</body>
+
+<!-- Mirrored from code.visualstudio.com/blogs/2019/05/02/remote-development by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 04 Jan 2023 12:15:16 GMT -->
+</html>

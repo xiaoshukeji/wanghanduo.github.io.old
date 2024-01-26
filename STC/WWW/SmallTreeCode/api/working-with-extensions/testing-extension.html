@@ -1,0 +1,1053 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Mirrored from code.visualstudio.com/api/working-with-extensions/testing-extension by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 04 Jan 2023 11:27:45 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="google-site-verification" content="hNs7DXrTySP_X-0P_AC0WulAXvUwgSXEmgfcO2r79dw" />
+
+  <!-- Twitter and Facebook OpenGraph Metadata-->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@code" />
+
+  <meta name="keywords" content="vscode API" />
+
+<meta name="description" content="Write tests for your Visual Studio Code extension (plug-in)." />
+
+<meta name="ms.prod" content="vs-code" />
+<meta name="ms.TOCTitle" content="Testing Extensions" />
+<meta name="ms.ContentId" content="2447F8EB-15F1-4279-B621-126C7B8EBF4B" />
+<meta name="ms.topic" content="conceptual" />
+<meta name="ms.date" content="12/7/2022" />
+<!-- Twitter and Facebook OpenGraph Metadata-->
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="og:url" content="testing-extension.html" />
+
+<meta property="og:description" content="Write tests for your Visual Studio Code extension (plug-in)." />
+
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Testing Extensions" />
+<meta property="og:image" content="../../opengraphimg/opengraph-docs.png" />
+
+
+  <link rel="shortcut icon" href="../../favicon.ico" sizes="128x128" />
+  <link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+
+  <title>Testing Extensions | Visual Studio Code Extension
+API</title>
+
+  <link rel="stylesheet" href="../../vendor/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../../dist/style.css">
+
+  <script type="text/javascript" src="../../../js.monitor.azure.com/scripts/c/ms.analytics-web-3.min.js"></script>
+  <script>
+  window.appInsights = new oneDS.ApplicationInsights();
+  window.appInsights.initialize({
+    instrumentationKey: "1a3eb3104447440391ad5f2a6ee06a0a-62879566-bc58-4741-9650-302bf2af703f-7103",
+    webAnalyticsConfiguration:{ // Web Analytics Plugin configuration
+        urlCollectQuery:true, 
+        autoCapture: {
+          scroll: true,
+          pageView: true,
+          onLoad: true,
+          onUnload: true,
+          click: true,
+          resize: true,
+          jsError: true
+        }
+    }
+  }, []);
+  </script>
+  
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','../../../www.google-analytics.com/analytics.js','ga');
+  </script>  
+  <link rel="alternate" type="application/atom+xml" title="RSS Feed for code.visualstudio.com" href="../../feed.xml" />
+</head>
+
+<body>
+  <!-- EU Cookie Compliance JS -->
+  <script src="../../../wcpstatic.microsoft.com/mscc/lib/v2/wcp-consent.js"></script>
+
+  <div id="main">
+          <div class="navbar-fixed-container">
+              <div class="navbar navbar-inverse navbar-fixed-top ">
+                  <div id='cookie-banner'></div>        <nav role="navigation" aria-label="Top Level">
+                      <div class="container">
+                          <div class="nav navbar-header">
+                              <a role="button" id="skip-to-content" class="link-button" href="#main-content">Skip to content<i>&nbsp;</i><span class="glyphicon glyphicon-menu-down"></span></a>
+                              <a class="navbar-brand" id="navbar-brand" href="../../index.html">Visual Studio Code</a>
+                              <button type="button" class="navbar-toggle" role="navigation" data-toggle="collapse" data-target=".navbar-collapse" aria-label="Toggle Navigation Menu">
+                                  <span class="icon-bar"></span>
+                                  <span class="icon-bar"></span>
+                                  <span class="icon-bar"></span>
+                              </button>
+                          </div>
+                          <div class="navbar-collapse collapse" role="navigation">
+                              <ul class="nav navbar-nav navbar-left">
+                                  <li ><a id="nav-docs" href="../../docs.html">Docs</a></li>
+                                  <li ><a id="nav-updates" href="../../updates/v1_74.html">Updates</a></li>
+                                  <li ><a id="nav-blogs" href="../../blogs.html">Blog</a></li>
+                                  <li class="active" ><a id="nav-extend" href="../../api.html">API</a></li>
+                                  <li><a href="https://marketplace.visualstudio.com/VSCode" target="_blank" id="nav-extensions">Extensions</a></li>
+                                  <li ><a id="nav-faqs" href="../../docs/supporting/faq.html">FAQ</a></li>
+                                  <li ><a id="nav-learn" href="../../learn.html">Learn</a></li>
+                                  <li class='search visible-xs visible-sm'
+                                      ><a href="../../Search.html">Search</a></li>
+                              </ul>
+          
+                              <ul class="nav navbar-nav navbar-right" role="presentation">
+                                  <!-- Floating search icon -->
+                                  <li>
+                                      <a href="../../Search.html" title="Search" class="btn search-btn" id="nav-search">
+                                          <img class="search-icon" src="../../assets/icons/search.svg" width="16px" height="16px" alt="Search"/>
+                                          <img class="search-icon-inverted" src="../../assets/icons/search_dark.svg" width="16px" height="16px" alt="Search" />
+                                      </a>
+                                  </li>
+                                  <!-- Actual search icon -->
+                                  <li class="search" role="presentation">
+                                      <form class="nav-search search-form" role="search" aria-label="Search">
+                                          <div class="input-group" role="presentation">
+                                              <input type="text" name="q" class="search-box form-control" placeholder="Search Docs" aria-label="Search text"/>
+                                              <span class="input-group-btn">
+                                                  <button tabindex="0" class="btn" type="submit" aria-label="Search">
+                                                          <img class="search-icon" src="../../assets/icons/search.svg" width="16px" height="16px" alt="Search" />
+                                                          <img class="search-icon-inverted" src="../../assets/icons/search_dark.svg" width="16px" height="16px" alt="Search" />
+                                                  </button>
+                                              </span>
+                                          </div>
+                                      </form>                        </li>
+                                  <!-- this was hiden in the home and download page, keeping it for now -->
+                                  <li><a class="link-button" href="../../Download.html" id="nav-download">
+                                      <img class="download-icon" src="../../assets/icons/download.svg" width="16px" height="16px" alt="Download VS Code"/>
+                                      <img class="download-icon-inverted" src="../../assets/icons/download-black.svg" width="16px" height="16px" alt="Download VS Code" />
+                                      <span>Download</span>
+                                  </a></li>
+                              </ul>
+                          </div>
+                      </div>
+                  </nav>
+              </div>
+          </div>          <div class="updates-banner  ">
+              <div class="container">
+                  <p class="message"><a href="../../updates/v1_74.html" id="banner-link-updates">Version 1.74</a> is now available! Read about the new features and fixes from November.</p> 
+              </div>
+              <div tabindex="0" role="button" title="Dismiss this update" class="dismiss-btn" id="banner-dismiss-btn"><span class="sr-only">Dismiss this update</span><span aria-hidden="true" class="glyph-icon"></span></div>
+          </div>      <div role="main" id="main-content">
+        <div class="container body-content docs">
+	<div class="row">
+		<div class="col-md-2 docs-navbar-container">
+			<nav id="docs-navbar" class="docs-nav visible-md visible-lg">
+			  <ul class="nav" id="main-nav">
+			  <li >
+			    <a class="docs-home" href="../../api.html" >Overview</a>
+			  </li>
+			  
+			<li class="panel collapsed">
+			  <a class="area" role="button" href="#get-started-articles" data-parent="#main-nav" data-toggle="collapse">Get Started</a>
+			  <ul id="get-started-articles" class="collapse ">
+			
+			    <li >
+			      <a href="../get-started/your-first-extension.html" >Your First Extension</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../get-started/extension-anatomy.html" >Extension Anatomy</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../get-started/wrapping-up.html" >Wrapping Up</a>
+			    </li>
+			      
+			  </ul>
+			</li>
+			    
+			<li class="panel collapsed">
+			  <a class="area" role="button" href="#extension-capabilities-articles" data-parent="#main-nav" data-toggle="collapse">Extension Capabilities</a>
+			  <ul id="extension-capabilities-articles" class="collapse ">
+			
+			    <li >
+			      <a href="../extension-capabilities/overview.html" >Overview</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../extension-capabilities/common-capabilities.html" >Common Capabilities</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../extension-capabilities/theming.html" >Theming</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../extension-capabilities/extending-workbench.html" >Extending Workbench</a>
+			    </li>
+			      
+			  </ul>
+			</li>
+			    
+			<li class="panel collapsed">
+			  <a class="area" role="button" href="#extension-guides-articles" data-parent="#main-nav" data-toggle="collapse">Extension Guides</a>
+			  <ul id="extension-guides-articles" class="collapse ">
+			
+			    <li >
+			      <a href="../extension-guides/overview.html" >Overview</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../extension-guides/command.html" >Command</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../extension-guides/color-theme.html" >Color Theme</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../extension-guides/file-icon-theme.html" >File Icon Theme</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../extension-guides/product-icon-theme.html" >Product Icon Theme</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../extension-guides/tree-view.html" >Tree View</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../extension-guides/webview.html" >Webview</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../extension-guides/notebook.html" >Notebook</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../extension-guides/custom-editors.html" >Custom Editors</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../extension-guides/virtual-documents.html" >Virtual Documents</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../extension-guides/virtual-workspaces.html" >Virtual Workspaces</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../extension-guides/web-extensions.html" >Web Extensions</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../extension-guides/workspace-trust.html" >Workspace Trust</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../extension-guides/task-provider.html" >Task Provider</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../extension-guides/scm-provider.html" >Source Control</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../extension-guides/debugger-extension.html" >Debugger Extension</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../extension-guides/markdown-extension.html" >Markdown Extension</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../extension-guides/testing.html" >Test Extension</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../extension-guides/custom-data-extension.html" >Custom Data Extension</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../extension-guides/telemetry.html" >Telemetry</a>
+			    </li>
+			      
+			  </ul>
+			</li>
+			    
+			<li class="panel collapsed">
+			  <a class="area" role="button" href="#ux-guidelines-articles" data-parent="#main-nav" data-toggle="collapse">UX Guidelines</a>
+			  <ul id="ux-guidelines-articles" class="collapse ">
+			
+			    <li >
+			      <a href="../ux-guidelines/overview.html" >Overview</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../ux-guidelines/activity-bar.html" >Activity Bar</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../ux-guidelines/sidebars.html" >Sidebars</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../ux-guidelines/panel.html" >Panel</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../ux-guidelines/status-bar.html" >Status Bar</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../ux-guidelines/views.html" >Views</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../ux-guidelines/editor-actions.html" >Editor Actions</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../ux-guidelines/quick-picks.html" >Quick Picks</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../ux-guidelines/command-palette.html" >Command Palette</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../ux-guidelines/notifications.html" >Notifications</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../ux-guidelines/webviews.html" >Webviews</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../ux-guidelines/context-menus.html" >Context Menus</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../ux-guidelines/walkthroughs.html" >Walkthroughs</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../ux-guidelines/settings.html" >Settings</a>
+			    </li>
+			      
+			  </ul>
+			</li>
+			    
+			<li class="panel collapsed">
+			  <a class="area" role="button" href="#language-extensions-articles" data-parent="#main-nav" data-toggle="collapse">Language Extensions</a>
+			  <ul id="language-extensions-articles" class="collapse ">
+			
+			    <li >
+			      <a href="../language-extensions/overview.html" >Overview</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../language-extensions/syntax-highlight-guide.html" >Syntax Highlight Guide</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../language-extensions/semantic-highlight-guide.html" >Semantic Highlight Guide</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../language-extensions/snippet-guide.html" >Snippet Guide</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../language-extensions/language-configuration-guide.html" >Language Configuration Guide</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../language-extensions/programmatic-language-features.html" >Programmatic Language Features</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../language-extensions/language-server-extension-guide.html" >Language Server Extension Guide</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../language-extensions/embedded-languages.html" >Embedded Languages</a>
+			    </li>
+			      
+			  </ul>
+			</li>
+			    
+			<li class="panel active expanded">
+			  <a class="area" role="button" href="#working-with-extensions-articles" data-parent="#main-nav" data-toggle="collapse">Testing and Publishing</a>
+			  <ul id="working-with-extensions-articles" class="collapse in">
+			
+			    <li class="active">
+			      <a href="testing-extension.html" aria-label="Current Page: Testing Extensions">Testing Extensions</a>
+			    </li>
+			      
+			    <li >
+			      <a href="publishing-extension.html" >Publishing Extensions</a>
+			    </li>
+			      
+			    <li >
+			      <a href="bundling-extension.html" >Bundling Extensions</a>
+			    </li>
+			      
+			    <li >
+			      <a href="continuous-integration.html" >Continuous Integration</a>
+			    </li>
+			      
+			  </ul>
+			</li>
+			    
+			<li class="panel collapsed">
+			  <a class="area" role="button" href="#advanced-topics-articles" data-parent="#main-nav" data-toggle="collapse">Advanced Topics</a>
+			  <ul id="advanced-topics-articles" class="collapse ">
+			
+			    <li >
+			      <a href="../advanced-topics/extension-host.html" >Extension Host</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../advanced-topics/remote-extensions.html" >Remote Development and Codespaces</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../advanced-topics/using-proposed-api.html" >Using Proposed API</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../advanced-topics/tslint-eslint-migration.html" >Migrate from TSLint to ESLint</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../advanced-topics/python-extension-template.html" >Python Extension Template</a>
+			    </li>
+			      
+			  </ul>
+			</li>
+			    
+			<li class="panel collapsed">
+			  <a class="area" role="button" href="#references-articles" data-parent="#main-nav" data-toggle="collapse">References</a>
+			  <ul id="references-articles" class="collapse ">
+			
+			    <li >
+			      <a href="../references/vscode-api.html" >VS Code API </a>
+			    </li>
+			      
+			    <li >
+			      <a href="../references/contribution-points.html" >Contribution Points</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../references/activation-events.html" >Activation Events</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../references/extension-manifest.html" >Extension Manifest</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../references/commands.html" >Built-in Commands</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../references/when-clause-contexts.html" >When clause contexts</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../references/theme-color.html" >Theme Color</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../references/icons-in-labels.html" >Product Icon Reference</a>
+			    </li>
+			      
+			    <li >
+			      <a href="../references/document-selector.html" >Document Selector</a>
+			    </li>
+			      
+			  </ul>
+			</li>
+			    
+			  </ul>
+			</nav>
+			
+			<nav id="small-nav" aria-label="Topics" class="docs-nav hidden-md hidden-lg">
+				<h4>Topics</h4>
+				<select id="small-nav-dropdown" aria-label="topics">
+			    <option value="/api" >Overview</option>
+			
+			  <optgroup label="Get Started">
+			
+			    <option value="/api/get-started/your-first-extension" >Your First Extension</option>
+			    
+			    <option value="/api/get-started/extension-anatomy" >Extension Anatomy</option>
+			    
+			    <option value="/api/get-started/wrapping-up" >Wrapping Up</option>
+			    
+			  </optgroup>
+			  
+			  <optgroup label="Extension Capabilities">
+			
+			    <option value="/api/extension-capabilities/overview" >Overview</option>
+			    
+			    <option value="/api/extension-capabilities/common-capabilities" >Common Capabilities</option>
+			    
+			    <option value="/api/extension-capabilities/theming" >Theming</option>
+			    
+			    <option value="/api/extension-capabilities/extending-workbench" >Extending Workbench</option>
+			    
+			  </optgroup>
+			  
+			  <optgroup label="Extension Guides">
+			
+			    <option value="/api/extension-guides/overview" >Overview</option>
+			    
+			    <option value="/api/extension-guides/command" >Command</option>
+			    
+			    <option value="/api/extension-guides/color-theme" >Color Theme</option>
+			    
+			    <option value="/api/extension-guides/file-icon-theme" >File Icon Theme</option>
+			    
+			    <option value="/api/extension-guides/product-icon-theme" >Product Icon Theme</option>
+			    
+			    <option value="/api/extension-guides/tree-view" >Tree View</option>
+			    
+			    <option value="/api/extension-guides/webview" >Webview</option>
+			    
+			    <option value="/api/extension-guides/notebook" >Notebook</option>
+			    
+			    <option value="/api/extension-guides/custom-editors" >Custom Editors</option>
+			    
+			    <option value="/api/extension-guides/virtual-documents" >Virtual Documents</option>
+			    
+			    <option value="/api/extension-guides/virtual-workspaces" >Virtual Workspaces</option>
+			    
+			    <option value="/api/extension-guides/web-extensions" >Web Extensions</option>
+			    
+			    <option value="/api/extension-guides/workspace-trust" >Workspace Trust</option>
+			    
+			    <option value="/api/extension-guides/task-provider" >Task Provider</option>
+			    
+			    <option value="/api/extension-guides/scm-provider" >Source Control</option>
+			    
+			    <option value="/api/extension-guides/debugger-extension" >Debugger Extension</option>
+			    
+			    <option value="/api/extension-guides/markdown-extension" >Markdown Extension</option>
+			    
+			    <option value="/api/extension-guides/testing" >Test Extension</option>
+			    
+			    <option value="/api/extension-guides/custom-data-extension" >Custom Data Extension</option>
+			    
+			    <option value="/api/extension-guides/telemetry" >Telemetry</option>
+			    
+			  </optgroup>
+			  
+			  <optgroup label="UX Guidelines">
+			
+			    <option value="/api/ux-guidelines/overview" >Overview</option>
+			    
+			    <option value="/api/ux-guidelines/activity-bar" >Activity Bar</option>
+			    
+			    <option value="/api/ux-guidelines/sidebars" >Sidebars</option>
+			    
+			    <option value="/api/ux-guidelines/panel" >Panel</option>
+			    
+			    <option value="/api/ux-guidelines/status-bar" >Status Bar</option>
+			    
+			    <option value="/api/ux-guidelines/views" >Views</option>
+			    
+			    <option value="/api/ux-guidelines/editor-actions" >Editor Actions</option>
+			    
+			    <option value="/api/ux-guidelines/quick-picks" >Quick Picks</option>
+			    
+			    <option value="/api/ux-guidelines/command-palette" >Command Palette</option>
+			    
+			    <option value="/api/ux-guidelines/notifications" >Notifications</option>
+			    
+			    <option value="/api/ux-guidelines/webviews" >Webviews</option>
+			    
+			    <option value="/api/ux-guidelines/context-menus" >Context Menus</option>
+			    
+			    <option value="/api/ux-guidelines/walkthroughs" >Walkthroughs</option>
+			    
+			    <option value="/api/ux-guidelines/settings" >Settings</option>
+			    
+			  </optgroup>
+			  
+			  <optgroup label="Language Extensions">
+			
+			    <option value="/api/language-extensions/overview" >Overview</option>
+			    
+			    <option value="/api/language-extensions/syntax-highlight-guide" >Syntax Highlight Guide</option>
+			    
+			    <option value="/api/language-extensions/semantic-highlight-guide" >Semantic Highlight Guide</option>
+			    
+			    <option value="/api/language-extensions/snippet-guide" >Snippet Guide</option>
+			    
+			    <option value="/api/language-extensions/language-configuration-guide" >Language Configuration Guide</option>
+			    
+			    <option value="/api/language-extensions/programmatic-language-features" >Programmatic Language Features</option>
+			    
+			    <option value="/api/language-extensions/language-server-extension-guide" >Language Server Extension Guide</option>
+			    
+			    <option value="/api/language-extensions/embedded-languages" >Embedded Languages</option>
+			    
+			  </optgroup>
+			  
+			  <optgroup label="Testing and Publishing">
+			
+			    <option value="/api/working-with-extensions/testing-extension" selected>Testing Extensions</option>
+			    
+			    <option value="/api/working-with-extensions/publishing-extension" >Publishing Extensions</option>
+			    
+			    <option value="/api/working-with-extensions/bundling-extension" >Bundling Extensions</option>
+			    
+			    <option value="/api/working-with-extensions/continuous-integration" >Continuous Integration</option>
+			    
+			  </optgroup>
+			  
+			  <optgroup label="Advanced Topics">
+			
+			    <option value="/api/advanced-topics/extension-host" >Extension Host</option>
+			    
+			    <option value="/api/advanced-topics/remote-extensions" >Remote Development and Codespaces</option>
+			    
+			    <option value="/api/advanced-topics/using-proposed-api" >Using Proposed API</option>
+			    
+			    <option value="/api/advanced-topics/tslint-eslint-migration" >Migrate from TSLint to ESLint</option>
+			    
+			    <option value="/api/advanced-topics/python-extension-template" >Python Extension Template</option>
+			    
+			  </optgroup>
+			  
+			  <optgroup label="References">
+			
+			    <option value="/api/references/vscode-api" >VS Code API </option>
+			    
+			    <option value="/api/references/contribution-points" >Contribution Points</option>
+			    
+			    <option value="/api/references/activation-events" >Activation Events</option>
+			    
+			    <option value="/api/references/extension-manifest" >Extension Manifest</option>
+			    
+			    <option value="/api/references/commands" >Built-in Commands</option>
+			    
+			    <option value="/api/references/when-clause-contexts" >When clause contexts</option>
+			    
+			    <option value="/api/references/theme-color" >Theme Color</option>
+			    
+			    <option value="/api/references/icons-in-labels" >Product Icon Reference</option>
+			    
+			    <option value="/api/references/document-selector" >Document Selector</option>
+			    
+			  </optgroup>
+			  
+				</select>
+			</nav>		</div>
+		<div class="col-sm-9 col-md-8 body">
+			<div class="edit-github pull-right">
+				<a href="https://vscode.dev/github/microsoft/vscode-docs/blob/main/api/working-with-extensions/testing-extension.md"
+					class="btn btn-default" title="Edit this document in vscode.dev">
+					<span class="glyphicon glyphicon-pencil"></span>
+					<span class="hidden-xs">Edit</span>
+				</a>
+			</div>
+			<h1>Testing Extensions</h1>
+<p>Visual Studio Code supports running and debugging tests for your extension. These tests will run inside a special instance of VS Code named the <strong>Extension Development Host</strong>, and have full access to the VS Code API. We refer to these tests as integration tests, because they go beyond unit tests that can run without a VS Code instance. This documentation focuses on VS Code integration tests.</p>
+<h2 id="overview" data-needslink="overview">Overview</h2>
+<p><em>If you are migrating from <code>vscode</code>, see <a href="#migrating-from-vscode">migrating from <code>vscode</code></a></em>.</p>
+<p>If you are using the <a href="../get-started/your-first-extension.html">Yeoman Generator</a> to scaffold an extension, integration tests are already created for you.</p>
+<p>In the generated extension, you can use <code>npm run test</code> or <code>yarn test</code> to run the integration tests that:</p>
+<ul>
+<li>Downloads and unzips latest version of VS Code.</li>
+<li>Runs the <a href="https://mochajs.org/" class="external-link" target="_blank">Mocha</a> tests specified by the extension test runner script.</li>
+</ul>
+<p>Alternatively, you can find the configuration for this guide in the <a href="https://github.com/microsoft/vscode-extension-samples/tree/main/helloworld-test-sample" class="external-link" target="_blank">helloworld-test-sample</a>. The rest of this document explains these files in the context of the sample:</p>
+<ul>
+<li>The <strong>test script</strong> (<a href="https://github.com/microsoft/vscode-extension-samples/blob/main/helloworld-test-sample/src/test/runTest.ts" class="external-link" target="_blank"><code>src/test/runTest.ts</code></a>)</li>
+<li>The <strong>test runner script</strong> (<a href="https://github.com/microsoft/vscode-extension-samples/blob/main/helloworld-test-sample/src/test/suite/index.ts" class="external-link" target="_blank"><code>src/test/suite/index.ts</code></a>)</li>
+</ul>
+<h2 id="the-test-script" data-needslink="the-test-script">The test script</h2>
+<p>VS Code provides two CLI parameters for running extension tests, <code>--extensionDevelopmentPath</code> and <code>--extensionTestsPath</code>.</p>
+<p>For example:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #008000"># - Launches VS Code Extension Host</span></span>
+<span class="line"><span style="color: #008000"># - Loads the extension at &lt;EXTENSION-ROOT-PATH&gt;</span></span>
+<span class="line"><span style="color: #008000"># - Executes the test runner script at &lt;TEST-RUNNER-SCRIPT-PATH&gt;</span></span>
+<span class="line"><span style="color: #000000">code \</span></span>
+<span class="line"><span style="color: #000000">--extensionDevelopmentPath=&lt;EXTENSION-ROOT-PATH&gt; \</span></span>
+<span class="line"><span style="color: #000000">--extensionTestsPath=&lt;TEST-RUNNER-SCRIPT-PATH&gt;</span></span>
+<span class="line"></span></code></pre>
+<p>The <strong>test script</strong> (<a href="https://github.com/microsoft/vscode-extension-samples/blob/main/helloworld-test-sample/src/test/runTest.ts" class="external-link" target="_blank"><code>src/test/runTest.ts</code></a>) uses the <code>@vscode/test-electron</code> API to simplify the process of downloading, unzipping, and launching VS Code with extension test parameters:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #AF00DB">import</span><span style="color: #000000"> </span><span style="color: #0000FF">*</span><span style="color: #000000"> </span><span style="color: #AF00DB">as</span><span style="color: #000000"> </span><span style="color: #001080">path</span><span style="color: #000000"> </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#39;path&#39;</span><span style="color: #000000">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #AF00DB">import</span><span style="color: #000000"> { </span><span style="color: #001080">runTests</span><span style="color: #000000"> } </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#39;@vscode/test-electron&#39;</span><span style="color: #000000">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #0000FF">async</span><span style="color: #000000"> </span><span style="color: #0000FF">function</span><span style="color: #000000"> </span><span style="color: #795E26">main</span><span style="color: #000000">() {</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #AF00DB">try</span><span style="color: #000000"> {</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #008000">// The folder containing the Extension Manifest package.json</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #008000">// Passed to `--extensionDevelopmentPath`</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">extensionDevelopmentPath</span><span style="color: #000000"> = </span><span style="color: #001080">path</span><span style="color: #000000">.</span><span style="color: #795E26">resolve</span><span style="color: #000000">(</span><span style="color: #001080">__dirname</span><span style="color: #000000">, </span><span style="color: #A31515">&#39;../../&#39;</span><span style="color: #000000">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #008000">// The path to the extension test runner script</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #008000">// Passed to --extensionTestsPath</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">extensionTestsPath</span><span style="color: #000000"> = </span><span style="color: #001080">path</span><span style="color: #000000">.</span><span style="color: #795E26">resolve</span><span style="color: #000000">(</span><span style="color: #001080">__dirname</span><span style="color: #000000">, </span><span style="color: #A31515">&#39;./suite/index&#39;</span><span style="color: #000000">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #008000">// Download VS Code, unzip it and run the integration test</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #795E26">runTests</span><span style="color: #000000">({ </span><span style="color: #001080">extensionDevelopmentPath</span><span style="color: #000000">, </span><span style="color: #001080">extensionTestsPath</span><span style="color: #000000"> });</span></span>
+<span class="line"><span style="color: #000000">  } </span><span style="color: #AF00DB">catch</span><span style="color: #000000"> (</span><span style="color: #001080">err</span><span style="color: #000000">) {</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">error</span><span style="color: #000000">(</span><span style="color: #001080">err</span><span style="color: #000000">);</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">error</span><span style="color: #000000">(</span><span style="color: #A31515">&#39;Failed to run tests&#39;</span><span style="color: #000000">);</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #001080">process</span><span style="color: #000000">.</span><span style="color: #795E26">exit</span><span style="color: #000000">(</span><span style="color: #098658">1</span><span style="color: #000000">);</span></span>
+<span class="line"><span style="color: #000000">  }</span></span>
+<span class="line"><span style="color: #000000">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #795E26">main</span><span style="color: #000000">();</span></span>
+<span class="line"></span></code></pre>
+<p>The <code>@vscode/test-electron</code> API also allows:</p>
+<ul>
+<li>Launching VS Code with a specific workspace.</li>
+<li>Downloading a different version of VS Code rather than the latest stable release.</li>
+<li>Launching VS Code with additional CLI parameters.</li>
+</ul>
+<p>You can find more API usage examples at <a href="https://github.com/microsoft/vscode-test" class="external-link" target="_blank">microsoft/vscode-test</a>.</p>
+<h2 id="the-test-runner-script" data-needslink="the-test-runner-script">The test runner script</h2>
+<p>When running the extension integration test, <code>--extensionTestsPath</code> points to the <strong>test runner script</strong> (<a href="https://github.com/microsoft/vscode-extension-samples/blob/main/helloworld-test-sample/src/test/suite/index.ts" class="external-link" target="_blank"><code>src/test/suite/index.ts</code></a>) that programmatically runs the test suite. Below is the <a href="https://github.com/microsoft/vscode-extension-samples/blob/main/helloworld-test-sample/src/test/suite/index.ts" class="external-link" target="_blank">test runner script</a> of <code>helloworld-test-sample</code> that uses Mocha to run the test suite. You can use this as a starting point and customize your setup with <a href="https://mochajs.org/api/mocha" class="external-link" target="_blank">Mocha's API</a>. You can also replace Mocha with any other test framework that can be run programmatically.</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #AF00DB">import</span><span style="color: #000000"> </span><span style="color: #0000FF">*</span><span style="color: #000000"> </span><span style="color: #AF00DB">as</span><span style="color: #000000"> </span><span style="color: #001080">path</span><span style="color: #000000"> </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#39;path&#39;</span><span style="color: #000000">;</span></span>
+<span class="line"><span style="color: #AF00DB">import</span><span style="color: #000000"> </span><span style="color: #0000FF">*</span><span style="color: #000000"> </span><span style="color: #AF00DB">as</span><span style="color: #000000"> </span><span style="color: #001080">Mocha</span><span style="color: #000000"> </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#39;mocha&#39;</span><span style="color: #000000">;</span></span>
+<span class="line"><span style="color: #AF00DB">import</span><span style="color: #000000"> </span><span style="color: #0000FF">*</span><span style="color: #000000"> </span><span style="color: #AF00DB">as</span><span style="color: #000000"> </span><span style="color: #001080">glob</span><span style="color: #000000"> </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#39;glob&#39;</span><span style="color: #000000">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #AF00DB">export</span><span style="color: #000000"> </span><span style="color: #0000FF">function</span><span style="color: #000000"> </span><span style="color: #795E26">run</span><span style="color: #000000">(): </span><span style="color: #267F99">Promise</span><span style="color: #000000">&lt;</span><span style="color: #267F99">void</span><span style="color: #000000">&gt; {</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #008000">// Create the mocha test</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">mocha</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #795E26">Mocha</span><span style="color: #000000">({</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #001080">ui:</span><span style="color: #000000"> </span><span style="color: #A31515">&#39;tdd&#39;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #001080">color:</span><span style="color: #000000"> </span><span style="color: #0000FF">true</span></span>
+<span class="line"><span style="color: #000000">  });</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">testsRoot</span><span style="color: #000000"> = </span><span style="color: #001080">path</span><span style="color: #000000">.</span><span style="color: #795E26">resolve</span><span style="color: #000000">(</span><span style="color: #001080">__dirname</span><span style="color: #000000">, </span><span style="color: #A31515">&#39;..&#39;</span><span style="color: #000000">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #AF00DB">return</span><span style="color: #000000"> </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #267F99">Promise</span><span style="color: #000000">((</span><span style="color: #001080">c</span><span style="color: #000000">, </span><span style="color: #001080">e</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #795E26">glob</span><span style="color: #000000">(</span><span style="color: #A31515">&#39;**/**.test.js&#39;</span><span style="color: #000000">, { </span><span style="color: #001080">cwd:</span><span style="color: #000000"> </span><span style="color: #001080">testsRoot</span><span style="color: #000000"> }, (</span><span style="color: #001080">err</span><span style="color: #000000">, </span><span style="color: #001080">files</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #AF00DB">if</span><span style="color: #000000"> (</span><span style="color: #001080">err</span><span style="color: #000000">) {</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #AF00DB">return</span><span style="color: #000000"> </span><span style="color: #795E26">e</span><span style="color: #000000">(</span><span style="color: #001080">err</span><span style="color: #000000">);</span></span>
+<span class="line"><span style="color: #000000">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #008000">// Add files to the test suite</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #001080">files</span><span style="color: #000000">.</span><span style="color: #795E26">forEach</span><span style="color: #000000">(</span><span style="color: #001080">f</span><span style="color: #000000"> </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> </span><span style="color: #001080">mocha</span><span style="color: #000000">.</span><span style="color: #795E26">addFile</span><span style="color: #000000">(</span><span style="color: #001080">path</span><span style="color: #000000">.</span><span style="color: #795E26">resolve</span><span style="color: #000000">(</span><span style="color: #001080">testsRoot</span><span style="color: #000000">, </span><span style="color: #001080">f</span><span style="color: #000000">)));</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #AF00DB">try</span><span style="color: #000000"> {</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #008000">// Run the mocha test</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #001080">mocha</span><span style="color: #000000">.</span><span style="color: #795E26">run</span><span style="color: #000000">(</span><span style="color: #001080">failures</span><span style="color: #000000"> </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span></span>
+<span class="line"><span style="color: #000000">          </span><span style="color: #AF00DB">if</span><span style="color: #000000"> (</span><span style="color: #001080">failures</span><span style="color: #000000"> &gt; </span><span style="color: #098658">0</span><span style="color: #000000">) {</span></span>
+<span class="line"><span style="color: #000000">            </span><span style="color: #795E26">e</span><span style="color: #000000">(</span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #795E26">Error</span><span style="color: #000000">(</span><span style="color: #A31515">`</span><span style="color: #0000FF">${</span><span style="color: #001080">failures</span><span style="color: #0000FF">}</span><span style="color: #A31515"> tests failed.`</span><span style="color: #000000">));</span></span>
+<span class="line"><span style="color: #000000">          } </span><span style="color: #AF00DB">else</span><span style="color: #000000"> {</span></span>
+<span class="line"><span style="color: #000000">            </span><span style="color: #795E26">c</span><span style="color: #000000">();</span></span>
+<span class="line"><span style="color: #000000">          }</span></span>
+<span class="line"><span style="color: #000000">        });</span></span>
+<span class="line"><span style="color: #000000">      } </span><span style="color: #AF00DB">catch</span><span style="color: #000000"> (</span><span style="color: #001080">err</span><span style="color: #000000">) {</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #795E26">e</span><span style="color: #000000">(</span><span style="color: #001080">err</span><span style="color: #000000">);</span></span>
+<span class="line"><span style="color: #000000">      }</span></span>
+<span class="line"><span style="color: #000000">    });</span></span>
+<span class="line"><span style="color: #000000">  });</span></span>
+<span class="line"><span style="color: #000000">}</span></span>
+<span class="line"></span></code></pre>
+<p>Both the test runner script and the <code>*.test.js</code> files have access to the VS Code API.</p>
+<p>Here is a sample test (<a href="https://github.com/microsoft/vscode-extension-samples/blob/main/helloworld-test-sample/src/test/suite/extension.test.ts" class="external-link" target="_blank">src/test/suite/extension.test.ts</a>):</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #AF00DB">import</span><span style="color: #000000"> </span><span style="color: #0000FF">*</span><span style="color: #000000"> </span><span style="color: #AF00DB">as</span><span style="color: #000000"> </span><span style="color: #001080">assert</span><span style="color: #000000"> </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#39;assert&#39;</span><span style="color: #000000">;</span></span>
+<span class="line"><span style="color: #AF00DB">import</span><span style="color: #000000"> { </span><span style="color: #001080">after</span><span style="color: #000000"> } </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#39;mocha&#39;</span><span style="color: #000000">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #008000">// You can import and use all API from the &#39;vscode&#39; module</span></span>
+<span class="line"><span style="color: #008000">// as well as import your extension to test it</span></span>
+<span class="line"><span style="color: #AF00DB">import</span><span style="color: #000000"> </span><span style="color: #0000FF">*</span><span style="color: #000000"> </span><span style="color: #AF00DB">as</span><span style="color: #000000"> </span><span style="color: #001080">vscode</span><span style="color: #000000"> </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#39;vscode&#39;</span><span style="color: #000000">;</span></span>
+<span class="line"><span style="color: #008000">// import * as myExtension from &#39;../extension&#39;;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #795E26">suite</span><span style="color: #000000">(</span><span style="color: #A31515">&#39;Extension Test Suite&#39;</span><span style="color: #000000">, () </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #795E26">after</span><span style="color: #000000">(() </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #001080">vscode</span><span style="color: #000000">.</span><span style="color: #001080">window</span><span style="color: #000000">.</span><span style="color: #795E26">showInformationMessage</span><span style="color: #000000">(</span><span style="color: #A31515">&#39;All tests done!&#39;</span><span style="color: #000000">);</span></span>
+<span class="line"><span style="color: #000000">  });</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #795E26">test</span><span style="color: #000000">(</span><span style="color: #A31515">&#39;Sample test&#39;</span><span style="color: #000000">, () </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #001080">assert</span><span style="color: #000000">.</span><span style="color: #795E26">strictEqual</span><span style="color: #000000">(-</span><span style="color: #098658">1</span><span style="color: #000000">, [</span><span style="color: #098658">1</span><span style="color: #000000">, </span><span style="color: #098658">2</span><span style="color: #000000">, </span><span style="color: #098658">3</span><span style="color: #000000">].</span><span style="color: #795E26">indexOf</span><span style="color: #000000">(</span><span style="color: #098658">5</span><span style="color: #000000">));</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #001080">assert</span><span style="color: #000000">.</span><span style="color: #795E26">strictEqual</span><span style="color: #000000">(-</span><span style="color: #098658">1</span><span style="color: #000000">, [</span><span style="color: #098658">1</span><span style="color: #000000">, </span><span style="color: #098658">2</span><span style="color: #000000">, </span><span style="color: #098658">3</span><span style="color: #000000">].</span><span style="color: #795E26">indexOf</span><span style="color: #000000">(</span><span style="color: #098658">0</span><span style="color: #000000">));</span></span>
+<span class="line"><span style="color: #000000">  });</span></span>
+<span class="line"><span style="color: #000000">});</span></span>
+<span class="line"></span></code></pre>
+<h2 id="debugging-the-tests" data-needslink="debugging-the-tests">Debugging the tests</h2>
+<p>Debugging the tests is similar to debugging the extension.</p>
+<p>Here is a sample <code>launch.json</code> debugger configuration:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #000000">{</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;version&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;0.2.0&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;configurations&quot;</span><span style="color: #000000">: [</span></span>
+<span class="line"><span style="color: #000000">    {</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #0451A5">&quot;name&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;Extension Tests&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #0451A5">&quot;type&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;extensionHost&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #0451A5">&quot;request&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;launch&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #0451A5">&quot;runtimeExecutable&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;${execPath}&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #0451A5">&quot;args&quot;</span><span style="color: #000000">: [</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #A31515">&quot;--extensionDevelopmentPath=${workspaceFolder}&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #A31515">&quot;--extensionTestsPath=${workspaceFolder}/out/test/suite/index&quot;</span></span>
+<span class="line"><span style="color: #000000">      ],</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #0451A5">&quot;outFiles&quot;</span><span style="color: #000000">: [</span><span style="color: #A31515">&quot;${workspaceFolder}/out/test/**/*.js&quot;</span><span style="color: #000000">]</span></span>
+<span class="line"><span style="color: #000000">    }</span></span>
+<span class="line"><span style="color: #000000">  ]</span></span>
+<span class="line"><span style="color: #000000">}</span></span>
+<span class="line"></span></code></pre>
+<video autoplay loop muted playsinline controls>
+  <source src="testing-extension/debug.mp4" type="video/mp4">
+</video>
+<h2 id="tips" data-needslink="tips">Tips</h2>
+<h3 id="using-insiders-version-for-extension-development" data-needslink="using-insiders-version-for-extension-development">Using Insiders version for extension development</h3>
+<p>Because of VS Code's limitation, if you are using VS Code stable release and try to run the integration test <strong>on CLI</strong>, it will throw an error:</p>
+<pre class="shiki"><code>Running extension tests from the command line is currently only supported if no other instance of Code is running.
+</code></pre>
+<p>In general if you run extension tests from CLI, the version the tests run with cannot be running already. As a workaround, you can run the tests
+in VS Code Stable and use <a href="../../insiders/index.html">VS Code Insiders</a> for development. As long as you are not running the tests
+from CLI in VS Code Insiders but in VS Code Stable, this setup will work fine.</p>
+<p>An alternative is to run the extension tests from the debug launch configuration from within VS Code itself. This has the additional advantage
+that you can even debug the tests.</p>
+<h3 id="disabling-other-extensions-while-debugging" data-needslink="disabling-other-extensions-while-debugging">Disabling other extensions while debugging</h3>
+<p>When you debug an extension test in VS Code, VS Code uses the globally installed instance of VS Code and will load all installed extensions. You can add <code>--disable-extensions</code> configuration to the <code>launch.json</code> or the <code>launchArgs</code> option of <code>@vscode/test-electron</code>'s <code>runTests</code> API.</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #000000">{</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;version&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;0.2.0&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;configurations&quot;</span><span style="color: #000000">: [</span></span>
+<span class="line"><span style="color: #000000">    {</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #0451A5">&quot;name&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;Extension Tests&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #0451A5">&quot;type&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;extensionHost&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #0451A5">&quot;request&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;launch&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #0451A5">&quot;runtimeExecutable&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;${execPath}&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #0451A5">&quot;args&quot;</span><span style="color: #000000">: [</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #A31515">&quot;--disable-extensions&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #A31515">&quot;--extensionDevelopmentPath=${workspaceFolder}&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #A31515">&quot;--extensionTestsPath=${workspaceFolder}/out/test/suite/index&quot;</span></span>
+<span class="line"><span style="color: #000000">      ],</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #0451A5">&quot;outFiles&quot;</span><span style="color: #000000">: [</span><span style="color: #A31515">&quot;${workspaceFolder}/out/test/**/*.js&quot;</span><span style="color: #000000">]</span></span>
+<span class="line"><span style="color: #000000">    }</span></span>
+<span class="line"><span style="color: #000000">  ]</span></span>
+<span class="line"><span style="color: #000000">}</span></span>
+<span class="line"></span></code></pre>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #795E26">runTests</span><span style="color: #000000">({</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #001080">extensionDevelopmentPath</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #001080">extensionTestsPath</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #008000">/**</span></span>
+<span class="line"><span style="color: #008000">   * A list of launch arguments passed to VS Code executable, in addition to `--extensionDevelopmentPath`</span></span>
+<span class="line"><span style="color: #008000">   * and `--extensionTestsPath` which are provided by `extensionDevelopmentPath` and `extensionTestsPath`</span></span>
+<span class="line"><span style="color: #008000">   * options.</span></span>
+<span class="line"><span style="color: #008000">   *</span></span>
+<span class="line"><span style="color: #008000">   * If the first argument is a path to a file/folder/workspace, the launched VS Code instance</span></span>
+<span class="line"><span style="color: #008000">   * will open it.</span></span>
+<span class="line"><span style="color: #008000">   *</span></span>
+<span class="line"><span style="color: #008000">   * See `code --help` for possible arguments.</span></span>
+<span class="line"><span style="color: #008000">   */</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #001080">launchArgs:</span><span style="color: #000000"> [</span><span style="color: #A31515">&#39;--disable-extensions&#39;</span><span style="color: #000000">]</span></span>
+<span class="line"><span style="color: #000000">});</span></span>
+<span class="line"></span></code></pre>
+<h3 id="custom-setup-with-vscodetestelectron" data-needslink="custom-setup-with-vscodetestelectron">Custom setup with <code>@vscode/test-electron</code></h3>
+<p>Sometimes you might want to run custom setups, such as running <code>code --install-extension</code> to install another extension before starting your test. <code>@vscode/test-electron</code> has a more granular API to accommodate that case:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #AF00DB">import</span><span style="color: #000000"> </span><span style="color: #0000FF">*</span><span style="color: #000000"> </span><span style="color: #AF00DB">as</span><span style="color: #000000"> </span><span style="color: #001080">cp</span><span style="color: #000000"> </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#39;child_process&#39;</span><span style="color: #000000">;</span></span>
+<span class="line"><span style="color: #AF00DB">import</span><span style="color: #000000"> </span><span style="color: #0000FF">*</span><span style="color: #000000"> </span><span style="color: #AF00DB">as</span><span style="color: #000000"> </span><span style="color: #001080">path</span><span style="color: #000000"> </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#39;path&#39;</span><span style="color: #000000">;</span></span>
+<span class="line"><span style="color: #AF00DB">import</span><span style="color: #000000"> {</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #001080">downloadAndUnzipVSCode</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #001080">resolveCliPathFromVSCodeExecutablePath</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #001080">runTests</span></span>
+<span class="line"><span style="color: #000000">} </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#39;@vscode/test-electron&#39;</span><span style="color: #000000">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #0000FF">async</span><span style="color: #000000"> </span><span style="color: #0000FF">function</span><span style="color: #000000"> </span><span style="color: #795E26">main</span><span style="color: #000000">() {</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #AF00DB">try</span><span style="color: #000000"> {</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">extensionDevelopmentPath</span><span style="color: #000000"> = </span><span style="color: #001080">path</span><span style="color: #000000">.</span><span style="color: #795E26">resolve</span><span style="color: #000000">(</span><span style="color: #001080">__dirname</span><span style="color: #000000">, </span><span style="color: #A31515">&#39;../../../&#39;</span><span style="color: #000000">);</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">extensionTestsPath</span><span style="color: #000000"> = </span><span style="color: #001080">path</span><span style="color: #000000">.</span><span style="color: #795E26">resolve</span><span style="color: #000000">(</span><span style="color: #001080">__dirname</span><span style="color: #000000">, </span><span style="color: #A31515">&#39;./suite/index&#39;</span><span style="color: #000000">);</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">vscodeExecutablePath</span><span style="color: #000000"> = </span><span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #795E26">downloadAndUnzipVSCode</span><span style="color: #000000">(</span><span style="color: #A31515">&#39;1.40.1&#39;</span><span style="color: #000000">);</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">cliPath</span><span style="color: #000000"> = </span><span style="color: #795E26">resolveCliPathFromVSCodeExecutablePath</span><span style="color: #000000">(</span><span style="color: #001080">vscodeExecutablePath</span><span style="color: #000000">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #008000">// Use cp.spawn / cp.exec for custom setup</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #001080">cp</span><span style="color: #000000">.</span><span style="color: #795E26">spawnSync</span><span style="color: #000000">(</span><span style="color: #001080">cliPath</span><span style="color: #000000">, [</span><span style="color: #A31515">&#39;--install-extension&#39;</span><span style="color: #000000">, </span><span style="color: #A31515">&#39;&lt;EXTENSION-ID-OR-PATH-TO-VSIX&gt;&#39;</span><span style="color: #000000">], {</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #001080">encoding:</span><span style="color: #000000"> </span><span style="color: #A31515">&#39;utf-8&#39;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #001080">stdio:</span><span style="color: #000000"> </span><span style="color: #A31515">&#39;inherit&#39;</span></span>
+<span class="line"><span style="color: #000000">    });</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #008000">// Run the extension test</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #795E26">runTests</span><span style="color: #000000">({</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #008000">// Use the specified `code` executable</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #001080">vscodeExecutablePath</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #001080">extensionDevelopmentPath</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #001080">extensionTestsPath</span></span>
+<span class="line"><span style="color: #000000">    });</span></span>
+<span class="line"><span style="color: #000000">  } </span><span style="color: #AF00DB">catch</span><span style="color: #000000"> (</span><span style="color: #001080">err</span><span style="color: #000000">) {</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">error</span><span style="color: #000000">(</span><span style="color: #A31515">&#39;Failed to run tests&#39;</span><span style="color: #000000">);</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #001080">process</span><span style="color: #000000">.</span><span style="color: #795E26">exit</span><span style="color: #000000">(</span><span style="color: #098658">1</span><span style="color: #000000">);</span></span>
+<span class="line"><span style="color: #000000">  }</span></span>
+<span class="line"><span style="color: #000000">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #795E26">main</span><span style="color: #000000">();</span></span>
+<span class="line"></span></code></pre>
+<h3 id="migrating-from-vscode" data-needslink="migrating-from-vscode">Migrating from <code>vscode</code></h3>
+<p>The <a href="https://github.com/microsoft/vscode-extension-vscode" class="external-link" target="_blank"><code>vscode</code></a> module had been the default way of running extension integration tests and is being superseded by <a href="https://github.com/microsoft/vscode-test" class="external-link" target="_blank"><code>@vscode/test-electron</code></a>. Here's how you can migrate from it:</p>
+<ul>
+<li>Remove <code>vscode</code> dependency.</li>
+<li>Add <code>@vscode/test-electron</code> dependency.</li>
+<li>As the old <code>vscode</code> module was also used for downloading VS Code type definition, you need to
+<ul>
+<li>Manually install <code>@types/vscode</code> that follows your <code>engines.vscode</code> in <code>package.json</code>. For example, if your <code>engines.vscode</code> is <code>1.30</code>, install <code>&quot;@types/vscode&quot;: &quot;^1.30.0&quot;</code>.</li>
+<li>Remove <code>&quot;postinstall&quot;: &quot;node ./node_modules/vscode/bin/install&quot;</code> from <code>package.json</code>.</li>
+</ul>
+</li>
+<li>Add a <a href="#the-test-script">test script</a>. You can use <a href="https://github.com/microsoft/vscode-extension-samples/blob/main/helloworld-test-sample/src/test/runTest.ts" class="external-link" target="_blank"><code>runTest.ts</code></a> in the sample as a starting point.</li>
+<li>Point the <code>test</code> script in <code>package.json</code> to run the compiled output of <code>runTest.ts</code>.</li>
+<li>Add a <a href="#the-test-runner-script">test runner script</a>. You can use the <a href="https://github.com/microsoft/vscode-extension-samples/blob/main/helloworld-test-sample/src/test/suite/index.ts" class="external-link" target="_blank">sample test runner script</a> as a starting point. Notice that <code>vscode</code> used to depend on <code>mocha@4</code> and <code>glob</code>, and now you need to install them as part of your <code>devDependencies</code>.</li>
+</ul>
+<h2 id="next-steps" data-needslink="next-steps">Next steps</h2>
+<ul>
+<li><a href="continuous-integration.html">Continuous Integration</a> - Run your extension tests in a Continuous Integration service such as Azure DevOps.</li>
+</ul>
+
+			<div class="feedback"></div>
+			
+			<div class="body-footer">12/7/2022</div>
+			
+		</div>
+		<div class="col-sm-3 col-md-2 docs-subnavbar-container">
+			<nav id="docs-subnavbar" aria-label="On Page" data-spy="affix" data-offset-top="20">
+				
+				<h4><span class="sr-only">In this article there are 6 sections</span><span
+						aria-hidden="true">In this article</span></h4>
+				<ul class="nav">
+					
+					<li><a href="#overview">Overview</a></li>
+					
+					<li><a href="#the-test-script">The test script</a></li>
+					
+					<li><a href="#the-test-runner-script">The test runner script</a></li>
+					
+					<li><a href="#debugging-the-tests">Debugging the tests</a></li>
+					
+					<li><a href="#tips">Tips</a></li>
+					
+					<li><a href="#next-steps">Next steps</a></li>
+					
+				</ul>
+				
+				<div class="connect-widget"></div>
+			</nav>
+		</div>
+	</div>
+</div>
+      </div>
+  </div>
+
+  <footer role="contentinfo">
+      <div class="container">
+          <div class="row">
+              <div class="left col-md-7">
+                  <ul class="links">
+                      <li>
+                          <span class="message">Hello from Seattle.</span>
+                      </li>
+                      <li>
+                          <a href="https://go.microsoft.com/fwlink/?LinkID=533687" onclick="followOnTwitter()" tabindex="0">Follow @code</a>
+                      </li>
+                      <li>
+                          <div class="github-star-button">
+                              <iframe src="../../assets/github-button29be.html?user=Microsoft&amp;repo=vscode&amp;type=star&amp;count=true"
+                                  frameborder="0" scrolling="0" width="130px" height="20px" title="GitHub follow button" loading="lazy"></iframe>
+                          </div>
+                      </li>
+  
+                      <script>
+                          function followOnTwitter() {
+                              var windowFeatures = "location=yes,height=600,width=550,scrollbars=yes,status=yes";
+                              var originalReferer = "&original_referer=" + document.URL;
+                              var screenName = "&screen_name=code";
+                              var URL = "https://twitter.com/intent/follow?" + originalReferer + screenName;
+                              window.open(URL, "_blank", windowFeatures);
+                          }
+  
+                          function manageConsent() {
+                              if(WcpConsent.siteConsent.isConsentRequired){
+                                  WcpConsent.siteConsent.manageConsent();
+                              }
+                          }
+                      </script>
+                  </ul>
+              </div>
+              <div class="right col-md-5">
+                  <ul class="links">
+                      <li><a id="footer-support-link" href="https://support.serviceshub.microsoft.com/supportforbusiness/create?sapId=d66407ed-3967-b000-4cfb-2c318cad363d"
+                              target="_blank">Support</a></li>
+                      <li><a id="footer-privacy-link" href="https://privacy.microsoft.com/privacystatement"
+                              target="_blank">Privacy</a></li>
+                      <li style="display: none;"><a id="footer-cookie-link" style="cursor: pointer;" onclick="manageConsent()"
+                              target="_blank">Manage Cookies</a></li>
+                      <li><a id="footer-terms-link" href="https://www.microsoft.com/legal/terms-of-use"
+                              target="_blank">Terms of Use</a></li>
+                      <li><a id="footer-license-link" href="../../License.html">License</a></li>
+                  </ul>
+                  <div class="copyright">
+                      <a id="footer-microsoft-link" class="logo" href="https://www.microsoft.com/">
+                          <img class="microsoft-logo" src="../../assets/images/microsoft-logo.png" height="20" alt="Microsoft homepage"/>
+                          <img class="microsoft-logo-inverted" src="../../assets/images/microsoft-logo-inverted.png" height="20" alt="Microsoft homepage" />
+                      </a>
+                      <span>&copy; 2023 Microsoft</span>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </footer>
+  <script src="../../dist/index.js"></script>
+
+  
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "SoftwareApplication",
+      "name" : "Visual Studio Code",
+      "softwareVersion": "1.74",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "applicationCategory": "DeveloperApplication",
+      "applicationSubCategory": "Text Editor",
+      "alternateName": "VS Code",
+      "datePublished": "2021-11-03",
+      "operatingSystem": "Mac, Linux, Windows",
+      "logo": "https://code.visualstudio.com/assets/apple-touch-icon.png",
+      "screenshot": "https://code.visualstudio.com/assets/home/home-screenshot-win.png",
+      "releaseNotes": "https://code.visualstudio.com/updates",
+      "downloadUrl": "https://code.visualstudio.com/download",
+      "license": "https://code.visualstudio.com/license",
+      "softwareRequirements": "https://code.visualstudio.com/docs/supporting/requirements",
+      "url" : "https://code.visualstudio.com",
+      "author": {
+        "@type": "Organization",
+        "name": "Microsoft"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Microsoft"
+      },
+      "maintainer": {
+        "@type": "Organization",
+        "name": "Microsoft"
+      },
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://code.visualstudio.com/Search?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      },
+      "sameAs" : [
+        "https://en.wikipedia.org/wiki/Visual_Studio_Code",
+        "https://twitter.com/code",
+        "https://www.youtube.com/code",
+        "https://www.tiktok.com/@vscode",
+        "https://github.com/microsoft/vscode"
+      ]
+    }
+  </script>
+</body>
+
+<!-- Mirrored from code.visualstudio.com/api/working-with-extensions/testing-extension by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 04 Jan 2023 11:27:47 GMT -->
+</html>

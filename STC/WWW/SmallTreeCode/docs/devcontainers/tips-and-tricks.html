@@ -1,0 +1,1803 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Mirrored from code.visualstudio.com/docs/devcontainers/tips-and-tricks by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 04 Jan 2023 10:30:04 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="google-site-verification" content="hNs7DXrTySP_X-0P_AC0WulAXvUwgSXEmgfcO2r79dw" />
+
+  <!-- Twitter and Facebook OpenGraph Metadata-->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@code" />
+
+  <meta name="description" content="Visual Studio Code Remote Development troubleshooting tips and tricks for Dev Containers" />
+<meta name="keywords" content="" />
+<meta name="ms.prod" content="vs-code" />
+<meta name="ms.TOCTitle" content="Tips and Tricks" />
+<meta name="ms.ContentId" content="c4784db6-ab00-4ac7-bca8-88edb638c593" />
+<meta name="ms.date" content="12/7/2022" />
+<meta name="ms.topic" content="conceptual" />
+<!-- Twitter and Facebook OpenGraph Metadata-->
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="og:url" content="tips-and-tricks.html" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Visual Studio Code Dev Containers Tips and Tricks" />
+<meta property="og:description" content="Visual Studio Code Remote Development troubleshooting tips and tricks for Dev Containers" />
+
+<meta property="og:image" content="../../opengraphimg/opengraph-docs.png" />
+
+
+
+  <link rel="shortcut icon" href="../../favicon.ico" sizes="128x128" />
+  <link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+
+  <title>Visual Studio Code Dev Containers Tips and Tricks</title>
+
+  <link rel="stylesheet" href="../../vendor/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../../dist/style.css">
+
+  <script type="text/javascript" src="../../../js.monitor.azure.com/scripts/c/ms.analytics-web-3.min.js"></script>
+  <script>
+  window.appInsights = new oneDS.ApplicationInsights();
+  window.appInsights.initialize({
+    instrumentationKey: "1a3eb3104447440391ad5f2a6ee06a0a-62879566-bc58-4741-9650-302bf2af703f-7103",
+    webAnalyticsConfiguration:{ // Web Analytics Plugin configuration
+        urlCollectQuery:true, 
+        autoCapture: {
+          scroll: true,
+          pageView: true,
+          onLoad: true,
+          onUnload: true,
+          click: true,
+          resize: true,
+          jsError: true
+        }
+    }
+  }, []);
+  </script>
+  
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','../../../www.google-analytics.com/analytics.js','ga');
+  </script>  
+  <link rel="alternate" type="application/atom+xml" title="RSS Feed for code.visualstudio.com" href="../../feed.xml" />
+</head>
+
+<body>
+  <!-- EU Cookie Compliance JS -->
+  <script src="../../../wcpstatic.microsoft.com/mscc/lib/v2/wcp-consent.js"></script>
+
+  <div id="main">
+          <div class="navbar-fixed-container">
+              <div class="navbar navbar-inverse navbar-fixed-top ">
+                  <div id='cookie-banner'></div>        <nav role="navigation" aria-label="Top Level">
+                      <div class="container">
+                          <div class="nav navbar-header">
+                              <a role="button" id="skip-to-content" class="link-button" href="#main-content">Skip to content<i>&nbsp;</i><span class="glyphicon glyphicon-menu-down"></span></a>
+                              <a class="navbar-brand" id="navbar-brand" href="../../index.html">Visual Studio Code</a>
+                              <button type="button" class="navbar-toggle" role="navigation" data-toggle="collapse" data-target=".navbar-collapse" aria-label="Toggle Navigation Menu">
+                                  <span class="icon-bar"></span>
+                                  <span class="icon-bar"></span>
+                                  <span class="icon-bar"></span>
+                              </button>
+                          </div>
+                          <div class="navbar-collapse collapse" role="navigation">
+                              <ul class="nav navbar-nav navbar-left">
+                                  <li class="active" ><a id="nav-docs" href="../../docs.html">Docs</a></li>
+                                  <li ><a id="nav-updates" href="../../updates/v1_74.html">Updates</a></li>
+                                  <li ><a id="nav-blogs" href="../../blogs.html">Blog</a></li>
+                                  <li ><a id="nav-extend" href="../../api.html">API</a></li>
+                                  <li><a href="https://marketplace.visualstudio.com/VSCode" target="_blank" id="nav-extensions">Extensions</a></li>
+                                  <li ><a id="nav-faqs" href="../supporting/faq.html">FAQ</a></li>
+                                  <li ><a id="nav-learn" href="../../learn.html">Learn</a></li>
+                                  <li class='search visible-xs visible-sm'
+                                      ><a href="../../Search.html">Search</a></li>
+                              </ul>
+          
+                              <ul class="nav navbar-nav navbar-right" role="presentation">
+                                  <!-- Floating search icon -->
+                                  <li>
+                                      <a href="../../Search.html" title="Search" class="btn search-btn" id="nav-search">
+                                          <img class="search-icon" src="../../assets/icons/search.svg" width="16px" height="16px" alt="Search"/>
+                                          <img class="search-icon-inverted" src="../../assets/icons/search_dark.svg" width="16px" height="16px" alt="Search" />
+                                      </a>
+                                  </li>
+                                  <!-- Actual search icon -->
+                                  <li class="search" role="presentation">
+                                      <form class="nav-search search-form" role="search" aria-label="Search">
+                                          <div class="input-group" role="presentation">
+                                              <input type="text" name="q" class="search-box form-control" placeholder="Search Docs" aria-label="Search text"/>
+                                              <span class="input-group-btn">
+                                                  <button tabindex="0" class="btn" type="submit" aria-label="Search">
+                                                          <img class="search-icon" src="../../assets/icons/search.svg" width="16px" height="16px" alt="Search" />
+                                                          <img class="search-icon-inverted" src="../../assets/icons/search_dark.svg" width="16px" height="16px" alt="Search" />
+                                                  </button>
+                                              </span>
+                                          </div>
+                                      </form>                        </li>
+                                  <!-- this was hiden in the home and download page, keeping it for now -->
+                                  <li><a class="link-button" href="../../Download.html" id="nav-download">
+                                      <img class="download-icon" src="../../assets/icons/download.svg" width="16px" height="16px" alt="Download VS Code"/>
+                                      <img class="download-icon-inverted" src="../../assets/icons/download-black.svg" width="16px" height="16px" alt="Download VS Code" />
+                                      <span>Download</span>
+                                  </a></li>
+                              </ul>
+                          </div>
+                      </div>
+                  </nav>
+              </div>
+          </div>          <div class="updates-banner  ">
+              <div class="container">
+                  <p class="message"><a href="../../updates/v1_74.html" id="banner-link-updates">Version 1.74</a> is now available! Read about the new features and fixes from November.</p> 
+              </div>
+              <div tabindex="0" role="button" title="Dismiss this update" class="dismiss-btn" id="banner-dismiss-btn"><span class="sr-only">Dismiss this update</span><span aria-hidden="true" class="glyph-icon"></span></div>
+          </div>      <div role="main" id="main-content">
+        <script>
+    function closeReportIssue() {
+        var element = document.getElementById('surveypopup');
+        element.parentElement.removeChild(element);
+    }
+
+    function reportIssue(tutorial, page) {
+        var div = document.createElement('div');
+        div.innerHTML = '<div id="surveypopup" class="overlay visible"><div class="surveypopup"><div id="surveytitle">Tell us more<a href="javascript:void(0)" onclick="closeReportIssue()">X</a></div><div id="surveydiv"><iframe frameBorder="0" scrolling="0" src="https://www.research.net/r/PWZWZ52?tutorial=' + tutorial + '&step=' + page + '"></iframe></div></div></div>';
+        document.body.appendChild(div.children[0]);
+    }
+
+    function pushCodingPackEvent(language, os) {
+        let id = `${language}-${os}-coding-pack`;
+        var analytics = window.vscodeAnalytics;
+
+        analytics && analytics.event(
+            'click',
+            'download',
+            id,
+        );
+    }
+</script>
+
+<div class="container body-content docs">
+    <div class="row">
+        <div class="col-md-2 docs-navbar-container">
+            <nav id="docs-navbar" aria-label="Topics" class="docs-nav visible-md visible-lg">
+            	<ul class="nav" id="main-nav">
+            		<li >
+            			<a class="docs-home" href="../../docs.html" >Overview</a>
+            		</li>
+            		
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#setup-articles" data-parent="#main-nav" data-toggle="collapse">Setup</a>
+            					<ul id="setup-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../setup/setup-overview.html" >Overview</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../setup/linux.html" >Linux</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../setup/mac.html" >macOS</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../setup/windows.html" >Windows</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../setup/raspberry-pi.html" >Raspberry Pi</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../setup/network.html" >Network</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../setup/additional-components.html" >Additional Components</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../setup/enterprise.html" >Enterprise</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../setup/uninstall.html" >Uninstall</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#getstarted-articles" data-parent="#main-nav" data-toggle="collapse">Get Started</a>
+            					<ul id="getstarted-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../getstarted/introvideos.html" >Intro Videos</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../getstarted/tips-and-tricks.html" >Tips and Tricks</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../getstarted/userinterface.html" >User Interface</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../getstarted/themes.html" >Themes</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../getstarted/settings.html" >Settings</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../getstarted/keybindings.html" >Key Bindings</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../getstarted/locales.html" >Display Language</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../getstarted/telemetry.html" >Telemetry</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#editor-articles" data-parent="#main-nav" data-toggle="collapse">User Guide</a>
+            					<ul id="editor-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../editor/codebasics.html" >Basic Editing</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../editor/extension-marketplace.html" >Extension Marketplace</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../editor/intellisense.html" >IntelliSense</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../editor/editingevolved.html" >Code Navigation</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../editor/refactoring.html" >Refactoring</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../editor/debugging.html" >Debugging</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../editor/vscode-web.html" >VS Code for the Web</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../editor/tasks.html" >Tasks</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../editor/settings-sync.html" >Settings Sync</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../editor/userdefinedsnippets.html" >Snippets</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../editor/emmet.html" >Emmet</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../editor/command-line.html" >Command Line Interface</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../editor/workspace-trust.html" >Workspace Trust</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../editor/multi-root-workspaces.html" >Multi-root Workspaces</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../editor/accessibility.html" >Accessibility</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#sourcecontrol-articles" data-parent="#main-nav" data-toggle="collapse">Source Control</a>
+            					<ul id="sourcecontrol-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../sourcecontrol/overview.html" >Overview</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../sourcecontrol/github.html" >Collaborate on GitHub</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../sourcecontrol/faq.html" >FAQ</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#terminal-articles" data-parent="#main-nav" data-toggle="collapse">Terminal</a>
+            					<ul id="terminal-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../terminal/basics.html" >Terminal Basics</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../terminal/profiles.html" >Terminal Profiles</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../terminal/shell-integration.html" >Shell Integration</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../terminal/appearance.html" >Appearance</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../terminal/advanced.html" >Advanced</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#languages-articles" data-parent="#main-nav" data-toggle="collapse">Languages</a>
+            					<ul id="languages-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../languages/overview.html" >Overview</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/javascript.html" >JavaScript</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/json.html" >JSON</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/html.html" >HTML</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/css.html" >CSS, SCSS and Less</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/typescript.html" >TypeScript</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/markdown.html" >Markdown</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/powershell.html" >PowerShell</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/cpp.html" >C++</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/java.html" >Java</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/php.html" >PHP</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/python.html" >Python</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/julia.html" >Julia</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/r.html" >R</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/rust.html" >Rust</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/go.html" >Go</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/tsql.html" >T-SQL</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/csharp.html" >C#</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/dotnet.html" >.NET</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#nodejs-articles" data-parent="#main-nav" data-toggle="collapse">Node.js / JavaScript</a>
+            					<ul id="nodejs-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../nodejs/working-with-javascript.html" >Working with JavaScript</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../nodejs/nodejs-tutorial.html" >Node.js Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../nodejs/nodejs-debugging.html" >Node.js Debugging</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../nodejs/nodejs-deployment.html" >Deploy Node.js Apps</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../nodejs/browser-debugging.html" >Browser Debugging</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../nodejs/angular-tutorial.html" >Angular Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../nodejs/reactjs-tutorial.html" >React Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../nodejs/vuejs-tutorial.html" >Vue Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../nodejs/emberjs-tutorial.html" >Ember Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../nodejs/debugging-recipes.html" >Debugging Recipes</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../nodejs/profiling.html" >Performance Profiling</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../nodejs/extensions.html" >Extensions</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#typescript-articles" data-parent="#main-nav" data-toggle="collapse">TypeScript</a>
+            					<ul id="typescript-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../typescript/typescript-tutorial.html" >Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../typescript/typescript-compiling.html" >Compiling</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../typescript/typescript-editing.html" >Editing</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../typescript/typescript-refactoring.html" >Refactoring</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../typescript/typescript-debugging.html" >Debugging</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#python-articles" data-parent="#main-nav" data-toggle="collapse">Python</a>
+            					<ul id="python-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../python/python-tutorial.html" >Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../python/editing.html" >Editing Code</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../python/linting.html" >Linting</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../python/debugging.html" >Debugging</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../python/environments.html" >Environments</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../python/testing.html" >Testing</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../datascience/overview.html" >Data Science</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../python/jupyter-support-py.html" >Python Interactive</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../python/tutorial-django.html" >Django Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../python/tutorial-flask.html" >Flask Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../containers/quickstart-python.html" >Create containers</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../python/python-on-azure.html" >Deploy Python Apps</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../python/python-web.html" >Python in the Web</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../python/settings-reference.html" >Settings Reference</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#java-articles" data-parent="#main-nav" data-toggle="collapse">Java</a>
+            					<ul id="java-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../java/java-tutorial.html" >Getting Started</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-editing.html" >Navigate and Edit</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-refactoring.html" >Refactoring</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-linting.html" >Formatting and Linting</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-project.html" >Project Management</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-build.html" >Build Tools</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-debugging.html" >Run and Debug</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-testing.html" >Testing</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-spring-boot.html" >Spring Boot</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-tomcat-jetty.html" >Application Servers</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-on-azure.html" >Deploy Java Apps</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-gui.html" >GUI Applications</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/extensions.html" >Extensions</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-faq.html" >FAQ</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#cpp-articles" data-parent="#main-nav" data-toggle="collapse">C++</a>
+            					<ul id="cpp-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../cpp/introvideos-cpp.html" >Intro Videos</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../cpp/config-linux.html" >GCC on Linux</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../cpp/config-mingw.html" >GCC on Windows</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../cpp/config-wsl.html" >GCC on Windows Subsystem for Linux</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../cpp/config-clang-mac.html" >Clang on macOS</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../cpp/config-msvc.html" >Microsoft C++ on Windows</a>
+            						</li>
+            					
+            						<li >
+            							<a href="https://github.com/microsoft/vscode-cmake-tools/blob/main/docs/README.md" >Build with CMake</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../cpp/cmake-linux.html" >CMake Tools on Linux</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../cpp/cpp-ide.html" >Editing</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../cpp/cpp-debug.html" >Debugging</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../cpp/launch-json-reference.html" >Configure debugging</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../cpp/customize-default-settings-cpp.html" >Settings</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../cpp/configure-intellisense-crosscompilation.html" >Configure IntelliSense for cross-compiling</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../cpp/faq-cpp.html" >FAQ</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#containers-articles" data-parent="#main-nav" data-toggle="collapse">Docker</a>
+            					<ul id="containers-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../containers/overview.html" >Overview</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../containers/quickstart-node.html" >Node.js</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../containers/quickstart-python.html" >Python</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../containers/quickstart-aspnet-core.html" >ASP.NET Core</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../containers/debug-common.html" >Debug</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../containers/docker-compose.html" >Docker Compose</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../containers/quickstart-container-registries.html" >Registries</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../containers/app-service.html" >Deploy to Azure</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../containers/choosing-dev-environment.html" >Choose a dev environment</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../containers/reference.html" >Customize</a>
+            						</li>
+            					
+            						<li >
+            							<a href="https://learn.microsoft.com/visualstudio/bridge/bridge-to-kubernetes-vs-code" >Develop with Kubernetes</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../containers/troubleshooting.html" >Tips and Tricks</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#datascience-articles" data-parent="#main-nav" data-toggle="collapse">Data Science</a>
+            					<ul id="datascience-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../datascience/overview.html" >Overview</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../datascience/jupyter-notebooks.html" >Jupyter Notebooks</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../datascience/data-science-tutorial.html" >Data Science Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../python/jupyter-support-py.html" >Python Interactive</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../datascience/pytorch-support.html" >PyTorch Support</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../datascience/azure-machine-learning.html" >Azure Machine Learning</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#azure-articles" data-parent="#main-nav" data-toggle="collapse">Azure</a>
+            					<ul id="azure-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../azure/extensions.html" >Extensions</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../azure/deployment.html" >Deployment</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../azure/remote-debugging.html" >Remote Debugging for Node.js</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../containers/overview.html" >Docker</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../azure/mongodb.html" >MongoDB</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../azure/kubernetes.html" >Kubernetes</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../azure/aksextensions.html" >Azure Kubernetes Service</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#remote-articles" data-parent="#main-nav" data-toggle="collapse">Remote</a>
+            					<ul id="remote-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../remote/remote-overview.html" >Overview</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../remote/ssh.html" >SSH</a>
+            						</li>
+            					
+            						<li >
+            							<a href="containers.html" >Dev Containers</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../remote/wsl.html" >Windows Subsystem for Linux</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../remote/codespaces.html" >GitHub Codespaces</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../remote/vscode-server.html" >VS Code Server</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../remote/tunnels.html" >Tunnels</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../remote/ssh-tutorial.html" >SSH Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../remote/wsl-tutorial.html" >WSL Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../remote/troubleshooting.html" >Tips and Tricks</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../remote/faq.html" >FAQ</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel active expanded">
+            					<a class="area" role="button" href="#devcontainers-articles" data-parent="#main-nav" data-toggle="collapse">Dev Containers</a>
+            					<ul id="devcontainers-articles" class="collapse in">
+            					
+            						<li >
+            							<a href="containers.html" >Overview</a>
+            						</li>
+            					
+            						<li >
+            							<a href="tutorial.html" >Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="attach-container.html" >Attach to Container</a>
+            						</li>
+            					
+            						<li >
+            							<a href="create-dev-container.html" >Create a Dev Container</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../../remote/advancedcontainers/overview.html" >Advanced Containers</a>
+            						</li>
+            					
+            						<li >
+            							<a href="https://containers.dev/implementors/json_reference" >devcontainer.json</a>
+            						</li>
+            					
+            						<li >
+            							<a href="devcontainer-cli.html" >Dev Container CLI</a>
+            						</li>
+            					
+            						<li class="active">
+            							<a href="tips-and-tricks.html" aria-label="Current Page: Tips and Tricks">Tips and Tricks</a>
+            						</li>
+            					
+            						<li >
+            							<a href="faq.html" >FAQ</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            		
+            	</ul>
+            </nav>
+            <nav id="small-nav" aria-label="Topics" class="docs-nav hidden-md hidden-lg">
+            	<h4>Topics</h4>
+            	<select id="small-nav-dropdown" aria-label="topics">
+            		<option value="/docs" >Overview</option>
+            		
+            			
+            		
+            			
+            				<optgroup label="Setup">
+            				
+            					<option value="/docs/setup/setup-overview" >Overview</option>
+            				
+            					<option value="/docs/setup/linux" >Linux</option>
+            				
+            					<option value="/docs/setup/mac" >macOS</option>
+            				
+            					<option value="/docs/setup/windows" >Windows</option>
+            				
+            					<option value="/docs/setup/raspberry-pi" >Raspberry Pi</option>
+            				
+            					<option value="/docs/setup/network" >Network</option>
+            				
+            					<option value="/docs/setup/additional-components" >Additional Components</option>
+            				
+            					<option value="/docs/setup/enterprise" >Enterprise</option>
+            				
+            					<option value="/docs/setup/uninstall" >Uninstall</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Get Started">
+            				
+            					<option value="/docs/getstarted/introvideos" >Intro Videos</option>
+            				
+            					<option value="/docs/getstarted/tips-and-tricks" >Tips and Tricks</option>
+            				
+            					<option value="/docs/getstarted/userinterface" >User Interface</option>
+            				
+            					<option value="/docs/getstarted/themes" >Themes</option>
+            				
+            					<option value="/docs/getstarted/settings" >Settings</option>
+            				
+            					<option value="/docs/getstarted/keybindings" >Key Bindings</option>
+            				
+            					<option value="/docs/getstarted/locales" >Display Language</option>
+            				
+            					<option value="/docs/getstarted/telemetry" >Telemetry</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="User Guide">
+            				
+            					<option value="/docs/editor/codebasics" >Basic Editing</option>
+            				
+            					<option value="/docs/editor/extension-marketplace" >Extension Marketplace</option>
+            				
+            					<option value="/docs/editor/intellisense" >IntelliSense</option>
+            				
+            					<option value="/docs/editor/editingevolved" >Code Navigation</option>
+            				
+            					<option value="/docs/editor/refactoring" >Refactoring</option>
+            				
+            					<option value="/docs/editor/debugging" >Debugging</option>
+            				
+            					<option value="/docs/editor/vscode-web" >VS Code for the Web</option>
+            				
+            					<option value="/docs/editor/tasks" >Tasks</option>
+            				
+            					<option value="/docs/editor/settings-sync" >Settings Sync</option>
+            				
+            					<option value="/docs/editor/userdefinedsnippets" >Snippets</option>
+            				
+            					<option value="/docs/editor/emmet" >Emmet</option>
+            				
+            					<option value="/docs/editor/command-line" >Command Line Interface</option>
+            				
+            					<option value="/docs/editor/workspace-trust" >Workspace Trust</option>
+            				
+            					<option value="/docs/editor/multi-root-workspaces" >Multi-root Workspaces</option>
+            				
+            					<option value="/docs/editor/accessibility" >Accessibility</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Source Control">
+            				
+            					<option value="/docs/sourcecontrol/overview" >Overview</option>
+            				
+            					<option value="/docs/sourcecontrol/github" >Collaborate on GitHub</option>
+            				
+            					<option value="/docs/sourcecontrol/faq" >FAQ</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Terminal">
+            				
+            					<option value="/docs/terminal/basics" >Terminal Basics</option>
+            				
+            					<option value="/docs/terminal/profiles" >Terminal Profiles</option>
+            				
+            					<option value="/docs/terminal/shell-integration" >Shell Integration</option>
+            				
+            					<option value="/docs/terminal/appearance" >Appearance</option>
+            				
+            					<option value="/docs/terminal/advanced" >Advanced</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Languages">
+            				
+            					<option value="/docs/languages/overview" >Overview</option>
+            				
+            					<option value="/docs/languages/javascript" >JavaScript</option>
+            				
+            					<option value="/docs/languages/json" >JSON</option>
+            				
+            					<option value="/docs/languages/html" >HTML</option>
+            				
+            					<option value="/docs/languages/css" >CSS, SCSS and Less</option>
+            				
+            					<option value="/docs/languages/typescript" >TypeScript</option>
+            				
+            					<option value="/docs/languages/markdown" >Markdown</option>
+            				
+            					<option value="/docs/languages/powershell" >PowerShell</option>
+            				
+            					<option value="/docs/languages/cpp" >C++</option>
+            				
+            					<option value="/docs/languages/java" >Java</option>
+            				
+            					<option value="/docs/languages/php" >PHP</option>
+            				
+            					<option value="/docs/languages/python" >Python</option>
+            				
+            					<option value="/docs/languages/julia" >Julia</option>
+            				
+            					<option value="/docs/languages/r" >R</option>
+            				
+            					<option value="/docs/languages/rust" >Rust</option>
+            				
+            					<option value="/docs/languages/go" >Go</option>
+            				
+            					<option value="/docs/languages/tsql" >T-SQL</option>
+            				
+            					<option value="/docs/languages/csharp" >C#</option>
+            				
+            					<option value="/docs/languages/dotnet" >.NET</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Node.js / JavaScript">
+            				
+            					<option value="/docs/nodejs/working-with-javascript" >Working with JavaScript</option>
+            				
+            					<option value="/docs/nodejs/nodejs-tutorial" >Node.js Tutorial</option>
+            				
+            					<option value="/docs/nodejs/nodejs-debugging" >Node.js Debugging</option>
+            				
+            					<option value="/docs/nodejs/nodejs-deployment" >Deploy Node.js Apps</option>
+            				
+            					<option value="/docs/nodejs/browser-debugging" >Browser Debugging</option>
+            				
+            					<option value="/docs/nodejs/angular-tutorial" >Angular Tutorial</option>
+            				
+            					<option value="/docs/nodejs/reactjs-tutorial" >React Tutorial</option>
+            				
+            					<option value="/docs/nodejs/vuejs-tutorial" >Vue Tutorial</option>
+            				
+            					<option value="/docs/nodejs/emberjs-tutorial" >Ember Tutorial</option>
+            				
+            					<option value="/docs/nodejs/debugging-recipes" >Debugging Recipes</option>
+            				
+            					<option value="/docs/nodejs/profiling" >Performance Profiling</option>
+            				
+            					<option value="/docs/nodejs/extensions" >Extensions</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="TypeScript">
+            				
+            					<option value="/docs/typescript/typescript-tutorial" >Tutorial</option>
+            				
+            					<option value="/docs/typescript/typescript-compiling" >Compiling</option>
+            				
+            					<option value="/docs/typescript/typescript-editing" >Editing</option>
+            				
+            					<option value="/docs/typescript/typescript-refactoring" >Refactoring</option>
+            				
+            					<option value="/docs/typescript/typescript-debugging" >Debugging</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Python">
+            				
+            					<option value="/docs/python/python-tutorial" >Tutorial</option>
+            				
+            					<option value="/docs/python/editing" >Editing Code</option>
+            				
+            					<option value="/docs/python/linting" >Linting</option>
+            				
+            					<option value="/docs/python/debugging" >Debugging</option>
+            				
+            					<option value="/docs/python/environments" >Environments</option>
+            				
+            					<option value="/docs/python/testing" >Testing</option>
+            				
+            					<option value="/docs/python/data-science" >Data Science</option>
+            				
+            					<option value="/docs/python/jupyter-support-py" >Python Interactive</option>
+            				
+            					<option value="/docs/python/tutorial-django" >Django Tutorial</option>
+            				
+            					<option value="/docs/python/tutorial-flask" >Flask Tutorial</option>
+            				
+            					<option value="/docs/python/tutorial-create-containers" >Create containers</option>
+            				
+            					<option value="/docs/python/python-on-azure" >Deploy Python Apps</option>
+            				
+            					<option value="/docs/python/python-web" >Python in the Web</option>
+            				
+            					<option value="/docs/python/settings-reference" >Settings Reference</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Java">
+            				
+            					<option value="/docs/java/java-tutorial" >Getting Started</option>
+            				
+            					<option value="/docs/java/java-editing" >Navigate and Edit</option>
+            				
+            					<option value="/docs/java/java-refactoring" >Refactoring</option>
+            				
+            					<option value="/docs/java/java-linting" >Formatting and Linting</option>
+            				
+            					<option value="/docs/java/java-project" >Project Management</option>
+            				
+            					<option value="/docs/java/java-build" >Build Tools</option>
+            				
+            					<option value="/docs/java/java-debugging" >Run and Debug</option>
+            				
+            					<option value="/docs/java/java-testing" >Testing</option>
+            				
+            					<option value="/docs/java/java-spring-boot" >Spring Boot</option>
+            				
+            					<option value="/docs/java/java-tomcat-jetty" >Application Servers</option>
+            				
+            					<option value="/docs/java/java-on-azure" >Deploy Java Apps</option>
+            				
+            					<option value="/docs/java/java-gui" >GUI Applications</option>
+            				
+            					<option value="/docs/java/extensions" >Extensions</option>
+            				
+            					<option value="/docs/java/java-faq" >FAQ</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="C++">
+            				
+            					<option value="/docs/cpp/introvideos-cpp" >Intro Videos</option>
+            				
+            					<option value="/docs/cpp/config-linux" >GCC on Linux</option>
+            				
+            					<option value="/docs/cpp/config-mingw" >GCC on Windows</option>
+            				
+            					<option value="/docs/cpp/config-wsl" >GCC on Windows Subsystem for Linux</option>
+            				
+            					<option value="/docs/cpp/config-clang-mac" >Clang on macOS</option>
+            				
+            					<option value="/docs/cpp/config-msvc" >Microsoft C++ on Windows</option>
+            				
+            					<option value="/docs/cpp/build-with-cmake" >Build with CMake</option>
+            				
+            					<option value="/docs/cpp/cmake-linux" >CMake Tools on Linux</option>
+            				
+            					<option value="/docs/cpp/cpp-ide" >Editing</option>
+            				
+            					<option value="/docs/cpp/cpp-debug" >Debugging</option>
+            				
+            					<option value="/docs/cpp/launch-json-reference" >Configure debugging</option>
+            				
+            					<option value="/docs/cpp/customize-default-settings-cpp" >Settings</option>
+            				
+            					<option value="/docs/cpp/configure-intellisense-crosscompilation" >Configure IntelliSense for cross-compiling</option>
+            				
+            					<option value="/docs/cpp/faq-cpp" >FAQ</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Docker">
+            				
+            					<option value="/docs/containers/overview" >Overview</option>
+            				
+            					<option value="/docs/containers/quickstart-node" >Node.js</option>
+            				
+            					<option value="/docs/containers/quickstart-python" >Python</option>
+            				
+            					<option value="/docs/containers/quickstart-aspnet-core" >ASP.NET Core</option>
+            				
+            					<option value="/docs/containers/debug-common" >Debug</option>
+            				
+            					<option value="/docs/containers/docker-compose" >Docker Compose</option>
+            				
+            					<option value="/docs/containers/quickstart-container-registries" >Registries</option>
+            				
+            					<option value="/docs/containers/app-service" >Deploy to Azure</option>
+            				
+            					<option value="/docs/containers/choosing-dev-environment" >Choose a dev environment</option>
+            				
+            					<option value="/docs/containers/reference" >Customize</option>
+            				
+            					<option value="/docs/containers/bridge-to-kubernetes" >Develop with Kubernetes</option>
+            				
+            					<option value="/docs/containers/troubleshooting" >Tips and Tricks</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Data Science">
+            				
+            					<option value="/docs/datascience/overview" >Overview</option>
+            				
+            					<option value="/docs/datascience/jupyter-notebooks" >Jupyter Notebooks</option>
+            				
+            					<option value="/docs/datascience/data-science-tutorial" >Data Science Tutorial</option>
+            				
+            					<option value="/docs/datascience/python-interactive" >Python Interactive</option>
+            				
+            					<option value="/docs/datascience/pytorch-support" >PyTorch Support</option>
+            				
+            					<option value="/docs/datascience/azure-machine-learning" >Azure Machine Learning</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Azure">
+            				
+            					<option value="/docs/azure/extensions" >Extensions</option>
+            				
+            					<option value="/docs/azure/deployment" >Deployment</option>
+            				
+            					<option value="/docs/azure/remote-debugging" >Remote Debugging for Node.js</option>
+            				
+            					<option value="/docs/azure/docker" >Docker</option>
+            				
+            					<option value="/docs/azure/mongodb" >MongoDB</option>
+            				
+            					<option value="/docs/azure/kubernetes" >Kubernetes</option>
+            				
+            					<option value="/docs/azure/aksextensions" >Azure Kubernetes Service</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Remote">
+            				
+            					<option value="/docs/remote/remote-overview" >Overview</option>
+            				
+            					<option value="/docs/remote/ssh" >SSH</option>
+            				
+            					<option value="/docs/remote/dev-containers" >Dev Containers</option>
+            				
+            					<option value="/docs/remote/wsl" >Windows Subsystem for Linux</option>
+            				
+            					<option value="/docs/remote/codespaces" >GitHub Codespaces</option>
+            				
+            					<option value="/docs/remote/vscode-server" >VS Code Server</option>
+            				
+            					<option value="/docs/remote/tunnels" >Tunnels</option>
+            				
+            					<option value="/docs/remote/ssh-tutorial" >SSH Tutorial</option>
+            				
+            					<option value="/docs/remote/wsl-tutorial" >WSL Tutorial</option>
+            				
+            					<option value="/docs/remote/troubleshooting" >Tips and Tricks</option>
+            				
+            					<option value="/docs/remote/faq" >FAQ</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Dev Containers">
+            				
+            					<option value="/docs/devcontainers/containers" >Overview</option>
+            				
+            					<option value="/docs/devcontainers/tutorial" >Tutorial</option>
+            				
+            					<option value="/docs/devcontainers/attach-container" >Attach to Container</option>
+            				
+            					<option value="/docs/devcontainers/create-dev-container" >Create a Dev Container</option>
+            				
+            					<option value="/docs/devcontainers/containers-advanced" >Advanced Containers</option>
+            				
+            					<option value="/docs/devcontainers/devcontainerjson-reference" >devcontainer.json</option>
+            				
+            					<option value="/docs/devcontainers/devcontainer-cli" >Dev Container CLI</option>
+            				
+            					<option value="/docs/devcontainers/tips-and-tricks" selected>Tips and Tricks</option>
+            				
+            					<option value="/docs/devcontainers/faq" >FAQ</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            		
+            	</select>
+            </nav>        </div>
+        <div class="col-sm-9 col-md-8 body">
+            <div class="edit-github pull-right">
+                <a href="https://vscode.dev/github/microsoft/vscode-docs/blob/main/docs/devcontainers/tips-and-tricks.md"
+                    class="btn btn-default" title="Edit this document in vscode.dev">
+                    <span class="glyphicon glyphicon-pencil"></span>
+                    <span class="hidden-xs">Edit</span>
+                </a>
+            </div>
+            <h1>Dev Containers Tips and Tricks</h1>
+<p>This article includes some tips and tricks for getting the Dev Containers extension up and running in different environments.</p>
+<h2 id="_docker-desktop-for-windows-tips" data-needslink="_docker-desktop-for-windows-tips">Docker Desktop for Windows tips</h2>
+<p><a href="https://www.docker.com/products/docker-desktop" class="external-link" target="_blank">Docker Desktop</a> for Windows works well in most setups, but there are a few &quot;gotchas&quot; that can cause problems. Here are some tips on avoiding them:</p>
+<ol>
+<li>
+<p><strong>Consider using the new Docker WSL 2 back-end on Windows 10 (2004+).</strong> If you are using <a href="https://aka.ms/vscode-remote/containers/docker-wsl2" class="external-link" target="_blank">Docker Desktop's WSL 2 back-end</a>, you can use it to open folders inside WSL as well as locally. Containers are also shared between Windows and inside WSL and this new engine is less susceptible to file sharing issues. See the <a href="containers.html#_open-a-wsl-2-folder-in-a-container-on-windows">quick start</a> for details.</p>
+</li>
+<li>
+<p><strong>Switch out of &quot;Linux Containers on Windows (LCOW)&quot; mode.</strong> While disabled by default, recent versions of Docker support <a href="https://learn.microsoft.com/virtualization/windowscontainers/deploy-containers/linux-containers" class="external-link" target="_blank">Linux Containers on Windows (LCOW)</a> that can allow you to use both Windows and Linux containers at the same time. However, this is a new feature, so you may encounter issues and the Dev Containers extension only supports Linux containers currently. You can switch out of LCOW mode at any time by right-clicking on the Docker task bar item and selecting <strong>Switch to Linux Containers...</strong> from the context menu.</p>
+</li>
+<li>
+<p><strong>Make sure your firewall allows Docker to set up a shared drive.</strong> Docker only needs to connect between two machine local IPs, but some firewall software may still block any drive sharing or the needed ports. See <a href="https://success.docker.com/article/error-a-firewall-is-blocking-file-sharing-between-windows-and-the-containers" class="external-link" target="_blank">this Docker KB article</a> for next steps on resolving this problem.</p>
+</li>
+</ol>
+<p>Here are some tips that applied to older versions of Docker for Windows but should now be resolved. If you run into strage behaviors due to a possible regression, these tips have solved problems in the past.</p>
+<ol>
+<li>
+<p><strong>Use an AD domain account or local administrator account when sharing drives. Do not use an AAD (email-based) account.</strong> AAD (email-based) accounts have well-known issues, as documented in Docker <a href="https://github.com/docker/for-win/issues/132" class="external-link" target="_blank">issue #132</a> and <a href="https://github.com/docker/for-win/issues/1352" class="external-link" target="_blank">issue #1352</a>. If you must use an AAD account, create a separate local administrator account on your machine that you use purely for the purpose of sharing drives. Follow  the <a href="https://blogs.msdn.microsoft.com/stevelasker/2016/06/14/configuring-docker-for-windows-volumes/" class="external-link" target="_blank">steps in this blog post</a> to get everything set up.</p>
+</li>
+<li>
+<p><strong>Stick with alphanumeric passwords to avoid drive sharing problems.</strong> When asked to share your drives on Windows, you will be prompted for the username and password of an account with admin privileges on the machine. If you are warned about an incorrect username or password, this may be due to special characters in the password. For example, <code>!</code>, <code>[</code> and <code>]</code> are known to cause issues. Change your password to alphanumeric characters to resolve. See this issue about <a href="https://github.com/moby/moby/issues/23992#issuecomment-234979036" class="external-link" target="_blank">Docker volume mounting problems</a> for details.</p>
+</li>
+<li>
+<p><strong>Use your Docker ID to sign in to Docker (not your email).</strong> The Docker CLI only supports using your Docker ID, so using your email can cause problems. See Docker <a href="https://github.com/docker/hub-feedback/issues/935#issuecomment-300361781" class="external-link" target="_blank">issue #935</a> for details.</p>
+</li>
+</ol>
+<p>If you are still having trouble, see the <a href="https://docs.docker.com/docker-for-windows/troubleshoot/#volumes" class="external-link" target="_blank">Docker Desktop for Windows troubleshooting guide</a>.</p>
+<h2 id="_enabling-file-sharing-in-docker-desktop" data-needslink="_enabling-file-sharing-in-docker-desktop">Enabling file sharing in Docker Desktop</h2>
+<p>The VS Code <a href="https://aka.ms/vscode-remote/download/containers" class="external-link" target="_blank">Dev Containers</a> extension can only automatically mount your source code into a container if your code is in a folder or drive shared with Docker. If you open a dev container from a non-shared location, the container will successfully start but the workspace will be empty.</p>
+<p>Note that this step is <strong>not required</strong> with <a href="https://aka.ms/vscode-remote/containers/docker-wsl2" class="external-link" target="_blank">Docker Desktop's WSL 2 engine</a>.</p>
+<p>To change Docker's drive and folder sharing settings:</p>
+<p><strong>Windows:</strong></p>
+<ol>
+<li>Right-click on the Docker task bar item and select <strong>Settings</strong>.</li>
+<li>Go to <strong>Resources &gt; File Sharing</strong> and check the drive(s) where your source code is located.</li>
+<li>If you see a message about your local firewall blocking the sharing action, see <a href="https://success.docker.com/article/error-a-firewall-is-blocking-file-sharing-between-windows-and-the-containers" class="external-link" target="_blank">this Docker KB article</a> for next steps.</li>
+</ol>
+<p><strong>macOS:</strong></p>
+<ol>
+<li>Click on the Docker menu bar item and select <strong>Preferences</strong>.</li>
+<li>Go to <strong>Resources &gt; File Sharing</strong>. Confirm that the folder containing your source code is under one of the shared folders listed.</li>
+</ol>
+<h2 id="_resolving-git-line-ending-issues-in-containers-resulting-in-many-modified-files" data-needslink="_resolving-git-line-ending-issues-in-containers-resulting-in-many-modified-files">Resolving Git line ending issues in containers (resulting in many modified files)</h2>
+<p>Since Windows and Linux use different default line endings, Git may report a large number of modified files that have no differences aside from their line endings. To prevent this from happening, you can disable line ending conversion using a <code>.gitattributes</code> file or globally on the Windows side.</p>
+<p>Typically adding or modifying a  <code>.gitattributes</code> file in your repository is the most reliable way to solve this problem. Committing this file to source control will help others and allows you to vary behaviors by repository as appropriate. For example, adding the following to <code>.gitattributes</code> file to the root of your repository will force everything to be LF, except for Windows batch files that require CRLF:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #000000">* </span><span style="color: #0000FF">text=auto eol=lf</span></span>
+<span class="line"><span style="color: #AF00DB">*</span><span style="color: #001080">.</span><span style="color: #CD3131">{cmd,[cC][mM][dD]}</span><span style="color: #000000"> </span><span style="color: #0000FF">text eol=crlf</span></span>
+<span class="line"><span style="color: #AF00DB">*</span><span style="color: #001080">.</span><span style="color: #CD3131">{bat,[bB][aA][tT]}</span><span style="color: #000000"> </span><span style="color: #0000FF">text eol=crlf</span></span>
+<span class="line"></span></code></pre>
+<p>Note that this works in <strong>Git v2.10+</strong>, so if you are running into problems, be sure you've got a recent Git client installed. You can add other file types in your repository that require CRLF to this same file.</p>
+<p>If you would prefer to still always upload Unix-style line endings (LF), you can use the <code>input</code> option.</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #000000">git config --global core.autocrlf input</span></span>
+<span class="line"></span></code></pre>
+<p>If you'd prefer to disable line-ending conversion entirely, run the following instead:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #000000">git config --global core.autocrlf </span><span style="color: #795E26">false</span></span>
+<span class="line"></span></code></pre>
+<p>Finally, you may need to clone the repository again for these settings to take effect.</p>
+<h2 id="_avoid-setting-up-git-in-a-container-when-using-docker-compose" data-needslink="_avoid-setting-up-git-in-a-container-when-using-docker-compose">Avoid setting up Git in a container when using Docker Compose</h2>
+<p>See <a href="containers.html#_sharing-git-credentials-with-your-container">Sharing Git credentials with your container</a> in the main containers article for information on resolving this issue.</p>
+<h2 id="_resolving-hangs-when-doing-a-git-push-or-sync-from-a-container" data-needslink="_resolving-hangs-when-doing-a-git-push-or-sync-from-a-container">Resolving hangs when doing a Git push or sync from a Container</h2>
+<p>If you clone a Git repository using SSH and your SSH key has a passphrase, VS Code's pull and sync features may hang when running remotely.</p>
+<p>Either use an SSH key without a passphrase, clone using HTTPS, or run <code>git push</code> from the command line to work around the issue.</p>
+<h2 id="_resolving-errors-about-missing-linux-dependencies" data-needslink="_resolving-errors-about-missing-linux-dependencies">Resolving errors about missing Linux dependencies</h2>
+<p>Some extensions rely on libraries not found in the certain Docker images. See the <a href="create-dev-container.html#_install-additional-software">Containers</a> article for a few options on resolving this issue.</p>
+<h2 id="_speeding-up-containers-in-docker-desktop" data-needslink="_speeding-up-containers-in-docker-desktop">Speeding up containers in Docker Desktop</h2>
+<p>By default, Docker Desktop only gives containers a fraction of your machine capacity. In most cases, this is enough, but if you are doing something that requires more capacity, you can increase memory, CPU, or disk use.</p>
+<p>First, try <a href="containers.html#_managing-containers">stopping any running containers</a> you are no longer using.</p>
+<p>If this doesn't solve your problem, you may want to see if CPU usage is actually the issue or if there is something else going on. An easy way to check this is to install the <a href="https://marketplace.visualstudio.com/items?itemName=mutantdino.resourcemonitor&amp;ssr=false#overview" class="external-link" target="_blank">Resource Monitor extension</a>. When installed in a container, it provides information about capacity for your containers in the Status bar.</p>
+<p><img src="../../assets/docs/devcontainers/tips-and-tricks/resource-monitor.png" alt="Resource use Status bar" loading="lazy"></p>
+<p>If you'd like this extension to always be installed, add this to your <code>settings.json</code>:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #A31515">&quot;dev.containers.defaultExtensions&quot;</span><span style="color: #000000">: [</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #A31515">&quot;mutantdino.resourcemonitor&quot;</span></span>
+<span class="line"><span style="color: #000000">]</span></span>
+<span class="line"></span></code></pre>
+<p>If you determine that you need to give your container more of your machine's capacity, follow these steps:</p>
+<ol>
+<li>Right-click on the Docker task bar item and select <strong>Settings</strong> / <strong>Preferences</strong>.</li>
+<li>Go to <strong>Advanced</strong> to increase CPU, Memory, or Swap.</li>
+<li>On macOS, go to <strong>Disk</strong> to increase the amount of disk Docker is allowed to consume on your machine. On Windows, this is located under Advanced with the other settings.</li>
+</ol>
+<p>Finally, if your container is <strong>doing disk intensive</strong> operations or you are just looking for faster response times, see <a href="../../remote/advancedcontainers/improve-performance.html">Improving container disk performance</a> for tips. VS Code's defaults optimize for convenience and universal support, but can be optimized.</p>
+<h2 id="_cleaning-out-unused-containers-and-images" data-needslink="_cleaning-out-unused-containers-and-images">Cleaning out unused containers and images</h2>
+<p>If you see an error from Docker reporting that you are out of disk space, you can typically resolve this by cleaning out unused containers and images. There are a few ways to do this:</p>
+<h3 id="_option-1-use-the-remote-explorer" data-needslink="_option-1-use-the-remote-explorer">Option 1: Use the Remote Explorer</h3>
+<p>You can delete containers by selecting the <strong>Remote Explorer</strong>, right-click on the container you want to remove, and select <strong>Remove Container</strong>.</p>
+<p><img src="../../assets/docs/devcontainers/tips-and-tricks/containers-explorer-remove.png" alt="Remote Explorer screenshot" loading="lazy"></p>
+<p>However, this does not clean up any images you may have downloaded, which can clutter up your system.</p>
+<h3 id="_option-2-use-the-docker-extension" data-needslink="_option-2-use-the-docker-extension">Option 2: Use the Docker extension</h3>
+<ol>
+<li>
+<p>Open a <strong>local</strong> window in VS Code (<strong>File &gt; New Window</strong>).</p>
+</li>
+<li>
+<p>Install the <a href="https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-docker" class="external-link" target="_blank">Docker extension</a> from the Extensions view if not already present.</p>
+</li>
+<li>
+<p>You can then go to the Docker view and expand the <strong>Containers</strong> or <strong>Images</strong> node, right-click, and select <strong>Remove Container / Image</strong>.</p>
+<p><img src="../../assets/docs/devcontainers/tips-and-tricks/docker-remove.png" alt="Docker Explorer screenshot" loading="lazy"></p>
+</li>
+</ol>
+<h3 id="_option-3-use-the-docker-cli-to-pick-containers-to-delete" data-needslink="_option-3-use-the-docker-cli-to-pick-containers-to-delete">Option 3: Use the Docker CLI to pick containers to delete</h3>
+<ol>
+<li>Open a <strong>local</strong> terminal/command prompt (or use a local window in VS Code).</li>
+<li>Type <code>docker ps -a</code> to see a list of all containers.</li>
+<li>Type <code>docker rm &lt;Container ID&gt;</code> from this list to remove a container.</li>
+<li>Type <code>docker image prune</code> to remove any unused images.</li>
+</ol>
+<p>If <code>docker ps</code> does not provide enough information to identify the container you want to delete, the following command will list all development containers managed by VS Code and the folder used to generate them.</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #000000">docker ps -a --filter=</span><span style="color: #A31515">&quot;label=vsch.quality&quot;</span><span style="color: #000000"> --format </span><span style="color: #A31515">&quot;table {{.ID}}\t{{.Status}}\t{{.Image}}\tvscode-{{.Label </span><span style="color: #EE0000">\&quot;</span><span style="color: #A31515">vsch.quality</span><span style="color: #EE0000">\&quot;</span><span style="color: #A31515">}}\t{{.Label </span><span style="color: #EE0000">\&quot;</span><span style="color: #A31515">vsch.local.folder</span><span style="color: #EE0000">\&quot;</span><span style="color: #A31515">}}&quot;</span></span>
+<span class="line"></span></code></pre>
+<h3 id="_option-4-use-docker-compose" data-needslink="_option-4-use-docker-compose">Option 4: Use Docker Compose</h3>
+<ol>
+<li>Open a <strong>local</strong> terminal/command prompt (or use a local window in VS Code).</li>
+<li>Go to the directory with your <code>docker-compose.yml</code> file.</li>
+<li>Type <code>docker-compose down</code> to stop and delete the containers. If you have more than one Docker Compose file, you can specify additional Docker Compose files with the <code>-f</code> argument.</li>
+</ol>
+<p><strong>Option 4: Delete all containers and images that are not running:</strong></p>
+<ol>
+<li>Open a <strong>local</strong> terminal/command prompt (or use a local window in VS Code).</li>
+<li>Type <code>docker system prune --all</code>.</li>
+</ol>
+<h2 id="_resolving-dockerfile-build-failures-for-images-using-debian-8" data-needslink="_resolving-dockerfile-build-failures-for-images-using-debian-8">Resolving Dockerfile build failures for images using Debian 8</h2>
+<p>When building containers that use images based on Debian 8/Jessie — such as older versions of the <code>node:8</code> image — you may encounter the following error:</p>
+<pre class="shiki"><code>...
+W: Failed to fetch http://deb.debian.org/debian/dists/jessie-updates/InRelease  Unable to find expected entry 'main/binary-amd64/Packages' in Release file (Wrong sources.list entry or malformed file)
+E: Some index files failed to download. They have been ignored, or old ones used instead.
+...
+</code></pre>
+<p>This is a <a href="https://github.com/debuerreotype/docker-debian-artifacts/issues/66" class="external-link" target="_blank">well known issue</a> caused by the Debian 8 being &quot;archived&quot;. More recent versions of images typically resolve this problem, often by upgrading to Debian 9/Stretch.</p>
+<p>There are two ways to resolve this error:</p>
+<ul>
+<li>
+<p><strong>Option 1</strong>: Remove any containers that depend on the image, remove the image, and then try building again. This should download an updated image that is not affected by the problem. See <a href="#_cleaning-out-unused-containers-and-images">cleaning out unused containers and images</a> for details.</p>
+</li>
+<li>
+<p><strong>Option 2</strong>: If you don't want to delete your containers or images, add this line into your Dockerfile before any <code>apt</code> or <code>apt-get</code> command. It adds the needed source lists for Jessie:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #008000"># Add archived sources to source list if base image uses Debian 8 / Jessie</span></span>
+<span class="line"><span style="color: #0000FF">RUN</span><span style="color: #000000"> cat /etc/*-release | grep -q jessie &amp;&amp; printf </span><span style="color: #A31515">&quot;deb http://archive.debian.org/debian/ jessie main</span><span style="color: #0000FF">\n</span><span style="color: #A31515">deb-src http://archive.debian.org/debian/ jessie main</span><span style="color: #0000FF">\n</span><span style="color: #A31515">deb http://security.debian.org jessie/updates main</span><span style="color: #0000FF">\n</span><span style="color: #A31515">deb-src http://security.debian.org jessie/updates main&quot;</span><span style="color: #000000"> &gt; /etc/apt/sources.list</span></span>
+<span class="line"></span></code></pre>
+</li>
+</ul>
+<h2 id="_resolving-docker-hub-sign-in-errors-when-an-email-is-used" data-needslink="_resolving-docker-hub-sign-in-errors-when-an-email-is-used">Resolving Docker Hub sign in errors when an email is used</h2>
+<p>The Docker CLI only supports using your Docker ID, so using your email to sign in can cause problems. See Docker <a href="https://github.com/docker/hub-feedback/issues/935#issuecomment-300361781" class="external-link" target="_blank">issue #935</a> for details.</p>
+<p>As a workaround, use your Docker ID to sign in to Docker rather than your email.</p>
+<h2 id="_high-cpu-utilization-of-hyperkit-on-macos" data-needslink="_high-cpu-utilization-of-hyperkit-on-macos">High CPU utilization of Hyperkit on macOS</h2>
+<p>There is <a href="https://github.com/docker/for-mac/issues/1759" class="external-link" target="_blank">known issue with Docker for Mac</a> that can drive high CPU spikes. In particular, high CPU usage occurring when watching files and building. If you see high CPU usage for <code>com.docker.hyperkit</code> in Activity Monitor while very little is going on in your dev container, you are likely hitting this issue. Follow the <a href="https://github.com/docker/for-mac/issues/1759" class="external-link" target="_blank">Docker issue</a> for updates and fixes.</p>
+<h2 id="_using-an-ssh-tunnel-to-connect-to-a-remote-docker-host" data-needslink="_using-an-ssh-tunnel-to-connect-to-a-remote-docker-host">Using an SSH tunnel to connect to a remote Docker host</h2>
+<p>The <a href="../../remote/advancedcontainers/develop-remote-host.html">Develop inside a container on a remote Docker Machine or SSH host</a> article covers how to setup VS Code when working with a remote Docker host. This is often as simple as setting the <a href="https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-docker" class="external-link" target="_blank">Docker extension</a> <code>docker.environment</code> property in <code>settings.json</code> or the <code>DOCKER_HOST</code> environment variable to a <code>ssh://</code> or <code>tcp://</code> URI.</p>
+<p>However, you may run into situations where this does not work in your environment due to SSH configuration complexity or other limitations. In this case, an SSH tunnel can be used as a fallback.</p>
+<h3 id="_using-an-ssh-tunnel-as-a-fallback-option" data-needslink="_using-an-ssh-tunnel-as-a-fallback-option">Using an SSH tunnel as a fallback option</h3>
+<p>You can set up an SSH tunnel and forward the Docker socket from your remote host to your local machine.</p>
+<p>Follow these steps:</p>
+<ol>
+<li>
+<p>Install an <a href="../remote/troubleshooting.html#_installing-a-supported-ssh-client">OpenSSH compatible SSH client</a>.</p>
+</li>
+<li>
+<p>Update the <a href="https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-docker" class="external-link" target="_blank">Docker extension</a>  <code>docker.environment</code> property in your user or workspace <code>settings.json</code> as follows:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #A31515">&quot;docker.environment&quot;</span><span style="color: #000000">: {</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #0451A5">&quot;DOCKER_HOST&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;tcp://localhost:23750&quot;</span></span>
+<span class="line"><span style="color: #000000">}</span></span>
+<span class="line"></span></code></pre>
+</li>
+<li>
+<p>Run the following command from a local terminal / PowerShell (replacing <code>user@hostname</code> with the remote user and hostname / IP for your server):</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #000000">ssh -NL localhost:23750:/var/run/docker.sock user@hostname</span></span>
+<span class="line"></span></code></pre>
+</li>
+</ol>
+<p>VS Code will now be able to <a href="attach-container.html">attach to any running container</a> on the remote host. You can also <a href="../../remote/advancedcontainers/develop-remote-host.html#_converting-an-existing-or-predefined-devcontainerjson">use specialized, local <code>devcontainer.json</code> files to create / connect to a remote dev container</a>.</p>
+<p>Once you are done, press <span class="keybinding">Ctrl+C</span> in the terminal / PowerShell to close the tunnel.</p>
+<blockquote>
+<p><strong>Note:</strong> If the <code>ssh</code> command fails, you may need to <code>AllowStreamLocalForwarding</code> on your SSH host.</p>
+<ol>
+<li>Open <code>/etc/ssh/sshd_config</code> in an editor  (like Vim, nano, or Pico) on the <strong>SSH host</strong> (not locally).</li>
+<li>Add the setting  <code>AllowStreamLocalForwarding yes</code>.</li>
+<li>Restart the SSH server (on Ubuntu, run <code>sudo systemctl restart sshd</code>).</li>
+<li>Retry.</li>
+</ol>
+</blockquote>
+<h2 id="_persisting-user-profile" data-needslink="_persisting-user-profile">Persisting user profile</h2>
+<p>You can use the <code>mounts</code> property to persist the user profile (to keep things like shell history) in your dev container across rebuilds.</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #000000">    </span><span style="color: #A31515">&quot;mounts&quot;</span><span style="color: #000000">: [</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #A31515">&quot;source=profile,target=/root,type=volume&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #A31515">&quot;target=/root/.vscode-server,type=volume&quot;</span></span>
+<span class="line"><span style="color: #000000">    ],</span></span>
+<span class="line"></span></code></pre>
+<p>The above code first creates a named volume called <code>profile</code> mounted to <code>/root</code>, which will survive a rebuild. It next creates an anonymous volume mounted to <code>/root/.vscode-server</code> that gets destroyed on rebuild, which allows VS Code to reinstall extensions and dotfiles.</p>
+<h2 id="_advanced-container-configuration-tips" data-needslink="_advanced-container-configuration-tips">Advanced container configuration tips</h2>
+<p>See the <a href="../../remote/advancedcontainers/overview.html">Advanced container configuration</a> articles for information on the following topics:</p>
+<ul>
+<li><a href="../../remote/advancedcontainers/environment-variables.html">Adding environment variables</a></li>
+<li><a href="../../remote/advancedcontainers/add-local-file-mount.html">Adding another local file mount</a></li>
+<li><a href="../../remote/advancedcontainers/change-default-source-mount.html">Changing or removing the default source code mount</a></li>
+<li><a href="../../remote/advancedcontainers/improve-performance.html">Improving container disk performance</a></li>
+<li><a href="../../remote/advancedcontainers/add-nonroot-user.html">Adding a non-root user to your dev container</a></li>
+<li><a href="../../remote/advancedcontainers/avoid-extension-reinstalls.html">Avoiding extension reinstalls on container rebuild</a></li>
+<li><a href="../../remote/advancedcontainers/set-docker-compose-project-name.html">Setting the project name for Docker Compose</a></li>
+<li><a href="../../remote/advancedcontainers/use-docker-kubernetes.html">Using Docker or Kubernetes from inside a container</a></li>
+<li><a href="../../remote/advancedcontainers/connect-multiple-containers.html">Connecting to multiple containers at once</a></li>
+<li><a href="../../remote/advancedcontainers/develop-remote-host.html">Developing inside a container on a remote Docker Machine or SSH host</a></li>
+<li><a href="../../remote/advancedcontainers/reduce-docker-warnings.html">Reducing Dockerfile build warnings</a></li>
+</ul>
+<h2 id="_extension-tips" data-needslink="_extension-tips">Extension tips</h2>
+<p>While many extensions will work unmodified, there are a few issues that can prevent certain features from working as expected. In some cases, you can use another command to work around the issue, while in others, the extension may need to be modified. The <a href="../remote/troubleshooting.html#_extension-tips">Remote Extensions Tips</a> section provides a quick reference for common issues and tips on resolving them. You can also refer to the main extension article on <a href="../../api/advanced-topics/remote-extensions.html">Supporting Remote Development</a> for an in-depth guide on modifying extensions to support remote extension hosts.</p>
+<h2 id="_questions-and-feedback" data-needslink="_questions-and-feedback">Questions and feedback</h2>
+<h3 id="_reporting-issues" data-needslink="_reporting-issues">Reporting issues</h3>
+<p>If you run into an issue with the Dev Containers extension, it's important to collect the correct logs so that we'll be able to help <a href="https://aka.ms/vscode-remote/issues/new" class="external-link" target="_blank">diagnose your issue</a>. You can get the Dev Containers extension logs with <strong>Dev Containers: Show Container Log</strong>.</p>
+<p>If you're experiencing issues using other extensions remotely (for example, other extensions aren't loading or installing properly in a remote context), it's helpful to grab the log from the <strong>Remote Extension Host</strong> output channel (<strong>Output: Focus on Output View</strong>), and select <strong>Log (Remote Extension Host)</strong> from the dropdown.</p>
+<blockquote>
+<p><strong>Note</strong>: If you only see <strong>Log (Extension Host)</strong>, this is the local extension host, and the remote extension host didn't launch. This is because the log channel is created only after the log file is created, so if the remote extension host does not launch, the remote extension host log file was not created and is not shown in the Output view. This is still helpful information to include in your issue.</p>
+</blockquote>
+<h3 id="_remote-question-and-feedback-resources" data-needslink="_remote-question-and-feedback-resources">Remote question and feedback resources</h3>
+<p>We have a variety of other remote resources:</p>
+<ul>
+<li>Search on <a href="https://stackoverflow.com/questions/tagged/vscode-remote" class="external-link" target="_blank">Stack Overflow</a>.</li>
+<li>Add a <a href="https://aka.ms/vscode-remote/feature-requests" class="external-link" target="_blank">feature request</a> or <a href="https://aka.ms/vscode-remote/issues/new" class="external-link" target="_blank">report a problem</a>.</li>
+</ul>
+
+            <div class="feedback"></div>
+            
+            <div class="body-footer">12/7/2022</div>
+            
+        </div>
+        <div class="col-sm-3 col-md-2 docs-subnavbar-container">
+            <nav id="docs-subnavbar" aria-label="On Page" data-spy="affix" data-offset-top="20">
+                
+                <h4><span class="sr-only">In this article there are 16 sections</span><span
+                        aria-hidden="true">In this article</span></h4>
+                <ul class="nav">
+                    
+                    <li><a href="#_docker-desktop-for-windows-tips">Docker Desktop for Windows tips</a></li>
+                    
+                    <li><a href="#_enabling-file-sharing-in-docker-desktop">Enabling file sharing in Docker Desktop</a></li>
+                    
+                    <li><a href="#_resolving-git-line-ending-issues-in-containers-resulting-in-many-modified-files">Resolving Git line ending issues in containers (resulting in many modified files)</a></li>
+                    
+                    <li><a href="#_avoid-setting-up-git-in-a-container-when-using-docker-compose">Avoid setting up Git in a container when using Docker Compose</a></li>
+                    
+                    <li><a href="#_resolving-hangs-when-doing-a-git-push-or-sync-from-a-container">Resolving hangs when doing a Git push or sync from a Container</a></li>
+                    
+                    <li><a href="#_resolving-errors-about-missing-linux-dependencies">Resolving errors about missing Linux dependencies</a></li>
+                    
+                    <li><a href="#_speeding-up-containers-in-docker-desktop">Speeding up containers in Docker Desktop</a></li>
+                    
+                    <li><a href="#_cleaning-out-unused-containers-and-images">Cleaning out unused containers and images</a></li>
+                    
+                    <li><a href="#_resolving-dockerfile-build-failures-for-images-using-debian-8">Resolving Dockerfile build failures for images using Debian 8</a></li>
+                    
+                    <li><a href="#_resolving-docker-hub-sign-in-errors-when-an-email-is-used">Resolving Docker Hub sign in errors when an email is used</a></li>
+                    
+                    <li><a href="#_high-cpu-utilization-of-hyperkit-on-macos">High CPU utilization of Hyperkit on macOS</a></li>
+                    
+                    <li><a href="#_using-an-ssh-tunnel-to-connect-to-a-remote-docker-host">Using an SSH tunnel to connect to a remote Docker host</a></li>
+                    
+                    <li><a href="#_persisting-user-profile">Persisting user profile</a></li>
+                    
+                    <li><a href="#_advanced-container-configuration-tips">Advanced container configuration tips</a></li>
+                    
+                    <li><a href="#_extension-tips">Extension tips</a></li>
+                    
+                    <li><a href="#_questions-and-feedback">Questions and feedback</a></li>
+                    
+                </ul>
+                
+                <div class="connect-widget"></div>
+            </nav>
+        </div>
+    </div>
+</div>
+      </div>
+  </div>
+
+  <footer role="contentinfo">
+      <div class="container">
+          <div class="row">
+              <div class="left col-md-7">
+                  <ul class="links">
+                      <li>
+                          <span class="message">Hello from Seattle.</span>
+                      </li>
+                      <li>
+                          <a href="https://go.microsoft.com/fwlink/?LinkID=533687" onclick="followOnTwitter()" tabindex="0">Follow @code</a>
+                      </li>
+                      <li>
+                          <div class="github-star-button">
+                              <iframe src="../../assets/github-button29be.html?user=Microsoft&amp;repo=vscode&amp;type=star&amp;count=true"
+                                  frameborder="0" scrolling="0" width="130px" height="20px" title="GitHub follow button" loading="lazy"></iframe>
+                          </div>
+                      </li>
+  
+                      <script>
+                          function followOnTwitter() {
+                              var windowFeatures = "location=yes,height=600,width=550,scrollbars=yes,status=yes";
+                              var originalReferer = "&original_referer=" + document.URL;
+                              var screenName = "&screen_name=code";
+                              var URL = "https://twitter.com/intent/follow?" + originalReferer + screenName;
+                              window.open(URL, "_blank", windowFeatures);
+                          }
+  
+                          function manageConsent() {
+                              if(WcpConsent.siteConsent.isConsentRequired){
+                                  WcpConsent.siteConsent.manageConsent();
+                              }
+                          }
+                      </script>
+                  </ul>
+              </div>
+              <div class="right col-md-5">
+                  <ul class="links">
+                      <li><a id="footer-support-link" href="https://support.serviceshub.microsoft.com/supportforbusiness/create?sapId=d66407ed-3967-b000-4cfb-2c318cad363d"
+                              target="_blank">Support</a></li>
+                      <li><a id="footer-privacy-link" href="https://privacy.microsoft.com/privacystatement"
+                              target="_blank">Privacy</a></li>
+                      <li style="display: none;"><a id="footer-cookie-link" style="cursor: pointer;" onclick="manageConsent()"
+                              target="_blank">Manage Cookies</a></li>
+                      <li><a id="footer-terms-link" href="https://www.microsoft.com/legal/terms-of-use"
+                              target="_blank">Terms of Use</a></li>
+                      <li><a id="footer-license-link" href="../../License.html">License</a></li>
+                  </ul>
+                  <div class="copyright">
+                      <a id="footer-microsoft-link" class="logo" href="https://www.microsoft.com/">
+                          <img class="microsoft-logo" src="../../assets/images/microsoft-logo.png" height="20" alt="Microsoft homepage"/>
+                          <img class="microsoft-logo-inverted" src="../../assets/images/microsoft-logo-inverted.png" height="20" alt="Microsoft homepage" />
+                      </a>
+                      <span>&copy; 2023 Microsoft</span>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </footer>
+  <script src="../../dist/index.js"></script>
+
+  
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "SoftwareApplication",
+      "name" : "Visual Studio Code",
+      "softwareVersion": "1.74",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "applicationCategory": "DeveloperApplication",
+      "applicationSubCategory": "Text Editor",
+      "alternateName": "VS Code",
+      "datePublished": "2021-11-03",
+      "operatingSystem": "Mac, Linux, Windows",
+      "logo": "https://code.visualstudio.com/assets/apple-touch-icon.png",
+      "screenshot": "https://code.visualstudio.com/assets/home/home-screenshot-win.png",
+      "releaseNotes": "https://code.visualstudio.com/updates",
+      "downloadUrl": "https://code.visualstudio.com/download",
+      "license": "https://code.visualstudio.com/license",
+      "softwareRequirements": "https://code.visualstudio.com/docs/supporting/requirements",
+      "url" : "https://code.visualstudio.com",
+      "author": {
+        "@type": "Organization",
+        "name": "Microsoft"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Microsoft"
+      },
+      "maintainer": {
+        "@type": "Organization",
+        "name": "Microsoft"
+      },
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://code.visualstudio.com/Search?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      },
+      "sameAs" : [
+        "https://en.wikipedia.org/wiki/Visual_Studio_Code",
+        "https://twitter.com/code",
+        "https://www.youtube.com/code",
+        "https://www.tiktok.com/@vscode",
+        "https://github.com/microsoft/vscode"
+      ]
+    }
+  </script>
+</body>
+
+<!-- Mirrored from code.visualstudio.com/docs/devcontainers/tips-and-tricks by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 04 Jan 2023 10:30:08 GMT -->
+</html>

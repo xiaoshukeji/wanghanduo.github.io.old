@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Mirrored from code.visualstudio.com/blogs/2021/10/20/vscode-dev by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 04 Jan 2023 12:15:13 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="google-site-verification" content="hNs7DXrTySP_X-0P_AC0WulAXvUwgSXEmgfcO2r79dw" />
+
+  <!-- Twitter and Facebook OpenGraph Metadata-->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@code" />
+
+  <meta name="description" content="Announcing vscode.dev Visual Studio Code for the Web" />
+<meta name="keywords" content="" />
+<!-- Twitter and Facebook OpenGraph Metadata-->
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="og:url" content="vscode-dev.html" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="vscode.dev Visual Studio Code for the Web" />
+<meta property="og:description" content="Announcing vscode.dev Visual Studio Code for the Web" />
+
+<meta property="og:image" content="../../../../opengraphimg/opengraph-blog.png" />
+
+
+
+  <link rel="shortcut icon" href="../../../../favicon.ico" sizes="128x128" />
+  <link rel="apple-touch-icon" href="../../../../apple-touch-icon.png">
+
+  <title>vscode.dev Visual Studio Code for the Web</title>
+
+  <link rel="stylesheet" href="../../../../vendor/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../../../../dist/style.css">
+
+  <script type="text/javascript" src="../../../../../js.monitor.azure.com/scripts/c/ms.analytics-web-3.min.js"></script>
+  <script>
+  window.appInsights = new oneDS.ApplicationInsights();
+  window.appInsights.initialize({
+    instrumentationKey: "1a3eb3104447440391ad5f2a6ee06a0a-62879566-bc58-4741-9650-302bf2af703f-7103",
+    webAnalyticsConfiguration:{ // Web Analytics Plugin configuration
+        urlCollectQuery:true, 
+        autoCapture: {
+          scroll: true,
+          pageView: true,
+          onLoad: true,
+          onUnload: true,
+          click: true,
+          resize: true,
+          jsError: true
+        }
+    }
+  }, []);
+  </script>
+  
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','../../../../../www.google-analytics.com/analytics.js','ga');
+  </script>  
+  <link rel="alternate" type="application/atom+xml" title="RSS Feed for code.visualstudio.com" href="../../../../feed.xml" />
+</head>
+
+<body>
+  <!-- EU Cookie Compliance JS -->
+  <script src="../../../../../wcpstatic.microsoft.com/mscc/lib/v2/wcp-consent.js"></script>
+
+  <div id="main">
+          <div class="navbar-fixed-container">
+              <div class="navbar navbar-inverse navbar-fixed-top ">
+                  <div id='cookie-banner'></div>        <nav role="navigation" aria-label="Top Level">
+                      <div class="container">
+                          <div class="nav navbar-header">
+                              <a role="button" id="skip-to-content" class="link-button" href="#main-content">Skip to content<i>&nbsp;</i><span class="glyphicon glyphicon-menu-down"></span></a>
+                              <a class="navbar-brand" id="navbar-brand" href="../../../../index.html">Visual Studio Code</a>
+                              <button type="button" class="navbar-toggle" role="navigation" data-toggle="collapse" data-target=".navbar-collapse" aria-label="Toggle Navigation Menu">
+                                  <span class="icon-bar"></span>
+                                  <span class="icon-bar"></span>
+                                  <span class="icon-bar"></span>
+                              </button>
+                          </div>
+                          <div class="navbar-collapse collapse" role="navigation">
+                              <ul class="nav navbar-nav navbar-left">
+                                  <li ><a id="nav-docs" href="../../../../docs.html">Docs</a></li>
+                                  <li ><a id="nav-updates" href="../../../../updates/v1_74.html">Updates</a></li>
+                                  <li class="active" ><a id="nav-blogs" href="../../../../blogs.html">Blog</a></li>
+                                  <li ><a id="nav-extend" href="../../../../api.html">API</a></li>
+                                  <li><a href="https://marketplace.visualstudio.com/VSCode" target="_blank" id="nav-extensions">Extensions</a></li>
+                                  <li ><a id="nav-faqs" href="../../../../docs/supporting/faq.html">FAQ</a></li>
+                                  <li ><a id="nav-learn" href="../../../../learn.html">Learn</a></li>
+                                  <li class='search visible-xs visible-sm'
+                                      ><a href="../../../../Search.html">Search</a></li>
+                              </ul>
+          
+                              <ul class="nav navbar-nav navbar-right" role="presentation">
+                                  <!-- Floating search icon -->
+                                  <li>
+                                      <a href="../../../../Search.html" title="Search" class="btn search-btn" id="nav-search">
+                                          <img class="search-icon" src="../../../../assets/icons/search.svg" width="16px" height="16px" alt="Search"/>
+                                          <img class="search-icon-inverted" src="../../../../assets/icons/search_dark.svg" width="16px" height="16px" alt="Search" />
+                                      </a>
+                                  </li>
+                                  <!-- Actual search icon -->
+                                  <li class="search" role="presentation">
+                                      <form class="nav-search search-form" role="search" aria-label="Search">
+                                          <div class="input-group" role="presentation">
+                                              <input type="text" name="q" class="search-box form-control" placeholder="Search Docs" aria-label="Search text"/>
+                                              <span class="input-group-btn">
+                                                  <button tabindex="0" class="btn" type="submit" aria-label="Search">
+                                                          <img class="search-icon" src="../../../../assets/icons/search.svg" width="16px" height="16px" alt="Search" />
+                                                          <img class="search-icon-inverted" src="../../../../assets/icons/search_dark.svg" width="16px" height="16px" alt="Search" />
+                                                  </button>
+                                              </span>
+                                          </div>
+                                      </form>                        </li>
+                                  <!-- this was hiden in the home and download page, keeping it for now -->
+                                  <li><a class="link-button" href="../../../../Download.html" id="nav-download">
+                                      <img class="download-icon" src="../../../../assets/icons/download.svg" width="16px" height="16px" alt="Download VS Code"/>
+                                      <img class="download-icon-inverted" src="../../../../assets/icons/download-black.svg" width="16px" height="16px" alt="Download VS Code" />
+                                      <span>Download</span>
+                                  </a></li>
+                              </ul>
+                          </div>
+                      </div>
+                  </nav>
+              </div>
+          </div>          <div class="updates-banner  ">
+              <div class="container">
+                  <p class="message"><a href="../../../../updates/v1_74.html" id="banner-link-updates">Version 1.74</a> is now available! Read about the new features and fixes from November.</p> 
+              </div>
+              <div tabindex="0" role="button" title="Dismiss this update" class="dismiss-btn" id="banner-dismiss-btn"><span class="sr-only">Dismiss this update</span><span aria-hidden="true" class="glyph-icon"></span></div>
+          </div>      <div role="main" id="main-content">
+        <div class="container body-content docs blog">
+    <div class="row">
+        <div class="col-md-2 docs-navbar-container">
+            <nav id="docs-navbar" aria-label="Blog posts" class="docs-nav updates-nav visible-md visible-lg">
+            	<h4>Blog posts</h4>
+            	<ul class="nav">
+            		
+            			<li >
+            				<a href="../../../2022/12/07/remote-even-better.html" >Remote Development Even Better</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2022/11/28/vscode-sandbox.html" >VS Code Sandboxing</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2022/10/04/vscode-community-discussions.html" >VS Code Community Discussions</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2022/09/15/dev-container-features.html" >Dev Container Features</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2022/08/16/markdown-language-server.html" >Markdown Language Server</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2022/07/07/vscode-server.html" >The VS Code Server</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2022/05/18/dev-container-cli.html" >Dev container CLI</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2022/04/04/increase-productivity-with-containers.html" >Moving from Local to Remote Development</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2022/03/08/the-tutorial-problem.html" >The problem with tutorials</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../11/08/custom-notebooks.html" >Custom Notebooks</a>
+            			</li>
+            		
+            			<li class="active">
+            				<a href="vscode-dev.html" aria-label="Current Page: vscode.dev">vscode.dev</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../11/webview-ui-toolkit.html" >Webview UI Toolkit</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../09/29/bracket-pair-colorization.html" >Bracket Pair Colorization</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../08/05/notebooks.html" >Notebooks</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../07/06/workspace-trust.html" >Workspace Trust</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../06/10/remote-repositories.html" >Remote Repositories</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../06/02/build-2021.html" >Build 2021</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../02/16/extension-bisect.html" >Extension bisect</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2020/12/03/chromebook-get-started.html" >VS Code on Chromebook</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2020/07/27/containers-edu.html" >Development Containers in Education</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2020/07/01/containers-wsl.html" >Dev Containers in WSL 2</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2020/06/09/go-extension.html" >The Go experience</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2020/05/14/vscode-build-2020.html" >VS Code at Build</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2020/05/06/github-issues-integration.html" >GitHub Issues Integration</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2020/03/02/docker-in-wsl2.html" >Docker in WSL 2</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2020/02/24/custom-data-format.html" >Custom Data Format</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2020/02/18/optimizing-ci.html" >Improving CI Build Times</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2019/10/31/inspecting-containers.html" >Inspecting Containers</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2019/10/03/remote-ssh-tips-and-tricks.html" >SSH Tips and Tricks</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2019/09/03/wsl2.html" >WSL 2</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2019/07/25/remote-ssh.html" >Remote SSH</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2019/05/23/strict-null.html" >Strict null checking</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2019/05/02/remote-development.html" >Remote Development</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2019/02/19/lsif.html" >Language Server Index Format</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2018/12/04/rich-navigation.html" >Rich Code Navigation</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2018/11/26/event-stream.html" >Event-Stream Package Security Update</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2018/09/12/engineering-with-azure-pipelines.html" >Using Azure Pipelines</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2018/09/10/introducing-github-pullrequests.html" >GitHub Pull Requests</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2018/08/07/debug-adapter-protocol-website.html" >New home for Debug Adapter Protocol</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2018/07/12/introducing-logpoints-and-auto-attach.html" >Logpoints and auto-attach</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2018/05/07/live-share-public-preview.html" >Live Share Preview</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2018/04/25/bing-settings-search.html" >Settings Search</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2018/03/23/text-buffer-reimplementation.html" >Text Buffer Reimplementation</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/12/20/chrome-debugging.html" >What's New for Chrome Debugging</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/11/16/connect.html" >Connect 2017</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/11/15/live-share.html" >Introducing Live Share</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/10/24/theicon.html" >The Icon Journey</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/10/03/terminal-renderer.html" >Integrated Terminal Performance</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/09/28/java-debug.html" >Java Debugging</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/08/07/emmet-2.html" >Emmet 2.0</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/06/20/great-looking-editor-roundup.html" >Fresh Paint</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/05/10/build-2017-demo.html" >Build 2017 Demo</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/04/10/sublime-text-roundup.html" >Sublime Text Extension Roundup</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/03/07/extension-pack-roundup.html" >Extension Packs</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/02/12/code-lens-roundup.html" >Extensions using CodeLens</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/02/08/syntax-highlighting-optimizations.html" >Optimizations in Syntax Highlighting</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/01/15/connect-nina-e2e.html" >Node.js Development with Visual Studio Code and Azure</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2016/12/12/roundup-customize.html" >Customize VS Code Extension Roundup</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2016/11/30/hot-exit-in-insiders.html" >Hot Exit Comes to Insiders</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2016/11/15/formatters-best-practices.html" >Creating a Formatter Extension</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2016/10/31/js_roundup_2.html" >JavaScript Extensions Part 2</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2016/09/14/js_roundup_1.html" >JavaScript Extensions Part 1</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2016/09/08/icon-themes.html" >File Icon Themes</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2016/07/29/extensions-roundup-git.html" >Extensions Roundup - Fun with Git</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2016/06/27/common-language-protocol.html" >The Language Server Protocol</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2016/05/04/extension-roundup-may.html" >Extensions Roundup</a>
+            			</li>
+            		
+            	</ul>
+            </nav>
+            <nav id="small-nav" aria-label="Blog posts" class="docs-nav updates-nav hidden-md hidden-lg">
+            	<h4>Blogs</h4>
+            	<select id="small-nav-dropdown" aria-label="blog posts">
+            		
+            			<option value="/blogs/2022/12/07/remote-even-better" >Remote Development Even Better</option>
+            		
+            			<option value="/blogs/2022/11/28/vscode-sandbox" >VS Code Sandboxing</option>
+            		
+            			<option value="/blogs/2022/10/04/vscode-community-discussions" >VS Code Community Discussions</option>
+            		
+            			<option value="/blogs/2022/09/15/dev-container-features" >Dev Container Features</option>
+            		
+            			<option value="/blogs/2022/08/16/markdown-language-server" >Markdown Language Server</option>
+            		
+            			<option value="/blogs/2022/07/07/vscode-server" >The VS Code Server</option>
+            		
+            			<option value="/blogs/2022/05/18/dev-container-cli" >Dev container CLI</option>
+            		
+            			<option value="/blogs/2022/04/04/increase-productivity-with-containers" >Moving from Local to Remote Development</option>
+            		
+            			<option value="/blogs/2022/03/08/the-tutorial-problem" >The problem with tutorials</option>
+            		
+            			<option value="/blogs/2021/11/08/custom-notebooks" >Custom Notebooks</option>
+            		
+            			<option value="/blogs/2021/10/20/vscode-dev" selected>vscode.dev</option>
+            		
+            			<option value="/blogs/2021/10/11/webview-ui-toolkit" >Webview UI Toolkit</option>
+            		
+            			<option value="/blogs/2021/09/29/bracket-pair-colorization" >Bracket Pair Colorization</option>
+            		
+            			<option value="/blogs/2021/08/05/notebooks" >Notebooks</option>
+            		
+            			<option value="/blogs/2021/07/06/workspace-trust" >Workspace Trust</option>
+            		
+            			<option value="/blogs/2021/06/10/remote-repositories" >Remote Repositories</option>
+            		
+            			<option value="/blogs/2021/06/02/build-2021" >Build 2021</option>
+            		
+            			<option value="/blogs/2021/02/16/extension-bisect" >Extension bisect</option>
+            		
+            			<option value="/blogs/2020/12/03/chromebook-get-started" >VS Code on Chromebook</option>
+            		
+            			<option value="/blogs/2020/07/27/containers-edu" >Development Containers in Education</option>
+            		
+            			<option value="/blogs/2020/07/01/containers-wsl" >Dev Containers in WSL 2</option>
+            		
+            			<option value="/blogs/2020/06/09/go-extension" >The Go experience</option>
+            		
+            			<option value="/blogs/2020/05/14/vscode-build-2020" >VS Code at Build</option>
+            		
+            			<option value="/blogs/2020/05/06/github-issues-integration" >GitHub Issues Integration</option>
+            		
+            			<option value="/blogs/2020/03/02/docker-in-wsl2" >Docker in WSL 2</option>
+            		
+            			<option value="/blogs/2020/02/24/custom-data-format" >Custom Data Format</option>
+            		
+            			<option value="/blogs/2020/02/18/optimizing-ci" >Improving CI Build Times</option>
+            		
+            			<option value="/blogs/2019/10/31/inspecting-containers" >Inspecting Containers</option>
+            		
+            			<option value="/blogs/2019/10/03/remote-ssh-tips-and-tricks" >SSH Tips and Tricks</option>
+            		
+            			<option value="/blogs/2019/09/03/wsl2" >WSL 2</option>
+            		
+            			<option value="/blogs/2019/07/25/remote-ssh" >Remote SSH</option>
+            		
+            			<option value="/blogs/2019/05/23/strict-null" >Strict null checking</option>
+            		
+            			<option value="/blogs/2019/05/02/remote-development" >Remote Development</option>
+            		
+            			<option value="/blogs/2019/02/19/lsif" >Language Server Index Format</option>
+            		
+            			<option value="/blogs/2018/12/04/rich-navigation" >Rich Code Navigation</option>
+            		
+            			<option value="/blogs/2018/11/26/event-stream" >Event-Stream Package Security Update</option>
+            		
+            			<option value="/blogs/2018/09/12/engineering-with-azure-pipelines" >Using Azure Pipelines</option>
+            		
+            			<option value="/blogs/2018/09/10/introducing-github-pullrequests" >GitHub Pull Requests</option>
+            		
+            			<option value="/blogs/2018/08/07/debug-adapter-protocol-website" >New home for Debug Adapter Protocol</option>
+            		
+            			<option value="/blogs/2018/07/12/introducing-logpoints-and-auto-attach" >Logpoints and auto-attach</option>
+            		
+            			<option value="/blogs/2018/05/07/live-share-public-preview" >Live Share Preview</option>
+            		
+            			<option value="/blogs/2018/04/25/bing-settings-search" >Settings Search</option>
+            		
+            			<option value="/blogs/2018/03/23/text-buffer-reimplementation" >Text Buffer Reimplementation</option>
+            		
+            			<option value="/blogs/2017/12/20/chrome-debugging" >What's New for Chrome Debugging</option>
+            		
+            			<option value="/blogs/2017/11/16/connect" >Connect 2017</option>
+            		
+            			<option value="/blogs/2017/11/15/live-share" >Introducing Live Share</option>
+            		
+            			<option value="/blogs/2017/10/24/theicon" >The Icon Journey</option>
+            		
+            			<option value="/blogs/2017/10/03/terminal-renderer" >Integrated Terminal Performance</option>
+            		
+            			<option value="/blogs/2017/09/28/java-debug" >Java Debugging</option>
+            		
+            			<option value="/blogs/2017/08/07/emmet-2.0" >Emmet 2.0</option>
+            		
+            			<option value="/blogs/2017/06/20/great-looking-editor-roundup" >Fresh Paint</option>
+            		
+            			<option value="/blogs/2017/05/10/build-2017-demo" >Build 2017 Demo</option>
+            		
+            			<option value="/blogs/2017/04/10/sublime-text-roundup" >Sublime Text Extension Roundup</option>
+            		
+            			<option value="/blogs/2017/03/07/extension-pack-roundup" >Extension Packs</option>
+            		
+            			<option value="/blogs/2017/02/12/code-lens-roundup" >Extensions using CodeLens</option>
+            		
+            			<option value="/blogs/2017/02/08/syntax-highlighting-optimizations" >Optimizations in Syntax Highlighting</option>
+            		
+            			<option value="/blogs/2017/01/15/connect-nina-e2e" >Node.js Development with Visual Studio Code and Azure</option>
+            		
+            			<option value="/blogs/2016/12/12/roundup-customize" >Customize VS Code Extension Roundup</option>
+            		
+            			<option value="/blogs/2016/11/30/hot-exit-in-insiders" >Hot Exit Comes to Insiders</option>
+            		
+            			<option value="/blogs/2016/11/15/formatters-best-practices" >Creating a Formatter Extension</option>
+            		
+            			<option value="/blogs/2016/10/31/js_roundup_2" >JavaScript Extensions Part 2</option>
+            		
+            			<option value="/blogs/2016/09/14/js_roundup_1" >JavaScript Extensions Part 1</option>
+            		
+            			<option value="/blogs/2016/09/08/icon-themes" >File Icon Themes</option>
+            		
+            			<option value="/blogs/2016/07/29/extensions-roundup-git" >Extensions Roundup - Fun with Git</option>
+            		
+            			<option value="/blogs/2016/06/27/common-language-protocol" >The Language Server Protocol</option>
+            		
+            			<option value="/blogs/2016/05/04/extension-roundup-may" >Extensions Roundup</option>
+            		
+            	</select>
+            </nav>        </div>
+        <div class="col-sm-9 col-md-8 body">
+            <h1>vscode.dev(!)</h1>
+<p>October 20, 2021 by Chris Dias, <a href="https://twitter.com/chrisdias" class="external-link" target="_blank">@chrisdias</a></p>
+<p>Back in 2019, when the <code>.dev</code> top-level domain opened, we picked up <code>vscode.dev</code> and quickly parked it, pointing at our website <code>code.visualstudio.com</code> (or, if you are from the Boston area like me, we &quot;pahked it&quot;). Like a lot of people who buy a <code>.dev</code> domain, we had no idea what we were going to do with it. And we certainly didn't anticipate that it would end up being the fulfillment of a mission over a decade in the making.</p>
+<h2 id="_bringing-vs-code-to-the-browser" data-needslink="_bringing-vs-code-to-the-browser">Bringing VS Code to the browser</h2>
+<p>Fast forward to today. Now when you go to <a href="https://vscode.dev/" class="external-link" target="_blank">https://vscode.dev</a>, you'll be presented with a lightweight version of VS Code running fully in the browser. Open a folder on your local machine and start coding.</p>
+<p>No install required.</p>
+<p><a href="../../../../assets/blogs/2021/10/20/vscode-dev.png"><img src="../../../../assets/blogs/2021/10/20/vscode-dev.png" alt="vscode.dev running in the browser" loading="lazy"></a></p>
+<p>With the availability of vscode.dev, we begin to finally realize our original vision of building a development tool that can run fully serverless in the browser. For a full history lesson, check out Erich Gamma's VS Code Day talk <a href="https://www.youtube.com/watch?v=hilznKQij7A&amp;list=PLj6YeMhvp2S6uB23beQaffszlavLq3lNq" class="external-link" target="_blank">&quot;VS Code An Overnight Success…10 Years in the Making&quot;</a>.</p>
+<p>So, what can you do on VS Code for the Web? Quite a bit actually…</p>
+<h2 id="_local-development-with-cloud-tools" data-needslink="_local-development-with-cloud-tools">Local development with cloud tools</h2>
+<p><a href="../../../../assets/blogs/2021/10/20/the-cat-said-no-vscode-dev.png"><img src="../../../../assets/blogs/2021/10/20/the-cat-said-no-vscode-dev.png" alt="&quot;The Cat said No&quot; application source code in vscode.dev" loading="lazy"></a></p>
+<p>Modern browsers that support the <a href="https://developer.mozilla.org/docs/Web/API/File_System_Access_API" class="external-link" target="_blank">File System Access API</a> (Edge and Chrome today) allow web pages to access the local file system (with your permission). This simple gateway to the local machine quickly opens some interesting scenarios for using VS Code for the Web as a zero-installation local development tool, such as:</p>
+<ul>
+<li>Local file viewing and editing. Quickly take notes (and preview!) in Markdown. Even if you are on a restricted machine where you cannot install the full VS Code, you may still be able to use vscode.dev to view and edit local files.</li>
+<li>Build client-side HTML, JavaScript, and CSS applications in conjunction with the browser tools for debugging.</li>
+<li>Edit your code on lower powered machines like Chromebooks, where you can't (<a href="../../../2020/12/03/chromebook-get-started.html">easily</a>) install VS Code.</li>
+<li>Develop on your iPad. You can upload/download files (and even store them in the cloud using the Files app), as well as open repositories remotely with the built-in GitHub Repositories extension.</li>
+</ul>
+<p>And, if your browser doesn't support local file system APIs, you'll still be able to open individual files by uploading and downloading them via the browser.</p>
+<p><img src="../../../../assets/blogs/2021/10/20/local-file-system-unsupported.png" alt="Local File System Access is Unsupported message dialog" loading="lazy"></p>
+<p><strong>A Light(er)weight Experience</strong></p>
+<p>Since VS Code for the Web is running completely within the browser, some experiences will naturally be more constrained, when compared to what you can do in the desktop app. For example, the terminal and debugger are not available, which makes sense since you can't compile, run, and debug a Rust or Go application within the browser sandbox (although emerging technologies like Pyodide and web containers may someday change this).</p>
+<p>A bit more nuanced are the code editing, navigation, and browsing experiences, which, on the desktop, are generally powered by language services and compilers that expect a file system, runtime, and compute environment. In the browser, these experiences are powered by language services <em>running fully in the browser</em> (no file system, no runtimes) that provide source code tokenization and syntax colorization, completions, and many single-file operations.</p>
+<p>As a result, when in the browser, experiences generally fall into the following categories:</p>
+<p><strong>Good</strong>: For most programming languages, vscode.dev gives you code syntax colorization, text-based completions, and <a href="../../09/29/bracket-pair-colorization.html">bracket pair colorization</a>. Using a <a href="https://tree-sitter.github.io/tree-sitter" class="external-link" target="_blank">Tree-sitter</a> syntax tree, we're able to <a href="https://github.com/microsoft/vscode-anycode" class="external-link" target="_blank">provide additional experiences</a> such as <a href="../../../../docs/editor/editingevolved.html#_go-to-symbol">Outline/Go to Symbol</a> and <a href="../../../../docs/editor/editingevolved.html#_open-symbol-by-name">Symbol Search</a> for popular languages such as C/C++, C#, Java, PHP, Rust, and Go.</p>
+<p><strong>Better</strong>: The TypeScript, JavaScript, and <a href="https://devblogs.microsoft.com/python/python-in-visual-studio-code-september-2021-release/#a-rich-python-editing-experience-in-the-browser-via-github-dev" class="external-link" target="_blank">Python</a> experiences are all powered by language services that run natively in the browser. With these programming languages, you'll get the &quot;<strong>Good</strong>&quot; experience plus rich single file completions, semantic highlighting, syntax errors, and more.</p>
+<p><strong>Best</strong>: For many &quot;webby&quot; languages, such as JSON, HTML, CSS, and LESS, the coding experience in vscode.dev is nearly identical to the desktop (including Markdown preview!).</p>
+<h2 id="_extensions" data-needslink="_extensions">Extensions</h2>
+<p>Most UI customization extensions such as themes, key maps, and snippets all work in vscode.dev and you can even enable roaming between the browser, the desktop, and GitHub Codespaces through <a href="../../../../docs/editor/settings-sync.html">Settings Sync</a>.</p>
+<p>Extensions that run Node.js code that use OS-specific modules, or shell out to local executables, still show in search results, but are clearly marked as unavailable.</p>
+<p><img src="../../../../assets/blogs/2021/10/20/extension-not-available.png" alt="Notification that extension is not available in Visual Studio Code for the Web" loading="lazy"></p>
+<p>That said, there are a growing number of extensions that have been updated to work in the browser, with more coming every day.</p>
+<blockquote>
+<p><strong>Note</strong>: If you are an extension author and want to have your extension available in the browser (we do!), check out our <a href="../../../../api/extension-guides/web-extensions.html">Web Extensions authoring guide</a>.</p>
+</blockquote>
+<p>For example, the <a href="https://marketplace.visualstudio.com/items?itemName=Tyriar.luna-paint" class="external-link" target="_blank">Luna Paint - Image Editor</a> extension lets you edit raster images directly in VS Code. The extension brings rich design tools (for example, layer and blend tools) to VS Code, and of course you can save images to your local disk.</p>
+<p><a href="../../../../assets/blogs/2021/10/20/luna-paint-vscode-dev.png"><img src="../../../../assets/blogs/2021/10/20/luna-paint-vscode-dev.png" alt="Luna Paint - Image Editor extension running in vscode.dev" loading="lazy"></a></p>
+<p>The <a href="https://marketplace.visualstudio.com/items?itemName=ms-vscode.vscode-github-issue-notebooks" class="external-link" target="_blank">GitHub Issue Notebooks</a> extension brings the Notebook experience to GitHub Issues. With that you can interleave queries, results, and even Markdown describing the purpose of the queries, together into a single editor.</p>
+<p><a href="../../../../assets/blogs/2021/10/20/github-issue-notebooks-vscode-dev.png"><img src="../../../../assets/blogs/2021/10/20/github-issue-notebooks-vscode-dev.png" alt="GitHub Issue Notebooks extension running in vscode.dev" loading="lazy"></a></p>
+<h2 id="_github" data-needslink="_github">GitHub</h2>
+<p>Many extensions for VS Code work with source code that is stored in GitHub. For example, the <a href="https://marketplace.visualstudio.com/items?itemName=vsls-contrib.codetour" class="external-link" target="_blank">CodeTour</a> extension lets you create guided walkthroughs of a code base and the <a href="https://marketplace.visualstudio.com/items?itemName=lostintangent.wikilens" class="external-link" target="_blank">WikiLens</a> extension turns VS Code and your repository into a powerful note taking tool (with bi-directional linking). To make it easy to access your code in GitHub, VS Code for the Web comes with the <a href="../../../../docs/sourcecontrol/github.html#_github-repositories-extension">GitHub Repositories</a>, <a href="../../../../docs/remote/codespaces.html">Codespaces</a>, and <a href="../../../../docs/sourcecontrol/github.html#_getting-started-with-github-pull-requests-and-issues">Pull Request</a> extensions built in. You can make quick edits, review PRs, and <strong>Continue on</strong> to a local clone or even better, to a <a href="https://github.com/features/codespaces" class="external-link" target="_blank">GitHub Codespace</a>, if you want more powerful language experiences or need to build, run, and test the changes prior to merging the commits.</p>
+<p><img src="../../../../assets/blogs/2021/10/20/continue-on-dropdown.png" alt="Continue on dropdown showing Clone Repository Locally or Create New Codespace" loading="lazy"></p>
+<p>Whoa, sounds a lot like <code>github.dev</code> doesn't it? Are they different? The same? Why two??!!</p>
+<p>Good question(s)! <code>github.dev</code> is a customized instance of VS Code for the Web that is deeply integrated into GitHub. Login is automatic, the URL format follows github.com's <code>/organization/repo</code> model so that you can simply change <code>.com</code> to <code>.dev</code> to edit a repo, and it is customized for GitHub with the light and dark themes.</p>
+<p>In addition to repositories on GitHub, VS Code for the Web supports Azure Repos (part of Azure DevOps). To work with both, VS Code for the Web supports two routes, <code>vscode.dev/github</code> and <code>vscode.dev/azurerepos</code>. You don't have to remember that though, simply prefix whatever URL you have with &quot;vscode.dev&quot;.</p>
+<p>For example, change <code>https://github.com/microsoft/vscode</code> to 'https://<strong>vscode.dev</strong>/github.com/Microsoft/vscode'.</p>
+<p>For Azure Repos, do the same. Change <code>https://dev.azure.com/…</code> to 'https://<strong>vscode.dev</strong>/dev.azure.com /…'.</p>
+<p>Today, support for Azure Repos is in preview mode for reading repositories, but we're working hard to bring full read/write capabilities as soon as we can.</p>
+<p>If you are not on GitHub or Azure DevOps, support for additional repository hosting services can be provided through extensions, just like on the desktop. Those extensions, as noted above, will need to support running fully in the browser.</p>
+<h2 id="_speaking-of-urls" data-needslink="_speaking-of-urls">Speaking of URLs…</h2>
+<p>Like in the desktop, you can customize VS Code for the Web through a rich ecosystem of extensions that support just about every back end, language, and service. Unlike in the desktop, it's easy for us to deliver customized experiences with pre-installed extensions through unique <code>vscode.dev</code> URLs (like <code>vscode.dev/github</code> and <code>vscode.dev/azurerepos</code> as mentioned above).</p>
+<p>For example, try browsing to <a href="https://vscode.dev/theme/sdras.night-owl" class="external-link" target="_blank">https://vscode.dev/theme/sdras.night-owl</a>.</p>
+<p><a href="../../../../assets/blogs/2021/10/20/night-owl-theme-vscode-dev.png"><img src="../../../../assets/blogs/2021/10/20/night-owl-theme-vscode-dev.png" alt="Night Owl color theme in vscode.dev" loading="lazy"></a></p>
+<p>Here you can experience the popular <a href="https://marketplace.visualstudio.com/items?itemName=sdras.night-owl" class="external-link" target="_blank">Night Owl</a> color theme by <a href="https://twitter.com/sarah_edo" class="external-link" target="_blank">@sarah_edo</a> &quot;live&quot;, without having to go through the download and install process, just to see if you like it. No install necessary! If you are a theme author, you can even create a badge in your <code>README.md</code> to let users test drive your theme directly from the Marketplace (learn more in the <a href="../../../../docs/editor/vscode-web.html#_themes">VS Code for the Web</a> user guide).</p>
+<p>Feel free to use this URL to share your favorite themes with friends. Personally, I'm a big fan of <a href="https://twitter.com/wesbos" class="external-link" target="_blank">@wesbos</a>' <a href="https://marketplace.visualstudio.com/items?itemName=wesbos.theme-cobalt2" class="external-link" target="_blank">Cobalt2</a> theme, check out <a href="https://vscode.dev/theme/wesbos.theme-cobalt2" class="external-link" target="_blank">https://vscode.dev/theme/wesbos.theme-cobalt2</a>. Note, the <code>theme</code> URL only works with themes that are fully declarative (no code).</p>
+<p>As you can see, <code>vscode.dev</code> URLs are a powerful way for us to deliver new, lightweight experiences. Another example is that Live Share guest sessions will also be available in the browser through the <code>https://vscode.dev/liveshare</code> URL. The <code>sessionId</code> will be passed to the extension to make joining a seamless experience.</p>
+<p><img src="../../../../assets/blogs/2021/10/20/join-live-share.png" alt="Live Share dialog with option to join session from the browser" loading="lazy"></p>
+<p>The possibilities with <code>vscode.dev</code> URLs are endless, and we've got a lot of ideas that we're excited to share with you in the coming months.</p>
+<h2 id="_where-to-next" data-needslink="_where-to-next">Where to next?</h2>
+<p>Bringing VS Code to the browser is the realization of the original vision for the product. It is also the start of a completely new one. An ephemeral editor that is available to anyone with a browser and an internet connection is the foundation for a future where we can truly edit anything from anywhere.</p>
+<p>Stay tuned for more… 😉</p>
+<p>Happy Coding,</p>
+<p>Chris</p>
+<p>P.S. In case you missed it, you can watch our <a href="https://youtu.be/sy3TUb_iVJM" class="external-link" target="_blank">VS Code for the Web</a> live stream.</p>
+
+        </div>
+        <div class="col-sm-3 col-md-2 docs-subnavbar-container">
+            <nav id="docs-subnavbar" aria-label="On Page" data-spy="affix" data-offset-top="20">
+                
+                <h4><span class="sr-only">In this blog post, there are 6
+                        sections</span><span aria-hidden="true">In this blog post</span></h4>
+                
+                <ul class="nav">
+                    
+                    <li><a href="#_bringing-vs-code-to-the-browser">Bringing VS Code to the browser</a></li>
+                    
+                    <li><a href="#_local-development-with-cloud-tools">Local development with cloud tools</a></li>
+                    
+                    <li><a href="#_extensions">Extensions</a></li>
+                    
+                    <li><a href="#_github">GitHub</a></li>
+                    
+                    <li><a href="#_speaking-of-urls">Speaking of URLs…</a></li>
+                    
+                    <li><a href="#_where-to-next">Where to next?</a></li>
+                    
+                </ul>
+                <div class="connect-widget"></div>
+            </nav>
+        </div>
+    </div>
+</div>
+      </div>
+  </div>
+
+  <footer role="contentinfo">
+      <div class="container">
+          <div class="row">
+              <div class="left col-md-7">
+                  <ul class="links">
+                      <li>
+                          <span class="message">Hello from Seattle.</span>
+                      </li>
+                      <li>
+                          <a href="https://go.microsoft.com/fwlink/?LinkID=533687" onclick="followOnTwitter()" tabindex="0">Follow @code</a>
+                      </li>
+                      <li>
+                          <div class="github-star-button">
+                              <iframe src="../../../../assets/github-button29be.html?user=Microsoft&amp;repo=vscode&amp;type=star&amp;count=true"
+                                  frameborder="0" scrolling="0" width="130px" height="20px" title="GitHub follow button" loading="lazy"></iframe>
+                          </div>
+                      </li>
+  
+                      <script>
+                          function followOnTwitter() {
+                              var windowFeatures = "location=yes,height=600,width=550,scrollbars=yes,status=yes";
+                              var originalReferer = "&original_referer=" + document.URL;
+                              var screenName = "&screen_name=code";
+                              var URL = "https://twitter.com/intent/follow?" + originalReferer + screenName;
+                              window.open(URL, "_blank", windowFeatures);
+                          }
+  
+                          function manageConsent() {
+                              if(WcpConsent.siteConsent.isConsentRequired){
+                                  WcpConsent.siteConsent.manageConsent();
+                              }
+                          }
+                      </script>
+                  </ul>
+              </div>
+              <div class="right col-md-5">
+                  <ul class="links">
+                      <li><a id="footer-support-link" href="https://support.serviceshub.microsoft.com/supportforbusiness/create?sapId=d66407ed-3967-b000-4cfb-2c318cad363d"
+                              target="_blank">Support</a></li>
+                      <li><a id="footer-privacy-link" href="https://privacy.microsoft.com/privacystatement"
+                              target="_blank">Privacy</a></li>
+                      <li style="display: none;"><a id="footer-cookie-link" style="cursor: pointer;" onclick="manageConsent()"
+                              target="_blank">Manage Cookies</a></li>
+                      <li><a id="footer-terms-link" href="https://www.microsoft.com/legal/terms-of-use"
+                              target="_blank">Terms of Use</a></li>
+                      <li><a id="footer-license-link" href="../../../../License.html">License</a></li>
+                  </ul>
+                  <div class="copyright">
+                      <a id="footer-microsoft-link" class="logo" href="https://www.microsoft.com/">
+                          <img class="microsoft-logo" src="../../../../assets/images/microsoft-logo.png" height="20" alt="Microsoft homepage"/>
+                          <img class="microsoft-logo-inverted" src="../../../../assets/images/microsoft-logo-inverted.png" height="20" alt="Microsoft homepage" />
+                      </a>
+                      <span>&copy; 2023 Microsoft</span>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </footer>
+  <script src="../../../../dist/index.js"></script>
+
+  
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "SoftwareApplication",
+      "name" : "Visual Studio Code",
+      "softwareVersion": "1.74",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "applicationCategory": "DeveloperApplication",
+      "applicationSubCategory": "Text Editor",
+      "alternateName": "VS Code",
+      "datePublished": "2021-11-03",
+      "operatingSystem": "Mac, Linux, Windows",
+      "logo": "https://code.visualstudio.com/assets/apple-touch-icon.png",
+      "screenshot": "https://code.visualstudio.com/assets/home/home-screenshot-win.png",
+      "releaseNotes": "https://code.visualstudio.com/updates",
+      "downloadUrl": "https://code.visualstudio.com/download",
+      "license": "https://code.visualstudio.com/license",
+      "softwareRequirements": "https://code.visualstudio.com/docs/supporting/requirements",
+      "url" : "https://code.visualstudio.com",
+      "author": {
+        "@type": "Organization",
+        "name": "Microsoft"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Microsoft"
+      },
+      "maintainer": {
+        "@type": "Organization",
+        "name": "Microsoft"
+      },
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://code.visualstudio.com/Search?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      },
+      "sameAs" : [
+        "https://en.wikipedia.org/wiki/Visual_Studio_Code",
+        "https://twitter.com/code",
+        "https://www.youtube.com/code",
+        "https://www.tiktok.com/@vscode",
+        "https://github.com/microsoft/vscode"
+      ]
+    }
+  </script>
+</body>
+
+<!-- Mirrored from code.visualstudio.com/blogs/2021/10/20/vscode-dev by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 04 Jan 2023 12:15:13 GMT -->
+</html>

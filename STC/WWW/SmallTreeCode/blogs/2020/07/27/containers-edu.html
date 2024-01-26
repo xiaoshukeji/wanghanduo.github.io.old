@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Mirrored from code.visualstudio.com/blogs/2020/07/27/containers-edu by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 04 Jan 2023 12:15:13 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="google-site-verification" content="hNs7DXrTySP_X-0P_AC0WulAXvUwgSXEmgfcO2r79dw" />
+
+  <!-- Twitter and Facebook OpenGraph Metadata-->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@code" />
+
+  <meta name="description" content="Development Containers in Education with Visual Studio Code" />
+<meta name="keywords" content="" />
+<!-- Twitter and Facebook OpenGraph Metadata-->
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="og:url" content="containers-edu.html" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Development Containers in Education with Visual Studio Code" />
+<meta property="og:description" content="Development Containers in Education with Visual Studio Code" />
+
+<meta property="og:image" content="../../../../opengraphimg/opengraph-blog.png" />
+
+
+
+  <link rel="shortcut icon" href="../../../../favicon.ico" sizes="128x128" />
+  <link rel="apple-touch-icon" href="../../../../apple-touch-icon.png">
+
+  <title>Development Containers in Education with Visual Studio Code</title>
+
+  <link rel="stylesheet" href="../../../../vendor/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../../../../dist/style.css">
+
+  <script type="text/javascript" src="../../../../../js.monitor.azure.com/scripts/c/ms.analytics-web-3.min.js"></script>
+  <script>
+  window.appInsights = new oneDS.ApplicationInsights();
+  window.appInsights.initialize({
+    instrumentationKey: "1a3eb3104447440391ad5f2a6ee06a0a-62879566-bc58-4741-9650-302bf2af703f-7103",
+    webAnalyticsConfiguration:{ // Web Analytics Plugin configuration
+        urlCollectQuery:true, 
+        autoCapture: {
+          scroll: true,
+          pageView: true,
+          onLoad: true,
+          onUnload: true,
+          click: true,
+          resize: true,
+          jsError: true
+        }
+    }
+  }, []);
+  </script>
+  
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','../../../../../www.google-analytics.com/analytics.js','ga');
+  </script>  
+  <link rel="alternate" type="application/atom+xml" title="RSS Feed for code.visualstudio.com" href="../../../../feed.xml" />
+</head>
+
+<body>
+  <!-- EU Cookie Compliance JS -->
+  <script src="../../../../../wcpstatic.microsoft.com/mscc/lib/v2/wcp-consent.js"></script>
+
+  <div id="main">
+          <div class="navbar-fixed-container">
+              <div class="navbar navbar-inverse navbar-fixed-top ">
+                  <div id='cookie-banner'></div>        <nav role="navigation" aria-label="Top Level">
+                      <div class="container">
+                          <div class="nav navbar-header">
+                              <a role="button" id="skip-to-content" class="link-button" href="#main-content">Skip to content<i>&nbsp;</i><span class="glyphicon glyphicon-menu-down"></span></a>
+                              <a class="navbar-brand" id="navbar-brand" href="../../../../index.html">Visual Studio Code</a>
+                              <button type="button" class="navbar-toggle" role="navigation" data-toggle="collapse" data-target=".navbar-collapse" aria-label="Toggle Navigation Menu">
+                                  <span class="icon-bar"></span>
+                                  <span class="icon-bar"></span>
+                                  <span class="icon-bar"></span>
+                              </button>
+                          </div>
+                          <div class="navbar-collapse collapse" role="navigation">
+                              <ul class="nav navbar-nav navbar-left">
+                                  <li ><a id="nav-docs" href="../../../../docs.html">Docs</a></li>
+                                  <li ><a id="nav-updates" href="../../../../updates/v1_74.html">Updates</a></li>
+                                  <li class="active" ><a id="nav-blogs" href="../../../../blogs.html">Blog</a></li>
+                                  <li ><a id="nav-extend" href="../../../../api.html">API</a></li>
+                                  <li><a href="https://marketplace.visualstudio.com/VSCode" target="_blank" id="nav-extensions">Extensions</a></li>
+                                  <li ><a id="nav-faqs" href="../../../../docs/supporting/faq.html">FAQ</a></li>
+                                  <li ><a id="nav-learn" href="../../../../learn.html">Learn</a></li>
+                                  <li class='search visible-xs visible-sm'
+                                      ><a href="../../../../Search.html">Search</a></li>
+                              </ul>
+          
+                              <ul class="nav navbar-nav navbar-right" role="presentation">
+                                  <!-- Floating search icon -->
+                                  <li>
+                                      <a href="../../../../Search.html" title="Search" class="btn search-btn" id="nav-search">
+                                          <img class="search-icon" src="../../../../assets/icons/search.svg" width="16px" height="16px" alt="Search"/>
+                                          <img class="search-icon-inverted" src="../../../../assets/icons/search_dark.svg" width="16px" height="16px" alt="Search" />
+                                      </a>
+                                  </li>
+                                  <!-- Actual search icon -->
+                                  <li class="search" role="presentation">
+                                      <form class="nav-search search-form" role="search" aria-label="Search">
+                                          <div class="input-group" role="presentation">
+                                              <input type="text" name="q" class="search-box form-control" placeholder="Search Docs" aria-label="Search text"/>
+                                              <span class="input-group-btn">
+                                                  <button tabindex="0" class="btn" type="submit" aria-label="Search">
+                                                          <img class="search-icon" src="../../../../assets/icons/search.svg" width="16px" height="16px" alt="Search" />
+                                                          <img class="search-icon-inverted" src="../../../../assets/icons/search_dark.svg" width="16px" height="16px" alt="Search" />
+                                                  </button>
+                                              </span>
+                                          </div>
+                                      </form>                        </li>
+                                  <!-- this was hiden in the home and download page, keeping it for now -->
+                                  <li><a class="link-button" href="../../../../Download.html" id="nav-download">
+                                      <img class="download-icon" src="../../../../assets/icons/download.svg" width="16px" height="16px" alt="Download VS Code"/>
+                                      <img class="download-icon-inverted" src="../../../../assets/icons/download-black.svg" width="16px" height="16px" alt="Download VS Code" />
+                                      <span>Download</span>
+                                  </a></li>
+                              </ul>
+                          </div>
+                      </div>
+                  </nav>
+              </div>
+          </div>          <div class="updates-banner  ">
+              <div class="container">
+                  <p class="message"><a href="../../../../updates/v1_74.html" id="banner-link-updates">Version 1.74</a> is now available! Read about the new features and fixes from November.</p> 
+              </div>
+              <div tabindex="0" role="button" title="Dismiss this update" class="dismiss-btn" id="banner-dismiss-btn"><span class="sr-only">Dismiss this update</span><span aria-hidden="true" class="glyph-icon"></span></div>
+          </div>      <div role="main" id="main-content">
+        <div class="container body-content docs blog">
+    <div class="row">
+        <div class="col-md-2 docs-navbar-container">
+            <nav id="docs-navbar" aria-label="Blog posts" class="docs-nav updates-nav visible-md visible-lg">
+            	<h4>Blog posts</h4>
+            	<ul class="nav">
+            		
+            			<li >
+            				<a href="../../../2022/12/07/remote-even-better.html" >Remote Development Even Better</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2022/11/28/vscode-sandbox.html" >VS Code Sandboxing</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2022/10/04/vscode-community-discussions.html" >VS Code Community Discussions</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2022/09/15/dev-container-features.html" >Dev Container Features</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2022/08/16/markdown-language-server.html" >Markdown Language Server</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2022/07/07/vscode-server.html" >The VS Code Server</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2022/05/18/dev-container-cli.html" >Dev container CLI</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2022/04/04/increase-productivity-with-containers.html" >Moving from Local to Remote Development</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2022/03/08/the-tutorial-problem.html" >The problem with tutorials</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2021/11/08/custom-notebooks.html" >Custom Notebooks</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2021/10/20/vscode-dev.html" >vscode.dev</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2021/10/11/webview-ui-toolkit.html" >Webview UI Toolkit</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2021/09/29/bracket-pair-colorization.html" >Bracket Pair Colorization</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2021/08/05/notebooks.html" >Notebooks</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2021/07/06/workspace-trust.html" >Workspace Trust</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2021/06/10/remote-repositories.html" >Remote Repositories</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2021/06/02/build-2021.html" >Build 2021</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2021/02/16/extension-bisect.html" >Extension bisect</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../12/03/chromebook-get-started.html" >VS Code on Chromebook</a>
+            			</li>
+            		
+            			<li class="active">
+            				<a href="containers-edu.html" aria-label="Current Page: Development Containers in Education">Development Containers in Education</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../01/containers-wsl.html" >Dev Containers in WSL 2</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../06/09/go-extension.html" >The Go experience</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../05/14/vscode-build-2020.html" >VS Code at Build</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../05/06/github-issues-integration.html" >GitHub Issues Integration</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../03/02/docker-in-wsl2.html" >Docker in WSL 2</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../02/24/custom-data-format.html" >Custom Data Format</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../02/18/optimizing-ci.html" >Improving CI Build Times</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2019/10/31/inspecting-containers.html" >Inspecting Containers</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2019/10/03/remote-ssh-tips-and-tricks.html" >SSH Tips and Tricks</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2019/09/03/wsl2.html" >WSL 2</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2019/07/25/remote-ssh.html" >Remote SSH</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2019/05/23/strict-null.html" >Strict null checking</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2019/05/02/remote-development.html" >Remote Development</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2019/02/19/lsif.html" >Language Server Index Format</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2018/12/04/rich-navigation.html" >Rich Code Navigation</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2018/11/26/event-stream.html" >Event-Stream Package Security Update</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2018/09/12/engineering-with-azure-pipelines.html" >Using Azure Pipelines</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2018/09/10/introducing-github-pullrequests.html" >GitHub Pull Requests</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2018/08/07/debug-adapter-protocol-website.html" >New home for Debug Adapter Protocol</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2018/07/12/introducing-logpoints-and-auto-attach.html" >Logpoints and auto-attach</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2018/05/07/live-share-public-preview.html" >Live Share Preview</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2018/04/25/bing-settings-search.html" >Settings Search</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2018/03/23/text-buffer-reimplementation.html" >Text Buffer Reimplementation</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/12/20/chrome-debugging.html" >What's New for Chrome Debugging</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/11/16/connect.html" >Connect 2017</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/11/15/live-share.html" >Introducing Live Share</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/10/24/theicon.html" >The Icon Journey</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/10/03/terminal-renderer.html" >Integrated Terminal Performance</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/09/28/java-debug.html" >Java Debugging</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/08/07/emmet-2.html" >Emmet 2.0</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/06/20/great-looking-editor-roundup.html" >Fresh Paint</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/05/10/build-2017-demo.html" >Build 2017 Demo</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/04/10/sublime-text-roundup.html" >Sublime Text Extension Roundup</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/03/07/extension-pack-roundup.html" >Extension Packs</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/02/12/code-lens-roundup.html" >Extensions using CodeLens</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/02/08/syntax-highlighting-optimizations.html" >Optimizations in Syntax Highlighting</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/01/15/connect-nina-e2e.html" >Node.js Development with Visual Studio Code and Azure</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2016/12/12/roundup-customize.html" >Customize VS Code Extension Roundup</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2016/11/30/hot-exit-in-insiders.html" >Hot Exit Comes to Insiders</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2016/11/15/formatters-best-practices.html" >Creating a Formatter Extension</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2016/10/31/js_roundup_2.html" >JavaScript Extensions Part 2</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2016/09/14/js_roundup_1.html" >JavaScript Extensions Part 1</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2016/09/08/icon-themes.html" >File Icon Themes</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2016/07/29/extensions-roundup-git.html" >Extensions Roundup - Fun with Git</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2016/06/27/common-language-protocol.html" >The Language Server Protocol</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2016/05/04/extension-roundup-may.html" >Extensions Roundup</a>
+            			</li>
+            		
+            	</ul>
+            </nav>
+            <nav id="small-nav" aria-label="Blog posts" class="docs-nav updates-nav hidden-md hidden-lg">
+            	<h4>Blogs</h4>
+            	<select id="small-nav-dropdown" aria-label="blog posts">
+            		
+            			<option value="/blogs/2022/12/07/remote-even-better" >Remote Development Even Better</option>
+            		
+            			<option value="/blogs/2022/11/28/vscode-sandbox" >VS Code Sandboxing</option>
+            		
+            			<option value="/blogs/2022/10/04/vscode-community-discussions" >VS Code Community Discussions</option>
+            		
+            			<option value="/blogs/2022/09/15/dev-container-features" >Dev Container Features</option>
+            		
+            			<option value="/blogs/2022/08/16/markdown-language-server" >Markdown Language Server</option>
+            		
+            			<option value="/blogs/2022/07/07/vscode-server" >The VS Code Server</option>
+            		
+            			<option value="/blogs/2022/05/18/dev-container-cli" >Dev container CLI</option>
+            		
+            			<option value="/blogs/2022/04/04/increase-productivity-with-containers" >Moving from Local to Remote Development</option>
+            		
+            			<option value="/blogs/2022/03/08/the-tutorial-problem" >The problem with tutorials</option>
+            		
+            			<option value="/blogs/2021/11/08/custom-notebooks" >Custom Notebooks</option>
+            		
+            			<option value="/blogs/2021/10/20/vscode-dev" >vscode.dev</option>
+            		
+            			<option value="/blogs/2021/10/11/webview-ui-toolkit" >Webview UI Toolkit</option>
+            		
+            			<option value="/blogs/2021/09/29/bracket-pair-colorization" >Bracket Pair Colorization</option>
+            		
+            			<option value="/blogs/2021/08/05/notebooks" >Notebooks</option>
+            		
+            			<option value="/blogs/2021/07/06/workspace-trust" >Workspace Trust</option>
+            		
+            			<option value="/blogs/2021/06/10/remote-repositories" >Remote Repositories</option>
+            		
+            			<option value="/blogs/2021/06/02/build-2021" >Build 2021</option>
+            		
+            			<option value="/blogs/2021/02/16/extension-bisect" >Extension bisect</option>
+            		
+            			<option value="/blogs/2020/12/03/chromebook-get-started" >VS Code on Chromebook</option>
+            		
+            			<option value="/blogs/2020/07/27/containers-edu" selected>Development Containers in Education</option>
+            		
+            			<option value="/blogs/2020/07/01/containers-wsl" >Dev Containers in WSL 2</option>
+            		
+            			<option value="/blogs/2020/06/09/go-extension" >The Go experience</option>
+            		
+            			<option value="/blogs/2020/05/14/vscode-build-2020" >VS Code at Build</option>
+            		
+            			<option value="/blogs/2020/05/06/github-issues-integration" >GitHub Issues Integration</option>
+            		
+            			<option value="/blogs/2020/03/02/docker-in-wsl2" >Docker in WSL 2</option>
+            		
+            			<option value="/blogs/2020/02/24/custom-data-format" >Custom Data Format</option>
+            		
+            			<option value="/blogs/2020/02/18/optimizing-ci" >Improving CI Build Times</option>
+            		
+            			<option value="/blogs/2019/10/31/inspecting-containers" >Inspecting Containers</option>
+            		
+            			<option value="/blogs/2019/10/03/remote-ssh-tips-and-tricks" >SSH Tips and Tricks</option>
+            		
+            			<option value="/blogs/2019/09/03/wsl2" >WSL 2</option>
+            		
+            			<option value="/blogs/2019/07/25/remote-ssh" >Remote SSH</option>
+            		
+            			<option value="/blogs/2019/05/23/strict-null" >Strict null checking</option>
+            		
+            			<option value="/blogs/2019/05/02/remote-development" >Remote Development</option>
+            		
+            			<option value="/blogs/2019/02/19/lsif" >Language Server Index Format</option>
+            		
+            			<option value="/blogs/2018/12/04/rich-navigation" >Rich Code Navigation</option>
+            		
+            			<option value="/blogs/2018/11/26/event-stream" >Event-Stream Package Security Update</option>
+            		
+            			<option value="/blogs/2018/09/12/engineering-with-azure-pipelines" >Using Azure Pipelines</option>
+            		
+            			<option value="/blogs/2018/09/10/introducing-github-pullrequests" >GitHub Pull Requests</option>
+            		
+            			<option value="/blogs/2018/08/07/debug-adapter-protocol-website" >New home for Debug Adapter Protocol</option>
+            		
+            			<option value="/blogs/2018/07/12/introducing-logpoints-and-auto-attach" >Logpoints and auto-attach</option>
+            		
+            			<option value="/blogs/2018/05/07/live-share-public-preview" >Live Share Preview</option>
+            		
+            			<option value="/blogs/2018/04/25/bing-settings-search" >Settings Search</option>
+            		
+            			<option value="/blogs/2018/03/23/text-buffer-reimplementation" >Text Buffer Reimplementation</option>
+            		
+            			<option value="/blogs/2017/12/20/chrome-debugging" >What's New for Chrome Debugging</option>
+            		
+            			<option value="/blogs/2017/11/16/connect" >Connect 2017</option>
+            		
+            			<option value="/blogs/2017/11/15/live-share" >Introducing Live Share</option>
+            		
+            			<option value="/blogs/2017/10/24/theicon" >The Icon Journey</option>
+            		
+            			<option value="/blogs/2017/10/03/terminal-renderer" >Integrated Terminal Performance</option>
+            		
+            			<option value="/blogs/2017/09/28/java-debug" >Java Debugging</option>
+            		
+            			<option value="/blogs/2017/08/07/emmet-2.0" >Emmet 2.0</option>
+            		
+            			<option value="/blogs/2017/06/20/great-looking-editor-roundup" >Fresh Paint</option>
+            		
+            			<option value="/blogs/2017/05/10/build-2017-demo" >Build 2017 Demo</option>
+            		
+            			<option value="/blogs/2017/04/10/sublime-text-roundup" >Sublime Text Extension Roundup</option>
+            		
+            			<option value="/blogs/2017/03/07/extension-pack-roundup" >Extension Packs</option>
+            		
+            			<option value="/blogs/2017/02/12/code-lens-roundup" >Extensions using CodeLens</option>
+            		
+            			<option value="/blogs/2017/02/08/syntax-highlighting-optimizations" >Optimizations in Syntax Highlighting</option>
+            		
+            			<option value="/blogs/2017/01/15/connect-nina-e2e" >Node.js Development with Visual Studio Code and Azure</option>
+            		
+            			<option value="/blogs/2016/12/12/roundup-customize" >Customize VS Code Extension Roundup</option>
+            		
+            			<option value="/blogs/2016/11/30/hot-exit-in-insiders" >Hot Exit Comes to Insiders</option>
+            		
+            			<option value="/blogs/2016/11/15/formatters-best-practices" >Creating a Formatter Extension</option>
+            		
+            			<option value="/blogs/2016/10/31/js_roundup_2" >JavaScript Extensions Part 2</option>
+            		
+            			<option value="/blogs/2016/09/14/js_roundup_1" >JavaScript Extensions Part 1</option>
+            		
+            			<option value="/blogs/2016/09/08/icon-themes" >File Icon Themes</option>
+            		
+            			<option value="/blogs/2016/07/29/extensions-roundup-git" >Extensions Roundup - Fun with Git</option>
+            		
+            			<option value="/blogs/2016/06/27/common-language-protocol" >The Language Server Protocol</option>
+            		
+            			<option value="/blogs/2016/05/04/extension-roundup-may" >Extensions Roundup</option>
+            		
+            	</select>
+            </nav>        </div>
+        <div class="col-sm-9 col-md-8 body">
+            <h1>Development Containers in Education: A Guide for Instructors</h1>
+<p>July 27, 2020 by Brigit Murtaugh, <a href="https://twitter.com/BrigitMurtaugh" class="external-link" target="_blank">@BrigitMurtaugh</a></p>
+<p>We've heard from many educators that the first days or weeks of the semester can be lost to configuring the correct environment for students. Even so, students may still end up with a low-quality development experience or insufficient grading of their assignments:</p>
+<p><em><strong>&quot;Set up for my students normally takes five class periods. There are version of Python to deal with. There's a lot of complexity. Sadly that complexity takes a lot of time and money to sort out.&quot;</strong></em> -[Community College US Professor CS 101]</p>
+<p><em><strong>&quot;I would prefer a version of VS Code, specifically set up for a Python installation...&quot;</strong></em> -[Assistant Professor, Liberal Arts College]</p>
+<p>Development containers with Visual Studio Code can serve as a fantastic tool in education to ensure students have a consistent coding environment. They take care of setup so that students and instructors can quickly move past configuration, and instead focus on what's truly important: learning and coding something great!</p>
+<h2 id="_development-containers" data-needslink="_development-containers">Development containers</h2>
+<p>So, what are development containers? <a href="https://www.docker.com/resources/what-container" class="external-link" target="_blank">Containers</a> are pieces of software that package code and all of the dependencies that code needs to run, including the runtime, tools, libraries, and settings. Containers were initially created as a way to deploy and manage apps in a consistent environment and make more efficient use of hardware. They later evolved to help in providing a consistent build environment, and more recently, development environment. That's where the name dev container comes from.</p>
+<p>When you create a container, its initial contents come from what's known as an &quot;image.&quot; An image can be thought of as a mini-disk drive with things like the operating system and other tools pre-installed. You describe what goes into the image using a Dockerfile, and once you run the image, it becomes a container.</p>
+<p>Dev containers provide a separate coding environment from your computer. For example, if you download a specific version of a dependency, that version will be unique to the container. In the diagram below, notice how the container includes the app and its necessary dependencies, keeping the computer (Host OS and Infrastructure) free and clean of any dependencies:</p>
+<p><img src="../../../../assets/blogs/2020/07/27/1-containers-abc.png" alt="Containers diagram" loading="lazy"></p>
+<p>As an instructor, you can create a specific image for an assignment. Each student will get the exact same version of dependencies, such as the same version of Python or a C++ compiler, regardless of their operating system or any other files already installed on their computer.</p>
+<h2 id="_development-containers-in-vs-code" data-needslink="_development-containers-in-vs-code">Development Containers in VS Code</h2>
+<p>The Visual Studio Code <a href="https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers" class="external-link" target="_blank">Dev Containers</a> extension lets you use a container as your main coding environment. In the classroom, an instructor can take an <a href="https://github.com/microsoft/vscode-dev-containers/tree/main/containers" class="external-link" target="_blank">existing dev container</a>, or create their own, and share it with the class. Each student can open the container in VS Code and automatically have the tools and runtimes they need to develop their applications. Students will also have access to VS Code's full feature set, including IntelliSense and debugging, while coding.</p>
+<p>The Dev Containers extension works solely with Linux-based containers, so although students may have different operating systems on their computers, the coding environment will be consistent across all of them.</p>
+<p>We've already seen instructors using Dev Containers in their classrooms with success. You can check out <a href="https://dl.acm.org/doi/pdf/10.1145/3341525.3387424" class="external-link" target="_blank">Using DevContainers to Standardize Student Development Environments: An Experience Report</a> to learn more about the experiences of three researchers who used dev containers in a course at UC San Diego.</p>
+<p>This post will serve as a guide to instructors looking to implement development containers in the classroom to create a smoother, more consistent environment for their students.</p>
+<p>To witness dev containers in action and how students can get started in just 5 minutes, check out our <a href="https://youtu.be/Uvf2FVS1F8k" class="external-link" target="_blank">introductory student video</a>.</p>
+<h2 id="_guide-for-instructors" data-needslink="_guide-for-instructors">Guide for Instructors</h2>
+<p>With traditional set up approaches, students can run into a wide variety of issues while setting up their environment. Some examples include differences in their unique OS, where project files are stored, or small differences in runtimes or tools they've installed. Instructors need to be well versed in all these subtleties to be able to help students solve these issues.</p>
+<p>A common issue is managing different versions of a tool. Let's take Python as an example: there's Python 2 and Python 3, along with different minor versions. Having multiple versions of Python, and then multiple accompanying tools such as linters, can be confusing and lead to errors.</p>
+<p>To save tremendous time and confusion, we can use dev containers to create a standardized Python development environment across our class. Students will all get the same version of Python, avoiding the need to install a new version or uninstall any old ones, and everyone running the same container and source code will get the same exact results.</p>
+<h3 id="_prerequisites" data-needslink="_prerequisites">Prerequisites</h3>
+<ul>
+<li>Install <a href="../../../../download-2.html">Visual Studio Code</a>.</li>
+<li>Install Docker Desktop.
+<ul>
+<li>Docker is the industry standard for building and sharing containers. We recommend Docker Desktop Stable 2.3.0.3 as it is the most recent and performant version of Docker Desktop.</li>
+<li>There is newly introduced <a href="https://docs.docker.com/docker-for-windows/install-windows-home/" class="external-link" target="_blank">Docker Desktop support on Windows Home</a>. It requires Windows 10, version 2004 and enabling the Windows Subsystem for Linux 2 (WSL 2) backend. Enable WSL 2 by following the <a href="https://learn.microsoft.com/windows/wsl/install" class="external-link" target="_blank">WSL 2 installation guide</a>.</li>
+<li>For students who would prefer to not configure the WSL 2 backend, <a href="https://docs.docker.com/docker-for-windows/install/#:~:text=System%20Requirements,Hyper%2DV%20on%20Windows%2010%3A&amp;text=4GB%20system%20RAM" class="external-link" target="_blank">Docker Desktop for Windows</a> can alternatively be used on Windows 10 Pro, Enterprise, or Education (Build 16299 or later), and Hyper-V and Containers Windows features must be enabled.</li>
+</ul>
+</li>
+</ul>
+<p>Let's start off by launching VS Code, which we can do by typing <code>code</code> in the command prompt or terminal (or just by selecting VS Code on your computer):</p>
+<p><img src="../../../../assets/blogs/2020/07/27/2-code-ps-cropped.png" alt="Launch VS Code from command prompt" loading="lazy"></p>
+<p>Once VS Code launches, ensure you've installed the <a href="https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers" class="external-link" target="_blank">Dev Containers</a> extension:</p>
+<p><img src="../../../../assets/blogs/2020/07/27/3-extension.png" alt="Dev Containers extension" loading="lazy"></p>
+<p>When we install any of the Remote extensions, the green Remote indicator is added to the bottom left of the Status bar:</p>
+<p><img src="../../../../assets/blogs/2020/07/27/4-remote-indicator.png" alt="Remote indicator in VS Code" loading="lazy"></p>
+<p>You can click on it to open the Command Palette and verify the Dev Containers commands are listed:</p>
+<p><img src="../../../../assets/blogs/2020/07/27/5-commands-list.png" alt="List of remote commands in Command Palette" loading="lazy"></p>
+<h3 id="_accessing-a-container-for-your-class" data-needslink="_accessing-a-container-for-your-class">Accessing a container for your class</h3>
+<p>Let's walk through an example dev container to help students get a consistent coding environment. In our classroom, we could create a single GitHub repository to store exercises that share the same tech stack. For instance, all the Python assignments can use the same container and be stored in the same repo.</p>
+<p>We have an example <a href="https://github.com/microsoft/vscode-course-sample" class="external-link" target="_blank">vscode-course-sample GitHub repo</a> with a Python dev container and two Python intro assignments. Let's open it in VS Code.</p>
+<p>You can select the Remote indicator in the bottom left, or use the Command Palette, to bring up the Dev Containers commands.</p>
+<p>Let's call <strong>Clone Repository in Container Volume...</strong></p>
+<p><img src="../../../../assets/blogs/2020/07/27/6-clone-repo-command.png" alt="Clone Repository in Container Volume" loading="lazy"></p>
+<p>We need to enter the URL to the GitHub repo where our container is stored, which in our case is microsoft/vscode-course-sample:</p>
+<p><img src="../../../../assets/blogs/2020/07/27/7-paste-repo-command.png" alt="Paste GitHub URL in Command Palette" loading="lazy"></p>
+<p>You can <strong>Create a unique volume.</strong> A volume is where files will be stored in our container:</p>
+<p><img src="../../../../assets/blogs/2020/07/27/8-volume-command.png" alt="Volume options in Command Palette" loading="lazy"></p>
+<p>Now that we've chosen our container repo, VS Code reloads to build the image and start the container:</p>
+<p><img src="../../../../assets/blogs/2020/07/27/10-starting-container.png" alt="Close-up on starting container notification" loading="lazy"></p>
+<p>Once the container is built and running, our files are loaded and we can start coding within our Python environment!</p>
+<p>Click on <code>sort.py</code> in the Explorer to open it, and press <strong>F5</strong> (or the green Run icon in the top right) to run it:</p>
+<p><img src="../../../../assets/blogs/2020/07/27/11-sortpy-cropped.png" alt="Run sort.py program" loading="lazy"></p>
+<p>Our Python code ran successfully without ever having to set up Python on our local computer.</p>
+<p>We also have access to all the benefits of VS Code, such as setting breakpoints to pause our program and help us debug. Let's set a breakpoint when we sort our list of words.</p>
+<p><img src="../../../../assets/blogs/2020/07/27/12-breakpoint-cropped.png" alt="Setting a breakpoint" loading="lazy"></p>
+<p>We can run our program with <strong>F5</strong>. Notice that the program stops once it hits the breakpoint:</p>
+<p><img src="../../../../assets/blogs/2020/07/27/13-debug-cropped.png" alt="Program stops at breakpoint" loading="lazy"></p>
+<h3 id="_creating-a-container-for-your-class" data-needslink="_creating-a-container-for-your-class">Creating a container for your class</h3>
+<p>Now that we've seen a fantastic example of a container, let's set up our first container ourselves using the Dev Containers extension. Let's start off in a &quot;Hello World&quot; Python application:</p>
+<p><img src="../../../../assets/blogs/2020/07/27/14-helloworld-cropped.png" alt="Hello world Python app" loading="lazy"></p>
+<p>We'll select <strong>Dev Containers: Add Dev Container Configuration Files…</strong> to begin setting up the files necessary for a development container:</p>
+<p><img src="../../../../assets/blogs/2020/07/27/15-add-config.png" alt="Add Dev Container Configuration Files command" loading="lazy"></p>
+<p>Container configuration files are what's needed to create and customize a development container. The list of <a href="https://github.com/microsoft/vscode-dev-containers/tree/main/containers/python-3" class="external-link" target="_blank">container definitions</a> that appears is filtered based on the contents of your application, which in our case is a Python file. Let's select <strong>Python 3</strong>:</p>
+<p><img src="../../../../assets/blogs/2020/07/27/16-python-config.png" alt="Select Python 3 config file in Command Palette" loading="lazy"></p>
+<p>The Dev Containers extension automatically adds a <code>.devcontainer</code> folder and two configuration files within it: <code>devcontainer.json</code> and a Dockerfile. Let's take a closer look at both files.</p>
+<h4>devcontainer.json</h4>
+<p><a href="../../../../docs/devcontainers/containers.html#_create-a-devcontainerjson-file"><code>devcontainer.json</code></a> describes how VS Code should start our container and what to do after it connects. This file can be located under <code>.devcontainer/devcontainer.json</code> or stored directly as <code>devcontainer.json</code> in the root of a project.</p>
+<p>Here is a simple example of a <code>devcontainer.json</code>. It pulls a preconfigured Node image, automatically sets up port forwarding for port 3000, and will install the eslint extension when the container is created:</p>
+<p><img src="../../../../assets/blogs/2020/07/27/17-node-devcontainer.png" alt="Simple Node devcontainer.json" loading="lazy"></p>
+<p>Here is an example of what a slightly more elaborate <code>devcontainer.json</code> looks like for our Python project. It references a Dockerfile rather than an image directly using the <code>dockerfile</code> property. It also installs the Python extension automatically, and establishes a set of container-specific settings once the container is created, such as linting:</p>
+<p><img src="../../../../assets/blogs/2020/07/27/18-python-devcontainer.png" alt="More detailed Python devcontainer.json" loading="lazy"></p>
+<p><code>devcontainer.json</code> is a great opportunity to create a customized coding environment to fit the specific needs of your students. You can specify a few variables to create a unique environment for each class or assignment.</p>
+<p>Variables we'd recommend starting off with in a <code>devcontainer.json</code> for education are:</p>
+<table class="table table-striped">
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>image</code></td>
+<td>string</td>
+<td>The name of an image in a container registry (i.e. <a href="https://hub.docker.com/" class="external-link" target="_blank">DockerHub</a>) that VS Code should use to create the dev container.</td>
+</tr>
+<tr>
+<td><code>dockerFile</code></td>
+<td>string</td>
+<td>The location of a <a href="https://docs.docker.com/engine/reference/builder/" class="external-link" target="_blank">Dockerfile</a> that defines the contents of the container. The path is relative to the <code>devcontainer.json</code> file. You can find a number of sample Dockerfiles for different runtimes in the <a href="https://github.com/microsoft/vscode-dev-containers/tree/main/containers" class="external-link" target="_blank">vscode-dev-containers repository</a>.</td>
+</tr>
+<tr>
+<td><code>name</code></td>
+<td>string</td>
+<td>A display name for the container.</td>
+</tr>
+<tr>
+<td><code>extensions</code></td>
+<td>array</td>
+<td>An array of extension IDs that specify the extensions that should be installed inside the container when it is created. Defaults to <code>[]</code>.</td>
+</tr>
+<tr>
+<td><code>settings</code></td>
+<td>object</td>
+<td>Adds default <code>settings.json</code> values into a container/machine specific settings file.</td>
+</tr>
+</tbody>
+</table>
+<p>Setting up a handful of variables in this file will save your class time in the long run. For example, you can use the <code>extensions</code> variable to ensure all your students automatically get the same set of extensions installed. Setting paths can also be challenging or lead to issues on students' computers, but by specifying path information via the <code>settings</code> variable, you'll save your class time and ensure their computers' path variables aren't harmed in the process.</p>
+<p>There are tables in the <a href="https://containers.dev/implementors/json_reference" class="external-link" target="_blank">devcontainer.json reference</a> of all available properties you can include in this configuration file.</p>
+<h4>Dockerfile</h4>
+<p>Docker can build images automatically by reading the instructions from your <a href="https://docs.docker.com/engine/reference/builder/" class="external-link" target="_blank">Dockerfile</a>. This file will at the very least have a base image specified using <code>FROM</code>, and it can include command-line instructions as well.</p>
+<p>Here's what the Dockerfile looks like in our Python app:</p>
+<p><img src="../../../../assets/blogs/2020/07/27/19-dockerfile-crop.png" alt="Python dockerfile in app" loading="lazy"></p>
+<h3 id="_opening-the-container" data-needslink="_opening-the-container">Opening the container</h3>
+<p>Once our container configuration files were added, we got a notification that our folder now has a <code>devcontainer.json</code> file. Let's select <strong>Reopen in Container</strong>:</p>
+<p><img src="../../../../assets/blogs/2020/07/27/21-reopen-notif.png" alt="Reopen in container notification" loading="lazy"></p>
+<p>A new instance of VS Code launches, where our image is being built and our app is starting in our dev container:</p>
+<p><img src="../../../../assets/blogs/2020/07/27/22-reload-starting.png" alt="Relaunch VS Code to start dev container" loading="lazy"></p>
+<p>Once our container is built, we have all the same files, but now the bottom-left indicator reads, &quot;Dev Container: Python 3,&quot; signifying we're inside our container. We can run our code with ease, regardless of which version of Python (if any) we have installed on our local machine!</p>
+<p><img src="../../../../assets/blogs/2020/07/27/24-run-code-cropped.png" alt="Run Python code in dev container" loading="lazy"></p>
+<h3 id="_creating-and-sharing-assignments" data-needslink="_creating-and-sharing-assignments">Creating and sharing assignments</h3>
+<p>Now that you have a dev container, you can upload it to a repository so that your students can access it for their assignments. You can include assignment instructions in a <code>README</code>, as well as any base or template code needed for the assignment, and a <code>.devcontainer</code> folder so that they all have a consistent development experience. All of these files can be uploaded as a single repo.</p>
+<p>Make sure you have <a href="https://git-scm.com/downloads" class="external-link" target="_blank">Git installed</a>. You can <a href="../../../../docs/sourcecontrol/overview.html#_initialize-a-repository">initialize a new Git repository</a> from your container project in VS Code. Alternatively, you can use <code>git init</code> from your project's directory in the command line.</p>
+<p>The next step is to connect your local repository to a <a href="https://github.com/new" class="external-link" target="_blank">new repo</a> from GitHub in your browser:</p>
+<p><img src="../../../../assets/blogs/2020/07/27/25-create-repo.png" alt="Create a new GitHub repo online" loading="lazy"></p>
+<p>Then, we'll connect our local Git repo (the container project on our computer) to the remote repo (the GitHub repo we created in the browser):</p>
+<p><img src="../../../../assets/blogs/2020/07/27/26-git-setup-cropped.png" alt="Connect Git repos in command prompt" loading="lazy"></p>
+<p>You may be prompted to log into GitHub. Once you sign in, your files can be added to your remote Git repository:</p>
+<p><img src="../../../../assets/blogs/2020/07/27/27-git-push.png" alt="Push remote files in command prompt" loading="lazy"></p>
+<p>Now when I refresh GitHub in the browser, I can view my files!</p>
+<p><img src="../../../../assets/blogs/2020/07/27/28-github-browser.png" alt="View files in GitHub repo in browser online" loading="lazy"></p>
+<p>For more information on how to upload your repository to GitHub, check out <a href="https://docs.github.com/en/github/importing-your-projects-to-github/adding-an-existing-project-to-github-using-the-command-line" class="external-link" target="_blank">this Adding an existing project to GitHub guide</a>.</p>
+<h3 id="_accessing-assignments" data-needslink="_accessing-assignments">Accessing assignments</h3>
+<p>To see how students can access the dev container from GitHub and begin programming with ease, check out our <a href="https://youtu.be/Uvf2FVS1F8k" class="external-link" target="_blank">quick 5-minute video</a>.</p>
+<h2 id="_feedback-further-resources" data-needslink="_feedback-further-resources">Feedback &amp; further resources</h2>
+<p>To help set up VS Code with containers, we have detailed articles on the VS Code <a href="../../../../docs/devcontainers/containers.html">Remote Development documentation</a>. If you have any questions or feedback for our team, please feel free to open an issue on the VS Code <a href="https://github.com/microsoft/vscode-remote-release/issues" class="external-link" target="_blank">Remote Development GitHub Repository</a> or Tweet us <a href="https://twitter.com/code" class="external-link" target="_blank">@code</a>.</p>
+<p>Happy Coding!</p>
+<p>Brigit Murtaugh, VS Code Program Manager <a href="https://twitter.com/BrigitMurtaugh" class="external-link" target="_blank">@BrigitMurtaugh</a></p>
+
+        </div>
+        <div class="col-sm-3 col-md-2 docs-subnavbar-container">
+            <nav id="docs-subnavbar" aria-label="On Page" data-spy="affix" data-offset-top="20">
+                
+                <h4><span class="sr-only">In this blog post, there are 4
+                        sections</span><span aria-hidden="true">In this blog post</span></h4>
+                
+                <ul class="nav">
+                    
+                    <li><a href="#_development-containers">Development containers</a></li>
+                    
+                    <li><a href="#_development-containers-in-vs-code">Development Containers in VS Code</a></li>
+                    
+                    <li><a href="#_guide-for-instructors">Guide for Instructors</a></li>
+                    
+                    <li><a href="#_feedback-further-resources">Feedback & further resources</a></li>
+                    
+                </ul>
+                <div class="connect-widget"></div>
+            </nav>
+        </div>
+    </div>
+</div>
+      </div>
+  </div>
+
+  <footer role="contentinfo">
+      <div class="container">
+          <div class="row">
+              <div class="left col-md-7">
+                  <ul class="links">
+                      <li>
+                          <span class="message">Hello from Seattle.</span>
+                      </li>
+                      <li>
+                          <a href="https://go.microsoft.com/fwlink/?LinkID=533687" onclick="followOnTwitter()" tabindex="0">Follow @code</a>
+                      </li>
+                      <li>
+                          <div class="github-star-button">
+                              <iframe src="../../../../assets/github-button29be.html?user=Microsoft&amp;repo=vscode&amp;type=star&amp;count=true"
+                                  frameborder="0" scrolling="0" width="130px" height="20px" title="GitHub follow button" loading="lazy"></iframe>
+                          </div>
+                      </li>
+  
+                      <script>
+                          function followOnTwitter() {
+                              var windowFeatures = "location=yes,height=600,width=550,scrollbars=yes,status=yes";
+                              var originalReferer = "&original_referer=" + document.URL;
+                              var screenName = "&screen_name=code";
+                              var URL = "https://twitter.com/intent/follow?" + originalReferer + screenName;
+                              window.open(URL, "_blank", windowFeatures);
+                          }
+  
+                          function manageConsent() {
+                              if(WcpConsent.siteConsent.isConsentRequired){
+                                  WcpConsent.siteConsent.manageConsent();
+                              }
+                          }
+                      </script>
+                  </ul>
+              </div>
+              <div class="right col-md-5">
+                  <ul class="links">
+                      <li><a id="footer-support-link" href="https://support.serviceshub.microsoft.com/supportforbusiness/create?sapId=d66407ed-3967-b000-4cfb-2c318cad363d"
+                              target="_blank">Support</a></li>
+                      <li><a id="footer-privacy-link" href="https://privacy.microsoft.com/privacystatement"
+                              target="_blank">Privacy</a></li>
+                      <li style="display: none;"><a id="footer-cookie-link" style="cursor: pointer;" onclick="manageConsent()"
+                              target="_blank">Manage Cookies</a></li>
+                      <li><a id="footer-terms-link" href="https://www.microsoft.com/legal/terms-of-use"
+                              target="_blank">Terms of Use</a></li>
+                      <li><a id="footer-license-link" href="../../../../License.html">License</a></li>
+                  </ul>
+                  <div class="copyright">
+                      <a id="footer-microsoft-link" class="logo" href="https://www.microsoft.com/">
+                          <img class="microsoft-logo" src="../../../../assets/images/microsoft-logo.png" height="20" alt="Microsoft homepage"/>
+                          <img class="microsoft-logo-inverted" src="../../../../assets/images/microsoft-logo-inverted.png" height="20" alt="Microsoft homepage" />
+                      </a>
+                      <span>&copy; 2023 Microsoft</span>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </footer>
+  <script src="../../../../dist/index.js"></script>
+
+  
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "SoftwareApplication",
+      "name" : "Visual Studio Code",
+      "softwareVersion": "1.74",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "applicationCategory": "DeveloperApplication",
+      "applicationSubCategory": "Text Editor",
+      "alternateName": "VS Code",
+      "datePublished": "2021-11-03",
+      "operatingSystem": "Mac, Linux, Windows",
+      "logo": "https://code.visualstudio.com/assets/apple-touch-icon.png",
+      "screenshot": "https://code.visualstudio.com/assets/home/home-screenshot-win.png",
+      "releaseNotes": "https://code.visualstudio.com/updates",
+      "downloadUrl": "https://code.visualstudio.com/download",
+      "license": "https://code.visualstudio.com/license",
+      "softwareRequirements": "https://code.visualstudio.com/docs/supporting/requirements",
+      "url" : "https://code.visualstudio.com",
+      "author": {
+        "@type": "Organization",
+        "name": "Microsoft"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Microsoft"
+      },
+      "maintainer": {
+        "@type": "Organization",
+        "name": "Microsoft"
+      },
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://code.visualstudio.com/Search?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      },
+      "sameAs" : [
+        "https://en.wikipedia.org/wiki/Visual_Studio_Code",
+        "https://twitter.com/code",
+        "https://www.youtube.com/code",
+        "https://www.tiktok.com/@vscode",
+        "https://github.com/microsoft/vscode"
+      ]
+    }
+  </script>
+</body>
+
+<!-- Mirrored from code.visualstudio.com/blogs/2020/07/27/containers-edu by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 04 Jan 2023 12:15:14 GMT -->
+</html>

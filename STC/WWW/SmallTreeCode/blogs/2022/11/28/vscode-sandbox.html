@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Mirrored from code.visualstudio.com/blogs/2022/11/28/vscode-sandbox by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 04 Jan 2023 11:23:27 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="google-site-verification" content="hNs7DXrTySP_X-0P_AC0WulAXvUwgSXEmgfcO2r79dw" />
+
+  <!-- Twitter and Facebook OpenGraph Metadata-->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@code" />
+
+  <meta name="description" content="Migrating Visual Studio Code to Electron process sandboxing" />
+<meta name="keywords" content="" />
+<!-- Twitter and Facebook OpenGraph Metadata-->
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="og:url" content="vscode-sandbox.html" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="VS Code Sandboxing" />
+<meta property="og:description" content="Migrating Visual Studio Code to Electron process sandboxing" />
+
+<meta property="og:image" content="../../../../opengraphimg/opengraph-blog.png" />
+
+
+
+  <link rel="shortcut icon" href="../../../../favicon.ico" sizes="128x128" />
+  <link rel="apple-touch-icon" href="../../../../apple-touch-icon.png">
+
+  <title>VS Code Sandboxing</title>
+
+  <link rel="stylesheet" href="../../../../vendor/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../../../../dist/style.css">
+
+  <script type="text/javascript" src="../../../../../js.monitor.azure.com/scripts/c/ms.analytics-web-3.min.js"></script>
+  <script>
+  window.appInsights = new oneDS.ApplicationInsights();
+  window.appInsights.initialize({
+    instrumentationKey: "1a3eb3104447440391ad5f2a6ee06a0a-62879566-bc58-4741-9650-302bf2af703f-7103",
+    webAnalyticsConfiguration:{ // Web Analytics Plugin configuration
+        urlCollectQuery:true, 
+        autoCapture: {
+          scroll: true,
+          pageView: true,
+          onLoad: true,
+          onUnload: true,
+          click: true,
+          resize: true,
+          jsError: true
+        }
+    }
+  }, []);
+  </script>
+  
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','../../../../../www.google-analytics.com/analytics.js','ga');
+  </script>  
+  <link rel="alternate" type="application/atom+xml" title="RSS Feed for code.visualstudio.com" href="../../../../feed.xml" />
+</head>
+
+<body>
+  <!-- EU Cookie Compliance JS -->
+  <script src="../../../../../wcpstatic.microsoft.com/mscc/lib/v2/wcp-consent.js"></script>
+
+  <div id="main">
+          <div class="navbar-fixed-container">
+              <div class="navbar navbar-inverse navbar-fixed-top ">
+                  <div id='cookie-banner'></div>        <nav role="navigation" aria-label="Top Level">
+                      <div class="container">
+                          <div class="nav navbar-header">
+                              <a role="button" id="skip-to-content" class="link-button" href="#main-content">Skip to content<i>&nbsp;</i><span class="glyphicon glyphicon-menu-down"></span></a>
+                              <a class="navbar-brand" id="navbar-brand" href="../../../../index.html">Visual Studio Code</a>
+                              <button type="button" class="navbar-toggle" role="navigation" data-toggle="collapse" data-target=".navbar-collapse" aria-label="Toggle Navigation Menu">
+                                  <span class="icon-bar"></span>
+                                  <span class="icon-bar"></span>
+                                  <span class="icon-bar"></span>
+                              </button>
+                          </div>
+                          <div class="navbar-collapse collapse" role="navigation">
+                              <ul class="nav navbar-nav navbar-left">
+                                  <li ><a id="nav-docs" href="../../../../docs.html">Docs</a></li>
+                                  <li ><a id="nav-updates" href="../../../../updates/v1_74.html">Updates</a></li>
+                                  <li class="active" ><a id="nav-blogs" href="../../../../blogs.html">Blog</a></li>
+                                  <li ><a id="nav-extend" href="../../../../api.html">API</a></li>
+                                  <li><a href="https://marketplace.visualstudio.com/VSCode" target="_blank" id="nav-extensions">Extensions</a></li>
+                                  <li ><a id="nav-faqs" href="../../../../docs/supporting/faq.html">FAQ</a></li>
+                                  <li ><a id="nav-learn" href="../../../../learn.html">Learn</a></li>
+                                  <li class='search visible-xs visible-sm'
+                                      ><a href="../../../../Search.html">Search</a></li>
+                              </ul>
+          
+                              <ul class="nav navbar-nav navbar-right" role="presentation">
+                                  <!-- Floating search icon -->
+                                  <li>
+                                      <a href="../../../../Search.html" title="Search" class="btn search-btn" id="nav-search">
+                                          <img class="search-icon" src="../../../../assets/icons/search.svg" width="16px" height="16px" alt="Search"/>
+                                          <img class="search-icon-inverted" src="../../../../assets/icons/search_dark.svg" width="16px" height="16px" alt="Search" />
+                                      </a>
+                                  </li>
+                                  <!-- Actual search icon -->
+                                  <li class="search" role="presentation">
+                                      <form class="nav-search search-form" role="search" aria-label="Search">
+                                          <div class="input-group" role="presentation">
+                                              <input type="text" name="q" class="search-box form-control" placeholder="Search Docs" aria-label="Search text"/>
+                                              <span class="input-group-btn">
+                                                  <button tabindex="0" class="btn" type="submit" aria-label="Search">
+                                                          <img class="search-icon" src="../../../../assets/icons/search.svg" width="16px" height="16px" alt="Search" />
+                                                          <img class="search-icon-inverted" src="../../../../assets/icons/search_dark.svg" width="16px" height="16px" alt="Search" />
+                                                  </button>
+                                              </span>
+                                          </div>
+                                      </form>                        </li>
+                                  <!-- this was hiden in the home and download page, keeping it for now -->
+                                  <li><a class="link-button" href="../../../../Download.html" id="nav-download">
+                                      <img class="download-icon" src="../../../../assets/icons/download.svg" width="16px" height="16px" alt="Download VS Code"/>
+                                      <img class="download-icon-inverted" src="../../../../assets/icons/download-black.svg" width="16px" height="16px" alt="Download VS Code" />
+                                      <span>Download</span>
+                                  </a></li>
+                              </ul>
+                          </div>
+                      </div>
+                  </nav>
+              </div>
+          </div>          <div class="updates-banner  ">
+              <div class="container">
+                  <p class="message"><a href="../../../../updates/v1_74.html" id="banner-link-updates">Version 1.74</a> is now available! Read about the new features and fixes from November.</p> 
+              </div>
+              <div tabindex="0" role="button" title="Dismiss this update" class="dismiss-btn" id="banner-dismiss-btn"><span class="sr-only">Dismiss this update</span><span aria-hidden="true" class="glyph-icon"></span></div>
+          </div>      <div role="main" id="main-content">
+        <div class="container body-content docs blog">
+    <div class="row">
+        <div class="col-md-2 docs-navbar-container">
+            <nav id="docs-navbar" aria-label="Blog posts" class="docs-nav updates-nav visible-md visible-lg">
+            	<h4>Blog posts</h4>
+            	<ul class="nav">
+            		
+            			<li >
+            				<a href="../../12/07/remote-even-better.html" >Remote Development Even Better</a>
+            			</li>
+            		
+            			<li class="active">
+            				<a href="vscode-sandbox.html" aria-label="Current Page: VS Code Sandboxing">VS Code Sandboxing</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../10/04/vscode-community-discussions.html" >VS Code Community Discussions</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../09/15/dev-container-features.html" >Dev Container Features</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../08/16/markdown-language-server.html" >Markdown Language Server</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../07/07/vscode-server.html" >The VS Code Server</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../05/18/dev-container-cli.html" >Dev container CLI</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../04/04/increase-productivity-with-containers.html" >Moving from Local to Remote Development</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../03/08/the-tutorial-problem.html" >The problem with tutorials</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2021/11/08/custom-notebooks.html" >Custom Notebooks</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2021/10/20/vscode-dev.html" >vscode.dev</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2021/10/11/webview-ui-toolkit.html" >Webview UI Toolkit</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2021/09/29/bracket-pair-colorization.html" >Bracket Pair Colorization</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2021/08/05/notebooks.html" >Notebooks</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2021/07/06/workspace-trust.html" >Workspace Trust</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2021/06/10/remote-repositories.html" >Remote Repositories</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2021/06/02/build-2021.html" >Build 2021</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2021/02/16/extension-bisect.html" >Extension bisect</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2020/12/03/chromebook-get-started.html" >VS Code on Chromebook</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2020/07/27/containers-edu.html" >Development Containers in Education</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2020/07/01/containers-wsl.html" >Dev Containers in WSL 2</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2020/06/09/go-extension.html" >The Go experience</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2020/05/14/vscode-build-2020.html" >VS Code at Build</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2020/05/06/github-issues-integration.html" >GitHub Issues Integration</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2020/03/02/docker-in-wsl2.html" >Docker in WSL 2</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2020/02/24/custom-data-format.html" >Custom Data Format</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2020/02/18/optimizing-ci.html" >Improving CI Build Times</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2019/10/31/inspecting-containers.html" >Inspecting Containers</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2019/10/03/remote-ssh-tips-and-tricks.html" >SSH Tips and Tricks</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2019/09/03/wsl2.html" >WSL 2</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2019/07/25/remote-ssh.html" >Remote SSH</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2019/05/23/strict-null.html" >Strict null checking</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2019/05/02/remote-development.html" >Remote Development</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2019/02/19/lsif.html" >Language Server Index Format</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2018/12/04/rich-navigation.html" >Rich Code Navigation</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2018/11/26/event-stream.html" >Event-Stream Package Security Update</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2018/09/12/engineering-with-azure-pipelines.html" >Using Azure Pipelines</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2018/09/10/introducing-github-pullrequests.html" >GitHub Pull Requests</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2018/08/07/debug-adapter-protocol-website.html" >New home for Debug Adapter Protocol</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2018/07/12/introducing-logpoints-and-auto-attach.html" >Logpoints and auto-attach</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2018/05/07/live-share-public-preview.html" >Live Share Preview</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2018/04/25/bing-settings-search.html" >Settings Search</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2018/03/23/text-buffer-reimplementation.html" >Text Buffer Reimplementation</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/12/20/chrome-debugging.html" >What's New for Chrome Debugging</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/11/16/connect.html" >Connect 2017</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/11/15/live-share.html" >Introducing Live Share</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/10/24/theicon.html" >The Icon Journey</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/10/03/terminal-renderer.html" >Integrated Terminal Performance</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/09/28/java-debug.html" >Java Debugging</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/08/07/emmet-2.html" >Emmet 2.0</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/06/20/great-looking-editor-roundup.html" >Fresh Paint</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/05/10/build-2017-demo.html" >Build 2017 Demo</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/04/10/sublime-text-roundup.html" >Sublime Text Extension Roundup</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/03/07/extension-pack-roundup.html" >Extension Packs</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/02/12/code-lens-roundup.html" >Extensions using CodeLens</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/02/08/syntax-highlighting-optimizations.html" >Optimizations in Syntax Highlighting</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/01/15/connect-nina-e2e.html" >Node.js Development with Visual Studio Code and Azure</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2016/12/12/roundup-customize.html" >Customize VS Code Extension Roundup</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2016/11/30/hot-exit-in-insiders.html" >Hot Exit Comes to Insiders</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2016/11/15/formatters-best-practices.html" >Creating a Formatter Extension</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2016/10/31/js_roundup_2.html" >JavaScript Extensions Part 2</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2016/09/14/js_roundup_1.html" >JavaScript Extensions Part 1</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2016/09/08/icon-themes.html" >File Icon Themes</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2016/07/29/extensions-roundup-git.html" >Extensions Roundup - Fun with Git</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2016/06/27/common-language-protocol.html" >The Language Server Protocol</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2016/05/04/extension-roundup-may.html" >Extensions Roundup</a>
+            			</li>
+            		
+            	</ul>
+            </nav>
+            <nav id="small-nav" aria-label="Blog posts" class="docs-nav updates-nav hidden-md hidden-lg">
+            	<h4>Blogs</h4>
+            	<select id="small-nav-dropdown" aria-label="blog posts">
+            		
+            			<option value="/blogs/2022/12/07/remote-even-better" >Remote Development Even Better</option>
+            		
+            			<option value="/blogs/2022/11/28/vscode-sandbox" selected>VS Code Sandboxing</option>
+            		
+            			<option value="/blogs/2022/10/04/vscode-community-discussions" >VS Code Community Discussions</option>
+            		
+            			<option value="/blogs/2022/09/15/dev-container-features" >Dev Container Features</option>
+            		
+            			<option value="/blogs/2022/08/16/markdown-language-server" >Markdown Language Server</option>
+            		
+            			<option value="/blogs/2022/07/07/vscode-server" >The VS Code Server</option>
+            		
+            			<option value="/blogs/2022/05/18/dev-container-cli" >Dev container CLI</option>
+            		
+            			<option value="/blogs/2022/04/04/increase-productivity-with-containers" >Moving from Local to Remote Development</option>
+            		
+            			<option value="/blogs/2022/03/08/the-tutorial-problem" >The problem with tutorials</option>
+            		
+            			<option value="/blogs/2021/11/08/custom-notebooks" >Custom Notebooks</option>
+            		
+            			<option value="/blogs/2021/10/20/vscode-dev" >vscode.dev</option>
+            		
+            			<option value="/blogs/2021/10/11/webview-ui-toolkit" >Webview UI Toolkit</option>
+            		
+            			<option value="/blogs/2021/09/29/bracket-pair-colorization" >Bracket Pair Colorization</option>
+            		
+            			<option value="/blogs/2021/08/05/notebooks" >Notebooks</option>
+            		
+            			<option value="/blogs/2021/07/06/workspace-trust" >Workspace Trust</option>
+            		
+            			<option value="/blogs/2021/06/10/remote-repositories" >Remote Repositories</option>
+            		
+            			<option value="/blogs/2021/06/02/build-2021" >Build 2021</option>
+            		
+            			<option value="/blogs/2021/02/16/extension-bisect" >Extension bisect</option>
+            		
+            			<option value="/blogs/2020/12/03/chromebook-get-started" >VS Code on Chromebook</option>
+            		
+            			<option value="/blogs/2020/07/27/containers-edu" >Development Containers in Education</option>
+            		
+            			<option value="/blogs/2020/07/01/containers-wsl" >Dev Containers in WSL 2</option>
+            		
+            			<option value="/blogs/2020/06/09/go-extension" >The Go experience</option>
+            		
+            			<option value="/blogs/2020/05/14/vscode-build-2020" >VS Code at Build</option>
+            		
+            			<option value="/blogs/2020/05/06/github-issues-integration" >GitHub Issues Integration</option>
+            		
+            			<option value="/blogs/2020/03/02/docker-in-wsl2" >Docker in WSL 2</option>
+            		
+            			<option value="/blogs/2020/02/24/custom-data-format" >Custom Data Format</option>
+            		
+            			<option value="/blogs/2020/02/18/optimizing-ci" >Improving CI Build Times</option>
+            		
+            			<option value="/blogs/2019/10/31/inspecting-containers" >Inspecting Containers</option>
+            		
+            			<option value="/blogs/2019/10/03/remote-ssh-tips-and-tricks" >SSH Tips and Tricks</option>
+            		
+            			<option value="/blogs/2019/09/03/wsl2" >WSL 2</option>
+            		
+            			<option value="/blogs/2019/07/25/remote-ssh" >Remote SSH</option>
+            		
+            			<option value="/blogs/2019/05/23/strict-null" >Strict null checking</option>
+            		
+            			<option value="/blogs/2019/05/02/remote-development" >Remote Development</option>
+            		
+            			<option value="/blogs/2019/02/19/lsif" >Language Server Index Format</option>
+            		
+            			<option value="/blogs/2018/12/04/rich-navigation" >Rich Code Navigation</option>
+            		
+            			<option value="/blogs/2018/11/26/event-stream" >Event-Stream Package Security Update</option>
+            		
+            			<option value="/blogs/2018/09/12/engineering-with-azure-pipelines" >Using Azure Pipelines</option>
+            		
+            			<option value="/blogs/2018/09/10/introducing-github-pullrequests" >GitHub Pull Requests</option>
+            		
+            			<option value="/blogs/2018/08/07/debug-adapter-protocol-website" >New home for Debug Adapter Protocol</option>
+            		
+            			<option value="/blogs/2018/07/12/introducing-logpoints-and-auto-attach" >Logpoints and auto-attach</option>
+            		
+            			<option value="/blogs/2018/05/07/live-share-public-preview" >Live Share Preview</option>
+            		
+            			<option value="/blogs/2018/04/25/bing-settings-search" >Settings Search</option>
+            		
+            			<option value="/blogs/2018/03/23/text-buffer-reimplementation" >Text Buffer Reimplementation</option>
+            		
+            			<option value="/blogs/2017/12/20/chrome-debugging" >What's New for Chrome Debugging</option>
+            		
+            			<option value="/blogs/2017/11/16/connect" >Connect 2017</option>
+            		
+            			<option value="/blogs/2017/11/15/live-share" >Introducing Live Share</option>
+            		
+            			<option value="/blogs/2017/10/24/theicon" >The Icon Journey</option>
+            		
+            			<option value="/blogs/2017/10/03/terminal-renderer" >Integrated Terminal Performance</option>
+            		
+            			<option value="/blogs/2017/09/28/java-debug" >Java Debugging</option>
+            		
+            			<option value="/blogs/2017/08/07/emmet-2.0" >Emmet 2.0</option>
+            		
+            			<option value="/blogs/2017/06/20/great-looking-editor-roundup" >Fresh Paint</option>
+            		
+            			<option value="/blogs/2017/05/10/build-2017-demo" >Build 2017 Demo</option>
+            		
+            			<option value="/blogs/2017/04/10/sublime-text-roundup" >Sublime Text Extension Roundup</option>
+            		
+            			<option value="/blogs/2017/03/07/extension-pack-roundup" >Extension Packs</option>
+            		
+            			<option value="/blogs/2017/02/12/code-lens-roundup" >Extensions using CodeLens</option>
+            		
+            			<option value="/blogs/2017/02/08/syntax-highlighting-optimizations" >Optimizations in Syntax Highlighting</option>
+            		
+            			<option value="/blogs/2017/01/15/connect-nina-e2e" >Node.js Development with Visual Studio Code and Azure</option>
+            		
+            			<option value="/blogs/2016/12/12/roundup-customize" >Customize VS Code Extension Roundup</option>
+            		
+            			<option value="/blogs/2016/11/30/hot-exit-in-insiders" >Hot Exit Comes to Insiders</option>
+            		
+            			<option value="/blogs/2016/11/15/formatters-best-practices" >Creating a Formatter Extension</option>
+            		
+            			<option value="/blogs/2016/10/31/js_roundup_2" >JavaScript Extensions Part 2</option>
+            		
+            			<option value="/blogs/2016/09/14/js_roundup_1" >JavaScript Extensions Part 1</option>
+            		
+            			<option value="/blogs/2016/09/08/icon-themes" >File Icon Themes</option>
+            		
+            			<option value="/blogs/2016/07/29/extensions-roundup-git" >Extensions Roundup - Fun with Git</option>
+            		
+            			<option value="/blogs/2016/06/27/common-language-protocol" >The Language Server Protocol</option>
+            		
+            			<option value="/blogs/2016/05/04/extension-roundup-may" >Extensions Roundup</option>
+            		
+            	</select>
+            </nav>        </div>
+        <div class="col-sm-9 col-md-8 body">
+            <h1>Migrating VS Code to Process Sandboxing</h1>
+<p><strong>A win-win for security and the VS Code architecture</strong></p>
+<p>November 28, 2022 by Benjamin Pasero, <a href="https://twitter.com/BenjaminPasero" class="external-link" target="_blank">@BenjaminPasero</a></p>
+<p>Enabling the <a href="https://www.electronjs.org/docs/latest/tutorial/sandbox" class="external-link" target="_blank">sandbox</a> in <a href="https://www.electronjs.org/" class="external-link" target="_blank">Electron</a> renderer processes is a critical requirement for secure and reliable Electron applications such as Visual Studio Code. The sandbox reduces the harm that malicious code can cause by limiting access to most system resources. In this blog post, we provide a detailed overview into how we managed to enable process sandboxing in VS Code, a journey that we <a href="https://github.com/microsoft/vscode/issues/92164" class="external-link" target="_blank">started in early 2020</a> and plan to finish at the beginning of 2023. To help understand the challenge of process sandboxing, this blog post also describes details of the VS Code process model and how it evolved during this journey.</p>
+<p>This was a team effort as fundamental architectural changes as well as code modifications were required in almost all VS Code components. The VS Code process architecture was overhauled and in the process significantly strengthened. We highlight the major milestones along the way, which we hope provides valuable insights for others to learn from. For the last few months, process sandbox mode has been running successfully in VS Code <a href="../../../../insiders/index.html">Insiders</a>, giving us feedback about the impact of this change. Do not hesitate to <a href="https://twitter.com/code" class="external-link" target="_blank">reach out to us</a> if you find an <a href="https://github.com/microsoft/vscode/issues" class="external-link" target="_blank">issue</a>, have a suggestion for how to improve the experience, or have general questions.</p>
+<blockquote>
+<p>If you are not familiar with VS Code or Electron or sandboxing, you may want to first review the <a href="#_terminology-used">Terminology</a> section at the end of the blog post. There you will find explanations of the terms used and links to background material.</p>
+</blockquote>
+<h2 id="_process-sandboxing-in-a-nutshell" data-needslink="_process-sandboxing-in-a-nutshell">Process sandboxing in a nutshell</h2>
+<p>For a long time, Electron has allowed direct use of <a href="https://nodejs.org/" class="external-link" target="_blank">Node.js</a> APIs in HTML and JavaScript. The code snippet below provides a simple example of a web page that not only prints &quot;Hello World&quot; to the user but also writes to a file on the local disk:</p>
+<p><img src="../../../../assets/blogs/2022/11/28/html-node-web-page.png" alt="HTML and Node.js code on a web page in Electron" loading="lazy"></p>
+<p>The Electron process that is responsible for presenting the web page to the user is called the <strong>renderer</strong> process. Enabling sandbox mode for the renderer process reduces its capabilities for improved security and to align more with the web model: while HTML and JavaScript are still allowed, usage of Node.js is not. Components in the renderer process that require access to system resources will have to delegate to another process that is not sandboxed.</p>
+<p>The code below no longer depends on Node.js but uses a <code>vscode</code> global variable that provides the functionality to update settings. The implementation of the method involves sending a message to another process that has access to Node.js. As such, it is also no longer executing synchronously but asynchronously:</p>
+<p><img src="../../../../assets/blogs/2022/11/28/removing-node-web-page.png" alt="Removing Node.js by providing an asynchronous alternative in Electron" loading="lazy"></p>
+<p>How we came to have the <code>vscode</code> global in the renderer process and how it is implemented is detailed in the <a href="#_our-technology-timeline">Timeline</a> sections below.</p>
+<p>Blocking Node.js from renderer processes is an encouraged Electron <a href="https://www.electronjs.org/docs/latest/tutorial/security" class="external-link" target="_blank">security recommendation</a> and will eventually be the only way of writing Electron applications. We have had security issues in the past where attackers were able to execute arbitrary Node.js code from the renderer process. A sandboxed renderer process greatly reduces the risk of these attacks.</p>
+<h3 id="_how-did-we-get-there" data-needslink="_how-did-we-get-there">How did we get there?</h3>
+<p>A change as large as removing all our Node.js dependencies from the renderer process comes at the risk of regressions and bugs. Code that was previously running in one process will have to be split and run across multiple processes. Node modules that are native and thus cannot be web-packaged have to move out as well. Certain global objects such as Node.js <a href="https://nodejs.org/api/buffer.html" class="external-link" target="_blank">Buffer</a> will have to be replaced by browser compatible variants such as <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array" class="external-link" target="_blank">Uint8Array</a>.</p>
+<p>The diagram below shows our process architecture before the sandbox effort started. As you can see, most processes are Node.js child processes (in green) forked from the renderer process. Most of the (inter-process communication) IPC is implemented via Node.js sockets and the renderer process is a major client of Node.js APIs – for example to read and write files.</p>
+<p><img src="../../../../assets/blogs/2022/11/28/process-model-before-sandbox.png" alt="VS Code process model before sandboxing in 2020" loading="lazy"></p>
+<p>We quickly decided that we wanted to work on process sandboxing without having to ship a separate VS Code application that is sandboxed. We wanted to incrementally make the VS Code renderer process sandbox-ready and then flip the switch at the end. Over the past years, we have shipped monthly stable releases of VS Code with changes that contribute to the sandbox goal without fully enabling it. Imagine flying an airplane that is being fundamentally rebuild while it is in the air. And in our case, users have mostly been unaware of the changes to VS Code.</p>
+<h2 id="_our-technology-timeline" data-needslink="_our-technology-timeline">Our technology timeline:</h2>
+<p>The next sections go into detail about how sandboxing came together over the past years. The main task was to remove all Node.js dependencies from the renderer process but along that way more challenges came up, such as figuring out an efficient sandbox-ready IPC solution with the help of <code>MessagePort</code> or finding new hosts for the various Node.js child processes that we could fork from the renderer process.</p>
+<p>For the most part, the order of topics follows the actual timeline. To keep each section brief, we link to other documents and tutorials explaining a certain technical aspect in greater detail. And even though we planned for this work in early 2020, it is unfair to leave out some of the previous work that helped with this task. Let's take a closer look…</p>
+<h3 id="_standing-on-the-shoulder-of-giants" data-needslink="_standing-on-the-shoulder-of-giants">Standing on the shoulder of giants</h3>
+<p>When we started to consider sandboxing in early 2020, we had already shipped a version of VS Code that was able to run in web browsers. You can run <a href="https://vscode.dev/" class="external-link" target="_blank">vscode.dev</a> in your browser and see <a href="../../../../docs/editor/vscode-web.html">Visual Studio Code for the Web</a> in action. While creating a web version of VS Code, we had learned how to remove Node.js dependencies from the workbench – the main VS Code user interface window.</p>
+<p><img src="../../../../assets/blogs/2022/11/28/vscode-web.png" alt="VS Code for Web running in the browser" loading="lazy"></p>
+<p>Removing dependencies to Node.js meant finding alternatives. For example, our dependency on the Node.js <code>Buffer</code> type was replaced with a <a href="https://github.com/microsoft/vscode/blob/main/src/vs/base/common/buffer.ts" class="external-link" target="_blank">VSBuffer</a> equivalent that would fall back to <code>Uint8Array</code> in browser environments. We were also able to package some Node.js modules (<a href="https://github.com/microsoft/vscode-oniguruma" class="external-link" target="_blank">oniguruma</a>, <a href="https://github.com/microsoft/vscode-iconv-lite-umd" class="external-link" target="_blank">iconv-lite</a>) to run in web environments.</p>
+<p><img src="../../../../assets/blogs/2022/11/28/vsbuffer-class.png" alt="VSBuffer utility class supporting both Node.js and web environments" loading="lazy"></p>
+<p>But even before VS Code for the Web became a reality, we had enabled support for <a href="../../../../docs/remote/remote-overview.html">remote development</a>, which allows source code to be edited on a remote host, such as through an SSH connection (and later even powered <a href="https://github.com/features/codespaces" class="external-link" target="_blank">GitHub Codespaces</a>). For remote development, we had to implement a solution where the UI facing pieces of VS Code run locally, while the actual file operations run on a remote machine. This model applies to a sandboxed workbench as well, where privileged operations must run in a different process. In both cases, the renderer process communicates via IPC to a privileged host to perform the operations.</p>
+<h2 id="_enabling-a-communication-channel-from-the-renderer" data-needslink="_enabling-a-communication-channel-from-the-renderer">Enabling a communication channel from the renderer</h2>
+<p>When a renderer process cannot use Node.js, work must be delegated to another process where Node.js is available. One solution in the web context could be to rely on HTTP methods, where a server accepts the requests. However, this did not feel like the best solution for desktop applications, where running a local server on a port could be blocked by a firewall for security reasons.</p>
+<p>Electron provides the ability to inject <a href="https://www.electronjs.org/docs/latest/tutorial/tutorial-preload" class="external-link" target="_blank">preload scripts</a> into the renderer process that execute before the main script executes. These scripts have access to Electron's own <a href="https://www.electronjs.org/docs/latest/tutorial/ipc" class="external-link" target="_blank">IPC mechanism</a>. Preload scripts can enrich the API available to the main script of the renderer through the <a href="https://www.electronjs.org/docs/latest/api/context-bridge" class="external-link" target="_blank">context bridge</a> API. While the preload script can use Electron's IPC directly, the main script cannot. As such, <a href="../../../../../github.com/microsoft/vscode/blob/main/src/vs/base/parts/sandbox/electron-browser/preload.html" class="external-link" target="_blank">we expose certain methods</a> via context bridge to the main script. In the example that we used in the beginning, here is how a method for updating settings could be exposed from a preload script into the main script:</p>
+<p><img src="../../../../assets/blogs/2022/11/28/expose-methond-preload-script.png" alt="Exposing a method from preload script to the main script in Electron" loading="lazy"></p>
+<p>Preload scripts are our fundamental building block for splitting privileged code from unprivileged. For example, writing to a file on disk means an IPC message with the new contents will travel from the main script to the preload script and from there into the main process that has access to Node.js.</p>
+<p><img src="../../../../assets/blogs/2022/11/28/ipc-preload-scripts.png" alt="IPC flow when preload scripts are involved in Electron" loading="lazy"></p>
+<h2 id="_fast-interprocess-communication-via-message-port" data-needslink="_fast-interprocess-communication-via-message-port">Fast inter-process communication via message port</h2>
+<p>With the introduction of preload scripts, we have a way for the renderer process to communicate with the Electron main process to schedule work. However, in Electron applications it is critical to not overload the main process with too much work because it is also the process that is responsible for processing user input, for example from the keyboard and mouse. A busy main process can result in an unresponsive user interface.</p>
+<p>This was a problem we had seen before. Even before working on sandboxing, we were interested in offloading performance intensive code to a background process, the VS Code shared process. This process is a hidden window that all workbench windows and the main process can communicate with. For example, when you install an extension, a request is sent to the shared process to perform the entire operation.</p>
+<p>However, communication to the shared process was implemented over Node.js sockets. This had the advantage that there was zero overhead for the main process because it was not involved in the communication at all. The disadvantage is that Node.js socket communication is not possible in sandboxed renderers since you cannot use any Node.js APIs.</p>
+<p><a href="https://www.electronjs.org/docs/latest/tutorial/message-ports" class="external-link" target="_blank">Message ports</a> provide a powerful way of connecting two processes with each other by establishing an IPC channel between them. Even a fully sandboxed renderer process can use a message port because they are provided as a <a href="https://developer.mozilla.org/docs/Web/API/MessagePort" class="external-link" target="_blank">web API</a> in browsers. Replacing the Node.js socket communication with message ports allowed us to have a sandbox-compatible IPC solution while still preserving the performance aspect of not having to involve the main process.</p>
+<p>Passing message ports across process boundaries is <a href="https://www.electronjs.org/docs/latest/tutorial/message-ports#setting-up-a-messagechannel-between-two-renderers" class="external-link" target="_blank">complex</a>, especially into sandboxed renderer processes with preload scripts. The sequence is outlined in the diagram below:</p>
+<ul>
+<li>The shared process creates the message ports P1 and P2 and keeps P1.</li>
+<li>P2 is sent via Electron IPC to the main process.</li>
+<li>The main process forwards P2 to the requesting renderer process.</li>
+<li>P2 ends up in the preload script of that renderer process.</li>
+<li>The preload script forwards P2 into the renderer main script.</li>
+<li>The main script receives P2 and can use it to send messages directly.</li>
+</ul>
+<p><img src="../../../../assets/blogs/2022/11/28/messageport-exchange.png" alt="Message ports exchange between shared and renderer process in VS Code" loading="lazy"></p>
+<h2 id="_changing-the-origin-of-the-renderer" data-needslink="_changing-the-origin-of-the-renderer">Changing the origin of the renderer</h2>
+<p>In a web browser, you type in a URL and content is loaded and presented. In Electron, you do not type a URL, instead the application decides for you which content to load and present. Thus, when you open VS Code, a window loads with a pre-configured URL to show the content of the workbench.</p>
+<p>For VS Code, this URL had used the local file protocol pointing to an actual file on disk to load (<code>file://&lt;path to file on disk&gt;</code>). As part of the sandboxing work, we revisited this approach because it had severe security implications. Chromium makes certain security assumptions for the local file protocol that are less strict compared to the HTTPS protocol. For example, strict origin checks are not applied for local file protocol URLs.</p>
+<p>With Electron, you can register <a href="https://www.electronjs.org/docs/latest/api/protocol" class="external-link" target="_blank">custom protocols</a> that can be used to load content into the renderer process. The custom protocols can be configured so that they behave the same as HTTPS protocols with respect to security. We used this approach to avoid having to run a local web server that serves the content.</p>
+<p>With the introduction of the custom <code>vscode-file</code> protocol for all our renderer processes, we were able to drop all uses of the file protocol. It is <a href="../../../../../github.com/microsoft/vscode/blob/ff51b872dfed02026e4178ca34ef1b82835b7a31/src/main.js#L73" class="external-link" target="_blank">configured</a> to behave like HTTPS and meant we moved closer to how VS Code for the Web actually works.</p>
+<h2 id="_adapting-our-code-loader" data-needslink="_adapting-our-code-loader">Adapting our code loader</h2>
+<p>Historically all our TypeScript code is compiled to <a href="https://github.com/amdjs/amdjs-api/wiki/AMD" class="external-link" target="_blank">AMD</a> modules and loaded with a <a href="https://github.com/microsoft/vscode-loader" class="external-link" target="_blank">custom loader</a> that we have been maintaining over the years. We are planning to move away from AMD and embrace <a href="https://developer.mozilla.org/docs/Web/JavaScript/Guide/Modules" class="external-link" target="_blank">ESM</a>, but that work is in its <a href="https://github.com/microsoft/vscode/issues/160416" class="external-link" target="_blank">early stages</a>.</p>
+<p>Our code loader supports both Node.js and web environments by probing for some well-defined variables to figure out the actual running environment. A sandboxed renderer is essentially like a web environment, so very few changes were necessary for our loader to support the sandbox.</p>
+<p>Once those changes were in, we were able to run an early version of VS Code with sandbox mode enabled. However, since we had not yet freed the renderer process from its Node.js dependencies, only a blank page was displayed along with errors output to the console.</p>
+<h2 id="_tooling-to-help-with-adoption" data-needslink="_tooling-to-help-with-adoption">Tooling to help with adoption</h2>
+<p>Now that we had a way to run VS Code with sandbox enabled, we wanted to invest in tooling to make the transition easier from source code that depends on Node.js to code that is &quot;ready for sandbox&quot;. Given our investment in VS Code for the Web, we already had static analysis tooling in place that would block Node.js code from ever getting shipped to the web version. This tooling defined a set of <a href="https://github.com/microsoft/vscode/wiki/source-code-organization#target-environments" class="external-link" target="_blank">Target Environments</a> with their runtime requirements. Our tooling can detect and report the use of Node.js global objects (such as <code>Buffer</code>), Node.js APIs, or node modules in a target environment that does not allow them. For the work of sandboxing, we added a new target environment <strong>electron-sandbox</strong> that does not allow any use of Node.js. By moving code over into this environment, we were able to gradually get the code sandbox-ready.</p>
+<p>In the screenshot below, a warning marker appears in the editor indicating that a file from the <strong>browser</strong> target environment depends on an API from Node.js. The warning will cause our build to fail and prevent accidentally pushing this code to a release.</p>
+<p><img src="../../../../assets/blogs/2022/11/28/target-environment-warning.png" alt="A warning in VS Code informing about a target environment violation" loading="lazy"></p>
+<p>Our Process Explorer and Issue Reporter utilities were among the first to conform to the <strong>electron-sandbox</strong> target requirements. We were able to run these windows fully sandboxed well before the workbench window finished adoption.</p>
+<h2 id="_moving-processes-out-of-the-renderer" data-needslink="_moving-processes-out-of-the-renderer">Moving processes out of the renderer</h2>
+<p>As the previous topics have explained in detail, moving pieces of Node.js functionality over to another process and using IPC to schedule work and receive the results can be straight forward.</p>
+<p>However, some of the components in the workbench that depend on Node.js are more complex, specifically those that fork a child process, such as:</p>
+<ul>
+<li>Extension host</li>
+<li>Integrated terminals</li>
+<li>File watching</li>
+<li>Full-text search</li>
+<li>Task execution</li>
+<li>Debugging</li>
+</ul>
+<p>Given that VS Code can run in remote scenarios, we already had mechanisms in place to perform some of the tasks remotely, namely: search, debugging, and task execution. These components can operate within the extension host process that naturally runs local to where the code is. As such, we were able to move ownership of these child processes from the renderer process to the extension host even when VS Code was running locally without a remote attached.</p>
+<p>For the extension host, we had more ambitious plans. We cover those changes in its own <a href="#_a-new-electron-api-utilityprocess">section</a> later because it required adding a new &quot;utility process&quot; API to Electron.</p>
+<p>Integrated terminals and file watching moved to be child processes of the shared process. Any window that requires file watching or integrated terminals would talk to the shared process via message ports to acquire these services.</p>
+<p>The diagram below shows our process architecture in late 2022, once we had enabled the sandbox in the renderer process. All Node.js processes have moved to be either a child of the shared process or a utility process from the main process. Message ports are used for efficient direct process-to-process communication without burdening the main process.</p>
+<p><img src="../../../../assets/blogs/2022/11/28/process-model-after-sandboxing.png" alt="VS Code process model after sandboxing in late 2022" loading="lazy"></p>
+<h2 id="_adjusting-chromiums-code-caching" data-needslink="_adjusting-chromiums-code-caching">Adjusting Chromium's code caching</h2>
+<p>We also wanted to ensure that enabling sandbox would not cause any performance regressions. We <a href="https://github.com/microsoft/vscode/wiki/%5BDEV%5D-Perf-Tools-for-VS-Code-Development" class="external-link" target="_blank">measured</a> the time it takes from startup to show a blinking cursor in the editor and a critical amount of time is spent in the V8 JavaScript engine to load, parse, and execute the main workbench script (about 11.5 MB of minified code). Unless an update is installed, the same script will be loaded for every startup. Given this behavior, V8 can store an optimized version of the script on disk that is faster to load the next time using <a href="https://v8.dev/blog/code-caching-for-devs" class="external-link" target="_blank">code caching</a>.</p>
+<p>Chromium itself uses code caching to speed up load times of web pages. It triggers the same optimizations in the V8 engine as our solution, however the Chromium implementation only does so for web pages that are visited frequently over a specific duration. We wanted a solution that would always use code caching, given our application is a desktop application and not a web page.</p>
+<p>We enabled code caching on startup, and it has quickly become our best solution for improved startup timings. Unfortunately, our solution <a href="https://nodejs.org/api/vm.html#scriptcreatecacheddata" class="external-link" target="_blank">depended on Node.js</a> and was not applicable in sandboxed renderer processes.</p>
+<p>By <a href="https://github.com/electron/electron/pull/23842" class="external-link" target="_blank">exposing code caching options</a> in Electron, we can forcefully trigger code caching in Chromium when using the <a href="https://github.com/microsoft/vscode/blob/ff51b872dfed02026e4178ca34ef1b82835b7a31/src/vs/platform/windows/electron-main/windowImpl.ts#L220" class="external-link" target="_blank">bypassHeatCheck</a> option. In addition, we added an extra layer of protection by discarding previously generated code caches when we detect the user is running a newer version of VS Code.</p>
+<h2 id="_a-new-electron-api-utilityprocess" data-needslink="_a-new-electron-api-utilityprocess">A new Electron API: UtilityProcess</h2>
+<p>The final and probably most complex task was finding a solution for where to move the extension host. Like the shared process, communication was implemented via Node.js sockets. There is one extension host process per window and extensions are free to spawn as many child processes as they require.</p>
+<p>We had thought about moving the extension host into our shared process like file watchers and integrated terminals but felt that we should take the opportunity and build something more flexible that does not require a hidden window as a host.</p>
+<p>To that end, we wanted a robust and scalable solution that works in sandboxed renderers but preserves most of the current behavior:</p>
+<ul>
+<li>Isolated process with support for spawning child processes</li>
+<li>Full Node.js support</li>
+<li>Use message ports for direct IPC with sandboxed processes</li>
+</ul>
+<p>At that time, Electron was not able to provide us with an API that supports these requirements and so we contributed a new <a href="https://github.com/electron/electron/blob/main/docs/tutorial/process-model.md#the-utility-process" class="external-link" target="_blank">utility process</a> API to Electron. This API enabled us to move the extension host away from the renderer process and into a utility process that is created from the main process. Using message ports, we can communicate directly between the renderer and extension host without impacting any other process, such as the main process handling all user input.</p>
+<h2 id="_moving-off-the-electron-webview-element" data-needslink="_moving-off-the-electron-webview-element">Moving off the Electron webview element</h2>
+<p>While not necessarily required to enable sandbox, we took the opportunity to revisit the use of the Electron <a href="https://www.electronjs.org/docs/latest/api/webview-tag" class="external-link" target="_blank">webview tag</a> in VS Code and replace it with the <a href="https://developer.mozilla.org/docs/Web/HTML/Element/iframe" class="external-link" target="_blank">iframe</a> tag to more closely align with how VS Code works in the web. Both tags are similar in that they allow the workbench to host untrusted code from extensions while isolating the workbench from the effects of running this code. For example, when you open the preview of a Markdown file, the contents are rendered in such an element, provided by the built-in Markdown extension.</p>
+<p>In most cases, we were able to just replace the <code>webview</code> tag with the <code>iframe</code> tag. However one feature was missing from <code>iframes</code>, the ability to perform and highlight textual searches in the content. This feature was critical to support searching through a Markdown document when previewing it. While Chromium internally implemented this functionality, it was not exported as a web API to use. We made the <a href="https://github.com/electron/electron/pull/28274" class="external-link" target="_blank">necessary changes</a> to expose the API in Electron and were able to drop all usages of <code>webview</code> elements.</p>
+<h2 id="_enabling-renderer-process-reuse" data-needslink="_enabling-renderer-process-reuse">Enabling renderer process reuse</h2>
+<p>One performance benefit of sandboxed renderer processes is their lifecycle behavior in Electron. Traditionally the renderer process would terminate and restart every time a navigation occurs to another URL. For VS Code, this meant that changing a workspace or reloading the window would recreate the renderer process, which can be slow in some environments and setups.</p>
+<p>Sandboxed renderer processes are kept alive, even when navigating URLs. Opening another workspace or reloading the current one is a lot snappier. However, for this to work requires making native Node.js modules that run in the renderer process <a href="https://nodejs.github.io/node-addon-examples/special-topics/context-awareness/" class="external-link" target="_blank">context aware</a>. Even though we ended up moving all native modules out of the renderer process to enable sandboxing, we still wanted to test renderer process reuse early on and thus made all our native modules context aware.</p>
+<h2 id="_putting-it-all-together" data-needslink="_putting-it-all-together">Putting it all together</h2>
+<p>The last step was to enable sandbox mode conditionally via a user <a href="../../../../docs/getstarted/settings.html">setting</a>. We did not want to enable sandbox mode for all our users but rather give it some time to be validated in our <a href="../../../../insiders/index.html">Insiders</a> edition. With the <a href="../../../../updates/v1_70.html#_progress-for-electron-sandbox-support">window.experimental.useSandbox</a> setting, sandbox is enabled by default in Insiders and can be enabled in Stable.</p>
+<p>We plan to use our experimentation infrastructure to incrementally roll out the sandbox enablement to our Stable edition in early 2023. This will allow us to test and validate sandbox mode on an increasing set of users as we check for issues.</p>
+<p>Once the experimental phase is over, sandbox mode will be enabled by default for all users and non-sandboxed mode will be removed. There is still some work planned for later iterations, for example, we want to convert the shared process to be a utility process as it is a hidden window and uses more resources than necessary.</p>
+<p>This has been an amazing journey that was only possible with the help and motivation of the entire VS Code team. It was great to see that we could ship these changes incrementally, and be prepared for new Electron versions that require process sandboxing. We were able to greatly improve our process architecture and align more closely with the web model, creating a robust foundation for the future.</p>
+<h2 id="_terminology-used" data-needslink="_terminology-used">Terminology used</h2>
+<p><a href="https://www.electronjs.org/" class="external-link" target="_blank">Electron</a> is the main framework that enables VS Code for desktop to run on all our supported platforms (Windows, macOS, and Linux). It combines <a href="https://www.chromium.org/chromium-projects/" class="external-link" target="_blank">Chromium</a> with browser APIs, the <a href="https://v8.dev/" class="external-link" target="_blank">V8</a> JavaScript engine, and <a href="https://nodejs.org/" class="external-link" target="_blank">Node.js</a> APIs, as well as platform <a href="https://www.electronjs.org/docs/latest/api/app" class="external-link" target="_blank">integration APIs</a> to build cross platform desktop applications.</p>
+<p>In this blog post, we will refer to Electron <a href="https://www.electronjs.org/docs/latest/tutorial/sandbox" class="external-link" target="_blank">process sandboxing</a> simply as &quot;sandbox&quot;.</p>
+<p>It's important to understand the process model Chromium and thus Electron provides. In this blog post, we frequently refer to the following processes:</p>
+<ul>
+<li>main process - The application main entry point.</li>
+<li>renderer process - Windows that the user can interact with.</li>
+</ul>
+<p>While there is always just one main process, renderer processes are created per window that is opened. You can learn more about the process model in the Electron <a href="https://www.electronjs.org/docs/latest/tutorial/process-model" class="external-link" target="_blank">Process Model</a> documentation and this <a href="https://developer.chrome.com/blog/inside-browser-part1" class="external-link" target="_blank">Chrome Developers blog post</a>.</p>
+<p>The &quot;shared process&quot; is not specific to Electron, but an implementation detail of VS Code. It is a hidden Electron window with Node.js enabled that all other windows can communicate with to perform complex tasks such as extension installation.</p>
+<p>The &quot;extension host&quot; is a process that runs all the installed extensions isolated from the renderer process. There is one extension host per opened window.</p>
+<p>The VS Code &quot;workbench&quot; window is the <a href="../../../../docs/getstarted/userinterface.html">main window</a> users interact with to edit files, search, or debug. In this blog post, we refer to it simply as &quot;workbench&quot;. The other windows are Process Explorer and Issue Reporter that can be accessed from the <strong>Help</strong> menu.</p>
+<p>We use the term &quot;IPC&quot; to refer to inter-process communication. IPC is a way for one process to communicate with another process.</p>
+<p>We release a nightly version of VS Code called &quot;Insiders&quot; to test out the latest changes on a subset of users. Everyone in the VS Code team uses the <a href="../../../../insiders/index.html">Insiders</a> edition and we hope that you will try it as well and report any <a href="https://github.com/microsoft/vscode/issues" class="external-link" target="_blank">issues</a>.</p>
+<p>Happy Coding!</p>
+<p>Benjamin Pasero, <a href="https://twitter.com/BenjaminPasero" class="external-link" target="_blank">@BenjaminPasero</a></p>
+
+        </div>
+        <div class="col-sm-3 col-md-2 docs-subnavbar-container">
+            <nav id="docs-subnavbar" aria-label="On Page" data-spy="affix" data-offset-top="20">
+                
+                <h4><span class="sr-only">In this blog post, there are 14
+                        sections</span><span aria-hidden="true">In this blog post</span></h4>
+                
+                <ul class="nav">
+                    
+                    <li><a href="#_process-sandboxing-in-a-nutshell">Process sandboxing in a nutshell</a></li>
+                    
+                    <li><a href="#_our-technology-timeline">Our technology timeline:</a></li>
+                    
+                    <li><a href="#_enabling-a-communication-channel-from-the-renderer">Enabling a communication channel from the renderer</a></li>
+                    
+                    <li><a href="#_fast-interprocess-communication-via-message-port">Fast inter-process communication via message port</a></li>
+                    
+                    <li><a href="#_changing-the-origin-of-the-renderer">Changing the origin of the renderer</a></li>
+                    
+                    <li><a href="#_adapting-our-code-loader">Adapting our code loader</a></li>
+                    
+                    <li><a href="#_tooling-to-help-with-adoption">Tooling to help with adoption</a></li>
+                    
+                    <li><a href="#_moving-processes-out-of-the-renderer">Moving processes out of the renderer</a></li>
+                    
+                    <li><a href="#_adjusting-chromiums-code-caching">Adjusting Chromium's code caching</a></li>
+                    
+                    <li><a href="#_a-new-electron-api-utilityprocess">A new Electron API: UtilityProcess</a></li>
+                    
+                    <li><a href="#_moving-off-the-electron-webview-element">Moving off the Electron webview element</a></li>
+                    
+                    <li><a href="#_enabling-renderer-process-reuse">Enabling renderer process reuse</a></li>
+                    
+                    <li><a href="#_putting-it-all-together">Putting it all together</a></li>
+                    
+                    <li><a href="#_terminology-used">Terminology used</a></li>
+                    
+                </ul>
+                <div class="connect-widget"></div>
+            </nav>
+        </div>
+    </div>
+</div>
+      </div>
+  </div>
+
+  <footer role="contentinfo">
+      <div class="container">
+          <div class="row">
+              <div class="left col-md-7">
+                  <ul class="links">
+                      <li>
+                          <span class="message">Hello from Seattle.</span>
+                      </li>
+                      <li>
+                          <a href="https://go.microsoft.com/fwlink/?LinkID=533687" onclick="followOnTwitter()" tabindex="0">Follow @code</a>
+                      </li>
+                      <li>
+                          <div class="github-star-button">
+                              <iframe src="../../../../assets/github-button29be.html?user=Microsoft&amp;repo=vscode&amp;type=star&amp;count=true"
+                                  frameborder="0" scrolling="0" width="130px" height="20px" title="GitHub follow button" loading="lazy"></iframe>
+                          </div>
+                      </li>
+  
+                      <script>
+                          function followOnTwitter() {
+                              var windowFeatures = "location=yes,height=600,width=550,scrollbars=yes,status=yes";
+                              var originalReferer = "&original_referer=" + document.URL;
+                              var screenName = "&screen_name=code";
+                              var URL = "https://twitter.com/intent/follow?" + originalReferer + screenName;
+                              window.open(URL, "_blank", windowFeatures);
+                          }
+  
+                          function manageConsent() {
+                              if(WcpConsent.siteConsent.isConsentRequired){
+                                  WcpConsent.siteConsent.manageConsent();
+                              }
+                          }
+                      </script>
+                  </ul>
+              </div>
+              <div class="right col-md-5">
+                  <ul class="links">
+                      <li><a id="footer-support-link" href="https://support.serviceshub.microsoft.com/supportforbusiness/create?sapId=d66407ed-3967-b000-4cfb-2c318cad363d"
+                              target="_blank">Support</a></li>
+                      <li><a id="footer-privacy-link" href="https://privacy.microsoft.com/privacystatement"
+                              target="_blank">Privacy</a></li>
+                      <li style="display: none;"><a id="footer-cookie-link" style="cursor: pointer;" onclick="manageConsent()"
+                              target="_blank">Manage Cookies</a></li>
+                      <li><a id="footer-terms-link" href="https://www.microsoft.com/legal/terms-of-use"
+                              target="_blank">Terms of Use</a></li>
+                      <li><a id="footer-license-link" href="../../../../License.html">License</a></li>
+                  </ul>
+                  <div class="copyright">
+                      <a id="footer-microsoft-link" class="logo" href="https://www.microsoft.com/">
+                          <img class="microsoft-logo" src="../../../../assets/images/microsoft-logo.png" height="20" alt="Microsoft homepage"/>
+                          <img class="microsoft-logo-inverted" src="../../../../assets/images/microsoft-logo-inverted.png" height="20" alt="Microsoft homepage" />
+                      </a>
+                      <span>&copy; 2023 Microsoft</span>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </footer>
+  <script src="../../../../dist/index.js"></script>
+
+  
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "SoftwareApplication",
+      "name" : "Visual Studio Code",
+      "softwareVersion": "1.74",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "applicationCategory": "DeveloperApplication",
+      "applicationSubCategory": "Text Editor",
+      "alternateName": "VS Code",
+      "datePublished": "2021-11-03",
+      "operatingSystem": "Mac, Linux, Windows",
+      "logo": "https://code.visualstudio.com/assets/apple-touch-icon.png",
+      "screenshot": "https://code.visualstudio.com/assets/home/home-screenshot-win.png",
+      "releaseNotes": "https://code.visualstudio.com/updates",
+      "downloadUrl": "https://code.visualstudio.com/download",
+      "license": "https://code.visualstudio.com/license",
+      "softwareRequirements": "https://code.visualstudio.com/docs/supporting/requirements",
+      "url" : "https://code.visualstudio.com",
+      "author": {
+        "@type": "Organization",
+        "name": "Microsoft"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Microsoft"
+      },
+      "maintainer": {
+        "@type": "Organization",
+        "name": "Microsoft"
+      },
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://code.visualstudio.com/Search?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      },
+      "sameAs" : [
+        "https://en.wikipedia.org/wiki/Visual_Studio_Code",
+        "https://twitter.com/code",
+        "https://www.youtube.com/code",
+        "https://www.tiktok.com/@vscode",
+        "https://github.com/microsoft/vscode"
+      ]
+    }
+  </script>
+</body>
+
+<!-- Mirrored from code.visualstudio.com/blogs/2022/11/28/vscode-sandbox by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 04 Jan 2023 11:24:03 GMT -->
+</html>

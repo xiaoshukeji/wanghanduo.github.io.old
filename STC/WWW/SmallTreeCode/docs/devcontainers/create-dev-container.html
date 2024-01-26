@@ -1,0 +1,1884 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Mirrored from code.visualstudio.com/docs/devcontainers/create-dev-container by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 04 Jan 2023 10:29:46 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="google-site-verification" content="hNs7DXrTySP_X-0P_AC0WulAXvUwgSXEmgfcO2r79dw" />
+
+  <!-- Twitter and Facebook OpenGraph Metadata-->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@code" />
+
+  <meta name="description" content="Create a development container using Visual Studio Code Remote Development" />
+<meta name="keywords" content="" />
+<meta name="ms.prod" content="vs-code" />
+<meta name="ms.TOCTitle" content="Create a Dev Container" />
+<meta name="ms.ContentId" content="bae55561-1032-40d4-b6a6-47054da96098" />
+<meta name="ms.date" content="12/7/2022" />
+<meta name="ms.topic" content="conceptual" />
+<!-- Twitter and Facebook OpenGraph Metadata-->
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="og:url" content="create-dev-container.html" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Create a development container using Visual Studio Code Remote Development" />
+<meta property="og:description" content="Create a development container using Visual Studio Code Remote Development" />
+
+<meta property="og:image" content="../../opengraphimg/opengraph-docs.png" />
+
+
+
+  <link rel="shortcut icon" href="../../favicon.ico" sizes="128x128" />
+  <link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+
+  <title>Create a development container using Visual Studio Code Remote Development</title>
+
+  <link rel="stylesheet" href="../../vendor/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../../dist/style.css">
+
+  <script type="text/javascript" src="../../../js.monitor.azure.com/scripts/c/ms.analytics-web-3.min.js"></script>
+  <script>
+  window.appInsights = new oneDS.ApplicationInsights();
+  window.appInsights.initialize({
+    instrumentationKey: "1a3eb3104447440391ad5f2a6ee06a0a-62879566-bc58-4741-9650-302bf2af703f-7103",
+    webAnalyticsConfiguration:{ // Web Analytics Plugin configuration
+        urlCollectQuery:true, 
+        autoCapture: {
+          scroll: true,
+          pageView: true,
+          onLoad: true,
+          onUnload: true,
+          click: true,
+          resize: true,
+          jsError: true
+        }
+    }
+  }, []);
+  </script>
+  
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','../../../www.google-analytics.com/analytics.js','ga');
+  </script>  
+  <link rel="alternate" type="application/atom+xml" title="RSS Feed for code.visualstudio.com" href="../../feed.xml" />
+</head>
+
+<body>
+  <!-- EU Cookie Compliance JS -->
+  <script src="../../../wcpstatic.microsoft.com/mscc/lib/v2/wcp-consent.js"></script>
+
+  <div id="main">
+          <div class="navbar-fixed-container">
+              <div class="navbar navbar-inverse navbar-fixed-top ">
+                  <div id='cookie-banner'></div>        <nav role="navigation" aria-label="Top Level">
+                      <div class="container">
+                          <div class="nav navbar-header">
+                              <a role="button" id="skip-to-content" class="link-button" href="#main-content">Skip to content<i>&nbsp;</i><span class="glyphicon glyphicon-menu-down"></span></a>
+                              <a class="navbar-brand" id="navbar-brand" href="../../index.html">Visual Studio Code</a>
+                              <button type="button" class="navbar-toggle" role="navigation" data-toggle="collapse" data-target=".navbar-collapse" aria-label="Toggle Navigation Menu">
+                                  <span class="icon-bar"></span>
+                                  <span class="icon-bar"></span>
+                                  <span class="icon-bar"></span>
+                              </button>
+                          </div>
+                          <div class="navbar-collapse collapse" role="navigation">
+                              <ul class="nav navbar-nav navbar-left">
+                                  <li class="active" ><a id="nav-docs" href="../../docs.html">Docs</a></li>
+                                  <li ><a id="nav-updates" href="../../updates/v1_74.html">Updates</a></li>
+                                  <li ><a id="nav-blogs" href="../../blogs.html">Blog</a></li>
+                                  <li ><a id="nav-extend" href="../../api.html">API</a></li>
+                                  <li><a href="https://marketplace.visualstudio.com/VSCode" target="_blank" id="nav-extensions">Extensions</a></li>
+                                  <li ><a id="nav-faqs" href="../supporting/faq.html">FAQ</a></li>
+                                  <li ><a id="nav-learn" href="../../learn.html">Learn</a></li>
+                                  <li class='search visible-xs visible-sm'
+                                      ><a href="../../Search.html">Search</a></li>
+                              </ul>
+          
+                              <ul class="nav navbar-nav navbar-right" role="presentation">
+                                  <!-- Floating search icon -->
+                                  <li>
+                                      <a href="../../Search.html" title="Search" class="btn search-btn" id="nav-search">
+                                          <img class="search-icon" src="../../assets/icons/search.svg" width="16px" height="16px" alt="Search"/>
+                                          <img class="search-icon-inverted" src="../../assets/icons/search_dark.svg" width="16px" height="16px" alt="Search" />
+                                      </a>
+                                  </li>
+                                  <!-- Actual search icon -->
+                                  <li class="search" role="presentation">
+                                      <form class="nav-search search-form" role="search" aria-label="Search">
+                                          <div class="input-group" role="presentation">
+                                              <input type="text" name="q" class="search-box form-control" placeholder="Search Docs" aria-label="Search text"/>
+                                              <span class="input-group-btn">
+                                                  <button tabindex="0" class="btn" type="submit" aria-label="Search">
+                                                          <img class="search-icon" src="../../assets/icons/search.svg" width="16px" height="16px" alt="Search" />
+                                                          <img class="search-icon-inverted" src="../../assets/icons/search_dark.svg" width="16px" height="16px" alt="Search" />
+                                                  </button>
+                                              </span>
+                                          </div>
+                                      </form>                        </li>
+                                  <!-- this was hiden in the home and download page, keeping it for now -->
+                                  <li><a class="link-button" href="../../Download.html" id="nav-download">
+                                      <img class="download-icon" src="../../assets/icons/download.svg" width="16px" height="16px" alt="Download VS Code"/>
+                                      <img class="download-icon-inverted" src="../../assets/icons/download-black.svg" width="16px" height="16px" alt="Download VS Code" />
+                                      <span>Download</span>
+                                  </a></li>
+                              </ul>
+                          </div>
+                      </div>
+                  </nav>
+              </div>
+          </div>          <div class="updates-banner  ">
+              <div class="container">
+                  <p class="message"><a href="../../updates/v1_74.html" id="banner-link-updates">Version 1.74</a> is now available! Read about the new features and fixes from November.</p> 
+              </div>
+              <div tabindex="0" role="button" title="Dismiss this update" class="dismiss-btn" id="banner-dismiss-btn"><span class="sr-only">Dismiss this update</span><span aria-hidden="true" class="glyph-icon"></span></div>
+          </div>      <div role="main" id="main-content">
+        <script>
+    function closeReportIssue() {
+        var element = document.getElementById('surveypopup');
+        element.parentElement.removeChild(element);
+    }
+
+    function reportIssue(tutorial, page) {
+        var div = document.createElement('div');
+        div.innerHTML = '<div id="surveypopup" class="overlay visible"><div class="surveypopup"><div id="surveytitle">Tell us more<a href="javascript:void(0)" onclick="closeReportIssue()">X</a></div><div id="surveydiv"><iframe frameBorder="0" scrolling="0" src="https://www.research.net/r/PWZWZ52?tutorial=' + tutorial + '&step=' + page + '"></iframe></div></div></div>';
+        document.body.appendChild(div.children[0]);
+    }
+
+    function pushCodingPackEvent(language, os) {
+        let id = `${language}-${os}-coding-pack`;
+        var analytics = window.vscodeAnalytics;
+
+        analytics && analytics.event(
+            'click',
+            'download',
+            id,
+        );
+    }
+</script>
+
+<div class="container body-content docs">
+    <div class="row">
+        <div class="col-md-2 docs-navbar-container">
+            <nav id="docs-navbar" aria-label="Topics" class="docs-nav visible-md visible-lg">
+            	<ul class="nav" id="main-nav">
+            		<li >
+            			<a class="docs-home" href="../../docs.html" >Overview</a>
+            		</li>
+            		
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#setup-articles" data-parent="#main-nav" data-toggle="collapse">Setup</a>
+            					<ul id="setup-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../setup/setup-overview.html" >Overview</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../setup/linux.html" >Linux</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../setup/mac.html" >macOS</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../setup/windows.html" >Windows</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../setup/raspberry-pi.html" >Raspberry Pi</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../setup/network.html" >Network</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../setup/additional-components.html" >Additional Components</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../setup/enterprise.html" >Enterprise</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../setup/uninstall.html" >Uninstall</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#getstarted-articles" data-parent="#main-nav" data-toggle="collapse">Get Started</a>
+            					<ul id="getstarted-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../getstarted/introvideos.html" >Intro Videos</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../getstarted/tips-and-tricks.html" >Tips and Tricks</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../getstarted/userinterface.html" >User Interface</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../getstarted/themes.html" >Themes</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../getstarted/settings.html" >Settings</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../getstarted/keybindings.html" >Key Bindings</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../getstarted/locales.html" >Display Language</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../getstarted/telemetry.html" >Telemetry</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#editor-articles" data-parent="#main-nav" data-toggle="collapse">User Guide</a>
+            					<ul id="editor-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../editor/codebasics.html" >Basic Editing</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../editor/extension-marketplace.html" >Extension Marketplace</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../editor/intellisense.html" >IntelliSense</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../editor/editingevolved.html" >Code Navigation</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../editor/refactoring.html" >Refactoring</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../editor/debugging.html" >Debugging</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../editor/vscode-web.html" >VS Code for the Web</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../editor/tasks.html" >Tasks</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../editor/settings-sync.html" >Settings Sync</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../editor/userdefinedsnippets.html" >Snippets</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../editor/emmet.html" >Emmet</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../editor/command-line.html" >Command Line Interface</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../editor/workspace-trust.html" >Workspace Trust</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../editor/multi-root-workspaces.html" >Multi-root Workspaces</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../editor/accessibility.html" >Accessibility</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#sourcecontrol-articles" data-parent="#main-nav" data-toggle="collapse">Source Control</a>
+            					<ul id="sourcecontrol-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../sourcecontrol/overview.html" >Overview</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../sourcecontrol/github.html" >Collaborate on GitHub</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../sourcecontrol/faq.html" >FAQ</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#terminal-articles" data-parent="#main-nav" data-toggle="collapse">Terminal</a>
+            					<ul id="terminal-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../terminal/basics.html" >Terminal Basics</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../terminal/profiles.html" >Terminal Profiles</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../terminal/shell-integration.html" >Shell Integration</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../terminal/appearance.html" >Appearance</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../terminal/advanced.html" >Advanced</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#languages-articles" data-parent="#main-nav" data-toggle="collapse">Languages</a>
+            					<ul id="languages-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../languages/overview.html" >Overview</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/javascript.html" >JavaScript</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/json.html" >JSON</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/html.html" >HTML</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/css.html" >CSS, SCSS and Less</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/typescript.html" >TypeScript</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/markdown.html" >Markdown</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/powershell.html" >PowerShell</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/cpp.html" >C++</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/java.html" >Java</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/php.html" >PHP</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/python.html" >Python</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/julia.html" >Julia</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/r.html" >R</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/rust.html" >Rust</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/go.html" >Go</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/tsql.html" >T-SQL</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/csharp.html" >C#</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/dotnet.html" >.NET</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#nodejs-articles" data-parent="#main-nav" data-toggle="collapse">Node.js / JavaScript</a>
+            					<ul id="nodejs-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../nodejs/working-with-javascript.html" >Working with JavaScript</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../nodejs/nodejs-tutorial.html" >Node.js Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../nodejs/nodejs-debugging.html" >Node.js Debugging</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../nodejs/nodejs-deployment.html" >Deploy Node.js Apps</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../nodejs/browser-debugging.html" >Browser Debugging</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../nodejs/angular-tutorial.html" >Angular Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../nodejs/reactjs-tutorial.html" >React Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../nodejs/vuejs-tutorial.html" >Vue Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../nodejs/emberjs-tutorial.html" >Ember Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../nodejs/debugging-recipes.html" >Debugging Recipes</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../nodejs/profiling.html" >Performance Profiling</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../nodejs/extensions.html" >Extensions</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#typescript-articles" data-parent="#main-nav" data-toggle="collapse">TypeScript</a>
+            					<ul id="typescript-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../typescript/typescript-tutorial.html" >Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../typescript/typescript-compiling.html" >Compiling</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../typescript/typescript-editing.html" >Editing</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../typescript/typescript-refactoring.html" >Refactoring</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../typescript/typescript-debugging.html" >Debugging</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#python-articles" data-parent="#main-nav" data-toggle="collapse">Python</a>
+            					<ul id="python-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../python/python-tutorial.html" >Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../python/editing.html" >Editing Code</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../python/linting.html" >Linting</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../python/debugging.html" >Debugging</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../python/environments.html" >Environments</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../python/testing.html" >Testing</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../datascience/overview.html" >Data Science</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../python/jupyter-support-py.html" >Python Interactive</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../python/tutorial-django.html" >Django Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../python/tutorial-flask.html" >Flask Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../containers/quickstart-python.html" >Create containers</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../python/python-on-azure.html" >Deploy Python Apps</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../python/python-web.html" >Python in the Web</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../python/settings-reference.html" >Settings Reference</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#java-articles" data-parent="#main-nav" data-toggle="collapse">Java</a>
+            					<ul id="java-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../java/java-tutorial.html" >Getting Started</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-editing.html" >Navigate and Edit</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-refactoring.html" >Refactoring</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-linting.html" >Formatting and Linting</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-project.html" >Project Management</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-build.html" >Build Tools</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-debugging.html" >Run and Debug</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-testing.html" >Testing</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-spring-boot.html" >Spring Boot</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-tomcat-jetty.html" >Application Servers</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-on-azure.html" >Deploy Java Apps</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-gui.html" >GUI Applications</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/extensions.html" >Extensions</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-faq.html" >FAQ</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#cpp-articles" data-parent="#main-nav" data-toggle="collapse">C++</a>
+            					<ul id="cpp-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../cpp/introvideos-cpp.html" >Intro Videos</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../cpp/config-linux.html" >GCC on Linux</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../cpp/config-mingw.html" >GCC on Windows</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../cpp/config-wsl.html" >GCC on Windows Subsystem for Linux</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../cpp/config-clang-mac.html" >Clang on macOS</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../cpp/config-msvc.html" >Microsoft C++ on Windows</a>
+            						</li>
+            					
+            						<li >
+            							<a href="https://github.com/microsoft/vscode-cmake-tools/blob/main/docs/README.md" >Build with CMake</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../cpp/cmake-linux.html" >CMake Tools on Linux</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../cpp/cpp-ide.html" >Editing</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../cpp/cpp-debug.html" >Debugging</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../cpp/launch-json-reference.html" >Configure debugging</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../cpp/customize-default-settings-cpp.html" >Settings</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../cpp/configure-intellisense-crosscompilation.html" >Configure IntelliSense for cross-compiling</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../cpp/faq-cpp.html" >FAQ</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#containers-articles" data-parent="#main-nav" data-toggle="collapse">Docker</a>
+            					<ul id="containers-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../containers/overview.html" >Overview</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../containers/quickstart-node.html" >Node.js</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../containers/quickstart-python.html" >Python</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../containers/quickstart-aspnet-core.html" >ASP.NET Core</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../containers/debug-common.html" >Debug</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../containers/docker-compose.html" >Docker Compose</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../containers/quickstart-container-registries.html" >Registries</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../containers/app-service.html" >Deploy to Azure</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../containers/choosing-dev-environment.html" >Choose a dev environment</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../containers/reference.html" >Customize</a>
+            						</li>
+            					
+            						<li >
+            							<a href="https://learn.microsoft.com/visualstudio/bridge/bridge-to-kubernetes-vs-code" >Develop with Kubernetes</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../containers/troubleshooting.html" >Tips and Tricks</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#datascience-articles" data-parent="#main-nav" data-toggle="collapse">Data Science</a>
+            					<ul id="datascience-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../datascience/overview.html" >Overview</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../datascience/jupyter-notebooks.html" >Jupyter Notebooks</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../datascience/data-science-tutorial.html" >Data Science Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../python/jupyter-support-py.html" >Python Interactive</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../datascience/pytorch-support.html" >PyTorch Support</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../datascience/azure-machine-learning.html" >Azure Machine Learning</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#azure-articles" data-parent="#main-nav" data-toggle="collapse">Azure</a>
+            					<ul id="azure-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../azure/extensions.html" >Extensions</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../azure/deployment.html" >Deployment</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../azure/remote-debugging.html" >Remote Debugging for Node.js</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../containers/overview.html" >Docker</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../azure/mongodb.html" >MongoDB</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../azure/kubernetes.html" >Kubernetes</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../azure/aksextensions.html" >Azure Kubernetes Service</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#remote-articles" data-parent="#main-nav" data-toggle="collapse">Remote</a>
+            					<ul id="remote-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../remote/remote-overview.html" >Overview</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../remote/ssh.html" >SSH</a>
+            						</li>
+            					
+            						<li >
+            							<a href="containers.html" >Dev Containers</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../remote/wsl.html" >Windows Subsystem for Linux</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../remote/codespaces.html" >GitHub Codespaces</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../remote/vscode-server.html" >VS Code Server</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../remote/tunnels.html" >Tunnels</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../remote/ssh-tutorial.html" >SSH Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../remote/wsl-tutorial.html" >WSL Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../remote/troubleshooting.html" >Tips and Tricks</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../remote/faq.html" >FAQ</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel active expanded">
+            					<a class="area" role="button" href="#devcontainers-articles" data-parent="#main-nav" data-toggle="collapse">Dev Containers</a>
+            					<ul id="devcontainers-articles" class="collapse in">
+            					
+            						<li >
+            							<a href="containers.html" >Overview</a>
+            						</li>
+            					
+            						<li >
+            							<a href="tutorial.html" >Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="attach-container.html" >Attach to Container</a>
+            						</li>
+            					
+            						<li class="active">
+            							<a href="create-dev-container.html" aria-label="Current Page: Create a Dev Container">Create a Dev Container</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../../remote/advancedcontainers/overview.html" >Advanced Containers</a>
+            						</li>
+            					
+            						<li >
+            							<a href="https://containers.dev/implementors/json_reference" >devcontainer.json</a>
+            						</li>
+            					
+            						<li >
+            							<a href="devcontainer-cli.html" >Dev Container CLI</a>
+            						</li>
+            					
+            						<li >
+            							<a href="tips-and-tricks.html" >Tips and Tricks</a>
+            						</li>
+            					
+            						<li >
+            							<a href="faq.html" >FAQ</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            		
+            	</ul>
+            </nav>
+            <nav id="small-nav" aria-label="Topics" class="docs-nav hidden-md hidden-lg">
+            	<h4>Topics</h4>
+            	<select id="small-nav-dropdown" aria-label="topics">
+            		<option value="/docs" >Overview</option>
+            		
+            			
+            		
+            			
+            				<optgroup label="Setup">
+            				
+            					<option value="/docs/setup/setup-overview" >Overview</option>
+            				
+            					<option value="/docs/setup/linux" >Linux</option>
+            				
+            					<option value="/docs/setup/mac" >macOS</option>
+            				
+            					<option value="/docs/setup/windows" >Windows</option>
+            				
+            					<option value="/docs/setup/raspberry-pi" >Raspberry Pi</option>
+            				
+            					<option value="/docs/setup/network" >Network</option>
+            				
+            					<option value="/docs/setup/additional-components" >Additional Components</option>
+            				
+            					<option value="/docs/setup/enterprise" >Enterprise</option>
+            				
+            					<option value="/docs/setup/uninstall" >Uninstall</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Get Started">
+            				
+            					<option value="/docs/getstarted/introvideos" >Intro Videos</option>
+            				
+            					<option value="/docs/getstarted/tips-and-tricks" >Tips and Tricks</option>
+            				
+            					<option value="/docs/getstarted/userinterface" >User Interface</option>
+            				
+            					<option value="/docs/getstarted/themes" >Themes</option>
+            				
+            					<option value="/docs/getstarted/settings" >Settings</option>
+            				
+            					<option value="/docs/getstarted/keybindings" >Key Bindings</option>
+            				
+            					<option value="/docs/getstarted/locales" >Display Language</option>
+            				
+            					<option value="/docs/getstarted/telemetry" >Telemetry</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="User Guide">
+            				
+            					<option value="/docs/editor/codebasics" >Basic Editing</option>
+            				
+            					<option value="/docs/editor/extension-marketplace" >Extension Marketplace</option>
+            				
+            					<option value="/docs/editor/intellisense" >IntelliSense</option>
+            				
+            					<option value="/docs/editor/editingevolved" >Code Navigation</option>
+            				
+            					<option value="/docs/editor/refactoring" >Refactoring</option>
+            				
+            					<option value="/docs/editor/debugging" >Debugging</option>
+            				
+            					<option value="/docs/editor/vscode-web" >VS Code for the Web</option>
+            				
+            					<option value="/docs/editor/tasks" >Tasks</option>
+            				
+            					<option value="/docs/editor/settings-sync" >Settings Sync</option>
+            				
+            					<option value="/docs/editor/userdefinedsnippets" >Snippets</option>
+            				
+            					<option value="/docs/editor/emmet" >Emmet</option>
+            				
+            					<option value="/docs/editor/command-line" >Command Line Interface</option>
+            				
+            					<option value="/docs/editor/workspace-trust" >Workspace Trust</option>
+            				
+            					<option value="/docs/editor/multi-root-workspaces" >Multi-root Workspaces</option>
+            				
+            					<option value="/docs/editor/accessibility" >Accessibility</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Source Control">
+            				
+            					<option value="/docs/sourcecontrol/overview" >Overview</option>
+            				
+            					<option value="/docs/sourcecontrol/github" >Collaborate on GitHub</option>
+            				
+            					<option value="/docs/sourcecontrol/faq" >FAQ</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Terminal">
+            				
+            					<option value="/docs/terminal/basics" >Terminal Basics</option>
+            				
+            					<option value="/docs/terminal/profiles" >Terminal Profiles</option>
+            				
+            					<option value="/docs/terminal/shell-integration" >Shell Integration</option>
+            				
+            					<option value="/docs/terminal/appearance" >Appearance</option>
+            				
+            					<option value="/docs/terminal/advanced" >Advanced</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Languages">
+            				
+            					<option value="/docs/languages/overview" >Overview</option>
+            				
+            					<option value="/docs/languages/javascript" >JavaScript</option>
+            				
+            					<option value="/docs/languages/json" >JSON</option>
+            				
+            					<option value="/docs/languages/html" >HTML</option>
+            				
+            					<option value="/docs/languages/css" >CSS, SCSS and Less</option>
+            				
+            					<option value="/docs/languages/typescript" >TypeScript</option>
+            				
+            					<option value="/docs/languages/markdown" >Markdown</option>
+            				
+            					<option value="/docs/languages/powershell" >PowerShell</option>
+            				
+            					<option value="/docs/languages/cpp" >C++</option>
+            				
+            					<option value="/docs/languages/java" >Java</option>
+            				
+            					<option value="/docs/languages/php" >PHP</option>
+            				
+            					<option value="/docs/languages/python" >Python</option>
+            				
+            					<option value="/docs/languages/julia" >Julia</option>
+            				
+            					<option value="/docs/languages/r" >R</option>
+            				
+            					<option value="/docs/languages/rust" >Rust</option>
+            				
+            					<option value="/docs/languages/go" >Go</option>
+            				
+            					<option value="/docs/languages/tsql" >T-SQL</option>
+            				
+            					<option value="/docs/languages/csharp" >C#</option>
+            				
+            					<option value="/docs/languages/dotnet" >.NET</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Node.js / JavaScript">
+            				
+            					<option value="/docs/nodejs/working-with-javascript" >Working with JavaScript</option>
+            				
+            					<option value="/docs/nodejs/nodejs-tutorial" >Node.js Tutorial</option>
+            				
+            					<option value="/docs/nodejs/nodejs-debugging" >Node.js Debugging</option>
+            				
+            					<option value="/docs/nodejs/nodejs-deployment" >Deploy Node.js Apps</option>
+            				
+            					<option value="/docs/nodejs/browser-debugging" >Browser Debugging</option>
+            				
+            					<option value="/docs/nodejs/angular-tutorial" >Angular Tutorial</option>
+            				
+            					<option value="/docs/nodejs/reactjs-tutorial" >React Tutorial</option>
+            				
+            					<option value="/docs/nodejs/vuejs-tutorial" >Vue Tutorial</option>
+            				
+            					<option value="/docs/nodejs/emberjs-tutorial" >Ember Tutorial</option>
+            				
+            					<option value="/docs/nodejs/debugging-recipes" >Debugging Recipes</option>
+            				
+            					<option value="/docs/nodejs/profiling" >Performance Profiling</option>
+            				
+            					<option value="/docs/nodejs/extensions" >Extensions</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="TypeScript">
+            				
+            					<option value="/docs/typescript/typescript-tutorial" >Tutorial</option>
+            				
+            					<option value="/docs/typescript/typescript-compiling" >Compiling</option>
+            				
+            					<option value="/docs/typescript/typescript-editing" >Editing</option>
+            				
+            					<option value="/docs/typescript/typescript-refactoring" >Refactoring</option>
+            				
+            					<option value="/docs/typescript/typescript-debugging" >Debugging</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Python">
+            				
+            					<option value="/docs/python/python-tutorial" >Tutorial</option>
+            				
+            					<option value="/docs/python/editing" >Editing Code</option>
+            				
+            					<option value="/docs/python/linting" >Linting</option>
+            				
+            					<option value="/docs/python/debugging" >Debugging</option>
+            				
+            					<option value="/docs/python/environments" >Environments</option>
+            				
+            					<option value="/docs/python/testing" >Testing</option>
+            				
+            					<option value="/docs/python/data-science" >Data Science</option>
+            				
+            					<option value="/docs/python/jupyter-support-py" >Python Interactive</option>
+            				
+            					<option value="/docs/python/tutorial-django" >Django Tutorial</option>
+            				
+            					<option value="/docs/python/tutorial-flask" >Flask Tutorial</option>
+            				
+            					<option value="/docs/python/tutorial-create-containers" >Create containers</option>
+            				
+            					<option value="/docs/python/python-on-azure" >Deploy Python Apps</option>
+            				
+            					<option value="/docs/python/python-web" >Python in the Web</option>
+            				
+            					<option value="/docs/python/settings-reference" >Settings Reference</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Java">
+            				
+            					<option value="/docs/java/java-tutorial" >Getting Started</option>
+            				
+            					<option value="/docs/java/java-editing" >Navigate and Edit</option>
+            				
+            					<option value="/docs/java/java-refactoring" >Refactoring</option>
+            				
+            					<option value="/docs/java/java-linting" >Formatting and Linting</option>
+            				
+            					<option value="/docs/java/java-project" >Project Management</option>
+            				
+            					<option value="/docs/java/java-build" >Build Tools</option>
+            				
+            					<option value="/docs/java/java-debugging" >Run and Debug</option>
+            				
+            					<option value="/docs/java/java-testing" >Testing</option>
+            				
+            					<option value="/docs/java/java-spring-boot" >Spring Boot</option>
+            				
+            					<option value="/docs/java/java-tomcat-jetty" >Application Servers</option>
+            				
+            					<option value="/docs/java/java-on-azure" >Deploy Java Apps</option>
+            				
+            					<option value="/docs/java/java-gui" >GUI Applications</option>
+            				
+            					<option value="/docs/java/extensions" >Extensions</option>
+            				
+            					<option value="/docs/java/java-faq" >FAQ</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="C++">
+            				
+            					<option value="/docs/cpp/introvideos-cpp" >Intro Videos</option>
+            				
+            					<option value="/docs/cpp/config-linux" >GCC on Linux</option>
+            				
+            					<option value="/docs/cpp/config-mingw" >GCC on Windows</option>
+            				
+            					<option value="/docs/cpp/config-wsl" >GCC on Windows Subsystem for Linux</option>
+            				
+            					<option value="/docs/cpp/config-clang-mac" >Clang on macOS</option>
+            				
+            					<option value="/docs/cpp/config-msvc" >Microsoft C++ on Windows</option>
+            				
+            					<option value="/docs/cpp/build-with-cmake" >Build with CMake</option>
+            				
+            					<option value="/docs/cpp/cmake-linux" >CMake Tools on Linux</option>
+            				
+            					<option value="/docs/cpp/cpp-ide" >Editing</option>
+            				
+            					<option value="/docs/cpp/cpp-debug" >Debugging</option>
+            				
+            					<option value="/docs/cpp/launch-json-reference" >Configure debugging</option>
+            				
+            					<option value="/docs/cpp/customize-default-settings-cpp" >Settings</option>
+            				
+            					<option value="/docs/cpp/configure-intellisense-crosscompilation" >Configure IntelliSense for cross-compiling</option>
+            				
+            					<option value="/docs/cpp/faq-cpp" >FAQ</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Docker">
+            				
+            					<option value="/docs/containers/overview" >Overview</option>
+            				
+            					<option value="/docs/containers/quickstart-node" >Node.js</option>
+            				
+            					<option value="/docs/containers/quickstart-python" >Python</option>
+            				
+            					<option value="/docs/containers/quickstart-aspnet-core" >ASP.NET Core</option>
+            				
+            					<option value="/docs/containers/debug-common" >Debug</option>
+            				
+            					<option value="/docs/containers/docker-compose" >Docker Compose</option>
+            				
+            					<option value="/docs/containers/quickstart-container-registries" >Registries</option>
+            				
+            					<option value="/docs/containers/app-service" >Deploy to Azure</option>
+            				
+            					<option value="/docs/containers/choosing-dev-environment" >Choose a dev environment</option>
+            				
+            					<option value="/docs/containers/reference" >Customize</option>
+            				
+            					<option value="/docs/containers/bridge-to-kubernetes" >Develop with Kubernetes</option>
+            				
+            					<option value="/docs/containers/troubleshooting" >Tips and Tricks</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Data Science">
+            				
+            					<option value="/docs/datascience/overview" >Overview</option>
+            				
+            					<option value="/docs/datascience/jupyter-notebooks" >Jupyter Notebooks</option>
+            				
+            					<option value="/docs/datascience/data-science-tutorial" >Data Science Tutorial</option>
+            				
+            					<option value="/docs/datascience/python-interactive" >Python Interactive</option>
+            				
+            					<option value="/docs/datascience/pytorch-support" >PyTorch Support</option>
+            				
+            					<option value="/docs/datascience/azure-machine-learning" >Azure Machine Learning</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Azure">
+            				
+            					<option value="/docs/azure/extensions" >Extensions</option>
+            				
+            					<option value="/docs/azure/deployment" >Deployment</option>
+            				
+            					<option value="/docs/azure/remote-debugging" >Remote Debugging for Node.js</option>
+            				
+            					<option value="/docs/azure/docker" >Docker</option>
+            				
+            					<option value="/docs/azure/mongodb" >MongoDB</option>
+            				
+            					<option value="/docs/azure/kubernetes" >Kubernetes</option>
+            				
+            					<option value="/docs/azure/aksextensions" >Azure Kubernetes Service</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Remote">
+            				
+            					<option value="/docs/remote/remote-overview" >Overview</option>
+            				
+            					<option value="/docs/remote/ssh" >SSH</option>
+            				
+            					<option value="/docs/remote/dev-containers" >Dev Containers</option>
+            				
+            					<option value="/docs/remote/wsl" >Windows Subsystem for Linux</option>
+            				
+            					<option value="/docs/remote/codespaces" >GitHub Codespaces</option>
+            				
+            					<option value="/docs/remote/vscode-server" >VS Code Server</option>
+            				
+            					<option value="/docs/remote/tunnels" >Tunnels</option>
+            				
+            					<option value="/docs/remote/ssh-tutorial" >SSH Tutorial</option>
+            				
+            					<option value="/docs/remote/wsl-tutorial" >WSL Tutorial</option>
+            				
+            					<option value="/docs/remote/troubleshooting" >Tips and Tricks</option>
+            				
+            					<option value="/docs/remote/faq" >FAQ</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Dev Containers">
+            				
+            					<option value="/docs/devcontainers/containers" >Overview</option>
+            				
+            					<option value="/docs/devcontainers/tutorial" >Tutorial</option>
+            				
+            					<option value="/docs/devcontainers/attach-container" >Attach to Container</option>
+            				
+            					<option value="/docs/devcontainers/create-dev-container" selected>Create a Dev Container</option>
+            				
+            					<option value="/docs/devcontainers/containers-advanced" >Advanced Containers</option>
+            				
+            					<option value="/docs/devcontainers/devcontainerjson-reference" >devcontainer.json</option>
+            				
+            					<option value="/docs/devcontainers/devcontainer-cli" >Dev Container CLI</option>
+            				
+            					<option value="/docs/devcontainers/tips-and-tricks" >Tips and Tricks</option>
+            				
+            					<option value="/docs/devcontainers/faq" >FAQ</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            		
+            	</select>
+            </nav>        </div>
+        <div class="col-sm-9 col-md-8 body">
+            <div class="edit-github pull-right">
+                <a href="https://vscode.dev/github/microsoft/vscode-docs/blob/main/docs/devcontainers/create-dev-container.md"
+                    class="btn btn-default" title="Edit this document in vscode.dev">
+                    <span class="glyphicon glyphicon-pencil"></span>
+                    <span class="hidden-xs">Edit</span>
+                </a>
+            </div>
+            <h1>Create a Dev Container</h1>
+<p>The <strong>Visual Studio Code Dev Containers</strong> extension lets you use a <a href="https://docker.com/" class="external-link" target="_blank">Docker container</a> as a full-featured development environment. It allows you to open any folder or repository inside a container and take advantage of Visual Studio Code's full feature set. A <code>devcontainer.json</code> file in your project tells VS Code how to access (or create) a <strong>development container</strong> with a well-defined tool and runtime stack. This container can be used to run an application or to separate tools, libraries, or runtimes needed for working with a codebase.</p>
+<h2 id="_path-to-creating-a-dev-container" data-needslink="_path-to-creating-a-dev-container">Path to creating a dev container</h2>
+<p>In this document, we'll go through the steps for creating a development (dev) container in VS Code:</p>
+<ol>
+<li>Create a <code>devcontainer.json</code>, which describes how VS Code should start the container and what to do after it connects.</li>
+<li>Make and persist changes to the dev container, such as installation of new software, through use of a Dockerfile.</li>
+<li>Configure multiple containers through Docker Compose.</li>
+<li>As you make changes, build your dev container to ensure changes take effect.</li>
+</ol>
+<p>After any of the steps above, you'll have a fully functioning dev container, and you can either continue to the next step of this tutorial to add more features, or stop and begin working in the dev environment you currently have.</p>
+<blockquote>
+<p>Note: The Dev Containers extension has a <strong>Dev Containers: Add Dev Container Configuration Files...</strong> command that lets you pick a pre-defined container configuration from a list. If you'd prefer to have a complete dev container immediately rather than building up the <code>devcontainer.json</code> and Dockerfile step-by-step, you can skip ahead to <a href="#_automate-dev-container-creation">Automate dev container creation</a>.</p>
+</blockquote>
+<h2 id="_create-a-devcontainerjson-file" data-needslink="_create-a-devcontainerjson-file">Create a devcontainer.json file</h2>
+<p>VS Code's container configuration is stored in a <a href="https://containers.dev/implementors/json_reference" class="external-link" target="_blank">devcontainer.json</a> file. This file is similar to the <code>launch.json</code> file for debugging configurations, but is used for launching (or attaching to) your development container instead. The dev container configuration is either located under <code>.devcontainer/devcontainer.json</code> or stored as a <code>.devcontainer.json</code> file (note the dot-prefix) in the root of your project.</p>
+<p>You can use an image as a starting point for your <code>devcontainer.json</code>. An image is like a mini-disk drive with various tools and an operating system pre-installed. You can pull images from a container registry, which is a collection of repositories that store images. Here is a simple example <code>devcontainer.json</code> that uses a pre-built TypeScript and Node.js VS Code Development Container <a href="https://github.com/devcontainers/images" class="external-link" target="_blank">image</a>:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #000000">{</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;image&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;mcr.microsoft.com/devcontainers/typescript-node:0-12&quot;</span></span>
+<span class="line"><span style="color: #000000">}</span></span>
+<span class="line"></span></code></pre>
+<p>You can alter your configuration to do things such as:</p>
+<ul>
+<li>Install additional tools such as Git in the container.</li>
+<li>Automatically install extensions.</li>
+<li>Forward or publish additional ports.</li>
+<li>Set runtime arguments.</li>
+<li>Reuse or <a href="https://aka.ms/vscode-remote/containers/docker-compose/extend" class="external-link" target="_blank">extend your existing Docker Compose setup</a>.</li>
+<li>Add more <a href="../../remote/advancedcontainers/overview.html">Advanced container configuration</a>.</li>
+</ul>
+<p>For this example, if you'd like to install the <a href="https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint" class="external-link" target="_blank">ESLint extension</a> into your container and automatically forward port 3000, your <code>devcontainer.json</code> would look like:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #000000">{</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;image&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;mcr.microsoft.com/devcontainers/typescript-node:0-12&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;customizations&quot;</span><span style="color: #000000">: {</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #0451A5">&quot;vscode&quot;</span><span style="color: #000000">: {</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #0451A5">&quot;extensions&quot;</span><span style="color: #000000">: [</span><span style="color: #A31515">&quot;dbaeumer.vscode-eslint&quot;</span><span style="color: #000000">]</span></span>
+<span class="line"><span style="color: #000000">    }</span></span>
+<span class="line"><span style="color: #000000">  },</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;forwardPorts&quot;</span><span style="color: #000000">: [</span><span style="color: #098658">3000</span><span style="color: #000000">]</span></span>
+<span class="line"><span style="color: #000000">}</span></span>
+<span class="line"></span></code></pre>
+<p>With the above <code>devcontainer.json</code>, your dev container is functional, and you can connect to and start developing within it. Try it out with the <strong>Dev Containers: Reopen in Container</strong> command:</p>
+<p><img src="../../assets/docs/devcontainers/create-dev-container/dev-containers-reopen.png" alt="Quick pick with list of Dev Containers commands" loading="lazy"></p>
+<p>After running this command, when VS Code restarts, you're now within a Node.js and TypeScript dev container with port 3000 forwarded and the ESLint extension installed. Once you're connected, notice the green remote indicator on the left of the Status bar to show you are connected to your dev container:</p>
+<p><img src="../../assets/docs/devcontainers/create-dev-container/connected-to-dev-container.png" alt="VS Code instance connected to dev container" loading="lazy"></p>
+<h3 id="_additional-dev-container-scenarios" data-needslink="_additional-dev-container-scenarios">Additional dev container scenarios</h3>
+<p>Through a <code>devcontainer.json</code> file, you can:</p>
+<ul>
+<li>Spin up a stand-alone container to isolate your toolchain or speed up setup.</li>
+<li>Work with a container deployed application defined by an image, <a href="#_dockerfile">Dockerfile</a>, or <a href="#_use-docker-compose">Docker Compose</a>.</li>
+<li><a href="../../remote/advancedcontainers/use-docker-kubernetes.html">Use Docker or Kubernetes</a> from inside a dev container to build and deploy your app.</li>
+</ul>
+<p>If <code>devcontainer.json</code>'s supported workflows do not meet your needs, you can also <a href="attach-container.html">attach to an already running container instead</a>.</p>
+<blockquote>
+<p><strong>Tip:</strong> Want to use a remote Docker host? See the <a href="../../remote/advancedcontainers/develop-remote-host.html">Develop on a remote Docker host</a> article for details on setup.</p>
+</blockquote>
+<h2 id="_install-additional-software" data-needslink="_install-additional-software">Install additional software</h2>
+<p>You may want to install additional software in your dev container. Once VS Code is connected to the container, you can open a VS Code terminal and execute any command against the OS inside the container. This allows you to install new command-line utilities and spin up databases or application services from inside the Linux container.</p>
+<p>Most container images are based on Debian or Ubuntu, where the <code>apt</code> or <code>apt-get</code> command is used to install new packages. You can learn more about the command <a href="https://help.ubuntu.com/lts/serverguide/apt.html" class="external-link" target="_blank">in Ubuntu's documentation</a>. Alpine images include a <a href="https://wiki.alpinelinux.org/wiki/Alpine_Linux_package_management" class="external-link" target="_blank">similar <code>apk</code> command</a> while CentOS / RHEL / Oracle SE / Fedora images <a href="https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/6/html/deployment_guide/ch-yum" class="external-link" target="_blank">use <code>yum</code></a> or <a href="https://fedoraproject.org/wiki/DNF?rd=Dnf" class="external-link" target="_blank">more recently <code>dnf</code></a>.</p>
+<p>Documentation for the software you want to install will usually provide specific instructions, but you may not need to prefix commands with <code>sudo</code> if you are running as root in the container.</p>
+<p>For example:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #008000"># If running as root</span></span>
+<span class="line"><span style="color: #000000">apt-get update</span></span>
+<span class="line"><span style="color: #000000">apt-get install &lt;package&gt;</span></span>
+<span class="line"></span></code></pre>
+<p>If you are running as root, you can install software as long as <code>sudo</code> is configured in your container. All predefined containers have <code>sudo</code> set up, but the <a href="../../remote/advancedcontainers/add-nonroot-user.html">Add a non-root user to a container</a> article can help you set this up for your own containers. Regardless, if you install and configure <code>sudo</code>, you'll be able to use it when running as any user including root.</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #008000"># If sudo is installed and configured</span></span>
+<span class="line"><span style="color: #000000">sudo apt-get update</span></span>
+<span class="line"><span style="color: #000000">sudo apt-get install &lt;package&gt;</span></span>
+<span class="line"></span></code></pre>
+<p>Let's say you want to install Git. You could run the following commands in the integrated terminal in VS Code:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #008000"># If sudo is installed and configured</span></span>
+<span class="line"><span style="color: #000000">sudo apt-get update</span></span>
+<span class="line"><span style="color: #008000"># Install Git</span></span>
+<span class="line"><span style="color: #000000">sudo apt-get install git</span></span>
+<span class="line"></span></code></pre>
+<p>You may also use the <code>&quot;features&quot;</code> property in the <code>devcontainer.json</code> to install tools and languages from a pre-defined set of <a href="https://github.com/devcontainers/features" class="external-link" target="_blank">Features</a> or even your own.</p>
+<p>For example, you could install the latest version of the Azure CLI with the following:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #A31515">&quot;features&quot;</span><span style="color: #000000">: {</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #0451A5">&quot;ghcr.io/devcontainers/features/azure-cli:1&quot;</span><span style="color: #000000">: {</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #0451A5">&quot;version&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;latest&quot;</span></span>
+<span class="line"><span style="color: #000000">    }</span></span>
+<span class="line"><span style="color: #000000">  }</span></span>
+<span class="line"></span></code></pre>
+<p>See the <a href="https://containers.dev/implementors/features/" class="external-link" target="_blank">Dev Container Features specification</a> for more details.</p>
+<h3 id="_rebuild" data-needslink="_rebuild">Rebuild</h3>
+<p>When editing the contents of the <code>.devcontainer</code> folder, you'll need to rebuild for changes to take effect. Use the <strong>Dev Containers: Rebuild Container</strong> command for your container to update.</p>
+<p>However, if you <strong>rebuild</strong> the container, you will have to <strong>reinstall</strong> anything you've installed manually. To avoid this problem, you can use the <code>postCreateCommand</code> property in <code>devcontainer.json</code>.</p>
+<p>The <code>postCreateCommand</code> actions are run once the container is created, so you can also use the property to run commands like <code>npm install</code> or to execute a shell script in your source tree (if you have mounted it).</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #A31515">&quot;postCreateCommand&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;bash scripts/install-dev-tools.sh&quot;</span></span>
+<span class="line"></span></code></pre>
+<p>You can also use an interactive bash shell so that your <code>.bashrc</code> is picked up, automatically customizing your shell for your environment:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #A31515">&quot;postCreateCommand&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;bash -i scripts/install-dev-tools.sh&quot;</span></span>
+<span class="line"></span></code></pre>
+<p>Tools like NVM won't work without using <code>-i</code> to put the shell in interactive mode:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #A31515">&quot;postCreateCommand&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;bash -i -c &#39;nvm install --lts&#39;&quot;</span></span>
+<span class="line"></span></code></pre>
+<p>The command needs to exit or the container won't start. For instance, if you add an application start to <code>postCreateCommand</code>, the command wouldn't exit.</p>
+<p>There is also a <code>postStartCommand</code> that executes every time the container starts. The parameters behave exactly like <code>postCreateCommand</code>, but the commands execute on start rather than create.</p>
+<p>Rather than referencing an image directly in <code>devcontainer.json</code> or installing software via the <code>postCreateCommand</code> or <code>postStartCommand</code>, an even more efficient practice is to use a Dockerfile.</p>
+<h2 id="_dockerfile" data-needslink="_dockerfile">Dockerfile</h2>
+<p>A Dockerfile will also live in the <code>.devcontainer</code> folder. You can replace the <code>image</code> property in <code>devcontainer.json</code> with <code>dockerfile</code>:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #000000">{</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;build&quot;</span><span style="color: #000000">: { </span><span style="color: #0451A5">&quot;dockerfile&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;Dockerfile&quot;</span><span style="color: #000000"> },</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;customizations&quot;</span><span style="color: #000000">: {</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #0451A5">&quot;vscode&quot;</span><span style="color: #000000">: {</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #0451A5">&quot;extensions&quot;</span><span style="color: #000000">: [</span><span style="color: #A31515">&quot;dbaeumer.vscode-eslint&quot;</span><span style="color: #000000">]</span></span>
+<span class="line"><span style="color: #000000">    }</span></span>
+<span class="line"><span style="color: #000000">  },</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;forwardPorts&quot;</span><span style="color: #000000">: [</span><span style="color: #098658">3000</span><span style="color: #000000">]</span></span>
+<span class="line"><span style="color: #000000">}</span></span>
+<span class="line"></span></code></pre>
+<p>When you make changes like installing new software, changes made in the Dockerfile will persist even upon a rebuild of the dev container.</p>
+<p>In your Dockerfile, use <code>FROM</code> to designate the image, and the <code>RUN</code> instruction to install any software. You can use <code>&amp;&amp;</code> to string together multiple commands.</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #0000FF">FROM</span><span style="color: #000000"> mcr.microsoft.com/vscode/devcontainers/typescript-node:0-12</span></span>
+<span class="line"><span style="color: #0000FF">RUN</span><span style="color: #000000"> apt-get update &amp;&amp; export DEBIAN_FRONTEND=noninteractive \</span></span>
+<span class="line"><span style="color: #000000">    &amp;&amp; apt-get -y install git</span></span>
+<span class="line"></span></code></pre>
+<blockquote>
+<p>Note: The <code>DEBIAN_FRONTEND</code> export avoids warnings when you go on to work with your container.</p>
+</blockquote>
+<h3 id="_automate-dev-container-creation" data-needslink="_automate-dev-container-creation">Automate dev container creation</h3>
+<p>Rather than creating a <code>.devcontainer</code> by hand, selecting the <strong>Dev Containers: Add Dev Container Configuration Files...</strong> command from the Command Palette (<span class="keybinding">F1</span>) will add the needed files to your project as a starting point, which you can further customize for your needs.</p>
+<p>The command lets you pick a pre-defined container configuration from a list based on your folder's contents:</p>
+<p><img src="../../assets/docs/devcontainers/create-dev-container/select-dev-container-def-all.png" alt="Add a dev container config" loading="lazy"></p>
+<p>The predefined container configurations you can pick from come from our <a href="https://containers.dev/templates" class="external-link" target="_blank">first-party and community index</a>, which is part of the <a href="https://containers.dev/" class="external-link" target="_blank">Dev Container Specification</a>. We host a set of Templates as part of the spec in the <a href="https://github.com/devcontainers/templates" class="external-link" target="_blank">devcontainers/templates repository</a>. You can browse the <code>src</code> folder of that repository to see the contents of each Template.</p>
+<p>At the end of using <strong>Dev Containers: Add Dev Container Configuration Files...</strong>, you'll be shown the list of available features, which are tools and languages you can easily drop into your dev container. <strong>Dev Containers: Configure Container Features</strong> allows you to update an existing configuration.</p>
+<p><img src="../../assets/docs/devcontainers/containers/container-features.png" alt="Dev container features in Command Palette" loading="lazy"></p>
+<p>You can also reuse an existing Dockerfile:</p>
+<p><img src="../../assets/docs/devcontainers/create-dev-container/select-dockerfile.png" alt="Select Dockerfile" loading="lazy"></p>
+<p>Now that you have a <code>devcontainer.json</code> and Dockerfile, let's see the general process for editing container configuration files.</p>
+<h3 id="_full-configuration-edit-loop" data-needslink="_full-configuration-edit-loop">Full configuration edit loop</h3>
+<p>Editing your container configuration is easy. Since rebuilding a container will &quot;reset&quot; the container to its starting contents (with the exception of your local source code), VS Code does not automatically rebuild if you edit a container configuration file (<code>devcontainer.json</code>, <code>Dockerfile</code>, and <code>docker-compose.yml</code>). Instead, there are several commands that can be used to make editing your configuration easier.</p>
+<p>Here is the typical edit loop using these commands:</p>
+<p><img src="../../assets/docs/devcontainers/create-dev-container/container-edit-loop.png" alt="Container edit loop illustration" loading="lazy"></p>
+<ol>
+<li>Start with <strong>Dev Containers: Add Dev Container Configuration Files...</strong> in the Command Palette (<span class="keybinding">F1</span>).</li>
+<li>Edit the contents of the <code>.devcontainer</code> folder as required.</li>
+<li>Try it with <strong>Dev Containers: Reopen in Container</strong>.</li>
+<li>If you see an error, select <strong>Open Folder Locally</strong> in the dialog that appears.</li>
+<li>After the window reloads, a copy of the <strong>build log</strong> will appear in the console so you can investigate the problem. Edit the contents of the <code>.devcontainer</code> folder as required. (You can also use the <strong>Dev Containers: Show Container Log</strong> command to see the log again if you close it.)</li>
+<li>Run <strong>Dev Containers: Rebuild and Reopen in Container</strong> and jump to step 4 if needed.</li>
+</ol>
+<p>If you already have a successful build, you can still edit the contents of the <code>.devcontainer</code> folder as required when connected to the container and then select <strong>Dev Containers: Rebuild Container</strong> in the Command Palette (<span class="keybinding">F1</span>) so the changes take effect.</p>
+<p>You can also iterate on your container when using the <strong>Dev Containers: Clone Repository in Container Volume</strong> command.</p>
+<ol>
+<li>Start with <strong>Dev Containers: Clone Repository in Container Volume</strong> in the Command Palette (<span class="keybinding">F1</span>). If the repository you enter does not have a <code>devcontainer.json</code> in it, you'll be asked to select a starting point.</li>
+<li>Edit the contents of the <code>.devcontainer</code> folder as required.</li>
+<li>Try it with <strong>DEv Containers: Rebuild Container</strong>.</li>
+<li>If you see an error, select <strong>Open in Recovery Container</strong> in the dialog that appears.</li>
+<li>Edit the contents of the <code>.devcontainer</code> folder as required in this &quot;recovery container.&quot;</li>
+<li>Use <strong>Dev Containers: Reopen in Container</strong> and jump to step 4 if you still hit problems.</li>
+</ol>
+<h2 id="_use-docker-compose" data-needslink="_use-docker-compose">Use Docker Compose</h2>
+<p>In some cases, a single container environment isn't sufficient. Let's say you'd like to add another complex component to your configuration, like a database. You could attempt to add it to the Dockerfile directly, or you could add it through an additional container. Fortunately, Dev Containers supports <a href="https://docs.docker.com/compose/" class="external-link" target="_blank">Docker Compose</a> managed multi-container configurations.</p>
+<p>You can either:</p>
+<ol>
+<li>Work with a service defined in an existing, unmodified <code>docker-compose.yml</code>.</li>
+<li>Create a new <code>docker-compose.yml</code> (or make a copy of an existing one) that you use to develop a service.</li>
+<li><a href="#_extend-your-docker-compose-file-for-development">Extend your existing Docker Compose configuration</a> to develop the service.</li>
+<li>Use separate VS Code windows to <a href="../../remote/advancedcontainers/connect-multiple-containers.html">work with multiple Docker Compose-defined services</a> at once.</li>
+</ol>
+<blockquote>
+<p><strong>Note:</strong> When using Alpine Linux containers, some extensions may not work due to <code>glibc</code> dependencies in native code inside the extension.</p>
+</blockquote>
+<p>VS Code can be configured to <strong>automatically start any needed containers</strong> for a particular service in a Docker Compose file. If you've already started the configured containers using the command line, VS Code will <strong>attach to the running service</strong> you've specified instead. This gives your multi-container workflow the same quick setup advantages described for the Docker image and Dockerfile workflows above, while still allowing you to use the command line if you prefer.</p>
+<p>To get started quickly, <strong>open the folder</strong> you want to work with in VS Code and run the <strong>Dev Containers: Add Dev Container Configuration Files...</strong> command in the Command Palette (<span class="keybinding">F1</span>).</p>
+<p>You'll be prompted to pick a pre-defined container configuration from our <a href="https://containers.dev/templates" class="external-link" target="_blank">first-party and community index</a> in a filterable list sorted based on your folder's contents. From the VS Code UI, you may select one of the following Templates as a starting point for Docker Compose:</p>
+<ul>
+<li><a href="https://github.com/devcontainers/templates/tree/main/src/docker-existing-docker-compose" class="external-link" target="_blank">Existing Docker Compose</a> - Includes a set of files that you can drop into an existing project that will reuse a <code>docker-compose.yml</code> file in the root of your project.</li>
+<li><a href="https://github.com/devcontainers/templates/tree/main/src/javascript-node-mongo" class="external-link" target="_blank">Node.js &amp; MongoDB</a> -  A Node.js container that connects to a MongoDB database in a different container.</li>
+<li><a href="https://github.com/devcontainers/templates/tree/main/src/postgres" class="external-link" target="_blank">Python &amp; PostgreSQL</a> -  A Python container that connects to PostgreSQL in a different container.</li>
+<li><a href="https://github.com/devcontainers/templates/tree/main/src/docker-from-docker-compose" class="external-link" target="_blank">Docker-from-Docker Compose</a> - Includes the Docker CLI and illustrates how you can use it to access your local Docker install from inside a dev container by volume mounting the Docker Unix socket.</li>
+</ul>
+<p>After you make your selection, VS Code will add the appropriate <code>.devcontainer/devcontainer.json</code> (or <code>.devcontainer.json</code>) file to the folder.</p>
+<p>You can also create your configuration manually. To reuse a Docker Compose file unmodified, you can use the <code>dockerComposeFile</code> and <code>service</code> properties in <code>.devcontainer/devcontainer.json</code>.</p>
+<p>For example:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #000000">{</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;name&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;[Optional] Your project name here&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;dockerComposeFile&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;../docker-compose.yml&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;service&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;the-name-of-the-service-you-want-to-work-with-in-vscode&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;workspaceFolder&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;/default/workspace/path/in/container/to/open&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;shutdownAction&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;stopCompose&quot;</span></span>
+<span class="line"><span style="color: #000000">}</span></span>
+<span class="line"></span></code></pre>
+<p>See the <a href="https://containers.dev/implementors/json_reference" class="external-link" target="_blank">devcontainer.json reference</a> for information other available properties such as the <code>workspaceFolder</code> and <code>shutdownAction</code>.</p>
+<p>Once you have added a <code>.devcontainer/devcontainer.json</code> file to your folder, run the <strong>Dev Containers: Reopen in Container</strong> command (or <strong>Dev Containers: Open Folder in Container...</strong> if you are not yet in a container) from the Command Palette (<span class="keybinding">F1</span>).</p>
+<p>If the containers are not already running, VS Code will call <code>docker-compose -f ../docker-compose.yml up</code> in this example. The <code>service</code> property indicates which service in your Docker Compose file VS Code should connect to, not which service should be started. If you started them by hand, VS Code will attach to the service you specified.</p>
+<p>You can also create a development copy of your Docker Compose file. For example, if you had <code>.devcontainer/docker-compose.devcontainer.yml</code>, you would just change the following line in <code>devcontainer.json</code>:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #A31515">&quot;dockerComposeFile&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;docker-compose.devcontainer.yml&quot;</span></span>
+<span class="line"></span></code></pre>
+<p>However, a better approach is often to avoid making a copy of your Docker Compose file by <strong>extending it with another one</strong>. We'll cover <a href="#_extend-your-docker-compose-file-for-development">extend a Docker Compose file</a> in the next section.</p>
+<p>To avoid having the container shut down if the default container command fails or exits, you can modify your Docker Compose file for the service you have specified in <code>devcontainer.json</code> as follows:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #008000"># Overrides default command so things don&#39;t shut down after the process ends.</span></span>
+<span class="line"><span style="color: #800000">command</span><span style="color: #000000">: </span><span style="color: #0000FF">/bin/sh -c &quot;while sleep 1000; do :; done&quot;</span></span>
+<span class="line"></span></code></pre>
+<p>If you have not done so already, you can <strong>&quot;bind&quot; mount your local source code</strong> into the container using the <a href="https://docs.docker.com/compose/compose-file/#volumes" class="external-link" target="_blank">volumes list in your Docker Compose file</a>.</p>
+<p>For example:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #800000">volumes</span><span style="color: #000000">:</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #008000"># Mounts the project folder to &#39;/workspace&#39;. The target path inside the container</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #008000"># should match what your application expects. In this case, the compose file is</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #008000"># in a sub-folder, so you will mount &#39;..&#39;. You would then reference this path as the</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #008000"># &#39;workspaceFolder&#39; in &#39;.devcontainer/devcontainer.json&#39; so VS Code starts here.</span></span>
+<span class="line"><span style="color: #000000">  - </span><span style="color: #0000FF">..:/workspace:cached</span></span>
+<span class="line"></span></code></pre>
+<p>However, on Linux you may need to set up and <strong>specify a non-root user</strong> when using a bind mount or any files you create will be root. See <a href="../../remote/advancedcontainers/add-nonroot-user.html">Adding a non-root user to your dev container</a> for details. To have VS Code run as a different user, add this to <code>devcontainer.json</code>:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #A31515">&quot;remoteUser&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;your-user-name-here&quot;</span></span>
+<span class="line"></span></code></pre>
+<p>If you want all processes to run as a different user, add this to the appropriate service in your Docker Compose file:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #800000">user</span><span style="color: #000000">: </span><span style="color: #0000FF">your-user-name-here</span></span>
+<span class="line"></span></code></pre>
+<p>If you aren't creating a custom Dockerfile for development, you may want to install additional developer tools such as <code>curl</code> inside the service's container. While less efficient than adding these tools to the container image, you can also use the <code>postCreateCommand</code> property for this purpose.</p>
+<p>See <a href="#_install-additional-software">install additional software</a> for more information on installing software and the <a href="https://containers.dev/implementors/json_reference" class="external-link" target="_blank">devcontainer.json reference</a> for more information about the <code>postCreateCommand</code> property.</p>
+<p>If your application was built using C++, Go, or Rust, or another language that uses a ptrace-based debugger, you will also need to add the following settings to your Docker Compose file:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #008000"># Required for ptrace-based debuggers like C++, Go, and Rust</span></span>
+<span class="line"><span style="color: #800000">cap_add</span><span style="color: #000000">:</span></span>
+<span class="line"><span style="color: #000000">- </span><span style="color: #0000FF">SYS_PTRACE</span></span>
+<span class="line"><span style="color: #800000">security_opt</span><span style="color: #000000">:</span></span>
+<span class="line"><span style="color: #000000">- </span><span style="color: #0000FF">seccomp:unconfined</span></span>
+<span class="line"></span></code></pre>
+<p>After you create your container for the first time, you will need to run the <strong>Dev Containers: Rebuild Container</strong> command for updates to <code>devcontainer.json</code>, your Docker Compose files, or related Dockerfiles to take effect.</p>
+<h3 id="_using-localhost-in-docker-compose" data-needslink="_using-localhost-in-docker-compose">Using localhost in Docker Compose</h3>
+<p>You can add other services to your <code>docker-compose.yml</code> file as described in <a href="https://docs.docker.com/compose/compose-file/#service-configuration-reference" class="external-link" target="_blank">Docker's documentation</a>. However, if you want anything running in this service to be available in the container on localhost, or want to forward the service locally, be sure to add this line to the service config:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #008000"># Runs the service on the same network as the database container, allows &quot;forwardPorts&quot; in devcontainer.json function.</span></span>
+<span class="line"><span style="color: #800000">network_mode</span><span style="color: #000000">: </span><span style="color: #0000FF">service:db</span></span>
+<span class="line"></span></code></pre>
+<p>You can see an example of <code>network_mode: service:db</code> in the <a href="https://github.com/devcontainers/templates/tree/main/src/javascript-node-mongo" class="external-link" target="_blank">Node.js and MongoDB example dev container</a>.</p>
+<h3 id="_extend-your-docker-compose-file-for-development" data-needslink="_extend-your-docker-compose-file-for-development">Extend your Docker Compose file for development</h3>
+<p>Referencing an existing deployment / non-development focused <code>docker-compose.yml</code> has some potential downsides.</p>
+<p>For example:</p>
+<ul>
+<li>Docker Compose will shut down a container if its entry point shuts down. This is problematic for situations where you are debugging and need to restart your app on a repeated basis.</li>
+<li>You also may not be mapping the local filesystem into the container or exposing ports to other resources like databases you want to access.</li>
+<li>You may want to copy the contents of your local <code>.ssh</code> folder into the container or set the ptrace options described above in <a href="#_use-docker-compose">Use Docker Compose</a>.</li>
+</ul>
+<p>You can solve these and other issues like them by extending your entire Docker Compose configuration with <a href="https://docs.docker.com/compose/extends/#multiple-compose-files" class="external-link" target="_blank">multiple <code>docker-compose.yml</code> files</a> that override or supplement your primary one.</p>
+<p>For example, consider this additional <code>.devcontainer/docker-compose.extend.yml</code> file:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #800000">version</span><span style="color: #000000">: </span><span style="color: #0000FF">&#39;3&#39;</span></span>
+<span class="line"><span style="color: #800000">services</span><span style="color: #000000">:</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #800000">your-service-name-here</span><span style="color: #000000">:</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #800000">volumes</span><span style="color: #000000">:</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #008000"># Mounts the project folder to &#39;/workspace&#39;. While this file is in .devcontainer,</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #008000"># mounts are relative to the first file in the list, which is a level up.</span></span>
+<span class="line"><span style="color: #000000">      - </span><span style="color: #0000FF">.:/workspace:cached</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #008000"># [Optional] Required for ptrace-based debuggers like C++, Go, and Rust</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #800000">cap_add</span><span style="color: #000000">:</span></span>
+<span class="line"><span style="color: #000000">      - </span><span style="color: #0000FF">SYS_PTRACE</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #800000">security_opt</span><span style="color: #000000">:</span></span>
+<span class="line"><span style="color: #000000">      - </span><span style="color: #0000FF">seccomp:unconfined</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #008000"># Overrides default command so things don&#39;t shut down after the process ends.</span></span>
+<span class="line"><span style="color: #000000">    </span><span style="color: #800000">command</span><span style="color: #000000">: </span><span style="color: #0000FF">/bin/sh -c &quot;while sleep 1000; do :; done&quot;</span></span>
+<span class="line"></span></code></pre>
+<p>This same file can provide additional settings, such as port mappings, as needed. To use it, reference your original <code>docker-compose.yml</code> file in addition to <code>.devcontainer/docker-compose.extend.yml</code> in a specific order:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #000000">{</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;name&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;[Optional] Your project name here&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #008000">// The order of the files is important since later files override previous ones</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;dockerComposeFile&quot;</span><span style="color: #000000">: [</span><span style="color: #A31515">&quot;../docker-compose.yml&quot;</span><span style="color: #000000">, </span><span style="color: #A31515">&quot;docker-compose.extend.yml&quot;</span><span style="color: #000000">],</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;service&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;your-service-name-here&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;workspaceFolder&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;/workspace&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;shutdownAction&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;stopCompose&quot;</span></span>
+<span class="line"><span style="color: #000000">}</span></span>
+<span class="line"></span></code></pre>
+<p>VS Code will then <strong>automatically use both files</strong> when starting up any containers. You can also start them yourself from the command line as follows:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #000000">docker-compose -f docker-compose.yml -f .devcontainer/docker-compose.extend.yml up</span></span>
+<span class="line"></span></code></pre>
+<p>While the <code>postCreateCommand</code> property allows you to install additional tools inside your container, in some cases you may want to have a specific Dockerfile for development. You can also use this same approach to reference a custom <code>Dockerfile</code> specifically for development without modifying your existing Docker Compose file.  For example, you can update <code>.devcontainer/devcontainer.extend.yml</code> as follows:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #800000">version</span><span style="color: #000000">: </span><span style="color: #0000FF">&#39;3&#39;</span></span>
+<span class="line"><span style="color: #800000">services</span><span style="color: #000000">:</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #800000">your-service-name-here</span><span style="color: #000000">:</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #008000"># Note that the path of the Dockerfile and context is relative to the *primary*</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #008000"># docker-compose.yml file (the first in the devcontainer.json &quot;dockerComposeFile&quot;</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #008000"># array). The sample below assumes your primary file is in the root of your project.</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #800000">build</span><span style="color: #000000">:</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #800000">context</span><span style="color: #000000">: </span><span style="color: #098658">.</span></span>
+<span class="line"><span style="color: #000000">        </span><span style="color: #800000">dockerfile</span><span style="color: #000000">: </span><span style="color: #0000FF">.devcontainer/Dockerfile</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #800000">volumes</span><span style="color: #000000">:</span></span>
+<span class="line"><span style="color: #000000">        - </span><span style="color: #0000FF">.:/workspace:cached</span></span>
+<span class="line"><span style="color: #000000">      </span><span style="color: #800000">command</span><span style="color: #000000">: </span><span style="color: #0000FF">/bin/sh -c &quot;while sleep 1000; do :; done&quot;</span></span>
+<span class="line"></span></code></pre>
+<p>Congratulations! You've now configured a dev container in Visual Studio Code. Continue reading to learn how to share container configurations among teammates and various projects.</p>
+<h2 id="_add-configuration-files-to-a-repository" data-needslink="_add-configuration-files-to-a-repository">Add configuration files to a repository</h2>
+<p>You can easily share a customized Dev Container Template for your project by adding <code>devcontainer.json</code> files to source control. By including these files in your repository, anyone that opens a local copy of your repo in VS Code will be automatically prompted to reopen the folder in a container, provided they have the Dev Containers extension installed.</p>
+<p><img src="../../assets/docs/devcontainers/create-dev-container/dev-container-reopen-prompt.png" alt="Dev container configuration file reopen notification" loading="lazy"></p>
+<p>Beyond the advantages of having your team use a consistent environment and tool-chain, this also makes it easier for new contributors or team members to be productive quickly. First-time contributors will require less guidance and hit fewer issues related to environment setup.</p>
+<h3 id="_add-an-open-in-dev-container-badge" data-needslink="_add-an-open-in-dev-container-badge">Add an open in dev container badge</h3>
+<p>You may also add a badge or link in your repository so that users can easily open your project in Dev Containers. It will install the Dev Containers extension if necessary, clone the repo into a container <a href="../../remote/advancedcontainers/improve-performance.html#_use-clone-repository-in-container-volume">volume</a>, and start up the dev container.</p>
+<p>As an example, a badge to open <a href="https://github.com/microsoft/vscode-remote-try-java" class="external-link" target="_blank">https://github.com/microsoft/vscode-remote-try-java</a> would look like:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #000000">[</span><span style="color: #000000FF">![</span><span style="color: #A31515">Open in Dev Containers</span><span style="color: #000000FF">](</span><span style="color: #000000FF; font-weight: bold">https://img.shields.io/static/v1?label=Dev%20Containers&amp;message=Open&amp;color=blue&amp;logo=visualstudiocode</span><span style="color: #000000FF">)</span><span style="color: #000000">](</span><span style="color: #000000; font-weight: bold">https://vscode.dev/redirect?url=vscode://ms-vscode-remote.remote-containers/cloneInVolume?url=https://github.com/microsoft/vscode-remote-try-java</span><span style="color: #000000">)</span></span>
+<span class="line"></span></code></pre>
+<p>You can also include an <code>open in dev container</code> link directly:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #000000">If you already have VS Code and Docker installed, you can click the badge above or [</span><span style="color: #A31515">here</span><span style="color: #000000">](</span><span style="color: #000000; font-weight: bold">https://vscode.dev/redirect?url=vscode://ms-vscode-remote.remote-containers/cloneInVolume?url=https://github.com/microsoft/vscode-remote-try-java</span><span style="color: #000000">) to get started. Clicking these links will cause VS Code to automatically install the Dev Containers extension if needed, clone the source code into a container volume, and spin up a dev container for use.</span></span>
+<span class="line"></span></code></pre>
+<h3 id="_alternative-repository-configuration-folders" data-needslink="_alternative-repository-configuration-folders">Alternative: Repository configuration folders</h3>
+<p>In some cases, you may want to create a configuration for a repository that you do not control or that you would prefer didn't have a configuration included in the repository itself. To handle this situation, you can configure a location on your local filesystem to store configuration files that will be picked up automatically based on the repository.</p>
+<p>First, update the <strong>Dev &gt; Containers: Repository Configuration Paths</strong> <a href="../getstarted/settings.html">User setting</a> with the local folder you want to use to store your repository container configuration files.</p>
+<p>In the Settings editor, you can search for 'dev containers repo' to find the setting:</p>
+<p><img src="../../assets/docs/devcontainers/create-dev-container/repo-container-folder-setting.png" alt="Repository container folders setting" loading="lazy"></p>
+<p>Next, place your <code>.devcontainer/devcontainer.json</code> (and related files) in a sub folder that mirrors the remote location of the repository. For example, if you wanted to create a configuration for <code>github.com/devcontainers/templates</code>, you would create the following folder structure:</p>
+<pre class="shiki"><code>📁 github.com
+    📁 devcontainers
+        📁 templates
+           📁 .devcontainer
+</code></pre>
+<p>Once in place, the configuration will be automatically picked up when using any of the Dev Containers commands. Once in the container, you can also select <strong>Dev Containers: Open Container Configuration File</strong> from the Command Palette (<span class="keybinding">F1</span>) to open the related <code>devcontainer.json</code> file and make further edits.</p>
+<p>The path used for looking up the configuration is derived from the output of <code>git remote -v</code>. If the configuration is not found when you attempt to reopen the folder in a container, check the log <strong>Dev Containers: Show Container Log</strong> in the Command Palette (<span class="keybinding">F1</span>) for the list of the paths that were checked.</p>
+<h2 id="_next-steps" data-needslink="_next-steps">Next steps</h2>
+<ul>
+<li><a href="attach-container.html">Attach to a Running Container</a> - Attach to an already running Docker container.</li>
+<li><a href="../../remote/advancedcontainers/overview.html">Advanced Containers</a> - Find solutions to advanced container scenarios.</li>
+<li><a href="https://containers.dev/implementors/json_reference" class="external-link" target="_blank">devcontainer.json reference</a> - Review the <code>devcontainer.json</code> schema.</li>
+</ul>
+
+            <div class="feedback"></div>
+            
+            <div class="body-footer">12/7/2022</div>
+            
+        </div>
+        <div class="col-sm-3 col-md-2 docs-subnavbar-container">
+            <nav id="docs-subnavbar" aria-label="On Page" data-spy="affix" data-offset-top="20">
+                
+                <h4><span class="sr-only">In this article there are 7 sections</span><span
+                        aria-hidden="true">In this article</span></h4>
+                <ul class="nav">
+                    
+                    <li><a href="#_path-to-creating-a-dev-container">Path to creating a dev container</a></li>
+                    
+                    <li><a href="#_create-a-devcontainerjson-file">Create a devcontainer.json file</a></li>
+                    
+                    <li><a href="#_install-additional-software">Install additional software</a></li>
+                    
+                    <li><a href="#_dockerfile">Dockerfile</a></li>
+                    
+                    <li><a href="#_use-docker-compose">Use Docker Compose</a></li>
+                    
+                    <li><a href="#_add-configuration-files-to-a-repository">Add configuration files to a repository</a></li>
+                    
+                    <li><a href="#_next-steps">Next steps</a></li>
+                    
+                </ul>
+                
+                <div class="connect-widget"></div>
+            </nav>
+        </div>
+    </div>
+</div>
+      </div>
+  </div>
+
+  <footer role="contentinfo">
+      <div class="container">
+          <div class="row">
+              <div class="left col-md-7">
+                  <ul class="links">
+                      <li>
+                          <span class="message">Hello from Seattle.</span>
+                      </li>
+                      <li>
+                          <a href="https://go.microsoft.com/fwlink/?LinkID=533687" onclick="followOnTwitter()" tabindex="0">Follow @code</a>
+                      </li>
+                      <li>
+                          <div class="github-star-button">
+                              <iframe src="../../assets/github-button29be.html?user=Microsoft&amp;repo=vscode&amp;type=star&amp;count=true"
+                                  frameborder="0" scrolling="0" width="130px" height="20px" title="GitHub follow button" loading="lazy"></iframe>
+                          </div>
+                      </li>
+  
+                      <script>
+                          function followOnTwitter() {
+                              var windowFeatures = "location=yes,height=600,width=550,scrollbars=yes,status=yes";
+                              var originalReferer = "&original_referer=" + document.URL;
+                              var screenName = "&screen_name=code";
+                              var URL = "https://twitter.com/intent/follow?" + originalReferer + screenName;
+                              window.open(URL, "_blank", windowFeatures);
+                          }
+  
+                          function manageConsent() {
+                              if(WcpConsent.siteConsent.isConsentRequired){
+                                  WcpConsent.siteConsent.manageConsent();
+                              }
+                          }
+                      </script>
+                  </ul>
+              </div>
+              <div class="right col-md-5">
+                  <ul class="links">
+                      <li><a id="footer-support-link" href="https://support.serviceshub.microsoft.com/supportforbusiness/create?sapId=d66407ed-3967-b000-4cfb-2c318cad363d"
+                              target="_blank">Support</a></li>
+                      <li><a id="footer-privacy-link" href="https://privacy.microsoft.com/privacystatement"
+                              target="_blank">Privacy</a></li>
+                      <li style="display: none;"><a id="footer-cookie-link" style="cursor: pointer;" onclick="manageConsent()"
+                              target="_blank">Manage Cookies</a></li>
+                      <li><a id="footer-terms-link" href="https://www.microsoft.com/legal/terms-of-use"
+                              target="_blank">Terms of Use</a></li>
+                      <li><a id="footer-license-link" href="../../License.html">License</a></li>
+                  </ul>
+                  <div class="copyright">
+                      <a id="footer-microsoft-link" class="logo" href="https://www.microsoft.com/">
+                          <img class="microsoft-logo" src="../../assets/images/microsoft-logo.png" height="20" alt="Microsoft homepage"/>
+                          <img class="microsoft-logo-inverted" src="../../assets/images/microsoft-logo-inverted.png" height="20" alt="Microsoft homepage" />
+                      </a>
+                      <span>&copy; 2023 Microsoft</span>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </footer>
+  <script src="../../dist/index.js"></script>
+
+  
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "SoftwareApplication",
+      "name" : "Visual Studio Code",
+      "softwareVersion": "1.74",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "applicationCategory": "DeveloperApplication",
+      "applicationSubCategory": "Text Editor",
+      "alternateName": "VS Code",
+      "datePublished": "2021-11-03",
+      "operatingSystem": "Mac, Linux, Windows",
+      "logo": "https://code.visualstudio.com/assets/apple-touch-icon.png",
+      "screenshot": "https://code.visualstudio.com/assets/home/home-screenshot-win.png",
+      "releaseNotes": "https://code.visualstudio.com/updates",
+      "downloadUrl": "https://code.visualstudio.com/download",
+      "license": "https://code.visualstudio.com/license",
+      "softwareRequirements": "https://code.visualstudio.com/docs/supporting/requirements",
+      "url" : "https://code.visualstudio.com",
+      "author": {
+        "@type": "Organization",
+        "name": "Microsoft"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Microsoft"
+      },
+      "maintainer": {
+        "@type": "Organization",
+        "name": "Microsoft"
+      },
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://code.visualstudio.com/Search?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      },
+      "sameAs" : [
+        "https://en.wikipedia.org/wiki/Visual_Studio_Code",
+        "https://twitter.com/code",
+        "https://www.youtube.com/code",
+        "https://www.tiktok.com/@vscode",
+        "https://github.com/microsoft/vscode"
+      ]
+    }
+  </script>
+</body>
+
+<!-- Mirrored from code.visualstudio.com/docs/devcontainers/create-dev-container by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 04 Jan 2023 10:29:56 GMT -->
+</html>

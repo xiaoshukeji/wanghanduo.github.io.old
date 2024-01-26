@@ -1,0 +1,1823 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Mirrored from code.visualstudio.com/docs/python/python-tutorial by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 04 Jan 2023 10:08:57 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="google-site-verification" content="hNs7DXrTySP_X-0P_AC0WulAXvUwgSXEmgfcO2r79dw" />
+
+  <!-- Twitter and Facebook OpenGraph Metadata-->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@code" />
+
+  <meta name="description" content="A Python hello world tutorial using the Python extension in Visual Studio Code (a great Python IDE like PyCharm, if not the best Python IDE)" />
+<meta name="keywords" content="" />
+<meta name="ms.prod" content="vs-code" />
+<meta name="ms.TOCTitle" content="Tutorial" />
+<meta name="ms.ContentId" content="77828f36-ae45-4887-b25c-34545edd52d3" />
+<meta name="ms.date" content="8/15/2022" />
+<meta name="ms.topic" content="conceptual" />
+<!-- Twitter and Facebook OpenGraph Metadata-->
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="og:url" content="python-tutorial.html" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Get Started Tutorial for Python in Visual Studio Code" />
+<meta property="og:description" content="A Python hello world tutorial using the Python extension in Visual Studio Code (a great Python IDE like PyCharm, if not the best Python IDE)" />
+
+<meta property="og:image" content="../../assets/docs/python/tutorial/social.png" />
+
+
+
+  <link rel="shortcut icon" href="../../favicon.ico" sizes="128x128" />
+  <link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+
+  <title>Get Started Tutorial for Python in Visual Studio Code</title>
+
+  <link rel="stylesheet" href="../../vendor/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../../dist/style.css">
+
+  <script type="text/javascript" src="../../../js.monitor.azure.com/scripts/c/ms.analytics-web-3.min.js"></script>
+  <script>
+  window.appInsights = new oneDS.ApplicationInsights();
+  window.appInsights.initialize({
+    instrumentationKey: "1a3eb3104447440391ad5f2a6ee06a0a-62879566-bc58-4741-9650-302bf2af703f-7103",
+    webAnalyticsConfiguration:{ // Web Analytics Plugin configuration
+        urlCollectQuery:true, 
+        autoCapture: {
+          scroll: true,
+          pageView: true,
+          onLoad: true,
+          onUnload: true,
+          click: true,
+          resize: true,
+          jsError: true
+        }
+    }
+  }, []);
+  </script>
+  
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','../../../www.google-analytics.com/analytics.js','ga');
+  </script>  
+  <link rel="alternate" type="application/atom+xml" title="RSS Feed for code.visualstudio.com" href="../../feed.xml" />
+</head>
+
+<body>
+  <!-- EU Cookie Compliance JS -->
+  <script src="../../../wcpstatic.microsoft.com/mscc/lib/v2/wcp-consent.js"></script>
+
+  <div id="main">
+          <div class="navbar-fixed-container">
+              <div class="navbar navbar-inverse navbar-fixed-top ">
+                  <div id='cookie-banner'></div>        <nav role="navigation" aria-label="Top Level">
+                      <div class="container">
+                          <div class="nav navbar-header">
+                              <a role="button" id="skip-to-content" class="link-button" href="#main-content">Skip to content<i>&nbsp;</i><span class="glyphicon glyphicon-menu-down"></span></a>
+                              <a class="navbar-brand" id="navbar-brand" href="../../index.html">Visual Studio Code</a>
+                              <button type="button" class="navbar-toggle" role="navigation" data-toggle="collapse" data-target=".navbar-collapse" aria-label="Toggle Navigation Menu">
+                                  <span class="icon-bar"></span>
+                                  <span class="icon-bar"></span>
+                                  <span class="icon-bar"></span>
+                              </button>
+                          </div>
+                          <div class="navbar-collapse collapse" role="navigation">
+                              <ul class="nav navbar-nav navbar-left">
+                                  <li class="active" ><a id="nav-docs" href="../../docs.html">Docs</a></li>
+                                  <li ><a id="nav-updates" href="../../updates/v1_74.html">Updates</a></li>
+                                  <li ><a id="nav-blogs" href="../../blogs.html">Blog</a></li>
+                                  <li ><a id="nav-extend" href="../../api.html">API</a></li>
+                                  <li><a href="https://marketplace.visualstudio.com/VSCode" target="_blank" id="nav-extensions">Extensions</a></li>
+                                  <li ><a id="nav-faqs" href="../supporting/faq.html">FAQ</a></li>
+                                  <li ><a id="nav-learn" href="../../learn.html">Learn</a></li>
+                                  <li class='search visible-xs visible-sm'
+                                      ><a href="../../Search.html">Search</a></li>
+                              </ul>
+          
+                              <ul class="nav navbar-nav navbar-right" role="presentation">
+                                  <!-- Floating search icon -->
+                                  <li>
+                                      <a href="../../Search.html" title="Search" class="btn search-btn" id="nav-search">
+                                          <img class="search-icon" src="../../assets/icons/search.svg" width="16px" height="16px" alt="Search"/>
+                                          <img class="search-icon-inverted" src="../../assets/icons/search_dark.svg" width="16px" height="16px" alt="Search" />
+                                      </a>
+                                  </li>
+                                  <!-- Actual search icon -->
+                                  <li class="search" role="presentation">
+                                      <form class="nav-search search-form" role="search" aria-label="Search">
+                                          <div class="input-group" role="presentation">
+                                              <input type="text" name="q" class="search-box form-control" placeholder="Search Docs" aria-label="Search text"/>
+                                              <span class="input-group-btn">
+                                                  <button tabindex="0" class="btn" type="submit" aria-label="Search">
+                                                          <img class="search-icon" src="../../assets/icons/search.svg" width="16px" height="16px" alt="Search" />
+                                                          <img class="search-icon-inverted" src="../../assets/icons/search_dark.svg" width="16px" height="16px" alt="Search" />
+                                                  </button>
+                                              </span>
+                                          </div>
+                                      </form>                        </li>
+                                  <!-- this was hiden in the home and download page, keeping it for now -->
+                                  <li><a class="link-button" href="../../Download.html" id="nav-download">
+                                      <img class="download-icon" src="../../assets/icons/download.svg" width="16px" height="16px" alt="Download VS Code"/>
+                                      <img class="download-icon-inverted" src="../../assets/icons/download-black.svg" width="16px" height="16px" alt="Download VS Code" />
+                                      <span>Download</span>
+                                  </a></li>
+                              </ul>
+                          </div>
+                      </div>
+                  </nav>
+              </div>
+          </div>          <div class="updates-banner  ">
+              <div class="container">
+                  <p class="message"><a href="../../updates/v1_74.html" id="banner-link-updates">Version 1.74</a> is now available! Read about the new features and fixes from November.</p> 
+              </div>
+              <div tabindex="0" role="button" title="Dismiss this update" class="dismiss-btn" id="banner-dismiss-btn"><span class="sr-only">Dismiss this update</span><span aria-hidden="true" class="glyph-icon"></span></div>
+          </div>      <div role="main" id="main-content">
+        <script>
+    function closeReportIssue() {
+        var element = document.getElementById('surveypopup');
+        element.parentElement.removeChild(element);
+    }
+
+    function reportIssue(tutorial, page) {
+        var div = document.createElement('div');
+        div.innerHTML = '<div id="surveypopup" class="overlay visible"><div class="surveypopup"><div id="surveytitle">Tell us more<a href="javascript:void(0)" onclick="closeReportIssue()">X</a></div><div id="surveydiv"><iframe frameBorder="0" scrolling="0" src="https://www.research.net/r/PWZWZ52?tutorial=' + tutorial + '&step=' + page + '"></iframe></div></div></div>';
+        document.body.appendChild(div.children[0]);
+    }
+
+    function pushCodingPackEvent(language, os) {
+        let id = `${language}-${os}-coding-pack`;
+        var analytics = window.vscodeAnalytics;
+
+        analytics && analytics.event(
+            'click',
+            'download',
+            id,
+        );
+    }
+</script>
+
+<div class="container body-content docs">
+    <div class="row">
+        <div class="col-md-2 docs-navbar-container">
+            <nav id="docs-navbar" aria-label="Topics" class="docs-nav visible-md visible-lg">
+            	<ul class="nav" id="main-nav">
+            		<li >
+            			<a class="docs-home" href="../../docs.html" >Overview</a>
+            		</li>
+            		
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#setup-articles" data-parent="#main-nav" data-toggle="collapse">Setup</a>
+            					<ul id="setup-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../setup/setup-overview.html" >Overview</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../setup/linux.html" >Linux</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../setup/mac.html" >macOS</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../setup/windows.html" >Windows</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../setup/raspberry-pi.html" >Raspberry Pi</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../setup/network.html" >Network</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../setup/additional-components.html" >Additional Components</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../setup/enterprise.html" >Enterprise</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../setup/uninstall.html" >Uninstall</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#getstarted-articles" data-parent="#main-nav" data-toggle="collapse">Get Started</a>
+            					<ul id="getstarted-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../getstarted/introvideos.html" >Intro Videos</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../getstarted/tips-and-tricks.html" >Tips and Tricks</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../getstarted/userinterface.html" >User Interface</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../getstarted/themes.html" >Themes</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../getstarted/settings.html" >Settings</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../getstarted/keybindings.html" >Key Bindings</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../getstarted/locales.html" >Display Language</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../getstarted/telemetry.html" >Telemetry</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#editor-articles" data-parent="#main-nav" data-toggle="collapse">User Guide</a>
+            					<ul id="editor-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../editor/codebasics.html" >Basic Editing</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../editor/extension-marketplace.html" >Extension Marketplace</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../editor/intellisense.html" >IntelliSense</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../editor/editingevolved.html" >Code Navigation</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../editor/refactoring.html" >Refactoring</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../editor/debugging.html" >Debugging</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../editor/vscode-web.html" >VS Code for the Web</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../editor/tasks.html" >Tasks</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../editor/settings-sync.html" >Settings Sync</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../editor/userdefinedsnippets.html" >Snippets</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../editor/emmet.html" >Emmet</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../editor/command-line.html" >Command Line Interface</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../editor/workspace-trust.html" >Workspace Trust</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../editor/multi-root-workspaces.html" >Multi-root Workspaces</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../editor/accessibility.html" >Accessibility</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#sourcecontrol-articles" data-parent="#main-nav" data-toggle="collapse">Source Control</a>
+            					<ul id="sourcecontrol-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../sourcecontrol/overview.html" >Overview</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../sourcecontrol/github.html" >Collaborate on GitHub</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../sourcecontrol/faq.html" >FAQ</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#terminal-articles" data-parent="#main-nav" data-toggle="collapse">Terminal</a>
+            					<ul id="terminal-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../terminal/basics.html" >Terminal Basics</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../terminal/profiles.html" >Terminal Profiles</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../terminal/shell-integration.html" >Shell Integration</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../terminal/appearance.html" >Appearance</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../terminal/advanced.html" >Advanced</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#languages-articles" data-parent="#main-nav" data-toggle="collapse">Languages</a>
+            					<ul id="languages-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../languages/overview.html" >Overview</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/javascript.html" >JavaScript</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/json.html" >JSON</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/html.html" >HTML</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/css.html" >CSS, SCSS and Less</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/typescript.html" >TypeScript</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/markdown.html" >Markdown</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/powershell.html" >PowerShell</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/cpp.html" >C++</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/java.html" >Java</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/php.html" >PHP</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/python.html" >Python</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/julia.html" >Julia</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/r.html" >R</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/rust.html" >Rust</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/go.html" >Go</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/tsql.html" >T-SQL</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/csharp.html" >C#</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/dotnet.html" >.NET</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#nodejs-articles" data-parent="#main-nav" data-toggle="collapse">Node.js / JavaScript</a>
+            					<ul id="nodejs-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../nodejs/working-with-javascript.html" >Working with JavaScript</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../nodejs/nodejs-tutorial.html" >Node.js Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../nodejs/nodejs-debugging.html" >Node.js Debugging</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../nodejs/nodejs-deployment.html" >Deploy Node.js Apps</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../nodejs/browser-debugging.html" >Browser Debugging</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../nodejs/angular-tutorial.html" >Angular Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../nodejs/reactjs-tutorial.html" >React Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../nodejs/vuejs-tutorial.html" >Vue Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../nodejs/emberjs-tutorial.html" >Ember Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../nodejs/debugging-recipes.html" >Debugging Recipes</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../nodejs/profiling.html" >Performance Profiling</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../nodejs/extensions.html" >Extensions</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#typescript-articles" data-parent="#main-nav" data-toggle="collapse">TypeScript</a>
+            					<ul id="typescript-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../typescript/typescript-tutorial.html" >Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../typescript/typescript-compiling.html" >Compiling</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../typescript/typescript-editing.html" >Editing</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../typescript/typescript-refactoring.html" >Refactoring</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../typescript/typescript-debugging.html" >Debugging</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel active expanded">
+            					<a class="area" role="button" href="#python-articles" data-parent="#main-nav" data-toggle="collapse">Python</a>
+            					<ul id="python-articles" class="collapse in">
+            					
+            						<li class="active">
+            							<a href="python-tutorial.html" aria-label="Current Page: Tutorial">Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="editing.html" >Editing Code</a>
+            						</li>
+            					
+            						<li >
+            							<a href="linting.html" >Linting</a>
+            						</li>
+            					
+            						<li >
+            							<a href="debugging.html" >Debugging</a>
+            						</li>
+            					
+            						<li >
+            							<a href="environments.html" >Environments</a>
+            						</li>
+            					
+            						<li >
+            							<a href="testing.html" >Testing</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../datascience/overview.html" >Data Science</a>
+            						</li>
+            					
+            						<li >
+            							<a href="jupyter-support-py.html" >Python Interactive</a>
+            						</li>
+            					
+            						<li >
+            							<a href="tutorial-django.html" >Django Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="tutorial-flask.html" >Flask Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../containers/quickstart-python.html" >Create containers</a>
+            						</li>
+            					
+            						<li >
+            							<a href="python-on-azure.html" >Deploy Python Apps</a>
+            						</li>
+            					
+            						<li >
+            							<a href="python-web.html" >Python in the Web</a>
+            						</li>
+            					
+            						<li >
+            							<a href="settings-reference.html" >Settings Reference</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#java-articles" data-parent="#main-nav" data-toggle="collapse">Java</a>
+            					<ul id="java-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../java/java-tutorial.html" >Getting Started</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-editing.html" >Navigate and Edit</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-refactoring.html" >Refactoring</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-linting.html" >Formatting and Linting</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-project.html" >Project Management</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-build.html" >Build Tools</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-debugging.html" >Run and Debug</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-testing.html" >Testing</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-spring-boot.html" >Spring Boot</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-tomcat-jetty.html" >Application Servers</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-on-azure.html" >Deploy Java Apps</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-gui.html" >GUI Applications</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/extensions.html" >Extensions</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-faq.html" >FAQ</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#cpp-articles" data-parent="#main-nav" data-toggle="collapse">C++</a>
+            					<ul id="cpp-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../cpp/introvideos-cpp.html" >Intro Videos</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../cpp/config-linux.html" >GCC on Linux</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../cpp/config-mingw.html" >GCC on Windows</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../cpp/config-wsl.html" >GCC on Windows Subsystem for Linux</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../cpp/config-clang-mac.html" >Clang on macOS</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../cpp/config-msvc.html" >Microsoft C++ on Windows</a>
+            						</li>
+            					
+            						<li >
+            							<a href="https://github.com/microsoft/vscode-cmake-tools/blob/main/docs/README.md" >Build with CMake</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../cpp/cmake-linux.html" >CMake Tools on Linux</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../cpp/cpp-ide.html" >Editing</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../cpp/cpp-debug.html" >Debugging</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../cpp/launch-json-reference.html" >Configure debugging</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../cpp/customize-default-settings-cpp.html" >Settings</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../cpp/configure-intellisense-crosscompilation.html" >Configure IntelliSense for cross-compiling</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../cpp/faq-cpp.html" >FAQ</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#containers-articles" data-parent="#main-nav" data-toggle="collapse">Docker</a>
+            					<ul id="containers-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../containers/overview.html" >Overview</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../containers/quickstart-node.html" >Node.js</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../containers/quickstart-python.html" >Python</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../containers/quickstart-aspnet-core.html" >ASP.NET Core</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../containers/debug-common.html" >Debug</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../containers/docker-compose.html" >Docker Compose</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../containers/quickstart-container-registries.html" >Registries</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../containers/app-service.html" >Deploy to Azure</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../containers/choosing-dev-environment.html" >Choose a dev environment</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../containers/reference.html" >Customize</a>
+            						</li>
+            					
+            						<li >
+            							<a href="https://learn.microsoft.com/visualstudio/bridge/bridge-to-kubernetes-vs-code" >Develop with Kubernetes</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../containers/troubleshooting.html" >Tips and Tricks</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#datascience-articles" data-parent="#main-nav" data-toggle="collapse">Data Science</a>
+            					<ul id="datascience-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../datascience/overview.html" >Overview</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../datascience/jupyter-notebooks.html" >Jupyter Notebooks</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../datascience/data-science-tutorial.html" >Data Science Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="jupyter-support-py.html" >Python Interactive</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../datascience/pytorch-support.html" >PyTorch Support</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../datascience/azure-machine-learning.html" >Azure Machine Learning</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#azure-articles" data-parent="#main-nav" data-toggle="collapse">Azure</a>
+            					<ul id="azure-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../azure/extensions.html" >Extensions</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../azure/deployment.html" >Deployment</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../azure/remote-debugging.html" >Remote Debugging for Node.js</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../containers/overview.html" >Docker</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../azure/mongodb.html" >MongoDB</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../azure/kubernetes.html" >Kubernetes</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../azure/aksextensions.html" >Azure Kubernetes Service</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#remote-articles" data-parent="#main-nav" data-toggle="collapse">Remote</a>
+            					<ul id="remote-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../remote/remote-overview.html" >Overview</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../remote/ssh.html" >SSH</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../devcontainers/containers.html" >Dev Containers</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../remote/wsl.html" >Windows Subsystem for Linux</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../remote/codespaces.html" >GitHub Codespaces</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../remote/vscode-server.html" >VS Code Server</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../remote/tunnels.html" >Tunnels</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../remote/ssh-tutorial.html" >SSH Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../remote/wsl-tutorial.html" >WSL Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../remote/troubleshooting.html" >Tips and Tricks</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../remote/faq.html" >FAQ</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#devcontainers-articles" data-parent="#main-nav" data-toggle="collapse">Dev Containers</a>
+            					<ul id="devcontainers-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../devcontainers/containers.html" >Overview</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../devcontainers/tutorial.html" >Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../devcontainers/attach-container.html" >Attach to Container</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../devcontainers/create-dev-container.html" >Create a Dev Container</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../../remote/advancedcontainers/overview.html" >Advanced Containers</a>
+            						</li>
+            					
+            						<li >
+            							<a href="https://containers.dev/implementors/json_reference" >devcontainer.json</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../devcontainers/devcontainer-cli.html" >Dev Container CLI</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../devcontainers/tips-and-tricks.html" >Tips and Tricks</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../devcontainers/faq.html" >FAQ</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            		
+            	</ul>
+            </nav>
+            <nav id="small-nav" aria-label="Topics" class="docs-nav hidden-md hidden-lg">
+            	<h4>Topics</h4>
+            	<select id="small-nav-dropdown" aria-label="topics">
+            		<option value="/docs" >Overview</option>
+            		
+            			
+            		
+            			
+            				<optgroup label="Setup">
+            				
+            					<option value="/docs/setup/setup-overview" >Overview</option>
+            				
+            					<option value="/docs/setup/linux" >Linux</option>
+            				
+            					<option value="/docs/setup/mac" >macOS</option>
+            				
+            					<option value="/docs/setup/windows" >Windows</option>
+            				
+            					<option value="/docs/setup/raspberry-pi" >Raspberry Pi</option>
+            				
+            					<option value="/docs/setup/network" >Network</option>
+            				
+            					<option value="/docs/setup/additional-components" >Additional Components</option>
+            				
+            					<option value="/docs/setup/enterprise" >Enterprise</option>
+            				
+            					<option value="/docs/setup/uninstall" >Uninstall</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Get Started">
+            				
+            					<option value="/docs/getstarted/introvideos" >Intro Videos</option>
+            				
+            					<option value="/docs/getstarted/tips-and-tricks" >Tips and Tricks</option>
+            				
+            					<option value="/docs/getstarted/userinterface" >User Interface</option>
+            				
+            					<option value="/docs/getstarted/themes" >Themes</option>
+            				
+            					<option value="/docs/getstarted/settings" >Settings</option>
+            				
+            					<option value="/docs/getstarted/keybindings" >Key Bindings</option>
+            				
+            					<option value="/docs/getstarted/locales" >Display Language</option>
+            				
+            					<option value="/docs/getstarted/telemetry" >Telemetry</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="User Guide">
+            				
+            					<option value="/docs/editor/codebasics" >Basic Editing</option>
+            				
+            					<option value="/docs/editor/extension-marketplace" >Extension Marketplace</option>
+            				
+            					<option value="/docs/editor/intellisense" >IntelliSense</option>
+            				
+            					<option value="/docs/editor/editingevolved" >Code Navigation</option>
+            				
+            					<option value="/docs/editor/refactoring" >Refactoring</option>
+            				
+            					<option value="/docs/editor/debugging" >Debugging</option>
+            				
+            					<option value="/docs/editor/vscode-web" >VS Code for the Web</option>
+            				
+            					<option value="/docs/editor/tasks" >Tasks</option>
+            				
+            					<option value="/docs/editor/settings-sync" >Settings Sync</option>
+            				
+            					<option value="/docs/editor/userdefinedsnippets" >Snippets</option>
+            				
+            					<option value="/docs/editor/emmet" >Emmet</option>
+            				
+            					<option value="/docs/editor/command-line" >Command Line Interface</option>
+            				
+            					<option value="/docs/editor/workspace-trust" >Workspace Trust</option>
+            				
+            					<option value="/docs/editor/multi-root-workspaces" >Multi-root Workspaces</option>
+            				
+            					<option value="/docs/editor/accessibility" >Accessibility</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Source Control">
+            				
+            					<option value="/docs/sourcecontrol/overview" >Overview</option>
+            				
+            					<option value="/docs/sourcecontrol/github" >Collaborate on GitHub</option>
+            				
+            					<option value="/docs/sourcecontrol/faq" >FAQ</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Terminal">
+            				
+            					<option value="/docs/terminal/basics" >Terminal Basics</option>
+            				
+            					<option value="/docs/terminal/profiles" >Terminal Profiles</option>
+            				
+            					<option value="/docs/terminal/shell-integration" >Shell Integration</option>
+            				
+            					<option value="/docs/terminal/appearance" >Appearance</option>
+            				
+            					<option value="/docs/terminal/advanced" >Advanced</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Languages">
+            				
+            					<option value="/docs/languages/overview" >Overview</option>
+            				
+            					<option value="/docs/languages/javascript" >JavaScript</option>
+            				
+            					<option value="/docs/languages/json" >JSON</option>
+            				
+            					<option value="/docs/languages/html" >HTML</option>
+            				
+            					<option value="/docs/languages/css" >CSS, SCSS and Less</option>
+            				
+            					<option value="/docs/languages/typescript" >TypeScript</option>
+            				
+            					<option value="/docs/languages/markdown" >Markdown</option>
+            				
+            					<option value="/docs/languages/powershell" >PowerShell</option>
+            				
+            					<option value="/docs/languages/cpp" >C++</option>
+            				
+            					<option value="/docs/languages/java" >Java</option>
+            				
+            					<option value="/docs/languages/php" >PHP</option>
+            				
+            					<option value="/docs/languages/python" >Python</option>
+            				
+            					<option value="/docs/languages/julia" >Julia</option>
+            				
+            					<option value="/docs/languages/r" >R</option>
+            				
+            					<option value="/docs/languages/rust" >Rust</option>
+            				
+            					<option value="/docs/languages/go" >Go</option>
+            				
+            					<option value="/docs/languages/tsql" >T-SQL</option>
+            				
+            					<option value="/docs/languages/csharp" >C#</option>
+            				
+            					<option value="/docs/languages/dotnet" >.NET</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Node.js / JavaScript">
+            				
+            					<option value="/docs/nodejs/working-with-javascript" >Working with JavaScript</option>
+            				
+            					<option value="/docs/nodejs/nodejs-tutorial" >Node.js Tutorial</option>
+            				
+            					<option value="/docs/nodejs/nodejs-debugging" >Node.js Debugging</option>
+            				
+            					<option value="/docs/nodejs/nodejs-deployment" >Deploy Node.js Apps</option>
+            				
+            					<option value="/docs/nodejs/browser-debugging" >Browser Debugging</option>
+            				
+            					<option value="/docs/nodejs/angular-tutorial" >Angular Tutorial</option>
+            				
+            					<option value="/docs/nodejs/reactjs-tutorial" >React Tutorial</option>
+            				
+            					<option value="/docs/nodejs/vuejs-tutorial" >Vue Tutorial</option>
+            				
+            					<option value="/docs/nodejs/emberjs-tutorial" >Ember Tutorial</option>
+            				
+            					<option value="/docs/nodejs/debugging-recipes" >Debugging Recipes</option>
+            				
+            					<option value="/docs/nodejs/profiling" >Performance Profiling</option>
+            				
+            					<option value="/docs/nodejs/extensions" >Extensions</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="TypeScript">
+            				
+            					<option value="/docs/typescript/typescript-tutorial" >Tutorial</option>
+            				
+            					<option value="/docs/typescript/typescript-compiling" >Compiling</option>
+            				
+            					<option value="/docs/typescript/typescript-editing" >Editing</option>
+            				
+            					<option value="/docs/typescript/typescript-refactoring" >Refactoring</option>
+            				
+            					<option value="/docs/typescript/typescript-debugging" >Debugging</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Python">
+            				
+            					<option value="/docs/python/python-tutorial" selected>Tutorial</option>
+            				
+            					<option value="/docs/python/editing" >Editing Code</option>
+            				
+            					<option value="/docs/python/linting" >Linting</option>
+            				
+            					<option value="/docs/python/debugging" >Debugging</option>
+            				
+            					<option value="/docs/python/environments" >Environments</option>
+            				
+            					<option value="/docs/python/testing" >Testing</option>
+            				
+            					<option value="/docs/python/data-science" >Data Science</option>
+            				
+            					<option value="/docs/python/jupyter-support-py" >Python Interactive</option>
+            				
+            					<option value="/docs/python/tutorial-django" >Django Tutorial</option>
+            				
+            					<option value="/docs/python/tutorial-flask" >Flask Tutorial</option>
+            				
+            					<option value="/docs/python/tutorial-create-containers" >Create containers</option>
+            				
+            					<option value="/docs/python/python-on-azure" >Deploy Python Apps</option>
+            				
+            					<option value="/docs/python/python-web" >Python in the Web</option>
+            				
+            					<option value="/docs/python/settings-reference" >Settings Reference</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Java">
+            				
+            					<option value="/docs/java/java-tutorial" >Getting Started</option>
+            				
+            					<option value="/docs/java/java-editing" >Navigate and Edit</option>
+            				
+            					<option value="/docs/java/java-refactoring" >Refactoring</option>
+            				
+            					<option value="/docs/java/java-linting" >Formatting and Linting</option>
+            				
+            					<option value="/docs/java/java-project" >Project Management</option>
+            				
+            					<option value="/docs/java/java-build" >Build Tools</option>
+            				
+            					<option value="/docs/java/java-debugging" >Run and Debug</option>
+            				
+            					<option value="/docs/java/java-testing" >Testing</option>
+            				
+            					<option value="/docs/java/java-spring-boot" >Spring Boot</option>
+            				
+            					<option value="/docs/java/java-tomcat-jetty" >Application Servers</option>
+            				
+            					<option value="/docs/java/java-on-azure" >Deploy Java Apps</option>
+            				
+            					<option value="/docs/java/java-gui" >GUI Applications</option>
+            				
+            					<option value="/docs/java/extensions" >Extensions</option>
+            				
+            					<option value="/docs/java/java-faq" >FAQ</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="C++">
+            				
+            					<option value="/docs/cpp/introvideos-cpp" >Intro Videos</option>
+            				
+            					<option value="/docs/cpp/config-linux" >GCC on Linux</option>
+            				
+            					<option value="/docs/cpp/config-mingw" >GCC on Windows</option>
+            				
+            					<option value="/docs/cpp/config-wsl" >GCC on Windows Subsystem for Linux</option>
+            				
+            					<option value="/docs/cpp/config-clang-mac" >Clang on macOS</option>
+            				
+            					<option value="/docs/cpp/config-msvc" >Microsoft C++ on Windows</option>
+            				
+            					<option value="/docs/cpp/build-with-cmake" >Build with CMake</option>
+            				
+            					<option value="/docs/cpp/cmake-linux" >CMake Tools on Linux</option>
+            				
+            					<option value="/docs/cpp/cpp-ide" >Editing</option>
+            				
+            					<option value="/docs/cpp/cpp-debug" >Debugging</option>
+            				
+            					<option value="/docs/cpp/launch-json-reference" >Configure debugging</option>
+            				
+            					<option value="/docs/cpp/customize-default-settings-cpp" >Settings</option>
+            				
+            					<option value="/docs/cpp/configure-intellisense-crosscompilation" >Configure IntelliSense for cross-compiling</option>
+            				
+            					<option value="/docs/cpp/faq-cpp" >FAQ</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Docker">
+            				
+            					<option value="/docs/containers/overview" >Overview</option>
+            				
+            					<option value="/docs/containers/quickstart-node" >Node.js</option>
+            				
+            					<option value="/docs/containers/quickstart-python" >Python</option>
+            				
+            					<option value="/docs/containers/quickstart-aspnet-core" >ASP.NET Core</option>
+            				
+            					<option value="/docs/containers/debug-common" >Debug</option>
+            				
+            					<option value="/docs/containers/docker-compose" >Docker Compose</option>
+            				
+            					<option value="/docs/containers/quickstart-container-registries" >Registries</option>
+            				
+            					<option value="/docs/containers/app-service" >Deploy to Azure</option>
+            				
+            					<option value="/docs/containers/choosing-dev-environment" >Choose a dev environment</option>
+            				
+            					<option value="/docs/containers/reference" >Customize</option>
+            				
+            					<option value="/docs/containers/bridge-to-kubernetes" >Develop with Kubernetes</option>
+            				
+            					<option value="/docs/containers/troubleshooting" >Tips and Tricks</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Data Science">
+            				
+            					<option value="/docs/datascience/overview" >Overview</option>
+            				
+            					<option value="/docs/datascience/jupyter-notebooks" >Jupyter Notebooks</option>
+            				
+            					<option value="/docs/datascience/data-science-tutorial" >Data Science Tutorial</option>
+            				
+            					<option value="/docs/datascience/python-interactive" >Python Interactive</option>
+            				
+            					<option value="/docs/datascience/pytorch-support" >PyTorch Support</option>
+            				
+            					<option value="/docs/datascience/azure-machine-learning" >Azure Machine Learning</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Azure">
+            				
+            					<option value="/docs/azure/extensions" >Extensions</option>
+            				
+            					<option value="/docs/azure/deployment" >Deployment</option>
+            				
+            					<option value="/docs/azure/remote-debugging" >Remote Debugging for Node.js</option>
+            				
+            					<option value="/docs/azure/docker" >Docker</option>
+            				
+            					<option value="/docs/azure/mongodb" >MongoDB</option>
+            				
+            					<option value="/docs/azure/kubernetes" >Kubernetes</option>
+            				
+            					<option value="/docs/azure/aksextensions" >Azure Kubernetes Service</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Remote">
+            				
+            					<option value="/docs/remote/remote-overview" >Overview</option>
+            				
+            					<option value="/docs/remote/ssh" >SSH</option>
+            				
+            					<option value="/docs/remote/dev-containers" >Dev Containers</option>
+            				
+            					<option value="/docs/remote/wsl" >Windows Subsystem for Linux</option>
+            				
+            					<option value="/docs/remote/codespaces" >GitHub Codespaces</option>
+            				
+            					<option value="/docs/remote/vscode-server" >VS Code Server</option>
+            				
+            					<option value="/docs/remote/tunnels" >Tunnels</option>
+            				
+            					<option value="/docs/remote/ssh-tutorial" >SSH Tutorial</option>
+            				
+            					<option value="/docs/remote/wsl-tutorial" >WSL Tutorial</option>
+            				
+            					<option value="/docs/remote/troubleshooting" >Tips and Tricks</option>
+            				
+            					<option value="/docs/remote/faq" >FAQ</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Dev Containers">
+            				
+            					<option value="/docs/devcontainers/containers" >Overview</option>
+            				
+            					<option value="/docs/devcontainers/tutorial" >Tutorial</option>
+            				
+            					<option value="/docs/devcontainers/attach-container" >Attach to Container</option>
+            				
+            					<option value="/docs/devcontainers/create-dev-container" >Create a Dev Container</option>
+            				
+            					<option value="/docs/devcontainers/containers-advanced" >Advanced Containers</option>
+            				
+            					<option value="/docs/devcontainers/devcontainerjson-reference" >devcontainer.json</option>
+            				
+            					<option value="/docs/devcontainers/devcontainer-cli" >Dev Container CLI</option>
+            				
+            					<option value="/docs/devcontainers/tips-and-tricks" >Tips and Tricks</option>
+            				
+            					<option value="/docs/devcontainers/faq" >FAQ</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            		
+            	</select>
+            </nav>        </div>
+        <div class="col-sm-9 col-md-8 body">
+            <div class="edit-github pull-right">
+                <a href="https://vscode.dev/github/microsoft/vscode-docs/blob/main/docs/python/python-tutorial.md"
+                    class="btn btn-default" title="Edit this document in vscode.dev">
+                    <span class="glyphicon glyphicon-pencil"></span>
+                    <span class="hidden-xs">Edit</span>
+                </a>
+            </div>
+            <h1>Getting Started with Python in VS Code</h1>
+<p>In this tutorial, you use Python 3 to create the simplest Python &quot;Hello World&quot; application in Visual Studio Code. By using the Python extension, you make VS Code into a great lightweight Python IDE (which you may find a productive alternative to PyCharm).</p>
+<p>This tutorial introduces you to VS Code as a Python environment, primarily how to edit, run, and debug code through the following tasks:</p>
+<ul>
+<li>Write, run, and debug a Python &quot;Hello World&quot; Application</li>
+<li>Learn how to install packages by creating Python virtual environments</li>
+<li>Write a simple Python script to plot figures within VS Code</li>
+</ul>
+<p>This tutorial is not intended to teach you Python itself. Once you are familiar with the basics of VS Code, you can then follow any of the <a href="https://wiki.python.org/moin/BeginnersGuide/Programmers" class="external-link" target="_blank">programming tutorials on python.org</a> within the context of VS Code for an introduction to the language.</p>
+<p>If you have any problems, you can search for answers or ask a question on the <a href="https://github.com/microsoft/vscode-python/discussions/categories/q-a" class="external-link" target="_blank">Python extension Discussions Q&amp;A</a>.</p>
+<h2 id="_prerequisites" data-needslink="_prerequisites">Prerequisites</h2>
+<p>To successfully complete this tutorial, you need to first setup your Python  development environment. Specifically, this tutorial requires:</p>
+<ul>
+<li>Python 3</li>
+<li>VS Code application</li>
+<li>VS Code Python extension</li>
+</ul>
+<h2 id="_install-visual-studio-code-and-the-python-extension" data-needslink="_install-visual-studio-code-and-the-python-extension">Install Visual Studio Code and the Python Extension</h2>
+<ol>
+<li>
+<p>If you have not already done so, install <a href="../../index.html">VS Code</a>.</p>
+</li>
+<li>
+<p>Next, install the <a href="https://marketplace.visualstudio.com/items?itemName=ms-python.python" class="external-link" target="_blank">Python extension for VS Code</a> from the Visual Studio Marketplace. For additional details on installing extensions, see <a href="../editor/extension-marketplace.html">Extension Marketplace</a>. The Python extension is named <strong>Python</strong> and it's published by Microsoft.</p>
+<p><a href="https://marketplace.visualstudio.com/items?itemName=ms-python.python" class="external-link" target="_blank"><img src="../../assets/docs/python/tutorial/python-extension-marketplace.png" alt="Python extension on Marketplace" loading="lazy"></a></p>
+</li>
+</ol>
+<h2 id="_install-a-python-interpreter" data-needslink="_install-a-python-interpreter">Install a Python interpreter</h2>
+<p>Along with the Python extension, you need to install a Python interpreter. Which interpreter you use is dependent on your specific needs, but some guidance is provided below.</p>
+<h3 id="_windows" data-needslink="_windows">Windows</h3>
+<p>Install <a href="https://www.python.org/downloads/" class="external-link" target="_blank">Python from python.org</a>. You can typically use the <strong>Download Python</strong> button that appears first on the page to download the latest version.</p>
+<blockquote>
+<p><strong>Note</strong>: If you don't have admin access, an additional option for installing Python on Windows is to use the Microsoft Store. The Microsoft Store provides installs of <a href="https://www.microsoft.com/p/python-37/9nj46sx7x90p" class="external-link" target="_blank">Python 3.7</a>, <a href="https://www.microsoft.com/p/python-38/9mssztt1n39l" class="external-link" target="_blank">Python 3.8</a>, <a href="https://www.microsoft.com/p/python-39/9p7qfqmjrfp7" class="external-link" target="_blank">Python 3.9</a>, and <a href="https://www.microsoft.com/p/python-310/9pjpw5ldxlz5" class="external-link" target="_blank">Python 3.10</a>.</p>
+</blockquote>
+<p>For additional information about using Python on Windows, see <a href="https://docs.python.org/3.9/using/windows.html" class="external-link" target="_blank">Using Python on Windows at Python.org</a></p>
+<h3 id="_macos" data-needslink="_macos">macOS</h3>
+<p>The system install of Python on macOS is not supported. Instead, a package management system like  <a href="https://brew.sh/" class="external-link" target="_blank">Homebrew</a> is recommended. To install Python using Homebrew on macOS use <code>brew install python3</code> at the Terminal prompt.</p>
+<blockquote>
+<p><strong>Note</strong> On macOS, make sure the location of your VS Code installation is included in your PATH environment variable.  See <a href="../setup/mac.html#_launching-from-the-command-line">these setup instructions</a> for more information.</p>
+</blockquote>
+<h3 id="_linux" data-needslink="_linux">Linux</h3>
+<p>The built-in Python 3 installation on Linux works well, but to install other Python packages you must install <code>pip</code> with <a href="https://pip.pypa.io/en/stable/installation/#get-pip-py" class="external-link" target="_blank">get-pip.py</a>.</p>
+<h3 id="_other-options" data-needslink="_other-options">Other options</h3>
+<ul>
+<li>
+<p><strong>Data Science</strong>: If your primary purpose for using Python is Data Science, then you might consider a download from <a href="https://www.anaconda.com/download/" class="external-link" target="_blank">Anaconda</a>. Anaconda provides not just a Python interpreter, but many useful libraries and tools for data science.</p>
+</li>
+<li>
+<p><strong>Windows Subsystem for Linux</strong>: If you are working on Windows and want a Linux environment for working with Python, the <a href="https://learn.microsoft.com/windows/wsl/about" class="external-link" target="_blank">Windows Subsystem for Linux</a> (WSL) is an option for you. If you choose this option, you'll also want to install the <a href="https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-wsl" class="external-link" target="_blank">WSL extension</a>. For more information about using WSL with VS Code, see <a href="../remote/remote-overview.html">VS Code Remote Development</a> or try the <a href="../remote/wsl-tutorial.html">Working in WSL tutorial</a>, which will walk you through setting up WSL, installing Python, and creating a Hello World application running in WSL.</p>
+</li>
+</ul>
+<h2 id="_verify-the-python-installation" data-needslink="_verify-the-python-installation">Verify the Python installation</h2>
+<p>To verify that you've installed Python successfully on your machine, run one of the following commands (depending on your operating system):</p>
+<ul>
+<li>
+<p>Linux/macOS: open a Terminal Window and type the following command:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #000000">python3 --version</span></span>
+<span class="line"></span></code></pre>
+</li>
+<li>
+<p>Windows: open a command prompt and run the following command:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #000000">py </span><span style="color: #098658">-3</span><span style="color: #000000"> --version</span></span>
+<span class="line"></span></code></pre>
+</li>
+</ul>
+<p>If the installation was successful, the output window should show the version of Python that you installed.</p>
+<blockquote>
+<p><strong>Note</strong> You can use the <code>py -0</code> command in the VS Code integrated terminal to view the versions of python installed on your machine. The default interpreter is identified by an asterisk (*).</p>
+</blockquote>
+<h2 id="_start-vs-code-in-a-project-workspace-folder" data-needslink="_start-vs-code-in-a-project-workspace-folder">Start VS Code in a project (workspace) folder</h2>
+<p>Using a command prompt or terminal, create an empty folder called &quot;hello&quot;, navigate into it, and open VS Code (<code>code</code>) in that folder (<code>.</code>) by entering the following commands:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #000000">mkdir hello</span></span>
+<span class="line"><span style="color: #795E26">cd</span><span style="color: #000000"> hello</span></span>
+<span class="line"><span style="color: #000000">code </span><span style="color: #795E26">.</span></span>
+<span class="line"></span></code></pre>
+<blockquote>
+<p><strong>Note</strong>: If you're using an Anaconda distribution, be sure to use an Anaconda command prompt.</p>
+</blockquote>
+<p>By starting VS Code in a folder, that folder becomes your &quot;workspace&quot;. VS Code stores settings that are specific to that workspace in <code>.vscode/settings.json</code>, which are separate from user settings that are stored globally.</p>
+<p>Alternately, you can run VS Code through the operating system UI, then use <strong>File &gt; Open Folder</strong> to open the project folder.</p>
+<h2 id="_select-a-python-interpreter" data-needslink="_select-a-python-interpreter">Select a Python interpreter</h2>
+<p>Python is an interpreted language, and in order to run Python code and get Python IntelliSense, you must tell VS Code which interpreter to use.</p>
+<p>From within VS Code, select a Python 3 interpreter by opening the <strong>Command Palette</strong> (<span class="dynamic-keybinding" data-commandId="workbench.action.showCommands" data-osx="⇧⌘P" data-win="Ctrl+Shift+P" data-linux="Ctrl+Shift+P"><span class="keybinding">⇧⌘P</span> (Windows, Linux <span class="keybinding">Ctrl+Shift+P</span>)</span>), start typing the <strong>Python: Select Interpreter</strong> command to search, then select the command. You can also use the <strong>Select Python Environment</strong> option on the Status Bar if available (it may already show a selected interpreter, too):</p>
+<p><img src="../../assets/docs/python/environments/no-interpreter-selected-statusbar.png" alt="No interpreter selected" loading="lazy"></p>
+<p>The command presents a list of available interpreters that VS Code can find automatically, including virtual environments. If you don't see the desired interpreter, see <a href="environments.html">Configuring Python environments</a>.</p>
+<p><img src="../../assets/docs/python/tutorial/interpreter.png" alt="Select an Interpreter" loading="lazy"></p>
+<blockquote>
+<p><strong>Note</strong>: When using an Anaconda distribution, the correct interpreter should have the suffix <code>('base':conda)</code>, for example <code>Python 3.7.3 64-bit ('base':conda)</code>.</p>
+</blockquote>
+<p>Selecting an interpreter sets which interpreter will be used by the Python extension for that workspace.</p>
+<blockquote>
+<p><strong>Note</strong>: If you select an interpreter without a workspace folder open, VS Code sets <code>python.defaultInterpreterPath</code> in User scope instead, which sets the default interpreter for VS Code in general. The user setting makes sure you always have a default interpreter for Python projects. The workspace settings lets you override the user setting.</p>
+</blockquote>
+<h2 id="_create-a-python-hello-world-source-code-file" data-needslink="_create-a-python-hello-world-source-code-file">Create a Python Hello World source code file</h2>
+<p>From the File Explorer toolbar, select the <strong>New File</strong> button on the <code>hello</code> folder:</p>
+<p><img src="../../assets/docs/python/tutorial/toolbar-new-file.png" alt="File Explorer New File" loading="lazy"></p>
+<p>Name the file <code>hello.py</code>, and it automatically opens in the editor:</p>
+<p><img src="../../assets/docs/python/tutorial/hello-py-file-created.png" alt="File Explorer hello.py" loading="lazy"></p>
+<p>By using the <code>.py</code> file extension, you tell VS Code to interpret this file as a Python program, so that it evaluates the contents with the Python extension and the selected interpreter.</p>
+<blockquote>
+<p><strong>Note</strong>: The File Explorer toolbar also allows you to create folders within your workspace to better organize your code. You can use the <strong>New folder</strong> button to quickly create a folder.</p>
+</blockquote>
+<p>Now that you have a code file in your Workspace, enter the following source code in <code>hello.py</code>:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #000000">msg = </span><span style="color: #A31515">&quot;Hello World&quot;</span></span>
+<span class="line"><span style="color: #795E26">print</span><span style="color: #000000">(msg)</span></span>
+<span class="line"></span></code></pre>
+<p>When you start typing <code>print</code>, notice how <a href="../editor/intellisense.html">IntelliSense</a> presents auto-completion options.</p>
+<p><img src="../../assets/docs/python/tutorial/intellisense01.png" alt="IntelliSense appearing for Python code" loading="lazy"></p>
+<p>IntelliSense and auto-completions work for standard Python modules as well as other packages you've installed into the environment of the selected Python interpreter. It also provides completions for methods available on object types. For example, because the <code>msg</code> variable contains a string, IntelliSense provides string methods when you type <code>msg.</code>:</p>
+<p><img src="../../assets/docs/python/tutorial/intellisense02.png" alt="IntelliSense appearing for a variable whose type provides methods" loading="lazy"></p>
+<p>Feel free to experiment with IntelliSense some more, but then revert your changes so you have only the <code>msg</code> variable and the <code>print</code> call, and save the file (<span class="dynamic-keybinding" data-commandId="workbench.action.files.save" data-osx="⌘S" data-win="Ctrl+S" data-linux="Ctrl+S"><span class="keybinding">⌘S</span> (Windows, Linux <span class="keybinding">Ctrl+S</span>)</span>).</p>
+<p>For full details on editing, formatting, and refactoring, see <a href="editing.html">Editing code</a>. The Python extension also has full support for <a href="linting.html">Linting</a>.</p>
+<h2 id="_run-hello-world" data-needslink="_run-hello-world">Run Hello World</h2>
+<p>It's simple to run <code>hello.py</code> with Python. Just click the <strong>Run Python File in Terminal</strong> play button in the top-right side of the editor.</p>
+<p><img src="../../assets/docs/python/tutorial/run-python-file-in-terminal-button.png" alt="Using the run python file in terminal button" loading="lazy"></p>
+<p>The button opens a terminal panel in which your Python interpreter is automatically activated, then runs <code>python3 hello.py</code> (macOS/Linux) or <code>python hello.py</code> (Windows):</p>
+<p><img src="../../assets/docs/python/tutorial/output-in-terminal.png" alt="Program output in a Python terminal" loading="lazy"></p>
+<p>There are three other ways you can run Python code within VS Code:</p>
+<ul>
+<li>
+<p>Right-click anywhere in the editor window and select <strong>Run Python File in Terminal</strong> (which saves the file automatically):</p>
+<p><img src="../../assets/docs/python/tutorial/run-python-file-in-terminal.png" alt="Run Python File in Terminal command in the Python editor" loading="lazy"></p>
+</li>
+<li>
+<p>Select one or more lines, then press <span class="keybinding">Shift+Enter</span> or right-click and select <strong>Run Selection/Line in Python Terminal</strong>. This command is convenient for testing just a part of a file.</p>
+</li>
+<li>
+<p>From the Command Palette (<span class="dynamic-keybinding" data-commandId="workbench.action.showCommands" data-osx="⇧⌘P" data-win="Ctrl+Shift+P" data-linux="Ctrl+Shift+P"><span class="keybinding">⇧⌘P</span> (Windows, Linux <span class="keybinding">Ctrl+Shift+P</span>)</span>), select the <strong>Python: Start REPL</strong> command to open a REPL terminal for the currently selected Python interpreter. In the REPL, you can then enter and run lines of code one at a time.</p>
+</li>
+</ul>
+<h2 id="_configure-and-run-the-debugger" data-needslink="_configure-and-run-the-debugger">Configure and run the debugger</h2>
+<p>Let's now try debugging our simple Hello World program.</p>
+<p>First, set a breakpoint on line 2 of <code>hello.py</code> by placing the cursor on the <code>print</code> call and pressing <span class="dynamic-keybinding" data-commandId="editor.debug.action.toggleBreakpoint" data-osx="F9" data-win="F9" data-linux="F9"><span class="keybinding">F9</span></span>. Alternately, just click in the editor's left gutter, next to the line numbers. When you set a breakpoint, a red circle appears in the gutter.</p>
+<p><img src="../../assets/docs/python/tutorial/breakpoint-set.png" alt="Setting a breakpoint in hello.py" loading="lazy"></p>
+<p>Next, to initialize the debugger, press <span class="dynamic-keybinding" data-commandId="workbench.action.debug.start" data-osx="F5" data-win="F5" data-linux="F5"><span class="keybinding">F5</span></span>. Since this is your first time debugging this file, a configuration menu will open from the Command Palette allowing you to select the type of debug configuration you would like for the opened file.</p>
+<p><img src="../../assets/docs/python/tutorial/debug-configurations.png" alt="Debug configurations after launch.json is created" loading="lazy"></p>
+<p><strong>Note</strong>: VS Code uses JSON files for all of its various configurations; <code>launch.json</code> is the standard name for a file containing debugging configurations.</p>
+<p>These different configurations are fully explained in <a href="debugging.html">Debugging configurations</a>; for now, just select <strong>Python File</strong>, which is the configuration that runs the current file shown in the editor using the currently selected Python interpreter.</p>
+<p>You can also start the debugger by clicking on the down-arrow next to the run button on the editor, and selecting <strong>Debug Python File in Terminal</strong>.</p>
+<p><img src="../../assets/docs/python/tutorial/debug-python-file-in-terminal-button.png" alt="Using the debug Python file in terminal button" loading="lazy"></p>
+<p>The debugger will stop at the first line of the file breakpoint. The current line is indicated with a yellow arrow in the left margin. If you examine the <strong>Local</strong> variables window at this point, you will see now defined <code>msg</code> variable appears in the <strong>Local</strong> pane.</p>
+<p><img src="../../assets/docs/python/tutorial/debug-step-02.png" alt="Debugging step 2 - variable defined" loading="lazy"></p>
+<p>A debug toolbar appears along the top with the following commands from left to right: continue (<span class="dynamic-keybinding" data-commandId="workbench.action.debug.start" data-osx="F5" data-win="F5" data-linux="F5"><span class="keybinding">F5</span></span>), step over (<span class="dynamic-keybinding" data-commandId="workbench.action.debug.stepOver" data-osx="F10" data-win="F10" data-linux="F10"><span class="keybinding">F10</span></span>), step into (<span class="dynamic-keybinding" data-commandId="workbench.action.debug.stepInto" data-osx="F11" data-win="F11" data-linux="F11"><span class="keybinding">F11</span></span>), step out (<span class="dynamic-keybinding" data-commandId="workbench.action.debug.stepOut" data-osx="⇧F11" data-win="Shift+F11" data-linux="Shift+F11"><span class="keybinding">⇧F11</span> (Windows, Linux <span class="keybinding">Shift+F11</span>)</span>), restart (<span class="dynamic-keybinding" data-commandId="workbench.action.debug.restart" data-osx="⇧⌘F5" data-win="Ctrl+Shift+F5" data-linux="Ctrl+Shift+F5"><span class="keybinding">⇧⌘F5</span> (Windows, Linux <span class="keybinding">Ctrl+Shift+F5</span>)</span>), and stop (<span class="dynamic-keybinding" data-commandId="workbench.action.debug.stop" data-osx="⇧F5" data-win="Shift+F5" data-linux="Shift+F5"><span class="keybinding">⇧F5</span> (Windows, Linux <span class="keybinding">Shift+F5</span>)</span>).</p>
+<p><img src="../../assets/docs/python/tutorial/debug-toolbar.png" alt="Debugging toolbar" loading="lazy"></p>
+<p>The Status Bar also changes color (orange in many themes) to indicate that you're in debug mode. The <strong>Python Debug Console</strong> also appears automatically in the lower right panel to show the commands being run, along with the program output.</p>
+<p>To continue running the program, select the continue command on the debug toolbar (<span class="dynamic-keybinding" data-commandId="workbench.action.debug.start" data-osx="F5" data-win="F5" data-linux="F5"><span class="keybinding">F5</span></span>). The debugger runs the program to the end.</p>
+<blockquote>
+<p><strong>Tip</strong> Debugging information can also be seen by hovering over code, such as variables. In the case of <code>msg</code>, hovering over the variable will display the string <code>Hello world</code> in a box above the variable.</p>
+</blockquote>
+<p>You can also work with variables in the <strong>Debug Console</strong> (If you don't see it, select <strong>Debug Console</strong> in the lower right area of VS Code, or select it from the <strong>...</strong> menu.) Then try entering the following lines, one by one, at the <strong>&gt;</strong> prompt at the bottom of the console:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #000000">msg</span></span>
+<span class="line"><span style="color: #000000">msg.capitalize()</span></span>
+<span class="line"><span style="color: #000000">msg.split()</span></span>
+<span class="line"></span></code></pre>
+<p><img src="../../assets/docs/python/tutorial/debug-step-03.png" alt="Debugging step 3 - using the debug console" loading="lazy"></p>
+<p>Select the blue <strong>Continue</strong> button on the toolbar again (or press F5) to run the program to completion. &quot;Hello World&quot; appears in the <strong>Python Debug Console</strong> if you switch back to it, and VS Code exits debugging mode once the program is complete.</p>
+<p>If you restart the debugger, the debugger again stops on the first breakpoint.</p>
+<p>To stop running a program before it's complete, use the red square stop button on the debug toolbar (<span class="dynamic-keybinding" data-commandId="workbench.action.debug.stop" data-osx="⇧F5" data-win="Shift+F5" data-linux="Shift+F5"><span class="keybinding">⇧F5</span> (Windows, Linux <span class="keybinding">Shift+F5</span>)</span>), or use the <strong>Run &gt; Stop debugging</strong> menu command.</p>
+<p>For full details, see <a href="debugging.html">Debugging configurations</a>, which includes notes on how to use a specific Python interpreter for debugging.</p>
+<blockquote>
+<p><strong>Tip: Use Logpoints instead of print statements</strong>: Developers often litter source code with <code>print</code> statements to quickly inspect variables without necessarily stepping through each line of code in a debugger. In VS Code, you can instead use <strong>Logpoints</strong>. A Logpoint is like a breakpoint except that it logs a message to the console and doesn't stop the program. For more information, see <a href="../editor/debugging.html#_logpoints">Logpoints</a> in the main VS Code debugging article.</p>
+</blockquote>
+<h2 id="_install-and-use-packages" data-needslink="_install-and-use-packages">Install and use packages</h2>
+<p>Let's now run an example that's a little more interesting. In Python, packages are how you obtain any number of useful code libraries, typically from <a href="https://pypi.org/" class="external-link" target="_blank">PyPI</a>. For this example, you use the <code>matplotlib</code> and <code>numpy</code> packages to create a graphical plot as is commonly done with data science. (Note that <code>matplotlib</code> cannot show graphs when running in the <a href="https://learn.microsoft.com/windows/wsl/about" class="external-link" target="_blank">Windows Subsystem for Linux</a> as it lacks the necessary UI support.)</p>
+<p>Return to the <strong>Explorer</strong> view (the top-most icon on the left side, which shows files), create a new file called <code>standardplot.py</code>, and paste in the following source code:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #AF00DB">import</span><span style="color: #000000"> matplotlib.pyplot </span><span style="color: #AF00DB">as</span><span style="color: #000000"> plt</span></span>
+<span class="line"><span style="color: #AF00DB">import</span><span style="color: #000000"> numpy </span><span style="color: #AF00DB">as</span><span style="color: #000000"> np</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #000000">x = np.linspace(</span><span style="color: #098658">0</span><span style="color: #000000">, </span><span style="color: #098658">20</span><span style="color: #000000">, </span><span style="color: #098658">100</span><span style="color: #000000">)  </span><span style="color: #008000"># Create a list of evenly-spaced numbers over the range</span></span>
+<span class="line"><span style="color: #000000">plt.plot(x, np.sin(x))       </span><span style="color: #008000"># Plot the sine of each x point</span></span>
+<span class="line"><span style="color: #000000">plt.show()                   </span><span style="color: #008000"># Display the plot</span></span>
+<span class="line"></span></code></pre>
+<blockquote>
+<p><strong>Tip</strong>: If you enter the above code by hand, you may find that auto-completions change the names after the <code>as</code> keywords when you press <span class="keybinding">Enter</span> at the end of a line. To avoid this, type a space, then <span class="keybinding">Enter</span>.</p>
+</blockquote>
+<p>Next, try running the file in the debugger using the &quot;Python: Current file&quot; configuration as described in the last section.</p>
+<p>Unless you're using an Anaconda distribution or have previously installed the <code>matplotlib</code> package, you should see the message, <strong>&quot;ModuleNotFoundError: No module named 'matplotlib'&quot;</strong>. Such a message indicates that the required package isn't available in your system.</p>
+<p>To install the <code>matplotlib</code> package (which also installs <code>numpy</code> as a dependency), stop the debugger and use the Command Palette to run <strong>Terminal: Create New Terminal</strong> (<span class="dynamic-keybinding" data-commandId="workbench.action.terminal.new" data-osx="⌃⇧`" data-win="Ctrl+Shift+`" data-linux="Ctrl+Shift+`"><span class="keybinding">⌃⇧`</span> (Windows, Linux <span class="keybinding">Ctrl+Shift+`</span>)</span>). This command opens a command prompt for your selected interpreter.</p>
+<p>A best practice among Python developers is to avoid installing packages into a global interpreter environment. You instead use a project-specific <code>virtual environment</code> that contains a copy of a global interpreter. Once you activate that environment, any packages you then install are isolated from other environments. Such isolation reduces many complications that can arise from conflicting package versions. To create a <em>virtual environment</em> and install the required packages, enter the following commands as appropriate for your operating system:</p>
+<blockquote>
+<p><strong>Note</strong>: For additional information about virtual environments, see <a href="environments.html#_creating-environments">Environments</a>.</p>
+</blockquote>
+<ol>
+<li>
+<p>Create and activate the virtual environment</p>
+<p><strong>Virtual environment creation for Windows</strong></p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #000000">py </span><span style="color: #098658">-3</span><span style="color: #000000"> -m venv .venv</span></span>
+<span class="line"><span style="color: #000000">.venv\scripts\activate</span></span>
+<span class="line"></span></code></pre>
+<p>If the activate command generates the message &quot;Activate.ps1 is not digitally signed. You cannot run this script on the
+current system.&quot;, then you need to temporarily change the PowerShell execution policy to allow scripts to
+run (see <a href="https://go.microsoft.com/fwlink/?LinkID=135170" class="external-link" target="_blank">About Execution Policies</a> in the PowerShell documentation):</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #795E26">Set-ExecutionPolicy</span><span style="color: #000000"> -ExecutionPolicy RemoteSigned -Scope </span><span style="color: #AF00DB">Process</span></span>
+<span class="line"></span></code></pre>
+<p><strong>Virtual environment creation for macOS/Linux</strong></p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #000000">python3 -m venv .venv</span></span>
+<span class="line"><span style="color: #795E26">source</span><span style="color: #000000"> .venv/bin/activate</span></span>
+<span class="line"></span></code></pre>
+<blockquote>
+<p><strong>Note</strong>: When you create a new virtual environment, you should be prompted by VS Code to set it as the default for your workspace folder. If selected, the environment will automatically be activated when you open a new terminal.</p>
+</blockquote>
+<p><img src="../../assets/docs/python/tutorial/virtual-env-dialog.png" alt="Virtual environment dialog" loading="lazy"></p>
+</li>
+<li>
+<p>Select your new environment by using the <strong>Python: Select Interpreter</strong> command from the <strong>Command Palette</strong>.
+<img src="../../assets/docs/python/tutorial/interpreter-venv.png" alt="Select an Interpreter" loading="lazy"></p>
+</li>
+<li>
+<p>Install the packages</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #008000"># Don&#39;t use with Anaconda distributions because they include matplotlib already.</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #008000"># macOS</span></span>
+<span class="line"><span style="color: #000000">python3 -m pip install matplotlib</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #008000"># Windows (may require elevation)</span></span>
+<span class="line"><span style="color: #000000">python -m pip install matplotlib</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #008000"># Linux (Debian)</span></span>
+<span class="line"><span style="color: #000000">apt-get install python3-tk</span></span>
+<span class="line"><span style="color: #000000">python3 -m pip install matplotlib</span></span>
+<span class="line"></span></code></pre>
+</li>
+<li>
+<p>Rerun the program now (with or without the debugger) and after a few moments a plot window appears with the output:</p>
+<p><img src="../../assets/docs/python/tutorial/plot-output.png" alt="matplotlib output" loading="lazy"></p>
+</li>
+<li>
+<p>Once you are finished, type <code>deactivate</code> in the terminal window to deactivate the virtual environment.</p>
+</li>
+</ol>
+<p>For additional examples of creating and activating a virtual environment and installing packages, see the <a href="tutorial-django.html">Django tutorial</a> and the <a href="tutorial-flask.html">Flask tutorial</a>.</p>
+<h2 id="_next-steps" data-needslink="_next-steps">Next steps</h2>
+<p>You can configure VS Code to use any Python environment you have installed, including virtual and conda environments. You can also use a separate environment for debugging. For full details, see <a href="environments.html">Environments</a>.</p>
+<p>To learn more about the Python language, follow any of the <a href="https://wiki.python.org/moin/BeginnersGuide/Programmers" class="external-link" target="_blank">programming tutorials</a> listed on python.org within the context of VS Code.</p>
+<p>To learn to build web apps with the Django and Flask frameworks, see the following tutorials:</p>
+<ul>
+<li><a href="tutorial-django.html">Use Django in Visual Studio Code</a></li>
+<li><a href="tutorial-flask.html">Use Flask in Visual Studio Code</a></li>
+</ul>
+<p>There is then much more to explore with Python in Visual Studio Code:</p>
+<ul>
+<li><a href="editing.html">Editing code</a> - Learn about autocomplete, IntelliSense, formatting, and refactoring for Python.</li>
+<li><a href="linting.html">Linting</a> - Enable, configure, and apply a variety of Python linters.</li>
+<li><a href="debugging.html">Debugging</a> - Learn to debug Python both locally and remotely.</li>
+<li><a href="testing.html">Testing</a> - Configure test environments and discover, run, and debug tests.</li>
+<li><a href="settings-reference.html">Settings reference</a> - Explore the full range of Python-related settings in VS Code.</li>
+<li><a href="https://learn.microsoft.com/azure/developer/python/tutorial-deploy-containers-01" class="external-link" target="_blank">Deploy Python to Azure App Service using containers</a></li>
+<li><a href="https://learn.microsoft.com/azure/developer/python/configure-python-web-app-local-environment" class="external-link" target="_blank">Deploy Python to Azure App Service on Linux</a></li>
+</ul>
+
+            <div class="feedback"></div>
+            
+            <div class="body-footer">8/15/2022</div>
+            
+        </div>
+        <div class="col-sm-3 col-md-2 docs-subnavbar-container">
+            <nav id="docs-subnavbar" aria-label="On Page" data-spy="affix" data-offset-top="20">
+                
+                <h4><span class="sr-only">In this article there are 11 sections</span><span
+                        aria-hidden="true">In this article</span></h4>
+                <ul class="nav">
+                    
+                    <li><a href="#_prerequisites">Prerequisites</a></li>
+                    
+                    <li><a href="#_install-visual-studio-code-and-the-python-extension">Install Visual Studio Code and the Python Extension</a></li>
+                    
+                    <li><a href="#_install-a-python-interpreter">Install a Python interpreter</a></li>
+                    
+                    <li><a href="#_verify-the-python-installation">Verify the Python installation</a></li>
+                    
+                    <li><a href="#_start-vs-code-in-a-project-workspace-folder">Start VS Code in a project (workspace) folder</a></li>
+                    
+                    <li><a href="#_select-a-python-interpreter">Select a Python interpreter</a></li>
+                    
+                    <li><a href="#_create-a-python-hello-world-source-code-file">Create a Python Hello World source code file</a></li>
+                    
+                    <li><a href="#_run-hello-world">Run Hello World</a></li>
+                    
+                    <li><a href="#_configure-and-run-the-debugger">Configure and run the debugger</a></li>
+                    
+                    <li><a href="#_install-and-use-packages">Install and use packages</a></li>
+                    
+                    <li><a href="#_next-steps">Next steps</a></li>
+                    
+                </ul>
+                
+                <div class="connect-widget"></div>
+            </nav>
+        </div>
+    </div>
+</div>
+      </div>
+  </div>
+
+  <footer role="contentinfo">
+      <div class="container">
+          <div class="row">
+              <div class="left col-md-7">
+                  <ul class="links">
+                      <li>
+                          <span class="message">Hello from Seattle.</span>
+                      </li>
+                      <li>
+                          <a href="https://go.microsoft.com/fwlink/?LinkID=533687" onclick="followOnTwitter()" tabindex="0">Follow @code</a>
+                      </li>
+                      <li>
+                          <div class="github-star-button">
+                              <iframe src="../../assets/github-button29be.html?user=Microsoft&amp;repo=vscode&amp;type=star&amp;count=true"
+                                  frameborder="0" scrolling="0" width="130px" height="20px" title="GitHub follow button" loading="lazy"></iframe>
+                          </div>
+                      </li>
+  
+                      <script>
+                          function followOnTwitter() {
+                              var windowFeatures = "location=yes,height=600,width=550,scrollbars=yes,status=yes";
+                              var originalReferer = "&original_referer=" + document.URL;
+                              var screenName = "&screen_name=code";
+                              var URL = "https://twitter.com/intent/follow?" + originalReferer + screenName;
+                              window.open(URL, "_blank", windowFeatures);
+                          }
+  
+                          function manageConsent() {
+                              if(WcpConsent.siteConsent.isConsentRequired){
+                                  WcpConsent.siteConsent.manageConsent();
+                              }
+                          }
+                      </script>
+                  </ul>
+              </div>
+              <div class="right col-md-5">
+                  <ul class="links">
+                      <li><a id="footer-support-link" href="https://support.serviceshub.microsoft.com/supportforbusiness/create?sapId=d66407ed-3967-b000-4cfb-2c318cad363d"
+                              target="_blank">Support</a></li>
+                      <li><a id="footer-privacy-link" href="https://privacy.microsoft.com/privacystatement"
+                              target="_blank">Privacy</a></li>
+                      <li style="display: none;"><a id="footer-cookie-link" style="cursor: pointer;" onclick="manageConsent()"
+                              target="_blank">Manage Cookies</a></li>
+                      <li><a id="footer-terms-link" href="https://www.microsoft.com/legal/terms-of-use"
+                              target="_blank">Terms of Use</a></li>
+                      <li><a id="footer-license-link" href="../../License.html">License</a></li>
+                  </ul>
+                  <div class="copyright">
+                      <a id="footer-microsoft-link" class="logo" href="https://www.microsoft.com/">
+                          <img class="microsoft-logo" src="../../assets/images/microsoft-logo.png" height="20" alt="Microsoft homepage"/>
+                          <img class="microsoft-logo-inverted" src="../../assets/images/microsoft-logo-inverted.png" height="20" alt="Microsoft homepage" />
+                      </a>
+                      <span>&copy; 2023 Microsoft</span>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </footer>
+  <script src="../../dist/index.js"></script>
+
+  
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "SoftwareApplication",
+      "name" : "Visual Studio Code",
+      "softwareVersion": "1.74",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "applicationCategory": "DeveloperApplication",
+      "applicationSubCategory": "Text Editor",
+      "alternateName": "VS Code",
+      "datePublished": "2021-11-03",
+      "operatingSystem": "Mac, Linux, Windows",
+      "logo": "https://code.visualstudio.com/assets/apple-touch-icon.png",
+      "screenshot": "https://code.visualstudio.com/assets/home/home-screenshot-win.png",
+      "releaseNotes": "https://code.visualstudio.com/updates",
+      "downloadUrl": "https://code.visualstudio.com/download",
+      "license": "https://code.visualstudio.com/license",
+      "softwareRequirements": "https://code.visualstudio.com/docs/supporting/requirements",
+      "url" : "https://code.visualstudio.com",
+      "author": {
+        "@type": "Organization",
+        "name": "Microsoft"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Microsoft"
+      },
+      "maintainer": {
+        "@type": "Organization",
+        "name": "Microsoft"
+      },
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://code.visualstudio.com/Search?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      },
+      "sameAs" : [
+        "https://en.wikipedia.org/wiki/Visual_Studio_Code",
+        "https://twitter.com/code",
+        "https://www.youtube.com/code",
+        "https://www.tiktok.com/@vscode",
+        "https://github.com/microsoft/vscode"
+      ]
+    }
+  </script>
+</body>
+
+<!-- Mirrored from code.visualstudio.com/docs/python/python-tutorial by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 04 Jan 2023 10:09:19 GMT -->
+</html>

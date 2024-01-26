@@ -1,0 +1,1859 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Mirrored from code.visualstudio.com/docs/python/environments by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 04 Jan 2023 10:09:46 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="google-site-verification" content="hNs7DXrTySP_X-0P_AC0WulAXvUwgSXEmgfcO2r79dw" />
+
+  <!-- Twitter and Facebook OpenGraph Metadata-->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@code" />
+
+  <meta name="description" content="Configuring Python Environments in Visual Studio Code" />
+<meta name="keywords" content="" />
+<meta name="ms.prod" content="vs-code" />
+<meta name="ms.TOCTitle" content="Environments" />
+<meta name="ms.ContentId" content="8fe4ca8b-fc70-4216-86c7-2c11b6c14cc6" />
+<meta name="ms.date" content="11/3/2022" />
+<meta name="ms.topic" content="conceptual" />
+<!-- Twitter and Facebook OpenGraph Metadata-->
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="og:url" content="environments.html" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Using Python Environments in Visual Studio Code" />
+<meta property="og:description" content="Configuring Python Environments in Visual Studio Code" />
+
+<meta property="og:image" content="../../assets/docs/python/tutorial/social.png" />
+
+
+
+  <link rel="shortcut icon" href="../../favicon.ico" sizes="128x128" />
+  <link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+
+  <title>Using Python Environments in Visual Studio Code</title>
+
+  <link rel="stylesheet" href="../../vendor/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../../dist/style.css">
+
+  <script type="text/javascript" src="../../../js.monitor.azure.com/scripts/c/ms.analytics-web-3.min.js"></script>
+  <script>
+  window.appInsights = new oneDS.ApplicationInsights();
+  window.appInsights.initialize({
+    instrumentationKey: "1a3eb3104447440391ad5f2a6ee06a0a-62879566-bc58-4741-9650-302bf2af703f-7103",
+    webAnalyticsConfiguration:{ // Web Analytics Plugin configuration
+        urlCollectQuery:true, 
+        autoCapture: {
+          scroll: true,
+          pageView: true,
+          onLoad: true,
+          onUnload: true,
+          click: true,
+          resize: true,
+          jsError: true
+        }
+    }
+  }, []);
+  </script>
+  
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','../../../www.google-analytics.com/analytics.js','ga');
+  </script>  
+  <link rel="alternate" type="application/atom+xml" title="RSS Feed for code.visualstudio.com" href="../../feed.xml" />
+</head>
+
+<body>
+  <!-- EU Cookie Compliance JS -->
+  <script src="../../../wcpstatic.microsoft.com/mscc/lib/v2/wcp-consent.js"></script>
+
+  <div id="main">
+          <div class="navbar-fixed-container">
+              <div class="navbar navbar-inverse navbar-fixed-top ">
+                  <div id='cookie-banner'></div>        <nav role="navigation" aria-label="Top Level">
+                      <div class="container">
+                          <div class="nav navbar-header">
+                              <a role="button" id="skip-to-content" class="link-button" href="#main-content">Skip to content<i>&nbsp;</i><span class="glyphicon glyphicon-menu-down"></span></a>
+                              <a class="navbar-brand" id="navbar-brand" href="../../index.html">Visual Studio Code</a>
+                              <button type="button" class="navbar-toggle" role="navigation" data-toggle="collapse" data-target=".navbar-collapse" aria-label="Toggle Navigation Menu">
+                                  <span class="icon-bar"></span>
+                                  <span class="icon-bar"></span>
+                                  <span class="icon-bar"></span>
+                              </button>
+                          </div>
+                          <div class="navbar-collapse collapse" role="navigation">
+                              <ul class="nav navbar-nav navbar-left">
+                                  <li class="active" ><a id="nav-docs" href="../../docs.html">Docs</a></li>
+                                  <li ><a id="nav-updates" href="../../updates/v1_74.html">Updates</a></li>
+                                  <li ><a id="nav-blogs" href="../../blogs.html">Blog</a></li>
+                                  <li ><a id="nav-extend" href="../../api.html">API</a></li>
+                                  <li><a href="https://marketplace.visualstudio.com/VSCode" target="_blank" id="nav-extensions">Extensions</a></li>
+                                  <li ><a id="nav-faqs" href="../supporting/faq.html">FAQ</a></li>
+                                  <li ><a id="nav-learn" href="../../learn.html">Learn</a></li>
+                                  <li class='search visible-xs visible-sm'
+                                      ><a href="../../Search.html">Search</a></li>
+                              </ul>
+          
+                              <ul class="nav navbar-nav navbar-right" role="presentation">
+                                  <!-- Floating search icon -->
+                                  <li>
+                                      <a href="../../Search.html" title="Search" class="btn search-btn" id="nav-search">
+                                          <img class="search-icon" src="../../assets/icons/search.svg" width="16px" height="16px" alt="Search"/>
+                                          <img class="search-icon-inverted" src="../../assets/icons/search_dark.svg" width="16px" height="16px" alt="Search" />
+                                      </a>
+                                  </li>
+                                  <!-- Actual search icon -->
+                                  <li class="search" role="presentation">
+                                      <form class="nav-search search-form" role="search" aria-label="Search">
+                                          <div class="input-group" role="presentation">
+                                              <input type="text" name="q" class="search-box form-control" placeholder="Search Docs" aria-label="Search text"/>
+                                              <span class="input-group-btn">
+                                                  <button tabindex="0" class="btn" type="submit" aria-label="Search">
+                                                          <img class="search-icon" src="../../assets/icons/search.svg" width="16px" height="16px" alt="Search" />
+                                                          <img class="search-icon-inverted" src="../../assets/icons/search_dark.svg" width="16px" height="16px" alt="Search" />
+                                                  </button>
+                                              </span>
+                                          </div>
+                                      </form>                        </li>
+                                  <!-- this was hiden in the home and download page, keeping it for now -->
+                                  <li><a class="link-button" href="../../Download.html" id="nav-download">
+                                      <img class="download-icon" src="../../assets/icons/download.svg" width="16px" height="16px" alt="Download VS Code"/>
+                                      <img class="download-icon-inverted" src="../../assets/icons/download-black.svg" width="16px" height="16px" alt="Download VS Code" />
+                                      <span>Download</span>
+                                  </a></li>
+                              </ul>
+                          </div>
+                      </div>
+                  </nav>
+              </div>
+          </div>          <div class="updates-banner  ">
+              <div class="container">
+                  <p class="message"><a href="../../updates/v1_74.html" id="banner-link-updates">Version 1.74</a> is now available! Read about the new features and fixes from November.</p> 
+              </div>
+              <div tabindex="0" role="button" title="Dismiss this update" class="dismiss-btn" id="banner-dismiss-btn"><span class="sr-only">Dismiss this update</span><span aria-hidden="true" class="glyph-icon"></span></div>
+          </div>      <div role="main" id="main-content">
+        <script>
+    function closeReportIssue() {
+        var element = document.getElementById('surveypopup');
+        element.parentElement.removeChild(element);
+    }
+
+    function reportIssue(tutorial, page) {
+        var div = document.createElement('div');
+        div.innerHTML = '<div id="surveypopup" class="overlay visible"><div class="surveypopup"><div id="surveytitle">Tell us more<a href="javascript:void(0)" onclick="closeReportIssue()">X</a></div><div id="surveydiv"><iframe frameBorder="0" scrolling="0" src="https://www.research.net/r/PWZWZ52?tutorial=' + tutorial + '&step=' + page + '"></iframe></div></div></div>';
+        document.body.appendChild(div.children[0]);
+    }
+
+    function pushCodingPackEvent(language, os) {
+        let id = `${language}-${os}-coding-pack`;
+        var analytics = window.vscodeAnalytics;
+
+        analytics && analytics.event(
+            'click',
+            'download',
+            id,
+        );
+    }
+</script>
+
+<div class="container body-content docs">
+    <div class="row">
+        <div class="col-md-2 docs-navbar-container">
+            <nav id="docs-navbar" aria-label="Topics" class="docs-nav visible-md visible-lg">
+            	<ul class="nav" id="main-nav">
+            		<li >
+            			<a class="docs-home" href="../../docs.html" >Overview</a>
+            		</li>
+            		
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#setup-articles" data-parent="#main-nav" data-toggle="collapse">Setup</a>
+            					<ul id="setup-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../setup/setup-overview.html" >Overview</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../setup/linux.html" >Linux</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../setup/mac.html" >macOS</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../setup/windows.html" >Windows</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../setup/raspberry-pi.html" >Raspberry Pi</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../setup/network.html" >Network</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../setup/additional-components.html" >Additional Components</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../setup/enterprise.html" >Enterprise</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../setup/uninstall.html" >Uninstall</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#getstarted-articles" data-parent="#main-nav" data-toggle="collapse">Get Started</a>
+            					<ul id="getstarted-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../getstarted/introvideos.html" >Intro Videos</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../getstarted/tips-and-tricks.html" >Tips and Tricks</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../getstarted/userinterface.html" >User Interface</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../getstarted/themes.html" >Themes</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../getstarted/settings.html" >Settings</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../getstarted/keybindings.html" >Key Bindings</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../getstarted/locales.html" >Display Language</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../getstarted/telemetry.html" >Telemetry</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#editor-articles" data-parent="#main-nav" data-toggle="collapse">User Guide</a>
+            					<ul id="editor-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../editor/codebasics.html" >Basic Editing</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../editor/extension-marketplace.html" >Extension Marketplace</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../editor/intellisense.html" >IntelliSense</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../editor/editingevolved.html" >Code Navigation</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../editor/refactoring.html" >Refactoring</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../editor/debugging.html" >Debugging</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../editor/vscode-web.html" >VS Code for the Web</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../editor/tasks.html" >Tasks</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../editor/settings-sync.html" >Settings Sync</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../editor/userdefinedsnippets.html" >Snippets</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../editor/emmet.html" >Emmet</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../editor/command-line.html" >Command Line Interface</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../editor/workspace-trust.html" >Workspace Trust</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../editor/multi-root-workspaces.html" >Multi-root Workspaces</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../editor/accessibility.html" >Accessibility</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#sourcecontrol-articles" data-parent="#main-nav" data-toggle="collapse">Source Control</a>
+            					<ul id="sourcecontrol-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../sourcecontrol/overview.html" >Overview</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../sourcecontrol/github.html" >Collaborate on GitHub</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../sourcecontrol/faq.html" >FAQ</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#terminal-articles" data-parent="#main-nav" data-toggle="collapse">Terminal</a>
+            					<ul id="terminal-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../terminal/basics.html" >Terminal Basics</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../terminal/profiles.html" >Terminal Profiles</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../terminal/shell-integration.html" >Shell Integration</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../terminal/appearance.html" >Appearance</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../terminal/advanced.html" >Advanced</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#languages-articles" data-parent="#main-nav" data-toggle="collapse">Languages</a>
+            					<ul id="languages-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../languages/overview.html" >Overview</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/javascript.html" >JavaScript</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/json.html" >JSON</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/html.html" >HTML</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/css.html" >CSS, SCSS and Less</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/typescript.html" >TypeScript</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/markdown.html" >Markdown</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/powershell.html" >PowerShell</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/cpp.html" >C++</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/java.html" >Java</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/php.html" >PHP</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/python.html" >Python</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/julia.html" >Julia</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/r.html" >R</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/rust.html" >Rust</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/go.html" >Go</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/tsql.html" >T-SQL</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/csharp.html" >C#</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../languages/dotnet.html" >.NET</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#nodejs-articles" data-parent="#main-nav" data-toggle="collapse">Node.js / JavaScript</a>
+            					<ul id="nodejs-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../nodejs/working-with-javascript.html" >Working with JavaScript</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../nodejs/nodejs-tutorial.html" >Node.js Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../nodejs/nodejs-debugging.html" >Node.js Debugging</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../nodejs/nodejs-deployment.html" >Deploy Node.js Apps</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../nodejs/browser-debugging.html" >Browser Debugging</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../nodejs/angular-tutorial.html" >Angular Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../nodejs/reactjs-tutorial.html" >React Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../nodejs/vuejs-tutorial.html" >Vue Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../nodejs/emberjs-tutorial.html" >Ember Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../nodejs/debugging-recipes.html" >Debugging Recipes</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../nodejs/profiling.html" >Performance Profiling</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../nodejs/extensions.html" >Extensions</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#typescript-articles" data-parent="#main-nav" data-toggle="collapse">TypeScript</a>
+            					<ul id="typescript-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../typescript/typescript-tutorial.html" >Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../typescript/typescript-compiling.html" >Compiling</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../typescript/typescript-editing.html" >Editing</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../typescript/typescript-refactoring.html" >Refactoring</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../typescript/typescript-debugging.html" >Debugging</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel active expanded">
+            					<a class="area" role="button" href="#python-articles" data-parent="#main-nav" data-toggle="collapse">Python</a>
+            					<ul id="python-articles" class="collapse in">
+            					
+            						<li >
+            							<a href="python-tutorial.html" >Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="editing.html" >Editing Code</a>
+            						</li>
+            					
+            						<li >
+            							<a href="linting.html" >Linting</a>
+            						</li>
+            					
+            						<li >
+            							<a href="debugging.html" >Debugging</a>
+            						</li>
+            					
+            						<li class="active">
+            							<a href="environments.html" aria-label="Current Page: Environments">Environments</a>
+            						</li>
+            					
+            						<li >
+            							<a href="testing.html" >Testing</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../datascience/overview.html" >Data Science</a>
+            						</li>
+            					
+            						<li >
+            							<a href="jupyter-support-py.html" >Python Interactive</a>
+            						</li>
+            					
+            						<li >
+            							<a href="tutorial-django.html" >Django Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="tutorial-flask.html" >Flask Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../containers/quickstart-python.html" >Create containers</a>
+            						</li>
+            					
+            						<li >
+            							<a href="python-on-azure.html" >Deploy Python Apps</a>
+            						</li>
+            					
+            						<li >
+            							<a href="python-web.html" >Python in the Web</a>
+            						</li>
+            					
+            						<li >
+            							<a href="settings-reference.html" >Settings Reference</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#java-articles" data-parent="#main-nav" data-toggle="collapse">Java</a>
+            					<ul id="java-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../java/java-tutorial.html" >Getting Started</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-editing.html" >Navigate and Edit</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-refactoring.html" >Refactoring</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-linting.html" >Formatting and Linting</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-project.html" >Project Management</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-build.html" >Build Tools</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-debugging.html" >Run and Debug</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-testing.html" >Testing</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-spring-boot.html" >Spring Boot</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-tomcat-jetty.html" >Application Servers</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-on-azure.html" >Deploy Java Apps</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-gui.html" >GUI Applications</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/extensions.html" >Extensions</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../java/java-faq.html" >FAQ</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#cpp-articles" data-parent="#main-nav" data-toggle="collapse">C++</a>
+            					<ul id="cpp-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../cpp/introvideos-cpp.html" >Intro Videos</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../cpp/config-linux.html" >GCC on Linux</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../cpp/config-mingw.html" >GCC on Windows</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../cpp/config-wsl.html" >GCC on Windows Subsystem for Linux</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../cpp/config-clang-mac.html" >Clang on macOS</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../cpp/config-msvc.html" >Microsoft C++ on Windows</a>
+            						</li>
+            					
+            						<li >
+            							<a href="https://github.com/microsoft/vscode-cmake-tools/blob/main/docs/README.md" >Build with CMake</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../cpp/cmake-linux.html" >CMake Tools on Linux</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../cpp/cpp-ide.html" >Editing</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../cpp/cpp-debug.html" >Debugging</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../cpp/launch-json-reference.html" >Configure debugging</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../cpp/customize-default-settings-cpp.html" >Settings</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../cpp/configure-intellisense-crosscompilation.html" >Configure IntelliSense for cross-compiling</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../cpp/faq-cpp.html" >FAQ</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#containers-articles" data-parent="#main-nav" data-toggle="collapse">Docker</a>
+            					<ul id="containers-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../containers/overview.html" >Overview</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../containers/quickstart-node.html" >Node.js</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../containers/quickstart-python.html" >Python</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../containers/quickstart-aspnet-core.html" >ASP.NET Core</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../containers/debug-common.html" >Debug</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../containers/docker-compose.html" >Docker Compose</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../containers/quickstart-container-registries.html" >Registries</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../containers/app-service.html" >Deploy to Azure</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../containers/choosing-dev-environment.html" >Choose a dev environment</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../containers/reference.html" >Customize</a>
+            						</li>
+            					
+            						<li >
+            							<a href="https://learn.microsoft.com/visualstudio/bridge/bridge-to-kubernetes-vs-code" >Develop with Kubernetes</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../containers/troubleshooting.html" >Tips and Tricks</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#datascience-articles" data-parent="#main-nav" data-toggle="collapse">Data Science</a>
+            					<ul id="datascience-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../datascience/overview.html" >Overview</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../datascience/jupyter-notebooks.html" >Jupyter Notebooks</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../datascience/data-science-tutorial.html" >Data Science Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="jupyter-support-py.html" >Python Interactive</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../datascience/pytorch-support.html" >PyTorch Support</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../datascience/azure-machine-learning.html" >Azure Machine Learning</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#azure-articles" data-parent="#main-nav" data-toggle="collapse">Azure</a>
+            					<ul id="azure-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../azure/extensions.html" >Extensions</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../azure/deployment.html" >Deployment</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../azure/remote-debugging.html" >Remote Debugging for Node.js</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../containers/overview.html" >Docker</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../azure/mongodb.html" >MongoDB</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../azure/kubernetes.html" >Kubernetes</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../azure/aksextensions.html" >Azure Kubernetes Service</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#remote-articles" data-parent="#main-nav" data-toggle="collapse">Remote</a>
+            					<ul id="remote-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../remote/remote-overview.html" >Overview</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../remote/ssh.html" >SSH</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../devcontainers/containers.html" >Dev Containers</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../remote/wsl.html" >Windows Subsystem for Linux</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../remote/codespaces.html" >GitHub Codespaces</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../remote/vscode-server.html" >VS Code Server</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../remote/tunnels.html" >Tunnels</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../remote/ssh-tutorial.html" >SSH Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../remote/wsl-tutorial.html" >WSL Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../remote/troubleshooting.html" >Tips and Tricks</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../remote/faq.html" >FAQ</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#devcontainers-articles" data-parent="#main-nav" data-toggle="collapse">Dev Containers</a>
+            					<ul id="devcontainers-articles" class="collapse ">
+            					
+            						<li >
+            							<a href="../devcontainers/containers.html" >Overview</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../devcontainers/tutorial.html" >Tutorial</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../devcontainers/attach-container.html" >Attach to Container</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../devcontainers/create-dev-container.html" >Create a Dev Container</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../../remote/advancedcontainers/overview.html" >Advanced Containers</a>
+            						</li>
+            					
+            						<li >
+            							<a href="https://containers.dev/implementors/json_reference" >devcontainer.json</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../devcontainers/devcontainer-cli.html" >Dev Container CLI</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../devcontainers/tips-and-tricks.html" >Tips and Tricks</a>
+            						</li>
+            					
+            						<li >
+            							<a href="../devcontainers/faq.html" >FAQ</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            		
+            	</ul>
+            </nav>
+            <nav id="small-nav" aria-label="Topics" class="docs-nav hidden-md hidden-lg">
+            	<h4>Topics</h4>
+            	<select id="small-nav-dropdown" aria-label="topics">
+            		<option value="/docs" >Overview</option>
+            		
+            			
+            		
+            			
+            				<optgroup label="Setup">
+            				
+            					<option value="/docs/setup/setup-overview" >Overview</option>
+            				
+            					<option value="/docs/setup/linux" >Linux</option>
+            				
+            					<option value="/docs/setup/mac" >macOS</option>
+            				
+            					<option value="/docs/setup/windows" >Windows</option>
+            				
+            					<option value="/docs/setup/raspberry-pi" >Raspberry Pi</option>
+            				
+            					<option value="/docs/setup/network" >Network</option>
+            				
+            					<option value="/docs/setup/additional-components" >Additional Components</option>
+            				
+            					<option value="/docs/setup/enterprise" >Enterprise</option>
+            				
+            					<option value="/docs/setup/uninstall" >Uninstall</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Get Started">
+            				
+            					<option value="/docs/getstarted/introvideos" >Intro Videos</option>
+            				
+            					<option value="/docs/getstarted/tips-and-tricks" >Tips and Tricks</option>
+            				
+            					<option value="/docs/getstarted/userinterface" >User Interface</option>
+            				
+            					<option value="/docs/getstarted/themes" >Themes</option>
+            				
+            					<option value="/docs/getstarted/settings" >Settings</option>
+            				
+            					<option value="/docs/getstarted/keybindings" >Key Bindings</option>
+            				
+            					<option value="/docs/getstarted/locales" >Display Language</option>
+            				
+            					<option value="/docs/getstarted/telemetry" >Telemetry</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="User Guide">
+            				
+            					<option value="/docs/editor/codebasics" >Basic Editing</option>
+            				
+            					<option value="/docs/editor/extension-marketplace" >Extension Marketplace</option>
+            				
+            					<option value="/docs/editor/intellisense" >IntelliSense</option>
+            				
+            					<option value="/docs/editor/editingevolved" >Code Navigation</option>
+            				
+            					<option value="/docs/editor/refactoring" >Refactoring</option>
+            				
+            					<option value="/docs/editor/debugging" >Debugging</option>
+            				
+            					<option value="/docs/editor/vscode-web" >VS Code for the Web</option>
+            				
+            					<option value="/docs/editor/tasks" >Tasks</option>
+            				
+            					<option value="/docs/editor/settings-sync" >Settings Sync</option>
+            				
+            					<option value="/docs/editor/userdefinedsnippets" >Snippets</option>
+            				
+            					<option value="/docs/editor/emmet" >Emmet</option>
+            				
+            					<option value="/docs/editor/command-line" >Command Line Interface</option>
+            				
+            					<option value="/docs/editor/workspace-trust" >Workspace Trust</option>
+            				
+            					<option value="/docs/editor/multi-root-workspaces" >Multi-root Workspaces</option>
+            				
+            					<option value="/docs/editor/accessibility" >Accessibility</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Source Control">
+            				
+            					<option value="/docs/sourcecontrol/overview" >Overview</option>
+            				
+            					<option value="/docs/sourcecontrol/github" >Collaborate on GitHub</option>
+            				
+            					<option value="/docs/sourcecontrol/faq" >FAQ</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Terminal">
+            				
+            					<option value="/docs/terminal/basics" >Terminal Basics</option>
+            				
+            					<option value="/docs/terminal/profiles" >Terminal Profiles</option>
+            				
+            					<option value="/docs/terminal/shell-integration" >Shell Integration</option>
+            				
+            					<option value="/docs/terminal/appearance" >Appearance</option>
+            				
+            					<option value="/docs/terminal/advanced" >Advanced</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Languages">
+            				
+            					<option value="/docs/languages/overview" >Overview</option>
+            				
+            					<option value="/docs/languages/javascript" >JavaScript</option>
+            				
+            					<option value="/docs/languages/json" >JSON</option>
+            				
+            					<option value="/docs/languages/html" >HTML</option>
+            				
+            					<option value="/docs/languages/css" >CSS, SCSS and Less</option>
+            				
+            					<option value="/docs/languages/typescript" >TypeScript</option>
+            				
+            					<option value="/docs/languages/markdown" >Markdown</option>
+            				
+            					<option value="/docs/languages/powershell" >PowerShell</option>
+            				
+            					<option value="/docs/languages/cpp" >C++</option>
+            				
+            					<option value="/docs/languages/java" >Java</option>
+            				
+            					<option value="/docs/languages/php" >PHP</option>
+            				
+            					<option value="/docs/languages/python" >Python</option>
+            				
+            					<option value="/docs/languages/julia" >Julia</option>
+            				
+            					<option value="/docs/languages/r" >R</option>
+            				
+            					<option value="/docs/languages/rust" >Rust</option>
+            				
+            					<option value="/docs/languages/go" >Go</option>
+            				
+            					<option value="/docs/languages/tsql" >T-SQL</option>
+            				
+            					<option value="/docs/languages/csharp" >C#</option>
+            				
+            					<option value="/docs/languages/dotnet" >.NET</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Node.js / JavaScript">
+            				
+            					<option value="/docs/nodejs/working-with-javascript" >Working with JavaScript</option>
+            				
+            					<option value="/docs/nodejs/nodejs-tutorial" >Node.js Tutorial</option>
+            				
+            					<option value="/docs/nodejs/nodejs-debugging" >Node.js Debugging</option>
+            				
+            					<option value="/docs/nodejs/nodejs-deployment" >Deploy Node.js Apps</option>
+            				
+            					<option value="/docs/nodejs/browser-debugging" >Browser Debugging</option>
+            				
+            					<option value="/docs/nodejs/angular-tutorial" >Angular Tutorial</option>
+            				
+            					<option value="/docs/nodejs/reactjs-tutorial" >React Tutorial</option>
+            				
+            					<option value="/docs/nodejs/vuejs-tutorial" >Vue Tutorial</option>
+            				
+            					<option value="/docs/nodejs/emberjs-tutorial" >Ember Tutorial</option>
+            				
+            					<option value="/docs/nodejs/debugging-recipes" >Debugging Recipes</option>
+            				
+            					<option value="/docs/nodejs/profiling" >Performance Profiling</option>
+            				
+            					<option value="/docs/nodejs/extensions" >Extensions</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="TypeScript">
+            				
+            					<option value="/docs/typescript/typescript-tutorial" >Tutorial</option>
+            				
+            					<option value="/docs/typescript/typescript-compiling" >Compiling</option>
+            				
+            					<option value="/docs/typescript/typescript-editing" >Editing</option>
+            				
+            					<option value="/docs/typescript/typescript-refactoring" >Refactoring</option>
+            				
+            					<option value="/docs/typescript/typescript-debugging" >Debugging</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Python">
+            				
+            					<option value="/docs/python/python-tutorial" >Tutorial</option>
+            				
+            					<option value="/docs/python/editing" >Editing Code</option>
+            				
+            					<option value="/docs/python/linting" >Linting</option>
+            				
+            					<option value="/docs/python/debugging" >Debugging</option>
+            				
+            					<option value="/docs/python/environments" selected>Environments</option>
+            				
+            					<option value="/docs/python/testing" >Testing</option>
+            				
+            					<option value="/docs/python/data-science" >Data Science</option>
+            				
+            					<option value="/docs/python/jupyter-support-py" >Python Interactive</option>
+            				
+            					<option value="/docs/python/tutorial-django" >Django Tutorial</option>
+            				
+            					<option value="/docs/python/tutorial-flask" >Flask Tutorial</option>
+            				
+            					<option value="/docs/python/tutorial-create-containers" >Create containers</option>
+            				
+            					<option value="/docs/python/python-on-azure" >Deploy Python Apps</option>
+            				
+            					<option value="/docs/python/python-web" >Python in the Web</option>
+            				
+            					<option value="/docs/python/settings-reference" >Settings Reference</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Java">
+            				
+            					<option value="/docs/java/java-tutorial" >Getting Started</option>
+            				
+            					<option value="/docs/java/java-editing" >Navigate and Edit</option>
+            				
+            					<option value="/docs/java/java-refactoring" >Refactoring</option>
+            				
+            					<option value="/docs/java/java-linting" >Formatting and Linting</option>
+            				
+            					<option value="/docs/java/java-project" >Project Management</option>
+            				
+            					<option value="/docs/java/java-build" >Build Tools</option>
+            				
+            					<option value="/docs/java/java-debugging" >Run and Debug</option>
+            				
+            					<option value="/docs/java/java-testing" >Testing</option>
+            				
+            					<option value="/docs/java/java-spring-boot" >Spring Boot</option>
+            				
+            					<option value="/docs/java/java-tomcat-jetty" >Application Servers</option>
+            				
+            					<option value="/docs/java/java-on-azure" >Deploy Java Apps</option>
+            				
+            					<option value="/docs/java/java-gui" >GUI Applications</option>
+            				
+            					<option value="/docs/java/extensions" >Extensions</option>
+            				
+            					<option value="/docs/java/java-faq" >FAQ</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="C++">
+            				
+            					<option value="/docs/cpp/introvideos-cpp" >Intro Videos</option>
+            				
+            					<option value="/docs/cpp/config-linux" >GCC on Linux</option>
+            				
+            					<option value="/docs/cpp/config-mingw" >GCC on Windows</option>
+            				
+            					<option value="/docs/cpp/config-wsl" >GCC on Windows Subsystem for Linux</option>
+            				
+            					<option value="/docs/cpp/config-clang-mac" >Clang on macOS</option>
+            				
+            					<option value="/docs/cpp/config-msvc" >Microsoft C++ on Windows</option>
+            				
+            					<option value="/docs/cpp/build-with-cmake" >Build with CMake</option>
+            				
+            					<option value="/docs/cpp/cmake-linux" >CMake Tools on Linux</option>
+            				
+            					<option value="/docs/cpp/cpp-ide" >Editing</option>
+            				
+            					<option value="/docs/cpp/cpp-debug" >Debugging</option>
+            				
+            					<option value="/docs/cpp/launch-json-reference" >Configure debugging</option>
+            				
+            					<option value="/docs/cpp/customize-default-settings-cpp" >Settings</option>
+            				
+            					<option value="/docs/cpp/configure-intellisense-crosscompilation" >Configure IntelliSense for cross-compiling</option>
+            				
+            					<option value="/docs/cpp/faq-cpp" >FAQ</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Docker">
+            				
+            					<option value="/docs/containers/overview" >Overview</option>
+            				
+            					<option value="/docs/containers/quickstart-node" >Node.js</option>
+            				
+            					<option value="/docs/containers/quickstart-python" >Python</option>
+            				
+            					<option value="/docs/containers/quickstart-aspnet-core" >ASP.NET Core</option>
+            				
+            					<option value="/docs/containers/debug-common" >Debug</option>
+            				
+            					<option value="/docs/containers/docker-compose" >Docker Compose</option>
+            				
+            					<option value="/docs/containers/quickstart-container-registries" >Registries</option>
+            				
+            					<option value="/docs/containers/app-service" >Deploy to Azure</option>
+            				
+            					<option value="/docs/containers/choosing-dev-environment" >Choose a dev environment</option>
+            				
+            					<option value="/docs/containers/reference" >Customize</option>
+            				
+            					<option value="/docs/containers/bridge-to-kubernetes" >Develop with Kubernetes</option>
+            				
+            					<option value="/docs/containers/troubleshooting" >Tips and Tricks</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Data Science">
+            				
+            					<option value="/docs/datascience/overview" >Overview</option>
+            				
+            					<option value="/docs/datascience/jupyter-notebooks" >Jupyter Notebooks</option>
+            				
+            					<option value="/docs/datascience/data-science-tutorial" >Data Science Tutorial</option>
+            				
+            					<option value="/docs/datascience/python-interactive" >Python Interactive</option>
+            				
+            					<option value="/docs/datascience/pytorch-support" >PyTorch Support</option>
+            				
+            					<option value="/docs/datascience/azure-machine-learning" >Azure Machine Learning</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Azure">
+            				
+            					<option value="/docs/azure/extensions" >Extensions</option>
+            				
+            					<option value="/docs/azure/deployment" >Deployment</option>
+            				
+            					<option value="/docs/azure/remote-debugging" >Remote Debugging for Node.js</option>
+            				
+            					<option value="/docs/azure/docker" >Docker</option>
+            				
+            					<option value="/docs/azure/mongodb" >MongoDB</option>
+            				
+            					<option value="/docs/azure/kubernetes" >Kubernetes</option>
+            				
+            					<option value="/docs/azure/aksextensions" >Azure Kubernetes Service</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Remote">
+            				
+            					<option value="/docs/remote/remote-overview" >Overview</option>
+            				
+            					<option value="/docs/remote/ssh" >SSH</option>
+            				
+            					<option value="/docs/remote/dev-containers" >Dev Containers</option>
+            				
+            					<option value="/docs/remote/wsl" >Windows Subsystem for Linux</option>
+            				
+            					<option value="/docs/remote/codespaces" >GitHub Codespaces</option>
+            				
+            					<option value="/docs/remote/vscode-server" >VS Code Server</option>
+            				
+            					<option value="/docs/remote/tunnels" >Tunnels</option>
+            				
+            					<option value="/docs/remote/ssh-tutorial" >SSH Tutorial</option>
+            				
+            					<option value="/docs/remote/wsl-tutorial" >WSL Tutorial</option>
+            				
+            					<option value="/docs/remote/troubleshooting" >Tips and Tricks</option>
+            				
+            					<option value="/docs/remote/faq" >FAQ</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Dev Containers">
+            				
+            					<option value="/docs/devcontainers/containers" >Overview</option>
+            				
+            					<option value="/docs/devcontainers/tutorial" >Tutorial</option>
+            				
+            					<option value="/docs/devcontainers/attach-container" >Attach to Container</option>
+            				
+            					<option value="/docs/devcontainers/create-dev-container" >Create a Dev Container</option>
+            				
+            					<option value="/docs/devcontainers/containers-advanced" >Advanced Containers</option>
+            				
+            					<option value="/docs/devcontainers/devcontainerjson-reference" >devcontainer.json</option>
+            				
+            					<option value="/docs/devcontainers/devcontainer-cli" >Dev Container CLI</option>
+            				
+            					<option value="/docs/devcontainers/tips-and-tricks" >Tips and Tricks</option>
+            				
+            					<option value="/docs/devcontainers/faq" >FAQ</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            		
+            	</select>
+            </nav>        </div>
+        <div class="col-sm-9 col-md-8 body">
+            <div class="edit-github pull-right">
+                <a href="https://vscode.dev/github/microsoft/vscode-docs/blob/main/docs/python/environments.md"
+                    class="btn btn-default" title="Edit this document in vscode.dev">
+                    <span class="glyphicon glyphicon-pencil"></span>
+                    <span class="hidden-xs">Edit</span>
+                </a>
+            </div>
+            <h1>Using Python environments in VS Code</h1>
+<p>This article discusses the helpful Python environments features available in Visual Studio Code. An &quot;environment&quot; in Python is the context in which a Python program runs and consists of an interpreter and any number of installed packages.</p>
+<blockquote>
+<p><strong>Note</strong>: If you'd like to become more familiar with the Python programming language, review <a href="#_more-python-resources">More Python resources</a>.</p>
+</blockquote>
+<h2 id="_python-environments" data-needslink="_python-environments">Python environments</h2>
+<h3 id="_global-environments" data-needslink="_global-environments">Global environments</h3>
+<p>By default, any Python interpreter installed runs in its own <strong>global environment</strong>. They aren't specific to a particular project. For example, if you just run <code>python</code>, <code>python3</code>, or <code>py</code> at a new terminal (depending on how you installed Python), you're running in that interpreter's global environment. Any packages that you install or uninstall affect the global environment and all programs that you run within it.</p>
+<p>Working in the global environment is an easy way to get started. If you install packages in that environment, though, in time it will become crowded and make it difficult to properly test an application.</p>
+<h3 id="_virtual-environments" data-needslink="_virtual-environments">Virtual environments</h3>
+<p>To prevent such clutter, developers often create a <strong>virtual environment</strong> for a project. A virtual environment is a folder that contains a copy (or symlink) of a specific interpreter. When you install into a virtual environment, any packages you install are installed only in that subfolder. When you then run a Python program within that environment, you know that it's running against only those specific packages.</p>
+<blockquote>
+<p><strong>Note</strong>: While it's possible to open a virtual environment folder as a workspace, doing so is not recommended and might cause issues with using the Python extension.</p>
+</blockquote>
+<h3 id="_python-environment-tools" data-needslink="_python-environment-tools">Python environment tools</h3>
+<p>Once you activate your virtual environment, you’ll need to identify how to manage it and its accompanying packages. The following table explains how to use these Python environments:</p>
+<table class="table table-striped">
+<thead>
+<tr>
+<th style="text-align:center">Tool</th>
+<th>Definition and Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">pip</td>
+<td>The Python package manager that installs and updates packages. It's installed with Python 3.9+ by default (install <code>python3-pip</code> on Debian-based OSs).</td>
+</tr>
+<tr>
+<td style="text-align:center">venv</td>
+<td>Allows you to manage separate package installations for different projects and is installed with Python 3 by default (install <code>python3-venv</code> if you are using a Debian-based OS)</td>
+</tr>
+<tr>
+<td style="text-align:center">conda</td>
+<td>Installed with <strong>Anaconda</strong> and <strong>Miniconda</strong>. It can be used to manage both packages and virtual environments. Generally used for data science projects.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_conda-environments" data-needslink="_conda-environments">Conda environments</h3>
+<p>A <strong>conda environment</strong> is a Python environment that's managed using the <code>conda</code> package manager (see <a href="https://conda.io/projects/conda/en/latest/user-guide/getting-started.html" class="external-link" target="_blank">Getting started with conda</a> (conda.io)). Whether to use a conda environment or a virtual one will depend on your packaging needs, what your team has standardized on, etc.</p>
+<h3 id="_where-the-extension-looks-for-environments" data-needslink="_where-the-extension-looks-for-environments">Where the extension looks for environments</h3>
+<p>The extension automatically looks for interpreters in the following locations:</p>
+<ul>
+<li>Standard install paths such as <code>/usr/local/bin</code>, <code>/usr/sbin</code>, <code>/sbin</code>, <code>c:\\python27</code>, <code>c:\\python36</code>, etc.</li>
+<li>Virtual environments located directly under the workspace (project) folder.</li>
+<li>Virtual environments located in the folder identified by the <code>python.venvPath</code> setting (see <a href="settings-reference.html#_general-python-settings">General Python settings</a>), which can contain multiple virtual environments. The extension looks for virtual environments in the first-level subfolders of <code>venvPath</code>.</li>
+<li>Virtual environments located in a <code>~/.virtualenvs</code> folder for <a href="https://virtualenvwrapper.readthedocs.io/" class="external-link" target="_blank">virtualenvwrapper</a>.</li>
+<li>Interpreters installed by <a href="https://github.com/pyenv/pyenv" class="external-link" target="_blank">pyenv</a>, <a href="https://pypi.org/project/pipenv/" class="external-link" target="_blank">Pipenv</a>, and <a href="https://poetry.eustace.io/" class="external-link" target="_blank">Poetry</a>.</li>
+<li>Virtual environments located in the path identified by <code>WORKON_HOME</code> (as used by <a href="https://virtualenvwrapper.readthedocs.io/" class="external-link" target="_blank">virtualenvwrapper</a>).</li>
+<li>Conda environments found by <code>conda env list</code>. Conda environments which do not have an interpreter will have one installed for them upon selection.</li>
+<li>Interpreters installed in a <code>.direnv</code> folder for <a href="https://direnv.net/" class="external-link" target="_blank">direnv</a> under the workspace (project) folder.</li>
+</ul>
+<p>You can also <a href="#_manually-specify-an-interpreter">manually specify an interpreter</a> if Visual Studio Code doesn't locate your interpreter automatically.</p>
+<blockquote>
+<p><strong>Note</strong>: Once the <a href="#_select-and-activate-an-environment">&quot;select interpreter&quot; flow</a> is triggered, <a href="https://pipenv.readthedocs.io/" class="external-link" target="_blank">pipenv</a> environments for the workspace folder will be searched for. If one is found, then no other interpreters are searched for or listed as pipenv expects to manage all aspects.</p>
+</blockquote>
+<p>The extension also loads an <a href="#_environment-variable-definitions-file">environment variable definitions file</a> identified by the <code>python.envFile</code> setting. The default value of this setting is <code>${workspaceFolder}/.env</code>.</p>
+<h2 id="_creating-environments" data-needslink="_creating-environments">Creating environments</h2>
+<h3 id="_using-the-create-environment-command" data-needslink="_using-the-create-environment-command">Using the Create Environment command</h3>
+<p>From within VS Code, you can create non-global environments, using virtual environments or Anaconda, by opening the Command Palette (<span class="dynamic-keybinding" data-commandId="workbench.action.showCommands" data-osx="⇧⌘P" data-win="Ctrl+Shift+P" data-linux="Ctrl+Shift+P"><span class="keybinding">⇧⌘P</span> (Windows, Linux <span class="keybinding">Ctrl+Shift+P</span>)</span>), start typing the <strong>Python: Create Environment</strong> command to search, and then select the command.</p>
+<p>The command presents a list of environment types: <strong>Venv</strong> or <strong>Conda</strong>.</p>
+<p><img src="../../assets/docs/python/environments/create_environment_dropdown.png" alt="Create Environment dropdown" loading="lazy"></p>
+<p>If you are creating an environment using <strong>Venv</strong>, the command presents a list of interpreters that can be used as a base for the new virtual environment.</p>
+<p><img src="../../assets/docs/python/environments/interpreters-list.png" alt="Virtual environment interpreter selection" loading="lazy"></p>
+<p>If you are creating an environment using <strong>Conda</strong>, the command presents a list of Python versions that can be used for your project.</p>
+<p><img src="../../assets/docs/python/environments/conda_environment_python_versions.png" alt="Conda environment Python version selection" loading="lazy"></p>
+<p>After selecting the desired interpreter or Python version, a notification will show the progress of the environment creation and the environment folder will appear in your workspace.</p>
+<p><img src="../../assets/docs/python/environments/create_environment_prompt_status.png" alt="Create environment status notification" loading="lazy"></p>
+<blockquote>
+<p><strong>Note</strong>: The command will also install necessary packages outlined in a requirements/dependencies file, such as <code>requirements.txt</code>, <code>pyproject.toml</code>, or <code>environment.yml</code>, located in the project folder.</p>
+</blockquote>
+<h3 id="_create-a-virtual-environment-in-the-terminal" data-needslink="_create-a-virtual-environment-in-the-terminal">Create a virtual environment in the terminal</h3>
+<p>To create a virtual environment, use the following command, where &quot;.venv&quot; is the name of the environment folder:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #008000"># macOS/Linux</span></span>
+<span class="line"><span style="color: #008000"># You may need to run sudo apt-get install python3-venv first</span></span>
+<span class="line"><span style="color: #000000">python3 -m venv .venv</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #008000"># Windows</span></span>
+<span class="line"><span style="color: #008000"># You can also use py -3 -m venv .venv</span></span>
+<span class="line"><span style="color: #000000">python -m venv .venv</span></span>
+<span class="line"></span></code></pre>
+<blockquote>
+<p><strong>Note</strong>: To learn more about the <code>venv</code> module, see <a href="https://docs.python.org/3/library/venv.html" class="external-link" target="_blank">Creation of virtual environments</a> on Python.org.</p>
+</blockquote>
+<p>When you create a new virtual environment, a prompt will be displayed to allow you to select it for the workspace.</p>
+<p><img src="../../assets/docs/python/environments/python-environment-prompt.png" alt="Python environment prompt" loading="lazy"></p>
+<p>This will add the path to the Python interpreter from the new virtual environment to your workspace settings. That environment will then be used when installing packages and running code through the Python extension. For examples of using virtual environment in projects, see the <a href="python-tutorial.html">Python</a>, <a href="tutorial-django.html">Django</a>, and <a href="tutorial-flask.html">Flask</a> tutorials.</p>
+<blockquote>
+<p><strong>Tip</strong>: When you're ready to deploy the application to other computers, you can create a <code>requirements.txt</code> file with the command <code>pip freeze &gt; requirements.txt</code> (<code>pip3</code> on macOS/Linux). The requirements file describes the packages you've installed in your virtual environment. With only this file, you or other developers can restore those packages using <code>pip install -r requirements.txt</code> (or, again, <code>pip3</code> on macOS/Linux). By using a requirements file, you need not commit the virtual environment itself to source control.</p>
+</blockquote>
+<h3 id="_create-a-conda-environment-in-the-terminal" data-needslink="_create-a-conda-environment-in-the-terminal">Create a conda environment in the terminal</h3>
+<p>The Python extension automatically detects existing conda environments. We recommend you install a Python interpreter into your conda environment, otherwise one will be installed for you after you select the environment. For example, the following command creates a conda environment with the Python 3.9 interpreter and several libraries, which VS Code then shows in the list of available interpreters:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #000000">conda create -n env-01 python=3.9 scipy=0.15.0 astroid babel</span></span>
+<span class="line"></span></code></pre>
+<p>In contrast, if you fail to specify an interpreter, as with <code>conda create --name env-00</code>, the environment won't appear in the list.</p>
+<p>For more information on the conda command line, see <a href="https://conda.io/docs/user-guide/tasks/manage-environments.html" class="external-link" target="_blank">Conda environments</a> (conda.io).</p>
+<p>Additional notes:</p>
+<ul>
+<li>If you create a new conda environment while VS Code is running, use the refresh icon on the top right of the <strong>Python: Select Interpreter</strong> window; otherwise you may not see the environment there.</li>
+</ul>
+<p><img src="../../assets/docs/python/environments/conda-environment-refresh.png" alt="Conda environment refresh icon" loading="lazy"></p>
+<ul>
+<li>
+<p>To ensure the environment is set up well from a shell perspective, one option is to use an Anaconda prompt with the activated environment to launch VS Code using the <code>code .</code> command. At that point you just need to select the interpreter using the Command Palette or by clicking on the status bar.</p>
+</li>
+<li>
+<p>Although the Python extension for VS Code doesn't currently have direct integration with conda environment.yml files, VS Code itself is a great YAML editor.</p>
+</li>
+<li>
+<p>Conda environments can't be automatically activated in the VS Code Integrated Terminal if the default shell is set to PowerShell. To change the shell, see <a href="../terminal/profiles.html">Integrated terminal - Terminal profiles</a>.</p>
+</li>
+<li>
+<p>You can manually specify the path to the conda executable to use for activation (version 4.4+). To do so, open the Command Palette (<span class="dynamic-keybinding" data-commandId="workbench.action.showCommands" data-osx="⇧⌘P" data-win="Ctrl+Shift+P" data-linux="Ctrl+Shift+P"><span class="keybinding">⇧⌘P</span> (Windows, Linux <span class="keybinding">Ctrl+Shift+P</span>)</span>) and enter <strong>Preferences: Open User Settings</strong>. Then set <code>python.condaPath</code>, which is in the Python extension section of User Settings, with the appropriate path.</p>
+</li>
+</ul>
+<h2 id="_work-with-python-interpreters" data-needslink="_work-with-python-interpreters">Work with Python interpreters</h2>
+<h3 id="_select-and-activate-an-environment" data-needslink="_select-and-activate-an-environment">Select and activate an environment</h3>
+<p>By default, the Python extension looks for and uses the first Python interpreter it finds in the system path. To select a specific environment, use the <strong>Python: Select Interpreter</strong> command from the <strong>Command Palette</strong> (<span class="dynamic-keybinding" data-commandId="workbench.action.showCommands" data-osx="⇧⌘P" data-win="Ctrl+Shift+P" data-linux="Ctrl+Shift+P"><span class="keybinding">⇧⌘P</span> (Windows, Linux <span class="keybinding">Ctrl+Shift+P</span>)</span>).</p>
+<p><img src="../../assets/docs/python/environments/select-interpreters-command.png" alt="Python: Select Interpreter command" loading="lazy"></p>
+<blockquote>
+<p><strong>Note</strong>: If the Python extension doesn't find an interpreter, it issues a warning. On macOS, the extension also issues a warning if you're using the OS-installed Python interpreter, because you typically want to use an interpreter you install directly. In either case, you can disable these warnings by setting <code>python.disableInstallationCheck</code> to <code>true</code> in your user <a href="../getstarted/settings.html">settings</a>.</p>
+</blockquote>
+<p>You can switch environments at any time; switching environments helps you test different parts of your project with different interpreters or library versions as needed.</p>
+<p>The <strong>Python: Select Interpreter</strong> command displays a list of available global environments, conda environments, and virtual environments. (See the <a href="#_where-the-extension-looks-for-environments">Where the extension looks for environments</a> section for details, including the distinctions between these types of environments.) The following image, for example, shows several Anaconda and CPython installations along with a conda environment and a virtual environment (<code>env</code>) that's located within the workspace folder:</p>
+<p><img src="../../assets/docs/python/environments/interpreters-list.png" alt="List of interpreters" loading="lazy"></p>
+<blockquote>
+<p><strong>Note:</strong> On Windows, it can take a little time for VS Code to detect available conda environments. During that process, you may see &quot;(cached)&quot; before the path to an environment. The label indicates that VS Code is presently working with cached information for that environment.</p>
+</blockquote>
+<p>If you have a folder or a workspace open in VS Code and you select an interpreter from the list, the Python extension will store that information internally so that the same interpreter will be used once you reopen the workspace.</p>
+<p>The Python extension uses the selected environment for running Python code (using the <strong>Python: Run Python File in Terminal</strong> command), providing language services (auto-complete, syntax checking, linting, formatting, etc.) when you have a <code>.py</code> file open in the editor, and opening a terminal with the <strong>Terminal: Create New Terminal</strong> command. In the latter case, VS Code automatically activated the selected environment.</p>
+<blockquote>
+<p><strong>Tip</strong>: To prevent automatic activation of a selected environment, add  <code>&quot;python.terminal.activateEnvironment&quot;: false</code> to your <code>settings.json</code> file (it can be placed anywhere as a sibling to the existing settings).</p>
+</blockquote>
+<blockquote>
+<p><strong>Tip</strong>: If the activate command generates the message &quot;Activate.ps1 is not digitally signed. You cannot run this script on the
+current system.&quot;, then you need to temporarily change the PowerShell execution policy to allow scripts to
+run (see <a href="https://go.microsoft.com/fwlink/?LinkID=135170" class="external-link" target="_blank">About Execution Policies</a> in the PowerShell documentation):
+<code>Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process</code></p>
+</blockquote>
+<blockquote>
+<p><strong>Note</strong>: By default, VS Code uses the interpreter selected for your workspace when debugging code. You can override this behavior by specifying a different path in the <code>python</code> property of a debug configuration. See <a href="#_choose-a-debugging-environment">Choose a debugging environment</a>.</p>
+</blockquote>
+<p>The selected interpreter version will show on the right side of the Status Bar.</p>
+<p><img src="../../assets/docs/python/environments/selected-interpreter-status-bar.png" alt="Status Bar showing a selected interpreter" loading="lazy"></p>
+<p>The Status Bar also reflects when no interpreter is selected.</p>
+<p><img src="../../assets/docs/python/environments/no-interpreter-selected-statusbar.png" alt="No interpreter selected" loading="lazy"></p>
+<p>In either case, clicking this area of the Status Bar is a convenient shortcut for the <strong>Python: Select Interpreter</strong> command.</p>
+<blockquote>
+<p><strong>Tip</strong>: If you have any problems with VS Code recognizing a virtual environment, please <a href="https://github.com/microsoft/vscode-python/issues" class="external-link" target="_blank">file an issue</a> in the extension repository so we can help determine the cause.</p>
+</blockquote>
+<h3 id="_manually-specify-an-interpreter" data-needslink="_manually-specify-an-interpreter">Manually specify an interpreter</h3>
+<p>If VS Code doesn't automatically locate an interpreter you want to use, you can browse for the interpreter on your file system or provide the path to it manually.</p>
+<p>You can do so by running the <strong>Python: Select Interpreter</strong> command and clicking on the <strong>Enter interpreter path...</strong> option that shows on the top of the interpreters list:</p>
+<p><img src="../../assets/docs/python/environments/enter-interpreter-path.png" alt="Enter interpreter path option on the interpreters list" loading="lazy"></p>
+<p>You can then either enter the full path of the Python interpreter directly in the text box (for example, &quot;.venv/Scripts/python.exe&quot;), or you can select the <strong>Find...</strong> button and browse your file system to find the python executable you wish to select.</p>
+<p><img src="../../assets/docs/python/environments/enter-or-find-interpreter.png" alt="Enter path or browse for an interpreter" loading="lazy"></p>
+<p>If you want to manually specify a default interpreter that will be used once you first open your workspace, you can create or modify an entry for <code>python.defaultInterpreterPath</code> setting in your workspace <code>settings.json</code> with the full path to the Python executable.</p>
+<p>For example:</p>
+<ul>
+<li>
+<p>Windows:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #000000">{</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;python.defaultInterpreterPath&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;c:/python39/python.exe&quot;</span></span>
+<span class="line"><span style="color: #000000">}</span></span>
+<span class="line"></span></code></pre>
+</li>
+<li>
+<p>macOS/Linux:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #000000">{</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;python.defaultInterpreterPath&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;/home/python39/python&quot;</span></span>
+<span class="line"><span style="color: #000000">}</span></span>
+<span class="line"></span></code></pre>
+</li>
+</ul>
+<p>You can also use <code>python.defaultInterpreterPath</code> to point to a virtual environment, for example:</p>
+<ul>
+<li>
+<p>Windows:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #000000">{</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;python.defaultInterpreterPath&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;c:/dev/ala/venv/Scripts/python.exe&quot;</span></span>
+<span class="line"><span style="color: #000000">}</span></span>
+<span class="line"></span></code></pre>
+</li>
+<li>
+<p>macOS/Linux:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #000000">{</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #0451A5">&quot;python.defaultInterpreterPath&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;/home/abc/dev/ala/venv/bin/python&quot;</span></span>
+<span class="line"><span style="color: #000000">}</span></span>
+<span class="line"></span></code></pre>
+</li>
+</ul>
+<blockquote>
+<p><strong>Note</strong>: Changes to the <code>python.defaultInterpreterPath</code> setting are not picked up after an interpreter has already been selected for a workspace; any changes to the setting will be ignored once an initial interpreter is selected for the workspace.</p>
+</blockquote>
+<p>Additionally, if you'd like to set up a default interpreter to all of your Python applications, you can add an entry for <code>python.defaultInterpreterPath</code> manually inside your User Settings. To do so, open the Command Palette (<span class="dynamic-keybinding" data-commandId="workbench.action.showCommands" data-osx="⇧⌘P" data-win="Ctrl+Shift+P" data-linux="Ctrl+Shift+P"><span class="keybinding">⇧⌘P</span> (Windows, Linux <span class="keybinding">Ctrl+Shift+P</span>)</span>) and enter <strong>Preferences: Open User Settings</strong>. Then set <code>python.defaultInterpreterPath</code>, which is in the Python extension section of User Settings, with the appropriate interpreter.</p>
+<p>You can also use an environment variable in the path setting using the syntax <code>${env:VARIABLE}</code>. For example, if you've created a variable named <code>PYTHON_INSTALL_LOC</code> with a path to an interpreter, you can then use the following setting value:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #A31515">&quot;python.defaultInterpreterPath&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;${env:PYTHON_INSTALL_LOC}&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"></span></code></pre>
+<blockquote>
+<p><strong>Note</strong>: Variable substitution is only supported in VS Code settings files, it will not work in <code>.env</code> environment files.</p>
+</blockquote>
+<p>By using an environment variable, you can easily transfer a project between operating systems where the paths are different, just be sure to set the environment variable on the operating system first.</p>
+<h3 id="_environments-and-terminal-windows" data-needslink="_environments-and-terminal-windows">Environments and Terminal windows</h3>
+<p>After using <strong>Python: Select Interpreter</strong>, that interpreter is applied when right-clicking a file and selecting <strong>Python: Run Python File in Terminal</strong>. The environment is also activated automatically when you use the <strong>Terminal: Create New Terminal</strong> command unless you change the <code>python.terminal.activateEnvironment</code> setting to <code>false</code>.</p>
+<p>However, launching VS Code from a shell in which a certain Python environment is activated doesn't automatically activate that environment in the default Integrated Terminal. Use the <strong>Terminal: Create New Terminal</strong> command after VS Code is running.</p>
+<blockquote>
+<p><strong>Note:</strong> conda environments cannot be automatically activated in the integrated terminal if PowerShell is set as the integrated shell. See <a href="../terminal/profiles.html">Integrated terminal - Terminal profiles</a> for how to change the shell.</p>
+</blockquote>
+<p>Any changes you make to an activated environment within the terminal are persistent. For example, using <code>conda install &lt;package&gt;</code> from the terminal with a conda environment activated installs the package into that environment permanently. Similarly, using <code>pip install</code> in a terminal with a virtual environment activated adds the package to that environment.</p>
+<p>Changing interpreters with the <strong>Python: Select Interpreter</strong> command doesn't affect terminal panels that are already open. You can thus activate separate environments in a split terminal: select the first interpreter, create a terminal for it, select a different interpreter, then use the split button (<span class="dynamic-keybinding" data-commandId="workbench.action.terminal.split" data-osx="⌘\" data-win="Ctrl+Shift+5" data-linux="Ctrl+Shift+5"><span class="keybinding">⌘\</span> (Windows, Linux <span class="keybinding">Ctrl+Shift+5</span>)</span>) in the terminal title bar.</p>
+<h3 id="_choose-a-debugging-environment" data-needslink="_choose-a-debugging-environment">Choose a debugging environment</h3>
+<p>By default, the debugger will use the Python interpreter you've selected with the Python extension. However, if you have a <code>python</code> property in the debug configuration of <code>launch.json</code>, that interpreter is used instead. To be more specific, VS Code will give precedence to the <code>python</code> property of the selected debug configuration in <code>launch.json</code>. If it's not defined, then it will use the path to the Python interpreter you've selected for your workspace.</p>
+<p>For more details on debug configuration, see <a href="debugging.html">Debugging configurations</a>.</p>
+<h3 id="_limited-support-for-python-27" data-needslink="_limited-support-for-python-27">Limited support for Python 2.7</h3>
+<p>The Python extension no longer offers IntelliSense support for Python 2.7 with <a href="https://pypi.org/project/jedi/" class="external-link" target="_blank">Jedi</a> as it only supports Python 3 at this point. When using Python 2.7 with the Python extension you can customize the <a href="settings-reference.html#_intellisense-engine-settings">language server setting</a> to either turn off auto-completions or select Pylance as your language server, as it may provide a good experience if the code is compatible enough with Python 3.</p>
+<p>We currently support selecting Python 2.7 as an interpreter in your workspace. Because <a href="https://www.python.org/doc/sunset-python-2/" class="external-link" target="_blank">Python 2.7 is no longer maintained as of January 2020</a>, we strongly suggest you to upgrade your code to Python 3 as soon as you can. You can <a href="https://docs.python.org/3/howto/pyporting.html" class="external-link" target="_blank">learn how to port your code to Python 3</a> if you need help.</p>
+<h2 id="_environment-variables" data-needslink="_environment-variables">Environment variables</h2>
+<h3 id="_environment-variable-definitions-file" data-needslink="_environment-variable-definitions-file">Environment variable definitions file</h3>
+<p>An environment variable definitions file is a simple text file containing key-value pairs in the form of <code>environment_variable=value</code>, with <code>#</code> used for comments. Multiline values aren't supported, but values can refer to any other environment variable that's already defined in the system or earlier in the file. For more information, see <a href="#_variable-substitution">Variable substitution</a>. Environment variable definitions files can be used for scenarios such as debugging and tool execution (including linters, formatters, IntelliSense, and testing tools), but aren't applied to the terminal.</p>
+<p>By default, the Python extension looks for and loads a file named <code>.env</code> in the current workspace folder, then applies those definitions. The file is identified by the default entry <code>&quot;python.envFile&quot;: &quot;${workspaceFolder}/.env&quot;</code> in your user settings (see <a href="settings-reference.html#_general-python-settings">General Python settings</a>). You can change the <code>python.envFile</code> setting at any time to use a different definitions file.</p>
+<blockquote>
+<p><strong>Note</strong>: Environment definition files are not used in all situations where environment variables are available for use. Unless Visual Studio Code documentation states otherwise, these only affect certain scenarios as per their definition. For example: The extension doesn't use environment definition files when resolving setting values.</p>
+</blockquote>
+<p>A debug configuration also contains an <code>envFile</code> property that also defaults to the <code>.env</code> file in the current workspace (see <a href="debugging.html#_set-configuration-options">Debugging - Set configuration options</a>). This property allows you to easily set variables for debugging purposes that replace variables specified in the default <code>.env</code> file.</p>
+<p>For example, when developing a web application, you might want to easily switch between development and production servers. Instead of coding the different URLs and other settings into your application directly, you could use separate definitions files for each. For example:</p>
+<p><strong>dev.env file</strong></p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #008000"># dev.env - development configuration</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #008000"># API endpoint</span></span>
+<span class="line"><span style="color: #000000">MYPROJECT_APIENDPOINT=https://my.domain.com/api/dev/</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #008000"># Variables for the database</span></span>
+<span class="line"><span style="color: #000000">MYPROJECT_DBURL=https://my.domain.com/db/dev</span></span>
+<span class="line"><span style="color: #000000">MYPROJECT_DBUSER=devadmin</span></span>
+<span class="line"><span style="color: #000000">MYPROJECT_DBPASSWORD=!dfka**213=</span></span>
+<span class="line"></span></code></pre>
+<p><strong>prod.env file</strong></p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #008000"># prod.env - production configuration</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #008000"># API endpoint</span></span>
+<span class="line"><span style="color: #000000">MYPROJECT_APIENDPOINT=https://my.domain.com/api/</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #008000"># Variables for the database</span></span>
+<span class="line"><span style="color: #000000">MYPROJECT_DBURL=https://my.domain.com/db/</span></span>
+<span class="line"><span style="color: #000000">MYPROJECT_DBUSER=coreuser</span></span>
+<span class="line"><span style="color: #000000">MYPROJECT_DBPASSWORD=kKKfa98*11@</span></span>
+<span class="line"></span></code></pre>
+<p>You can then set the <code>python.envFile</code> setting to <code>${workspaceFolder}/prod.env</code>, then set the <code>envFile</code> property in the debug configuration to <code>${workspaceFolder}/dev.env</code>.</p>
+<blockquote>
+<p><strong>Note</strong>: When environment variables are specified using multiple methods, be aware that there is an order of precedence. All <code>env</code> variables defined in the <code>launch.json</code> file will override variables contained in the <code>.env</code> file, specified by the <code>python.envFile</code> setting (user or workspace). Similarly, <code>env</code> variables defined in the <code>launch.json</code> file will override the environment variables defined in the <code>envFile</code> that are specified in <code>launch.json</code>.</p>
+</blockquote>
+<h3 id="_variable-substitution" data-needslink="_variable-substitution">Variable substitution</h3>
+<p>When defining an environment variable in a definitions file, you can use the value of any existing environment variable with the following general syntax:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #000000">&lt;VARIABLE&gt;=...</span><span style="color: #001080">${env</span><span style="color: #000000">:</span><span style="color: #001080">EXISTING_VARIABLE}</span><span style="color: #000000">...</span></span>
+<span class="line"></span></code></pre>
+<p>where <code>...</code> means any other text as used in the value. The curly braces are required.</p>
+<p>Within this syntax, the following rules apply:</p>
+<ul>
+<li>Variables are processed in the order they appear in the <code>.env</code> file, so you can use any variable that's defined earlier in the file.</li>
+<li>Single or double quotes don't affect substituted value and are included in the defined value. For example, if the value of <code>VAR1</code> is <code>abcedfg</code>, then <code>VAR2='${env:VAR1}'</code> assigns the value <code>'abcedfg'</code> to <code>VAR2</code>.</li>
+<li>The <code>$</code> character can be escaped with a backslash, as in <code>\$</code>.</li>
+<li>You can use recursive substitution, such as <code>PYTHONPATH=${env:PROJ_DIR}:${env:PYTHONPATH}</code> (where <code>PROJ_DIR</code> is any other environment variable).</li>
+<li>You can use only simple substitution; nesting such as <code>${_${env:VAR1}_EX}</code> isn't supported.</li>
+<li>Entries with unsupported syntax are left as-is.</li>
+</ul>
+<h3 id="_use-of-the-pythonpath-variable" data-needslink="_use-of-the-pythonpath-variable">Use of the PYTHONPATH variable</h3>
+<p>The <a href="https://docs.python.org/3/using/cmdline.html#envvar-PYTHONPATH" class="external-link" target="_blank">PYTHONPATH</a> environment variable specifies additional locations where the Python interpreter should look for modules. In VS Code, PYTHONPATH can be set through the terminal settings (terminal.integrated.env.*) and/or within an <code>.env</code> file.</p>
+<p>When the terminal settings are used, PYTHONPATH affects any tools that are run within the terminal by a user, as well as any action the extension performs for a user that is routed through the terminal such as debugging. However, in this case when the extension is performing an action that isn't routed through the terminal, such as the use of a linter or formatter, then this setting won't have an effect on module look-up.</p>
+<p>When PYTHONPATH is set using an <code>.env</code> file, it will affect anything the extension does on your behalf and actions performed by the debugger, but it will not affect tools run in the terminal.</p>
+<p>If needed, you can set PYTHONPATH using both methods.</p>
+<p>An example of when to use PYTHONPATH would be if you have source code in a <code>src</code> folder and tests in a <code>tests</code> folder. When running tests, however, those tests can't normally access modules in <code>src</code> unless you hard-code relative paths.</p>
+<p>To solve this problem, you could add the path to <code>src</code> to PYTHONPATH by creating an <code>.env</code> file within your VS Code workspace.</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #000000">PYTHONPATH=src</span></span>
+<span class="line"></span></code></pre>
+<p>Then set <code>python.envFile</code> in your <code>settings.json</code> file to point to the <code>.env</code> file you just created. For example, if the <code>.env</code> file was in your workspace root, your <code>settings.json</code> would be set as shown:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #A31515">&quot;python.envFile&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;${workspaceFolder}/.env&quot;</span></span>
+<span class="line"></span></code></pre>
+<p>The value of PYTHONPATH can contain multiple locations separated by <code>os.pathsep</code>: a semicolon (<code>;</code>) on Windows and a colon (<code>:</code>) on Linux/macOS. Invalid paths are ignored. If you find that your value for PYTHONPATH isn't working as expected, make sure that you're using the correct separator between locations for the operating system. For example, using a colon to separate locations on Windows, or using a semicolon to separate locations on Linux/macOS results in an invalid value for PYTHONPATH, which is ignored.</p>
+<blockquote>
+<p><strong>Note</strong>: PYTHONPATH does <strong>not</strong> specify a path to a Python interpreter itself. For additional information about PYTHONPATH, read the <a href="https://docs.python.org/3/using/cmdline.html#envvar-PYTHONPATH" class="external-link" target="_blank">PYTHONPATH documentation</a>.</p>
+</blockquote>
+<h2 id="_next-steps" data-needslink="_next-steps">Next steps</h2>
+<ul>
+<li><a href="editing.html">Editing code</a> - Learn about autocomplete, IntelliSense, formatting, and refactoring for Python.</li>
+<li><a href="debugging.html">Debugging</a> - Learn to debug Python both locally and remotely.</li>
+<li><a href="testing.html">Testing</a> - Configure test environments and discover, run, and debug tests.</li>
+<li><a href="settings-reference.html">Settings reference</a> - Explore the full range of Python-related settings in VS Code.</li>
+</ul>
+<h2 id="_more-python-resources" data-needslink="_more-python-resources">More Python resources</h2>
+<ul>
+<li><a href="python-tutorial.html">Getting Started with Python in VS Code</a> - Learn how to edit, run, and debug code in VS Code.</li>
+<li><a href="https://docs.python.org/3/tutorial/venv.html" class="external-link" target="_blank">Virtual Environments and Packages (Python.org)</a> - Learn more about virtual environments and packages.</li>
+<li><a href="https://docs.python.org/3/installing/index.html#installing-index" class="external-link" target="_blank">Installing Python Modules (Python.org)</a> - Learn how to install Python modules.</li>
+<li><a href="https://docs.python.org/3/tutorial/index.html" class="external-link" target="_blank">Python tutorial (Python.org)</a> - Learn more about the Python language.</li>
+</ul>
+
+            <div class="feedback"></div>
+            
+            <div class="body-footer">11/3/2022</div>
+            
+        </div>
+        <div class="col-sm-3 col-md-2 docs-subnavbar-container">
+            <nav id="docs-subnavbar" aria-label="On Page" data-spy="affix" data-offset-top="20">
+                
+                <h4><span class="sr-only">In this article there are 6 sections</span><span
+                        aria-hidden="true">In this article</span></h4>
+                <ul class="nav">
+                    
+                    <li><a href="#_python-environments">Python environments</a></li>
+                    
+                    <li><a href="#_creating-environments">Creating environments</a></li>
+                    
+                    <li><a href="#_work-with-python-interpreters">Work with Python interpreters</a></li>
+                    
+                    <li><a href="#_environment-variables">Environment variables</a></li>
+                    
+                    <li><a href="#_next-steps">Next steps</a></li>
+                    
+                    <li><a href="#_more-python-resources">More Python resources</a></li>
+                    
+                </ul>
+                
+                <div class="connect-widget"></div>
+            </nav>
+        </div>
+    </div>
+</div>
+      </div>
+  </div>
+
+  <footer role="contentinfo">
+      <div class="container">
+          <div class="row">
+              <div class="left col-md-7">
+                  <ul class="links">
+                      <li>
+                          <span class="message">Hello from Seattle.</span>
+                      </li>
+                      <li>
+                          <a href="https://go.microsoft.com/fwlink/?LinkID=533687" onclick="followOnTwitter()" tabindex="0">Follow @code</a>
+                      </li>
+                      <li>
+                          <div class="github-star-button">
+                              <iframe src="../../assets/github-button29be.html?user=Microsoft&amp;repo=vscode&amp;type=star&amp;count=true"
+                                  frameborder="0" scrolling="0" width="130px" height="20px" title="GitHub follow button" loading="lazy"></iframe>
+                          </div>
+                      </li>
+  
+                      <script>
+                          function followOnTwitter() {
+                              var windowFeatures = "location=yes,height=600,width=550,scrollbars=yes,status=yes";
+                              var originalReferer = "&original_referer=" + document.URL;
+                              var screenName = "&screen_name=code";
+                              var URL = "https://twitter.com/intent/follow?" + originalReferer + screenName;
+                              window.open(URL, "_blank", windowFeatures);
+                          }
+  
+                          function manageConsent() {
+                              if(WcpConsent.siteConsent.isConsentRequired){
+                                  WcpConsent.siteConsent.manageConsent();
+                              }
+                          }
+                      </script>
+                  </ul>
+              </div>
+              <div class="right col-md-5">
+                  <ul class="links">
+                      <li><a id="footer-support-link" href="https://support.serviceshub.microsoft.com/supportforbusiness/create?sapId=d66407ed-3967-b000-4cfb-2c318cad363d"
+                              target="_blank">Support</a></li>
+                      <li><a id="footer-privacy-link" href="https://privacy.microsoft.com/privacystatement"
+                              target="_blank">Privacy</a></li>
+                      <li style="display: none;"><a id="footer-cookie-link" style="cursor: pointer;" onclick="manageConsent()"
+                              target="_blank">Manage Cookies</a></li>
+                      <li><a id="footer-terms-link" href="https://www.microsoft.com/legal/terms-of-use"
+                              target="_blank">Terms of Use</a></li>
+                      <li><a id="footer-license-link" href="../../License.html">License</a></li>
+                  </ul>
+                  <div class="copyright">
+                      <a id="footer-microsoft-link" class="logo" href="https://www.microsoft.com/">
+                          <img class="microsoft-logo" src="../../assets/images/microsoft-logo.png" height="20" alt="Microsoft homepage"/>
+                          <img class="microsoft-logo-inverted" src="../../assets/images/microsoft-logo-inverted.png" height="20" alt="Microsoft homepage" />
+                      </a>
+                      <span>&copy; 2023 Microsoft</span>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </footer>
+  <script src="../../dist/index.js"></script>
+
+  
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "SoftwareApplication",
+      "name" : "Visual Studio Code",
+      "softwareVersion": "1.74",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "applicationCategory": "DeveloperApplication",
+      "applicationSubCategory": "Text Editor",
+      "alternateName": "VS Code",
+      "datePublished": "2021-11-03",
+      "operatingSystem": "Mac, Linux, Windows",
+      "logo": "https://code.visualstudio.com/assets/apple-touch-icon.png",
+      "screenshot": "https://code.visualstudio.com/assets/home/home-screenshot-win.png",
+      "releaseNotes": "https://code.visualstudio.com/updates",
+      "downloadUrl": "https://code.visualstudio.com/download",
+      "license": "https://code.visualstudio.com/license",
+      "softwareRequirements": "https://code.visualstudio.com/docs/supporting/requirements",
+      "url" : "https://code.visualstudio.com",
+      "author": {
+        "@type": "Organization",
+        "name": "Microsoft"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Microsoft"
+      },
+      "maintainer": {
+        "@type": "Organization",
+        "name": "Microsoft"
+      },
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://code.visualstudio.com/Search?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      },
+      "sameAs" : [
+        "https://en.wikipedia.org/wiki/Visual_Studio_Code",
+        "https://twitter.com/code",
+        "https://www.youtube.com/code",
+        "https://www.tiktok.com/@vscode",
+        "https://github.com/microsoft/vscode"
+      ]
+    }
+  </script>
+</body>
+
+<!-- Mirrored from code.visualstudio.com/docs/python/environments by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 04 Jan 2023 10:09:57 GMT -->
+</html>

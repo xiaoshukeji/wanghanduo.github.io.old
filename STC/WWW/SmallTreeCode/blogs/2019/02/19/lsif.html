@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Mirrored from code.visualstudio.com/blogs/2019/02/19/lsif by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 04 Jan 2023 12:15:16 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="google-site-verification" content="hNs7DXrTySP_X-0P_AC0WulAXvUwgSXEmgfcO2r79dw" />
+
+  <!-- Twitter and Facebook OpenGraph Metadata-->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@code" />
+
+  <meta name="description" content="Rich Code Navigation without Checkout" />
+<meta name="keywords" content="" />
+<!-- Twitter and Facebook OpenGraph Metadata-->
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="og:url" content="lsif.html" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Language Server Index Format" />
+<meta property="og:description" content="Rich Code Navigation without Checkout" />
+
+<meta property="og:image" content="../../../../opengraphimg/opengraph-blog.png" />
+
+
+
+  <link rel="shortcut icon" href="../../../../favicon.ico" sizes="128x128" />
+  <link rel="apple-touch-icon" href="../../../../apple-touch-icon.png">
+
+  <title>Language Server Index Format</title>
+
+  <link rel="stylesheet" href="../../../../vendor/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../../../../dist/style.css">
+
+  <script type="text/javascript" src="../../../../../js.monitor.azure.com/scripts/c/ms.analytics-web-3.min.js"></script>
+  <script>
+  window.appInsights = new oneDS.ApplicationInsights();
+  window.appInsights.initialize({
+    instrumentationKey: "1a3eb3104447440391ad5f2a6ee06a0a-62879566-bc58-4741-9650-302bf2af703f-7103",
+    webAnalyticsConfiguration:{ // Web Analytics Plugin configuration
+        urlCollectQuery:true, 
+        autoCapture: {
+          scroll: true,
+          pageView: true,
+          onLoad: true,
+          onUnload: true,
+          click: true,
+          resize: true,
+          jsError: true
+        }
+    }
+  }, []);
+  </script>
+  
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','../../../../../www.google-analytics.com/analytics.js','ga');
+  </script>  
+  <link rel="alternate" type="application/atom+xml" title="RSS Feed for code.visualstudio.com" href="../../../../feed.xml" />
+</head>
+
+<body>
+  <!-- EU Cookie Compliance JS -->
+  <script src="../../../../../wcpstatic.microsoft.com/mscc/lib/v2/wcp-consent.js"></script>
+
+  <div id="main">
+          <div class="navbar-fixed-container">
+              <div class="navbar navbar-inverse navbar-fixed-top ">
+                  <div id='cookie-banner'></div>        <nav role="navigation" aria-label="Top Level">
+                      <div class="container">
+                          <div class="nav navbar-header">
+                              <a role="button" id="skip-to-content" class="link-button" href="#main-content">Skip to content<i>&nbsp;</i><span class="glyphicon glyphicon-menu-down"></span></a>
+                              <a class="navbar-brand" id="navbar-brand" href="../../../../index.html">Visual Studio Code</a>
+                              <button type="button" class="navbar-toggle" role="navigation" data-toggle="collapse" data-target=".navbar-collapse" aria-label="Toggle Navigation Menu">
+                                  <span class="icon-bar"></span>
+                                  <span class="icon-bar"></span>
+                                  <span class="icon-bar"></span>
+                              </button>
+                          </div>
+                          <div class="navbar-collapse collapse" role="navigation">
+                              <ul class="nav navbar-nav navbar-left">
+                                  <li ><a id="nav-docs" href="../../../../docs.html">Docs</a></li>
+                                  <li ><a id="nav-updates" href="../../../../updates/v1_74.html">Updates</a></li>
+                                  <li class="active" ><a id="nav-blogs" href="../../../../blogs.html">Blog</a></li>
+                                  <li ><a id="nav-extend" href="../../../../api.html">API</a></li>
+                                  <li><a href="https://marketplace.visualstudio.com/VSCode" target="_blank" id="nav-extensions">Extensions</a></li>
+                                  <li ><a id="nav-faqs" href="../../../../docs/supporting/faq.html">FAQ</a></li>
+                                  <li ><a id="nav-learn" href="../../../../learn.html">Learn</a></li>
+                                  <li class='search visible-xs visible-sm'
+                                      ><a href="../../../../Search.html">Search</a></li>
+                              </ul>
+          
+                              <ul class="nav navbar-nav navbar-right" role="presentation">
+                                  <!-- Floating search icon -->
+                                  <li>
+                                      <a href="../../../../Search.html" title="Search" class="btn search-btn" id="nav-search">
+                                          <img class="search-icon" src="../../../../assets/icons/search.svg" width="16px" height="16px" alt="Search"/>
+                                          <img class="search-icon-inverted" src="../../../../assets/icons/search_dark.svg" width="16px" height="16px" alt="Search" />
+                                      </a>
+                                  </li>
+                                  <!-- Actual search icon -->
+                                  <li class="search" role="presentation">
+                                      <form class="nav-search search-form" role="search" aria-label="Search">
+                                          <div class="input-group" role="presentation">
+                                              <input type="text" name="q" class="search-box form-control" placeholder="Search Docs" aria-label="Search text"/>
+                                              <span class="input-group-btn">
+                                                  <button tabindex="0" class="btn" type="submit" aria-label="Search">
+                                                          <img class="search-icon" src="../../../../assets/icons/search.svg" width="16px" height="16px" alt="Search" />
+                                                          <img class="search-icon-inverted" src="../../../../assets/icons/search_dark.svg" width="16px" height="16px" alt="Search" />
+                                                  </button>
+                                              </span>
+                                          </div>
+                                      </form>                        </li>
+                                  <!-- this was hiden in the home and download page, keeping it for now -->
+                                  <li><a class="link-button" href="../../../../Download.html" id="nav-download">
+                                      <img class="download-icon" src="../../../../assets/icons/download.svg" width="16px" height="16px" alt="Download VS Code"/>
+                                      <img class="download-icon-inverted" src="../../../../assets/icons/download-black.svg" width="16px" height="16px" alt="Download VS Code" />
+                                      <span>Download</span>
+                                  </a></li>
+                              </ul>
+                          </div>
+                      </div>
+                  </nav>
+              </div>
+          </div>          <div class="updates-banner  ">
+              <div class="container">
+                  <p class="message"><a href="../../../../updates/v1_74.html" id="banner-link-updates">Version 1.74</a> is now available! Read about the new features and fixes from November.</p> 
+              </div>
+              <div tabindex="0" role="button" title="Dismiss this update" class="dismiss-btn" id="banner-dismiss-btn"><span class="sr-only">Dismiss this update</span><span aria-hidden="true" class="glyph-icon"></span></div>
+          </div>      <div role="main" id="main-content">
+        <div class="container body-content docs blog">
+    <div class="row">
+        <div class="col-md-2 docs-navbar-container">
+            <nav id="docs-navbar" aria-label="Blog posts" class="docs-nav updates-nav visible-md visible-lg">
+            	<h4>Blog posts</h4>
+            	<ul class="nav">
+            		
+            			<li >
+            				<a href="../../../2022/12/07/remote-even-better.html" >Remote Development Even Better</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2022/11/28/vscode-sandbox.html" >VS Code Sandboxing</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2022/10/04/vscode-community-discussions.html" >VS Code Community Discussions</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2022/09/15/dev-container-features.html" >Dev Container Features</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2022/08/16/markdown-language-server.html" >Markdown Language Server</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2022/07/07/vscode-server.html" >The VS Code Server</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2022/05/18/dev-container-cli.html" >Dev container CLI</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2022/04/04/increase-productivity-with-containers.html" >Moving from Local to Remote Development</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2022/03/08/the-tutorial-problem.html" >The problem with tutorials</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2021/11/08/custom-notebooks.html" >Custom Notebooks</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2021/10/20/vscode-dev.html" >vscode.dev</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2021/10/11/webview-ui-toolkit.html" >Webview UI Toolkit</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2021/09/29/bracket-pair-colorization.html" >Bracket Pair Colorization</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2021/08/05/notebooks.html" >Notebooks</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2021/07/06/workspace-trust.html" >Workspace Trust</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2021/06/10/remote-repositories.html" >Remote Repositories</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2021/06/02/build-2021.html" >Build 2021</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2021/02/16/extension-bisect.html" >Extension bisect</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2020/12/03/chromebook-get-started.html" >VS Code on Chromebook</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2020/07/27/containers-edu.html" >Development Containers in Education</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2020/07/01/containers-wsl.html" >Dev Containers in WSL 2</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2020/06/09/go-extension.html" >The Go experience</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2020/05/14/vscode-build-2020.html" >VS Code at Build</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2020/05/06/github-issues-integration.html" >GitHub Issues Integration</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2020/03/02/docker-in-wsl2.html" >Docker in WSL 2</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2020/02/24/custom-data-format.html" >Custom Data Format</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2020/02/18/optimizing-ci.html" >Improving CI Build Times</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../10/31/inspecting-containers.html" >Inspecting Containers</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../10/03/remote-ssh-tips-and-tricks.html" >SSH Tips and Tricks</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../09/03/wsl2.html" >WSL 2</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../07/25/remote-ssh.html" >Remote SSH</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../05/23/strict-null.html" >Strict null checking</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../05/02/remote-development.html" >Remote Development</a>
+            			</li>
+            		
+            			<li class="active">
+            				<a href="lsif.html" aria-label="Current Page: Language Server Index Format">Language Server Index Format</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2018/12/04/rich-navigation.html" >Rich Code Navigation</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2018/11/26/event-stream.html" >Event-Stream Package Security Update</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2018/09/12/engineering-with-azure-pipelines.html" >Using Azure Pipelines</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2018/09/10/introducing-github-pullrequests.html" >GitHub Pull Requests</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2018/08/07/debug-adapter-protocol-website.html" >New home for Debug Adapter Protocol</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2018/07/12/introducing-logpoints-and-auto-attach.html" >Logpoints and auto-attach</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2018/05/07/live-share-public-preview.html" >Live Share Preview</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2018/04/25/bing-settings-search.html" >Settings Search</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2018/03/23/text-buffer-reimplementation.html" >Text Buffer Reimplementation</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/12/20/chrome-debugging.html" >What's New for Chrome Debugging</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/11/16/connect.html" >Connect 2017</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/11/15/live-share.html" >Introducing Live Share</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/10/24/theicon.html" >The Icon Journey</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/10/03/terminal-renderer.html" >Integrated Terminal Performance</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/09/28/java-debug.html" >Java Debugging</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/08/07/emmet-2.html" >Emmet 2.0</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/06/20/great-looking-editor-roundup.html" >Fresh Paint</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/05/10/build-2017-demo.html" >Build 2017 Demo</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/04/10/sublime-text-roundup.html" >Sublime Text Extension Roundup</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/03/07/extension-pack-roundup.html" >Extension Packs</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/02/12/code-lens-roundup.html" >Extensions using CodeLens</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/02/08/syntax-highlighting-optimizations.html" >Optimizations in Syntax Highlighting</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2017/01/15/connect-nina-e2e.html" >Node.js Development with Visual Studio Code and Azure</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2016/12/12/roundup-customize.html" >Customize VS Code Extension Roundup</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2016/11/30/hot-exit-in-insiders.html" >Hot Exit Comes to Insiders</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2016/11/15/formatters-best-practices.html" >Creating a Formatter Extension</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2016/10/31/js_roundup_2.html" >JavaScript Extensions Part 2</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2016/09/14/js_roundup_1.html" >JavaScript Extensions Part 1</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2016/09/08/icon-themes.html" >File Icon Themes</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2016/07/29/extensions-roundup-git.html" >Extensions Roundup - Fun with Git</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2016/06/27/common-language-protocol.html" >The Language Server Protocol</a>
+            			</li>
+            		
+            			<li >
+            				<a href="../../../2016/05/04/extension-roundup-may.html" >Extensions Roundup</a>
+            			</li>
+            		
+            	</ul>
+            </nav>
+            <nav id="small-nav" aria-label="Blog posts" class="docs-nav updates-nav hidden-md hidden-lg">
+            	<h4>Blogs</h4>
+            	<select id="small-nav-dropdown" aria-label="blog posts">
+            		
+            			<option value="/blogs/2022/12/07/remote-even-better" >Remote Development Even Better</option>
+            		
+            			<option value="/blogs/2022/11/28/vscode-sandbox" >VS Code Sandboxing</option>
+            		
+            			<option value="/blogs/2022/10/04/vscode-community-discussions" >VS Code Community Discussions</option>
+            		
+            			<option value="/blogs/2022/09/15/dev-container-features" >Dev Container Features</option>
+            		
+            			<option value="/blogs/2022/08/16/markdown-language-server" >Markdown Language Server</option>
+            		
+            			<option value="/blogs/2022/07/07/vscode-server" >The VS Code Server</option>
+            		
+            			<option value="/blogs/2022/05/18/dev-container-cli" >Dev container CLI</option>
+            		
+            			<option value="/blogs/2022/04/04/increase-productivity-with-containers" >Moving from Local to Remote Development</option>
+            		
+            			<option value="/blogs/2022/03/08/the-tutorial-problem" >The problem with tutorials</option>
+            		
+            			<option value="/blogs/2021/11/08/custom-notebooks" >Custom Notebooks</option>
+            		
+            			<option value="/blogs/2021/10/20/vscode-dev" >vscode.dev</option>
+            		
+            			<option value="/blogs/2021/10/11/webview-ui-toolkit" >Webview UI Toolkit</option>
+            		
+            			<option value="/blogs/2021/09/29/bracket-pair-colorization" >Bracket Pair Colorization</option>
+            		
+            			<option value="/blogs/2021/08/05/notebooks" >Notebooks</option>
+            		
+            			<option value="/blogs/2021/07/06/workspace-trust" >Workspace Trust</option>
+            		
+            			<option value="/blogs/2021/06/10/remote-repositories" >Remote Repositories</option>
+            		
+            			<option value="/blogs/2021/06/02/build-2021" >Build 2021</option>
+            		
+            			<option value="/blogs/2021/02/16/extension-bisect" >Extension bisect</option>
+            		
+            			<option value="/blogs/2020/12/03/chromebook-get-started" >VS Code on Chromebook</option>
+            		
+            			<option value="/blogs/2020/07/27/containers-edu" >Development Containers in Education</option>
+            		
+            			<option value="/blogs/2020/07/01/containers-wsl" >Dev Containers in WSL 2</option>
+            		
+            			<option value="/blogs/2020/06/09/go-extension" >The Go experience</option>
+            		
+            			<option value="/blogs/2020/05/14/vscode-build-2020" >VS Code at Build</option>
+            		
+            			<option value="/blogs/2020/05/06/github-issues-integration" >GitHub Issues Integration</option>
+            		
+            			<option value="/blogs/2020/03/02/docker-in-wsl2" >Docker in WSL 2</option>
+            		
+            			<option value="/blogs/2020/02/24/custom-data-format" >Custom Data Format</option>
+            		
+            			<option value="/blogs/2020/02/18/optimizing-ci" >Improving CI Build Times</option>
+            		
+            			<option value="/blogs/2019/10/31/inspecting-containers" >Inspecting Containers</option>
+            		
+            			<option value="/blogs/2019/10/03/remote-ssh-tips-and-tricks" >SSH Tips and Tricks</option>
+            		
+            			<option value="/blogs/2019/09/03/wsl2" >WSL 2</option>
+            		
+            			<option value="/blogs/2019/07/25/remote-ssh" >Remote SSH</option>
+            		
+            			<option value="/blogs/2019/05/23/strict-null" >Strict null checking</option>
+            		
+            			<option value="/blogs/2019/05/02/remote-development" >Remote Development</option>
+            		
+            			<option value="/blogs/2019/02/19/lsif" selected>Language Server Index Format</option>
+            		
+            			<option value="/blogs/2018/12/04/rich-navigation" >Rich Code Navigation</option>
+            		
+            			<option value="/blogs/2018/11/26/event-stream" >Event-Stream Package Security Update</option>
+            		
+            			<option value="/blogs/2018/09/12/engineering-with-azure-pipelines" >Using Azure Pipelines</option>
+            		
+            			<option value="/blogs/2018/09/10/introducing-github-pullrequests" >GitHub Pull Requests</option>
+            		
+            			<option value="/blogs/2018/08/07/debug-adapter-protocol-website" >New home for Debug Adapter Protocol</option>
+            		
+            			<option value="/blogs/2018/07/12/introducing-logpoints-and-auto-attach" >Logpoints and auto-attach</option>
+            		
+            			<option value="/blogs/2018/05/07/live-share-public-preview" >Live Share Preview</option>
+            		
+            			<option value="/blogs/2018/04/25/bing-settings-search" >Settings Search</option>
+            		
+            			<option value="/blogs/2018/03/23/text-buffer-reimplementation" >Text Buffer Reimplementation</option>
+            		
+            			<option value="/blogs/2017/12/20/chrome-debugging" >What's New for Chrome Debugging</option>
+            		
+            			<option value="/blogs/2017/11/16/connect" >Connect 2017</option>
+            		
+            			<option value="/blogs/2017/11/15/live-share" >Introducing Live Share</option>
+            		
+            			<option value="/blogs/2017/10/24/theicon" >The Icon Journey</option>
+            		
+            			<option value="/blogs/2017/10/03/terminal-renderer" >Integrated Terminal Performance</option>
+            		
+            			<option value="/blogs/2017/09/28/java-debug" >Java Debugging</option>
+            		
+            			<option value="/blogs/2017/08/07/emmet-2.0" >Emmet 2.0</option>
+            		
+            			<option value="/blogs/2017/06/20/great-looking-editor-roundup" >Fresh Paint</option>
+            		
+            			<option value="/blogs/2017/05/10/build-2017-demo" >Build 2017 Demo</option>
+            		
+            			<option value="/blogs/2017/04/10/sublime-text-roundup" >Sublime Text Extension Roundup</option>
+            		
+            			<option value="/blogs/2017/03/07/extension-pack-roundup" >Extension Packs</option>
+            		
+            			<option value="/blogs/2017/02/12/code-lens-roundup" >Extensions using CodeLens</option>
+            		
+            			<option value="/blogs/2017/02/08/syntax-highlighting-optimizations" >Optimizations in Syntax Highlighting</option>
+            		
+            			<option value="/blogs/2017/01/15/connect-nina-e2e" >Node.js Development with Visual Studio Code and Azure</option>
+            		
+            			<option value="/blogs/2016/12/12/roundup-customize" >Customize VS Code Extension Roundup</option>
+            		
+            			<option value="/blogs/2016/11/30/hot-exit-in-insiders" >Hot Exit Comes to Insiders</option>
+            		
+            			<option value="/blogs/2016/11/15/formatters-best-practices" >Creating a Formatter Extension</option>
+            		
+            			<option value="/blogs/2016/10/31/js_roundup_2" >JavaScript Extensions Part 2</option>
+            		
+            			<option value="/blogs/2016/09/14/js_roundup_1" >JavaScript Extensions Part 1</option>
+            		
+            			<option value="/blogs/2016/09/08/icon-themes" >File Icon Themes</option>
+            		
+            			<option value="/blogs/2016/07/29/extensions-roundup-git" >Extensions Roundup - Fun with Git</option>
+            		
+            			<option value="/blogs/2016/06/27/common-language-protocol" >The Language Server Protocol</option>
+            		
+            			<option value="/blogs/2016/05/04/extension-roundup-may" >Extensions Roundup</option>
+            		
+            	</select>
+            </nav>        </div>
+        <div class="col-sm-9 col-md-8 body">
+            <h1>The Language Server Index Format (LSIF)</h1>
+<p>February 19, 2019 by Dirk Bäumer</p>
+<h2 id="_rich-code-navigation-without-checkout" data-needslink="_rich-code-navigation-without-checkout">Rich code navigation without checkout</h2>
+<p>As a developer, you spend a lot of your time reading and reviewing code and not necessarily authoring new source code. For example, you may want to browse an existing codebase in a repository like GitHub or you may want to review a colleague's Pull Request.</p>
+<p>Typically you would check out a branch or clone a repository pulling down the source code onto your local machine, open your preferred development tool, and then finally you can read and navigate the code. Wouldn't it be cool if you could do this without first cloning the repo? Imagine getting intelligent code features like hover information, Go to Definition, and Find All References without having to download source code. The blog post, <a href="../../../2018/12/04/rich-navigation.html">First look at a rich code navigation experience</a>, illustrates this scenario for a Pull Request review.</p>
+<p>The goal of the Language Server Index Format (LSIF, pronounced like &quot;else if&quot;) is to support rich code navigation in development tools or a Web UI without needing a local copy of the source code. The format is similar in spirit to the <a href="https://microsoft.github.io/language-server-protocol/" class="external-link" target="_blank">Language Server Protocol</a> (LSP), which simplifies the integration of rich code editing capabilities into a development tool.</p>
+<p>Why not simply use an existing LSP language server? The LSP provides rich code authoring features like auto complete, format on type, and rich code navigation. To provide these features efficiently, a language server requires all source code files be available on a local disk. LSP language servers may also read parts or all of the files into memory and compute abstract syntax trees to power these features. The goal of the Language Server Index Format is to augment the LSP protocol to support rich code navigation features without these requirements. The LSIF defines a standard format for language servers or other programming tools to emit their knowledge about a code workspace. This persisted information can later be used to answer LSP requests for the same workspace without running a language server.</p>
+<h2 id="_language-server-index-format" data-needslink="_language-server-index-format">Language Server Index Format</h2>
+<p>LSIF builds on LSP and it uses the same data types as defined in LSP. At a high level, LSIF models the data returned from language server requests. Same as LSP, LSIF doesn't contain any program symbol information nor does the LSIF define any symbol semantics (for example, what makes the definition of a symbol or whether a method overrides another method). The LSIF therefore doesn't define a symbol database, which is consistent with the LSP approach.</p>
+<p>Using the existing LSP data types as the base for LSIF has another advantage as LSIF can easily be integrated into tools or servers which already understand LSP.</p>
+<p>Let's have a look at an example. We start with a simple Typescript file named <code>sample.ts</code> with the content below:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #0000FF">function</span><span style="color: #000000"> </span><span style="color: #795E26">bar</span><span style="color: #000000">(): </span><span style="color: #267F99">void</span><span style="color: #000000"> {}</span></span>
+<span class="line"></span></code></pre>
+<p>Hovering over <code>bar()</code> shows the following hover information in Visual Studio Code:</p>
+<hr>
+<p><img src="../../../../assets/blogs/2019/02/19/hover.png" alt="Hover over Bar" loading="lazy"></p>
+<hr>
+<p>This hover information is expressed in LSP using the <code>Hover</code> type:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #AF00DB">export</span><span style="color: #000000"> </span><span style="color: #0000FF">interface</span><span style="color: #000000"> </span><span style="color: #267F99">Hover</span><span style="color: #000000"> {</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #008000">/**</span></span>
+<span class="line"><span style="color: #008000">   * The hover&#39;s content</span></span>
+<span class="line"><span style="color: #008000">   */</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #001080">contents</span><span style="color: #000000">: </span><span style="color: #267F99">MarkupContent</span><span style="color: #000000"> | </span><span style="color: #267F99">MarkedString</span><span style="color: #000000"> | </span><span style="color: #267F99">MarkedString</span><span style="color: #000000">[];</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #008000">/**</span></span>
+<span class="line"><span style="color: #008000">   * An optional range</span></span>
+<span class="line"><span style="color: #008000">   */</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #001080">range</span><span style="color: #000000">?: </span><span style="color: #267F99">Range</span><span style="color: #000000">;</span></span>
+<span class="line"><span style="color: #000000">}</span></span>
+<span class="line"></span></code></pre>
+<p>In the above example, the concrete value is:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #000000">{</span></span>
+<span class="line"><span style="color: #000000">  contents: [{ </span><span style="color: #001080">language:</span><span style="color: #000000"> </span><span style="color: #A31515">&#39;typescript&#39;</span><span style="color: #000000">, </span><span style="color: #001080">value:</span><span style="color: #000000"> </span><span style="color: #A31515">&#39;function bar(): void&#39;</span><span style="color: #000000"> }];</span></span>
+<span class="line"><span style="color: #000000">}</span></span>
+<span class="line"></span></code></pre>
+<p>A client tool would retrieve the hover content from a language server by sending a <code>textDocument/hover</code> request for document <code>file:///Users/username/sample.ts</code> at position <code>{line: 0, character: 10}</code>.</p>
+<p>LSIF defines a format that language servers or standalone tools emit to describe that the tuple <code>['textDocument/hover', 'file:///Users/username/sample.ts', {line: 0, character: 10}]</code> resolves to the above hover. The data can then be taken and persisted into a database.</p>
+<p>LSP requests are position based, however results often only vary for ranges and not for single positions. In the above hover example, the hover value is the same for all positions of the identifier <code>bar</code>. This means the same hover value is returned when a user hovers over <code>b</code> in <code>bar</code> or over <code>r</code> in <code>bar</code>. To make the emitted data more compact, the LSIF uses ranges instead of positions. For this example, an LSIF tool emits the tuple <code>['textDocument/hover', 'file:///Users/username/sample.ts', { start: { line: 0, character: 9 }, end: { line: 0, character: 12 }]</code> which includes range information.</p>
+<p>LSIF uses graphs to emit this information. In the graph, an LSP request is represented using an edge. Documents, ranges, or request results (for example, the hover) are represented using vertices. This format has the following benefits:</p>
+<ul>
+<li>For a given code range, there can be different results. For a given identifier range, a user is interested in the hover value, the location of the definition, or to Find All References. LSIF therefore links these results with the range.</li>
+<li>Extending the format with additional request types or results can easily be done by adding new edge or vertex kinds.</li>
+<li>It is possible to emit data as soon as it is available. This enables streaming rather than having to store large amounts of data in memory. For example, emitting data for a document should be done for each file as the parsing progresses.</li>
+</ul>
+<p>For the hover example, the emitted LSIF graph data looks as follows:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #008000">// a vertex representing the document</span></span>
+<span class="line"><span style="color: #000000">{ id: </span><span style="color: #098658">1</span><span style="color: #000000">, type: </span><span style="color: #A31515">&quot;vertex&quot;</span><span style="color: #000000">, label: </span><span style="color: #A31515">&quot;document&quot;</span><span style="color: #000000">, uri: </span><span style="color: #A31515">&quot;file:///Users/username/sample.ts&quot;</span><span style="color: #000000">, languageId: </span><span style="color: #A31515">&quot;typescript&quot;</span><span style="color: #000000"> }</span></span>
+<span class="line"><span style="color: #008000">// a vertex representing the range for the identifier bar</span></span>
+<span class="line"><span style="color: #000000">{ id: </span><span style="color: #098658">4</span><span style="color: #000000">, type: </span><span style="color: #A31515">&quot;vertex&quot;</span><span style="color: #000000">, label: </span><span style="color: #A31515">&quot;range&quot;</span><span style="color: #000000">, start: { line: </span><span style="color: #098658">0</span><span style="color: #000000">, character: </span><span style="color: #098658">9</span><span style="color: #000000">}, end: { line: </span><span style="color: #098658">0</span><span style="color: #000000">, character: </span><span style="color: #098658">12</span><span style="color: #000000"> } }</span></span>
+<span class="line"><span style="color: #008000">// an edge saying that the document with id 1 contains the range with id 4</span></span>
+<span class="line"><span style="color: #000000">{ id: </span><span style="color: #098658">5</span><span style="color: #000000">, type: </span><span style="color: #A31515">&quot;edge&quot;</span><span style="color: #000000">, label: </span><span style="color: #A31515">&quot;contains&quot;</span><span style="color: #000000">, outV: </span><span style="color: #098658">1</span><span style="color: #000000">, inV: </span><span style="color: #098658">4</span><span style="color: #000000">}</span></span>
+<span class="line"><span style="color: #008000">// a vertex representing the actual hover result</span></span>
+<span class="line"><span style="color: #000000">{ id: </span><span style="color: #098658">6</span><span style="color: #000000">, type: </span><span style="color: #A31515">&quot;vertex&quot;</span><span style="color: #000000">, label: </span><span style="color: #A31515">&quot;hoverResult&quot;</span><span style="color: #000000">,</span></span>
+<span class="line"><span style="color: #000000">  result: {</span></span>
+<span class="line"><span style="color: #000000">    contents: [</span></span>
+<span class="line"><span style="color: #000000">      { </span><span style="color: #001080">language:</span><span style="color: #000000"> </span><span style="color: #A31515">&quot;typescript&quot;</span><span style="color: #000000">, </span><span style="color: #001080">value:</span><span style="color: #000000"> </span><span style="color: #A31515">&quot;function bar(): void&quot;</span><span style="color: #000000"> }</span></span>
+<span class="line"><span style="color: #000000">    ]</span></span>
+<span class="line"><span style="color: #000000">  }</span></span>
+<span class="line"><span style="color: #000000">}</span></span>
+<span class="line"><span style="color: #008000">// an edge linking the hover result to the range.</span></span>
+<span class="line"><span style="color: #000000">{ id: </span><span style="color: #098658">7</span><span style="color: #000000">, type: </span><span style="color: #A31515">&quot;edge&quot;</span><span style="color: #000000">, label: </span><span style="color: #A31515">&quot;textDocument/hover&quot;</span><span style="color: #000000">, outV: </span><span style="color: #098658">4</span><span style="color: #000000">, inV: </span><span style="color: #098658">6</span><span style="color: #000000"> }</span></span>
+<span class="line"></span></code></pre>
+<p>The corresponding graph looks like this:</p>
+<p><img src="../../../../assets/blogs/2019/02/19/hoverResult.png" alt="LSIF graph for a hover" loading="lazy"></p>
+<p>The LSP also supports requests that only take a document as a parameter (they are not position based). Example requests that are useful for code comprehension are for a list of all document symbols or to compute all folding ranges. These requests are modeled in LSIF in the form <code>[request, document]</code> -&gt; result.</p>
+<p>Let's look at another example:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #0000FF">function</span><span style="color: #000000"> </span><span style="color: #795E26">bar</span><span style="color: #000000">(): </span><span style="color: #267F99">void</span><span style="color: #000000"> {</span></span>
+<span class="line"><span style="color: #000000">  </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #A31515">&#39;Hello World!&#39;</span><span style="color: #000000">);</span></span>
+<span class="line"><span style="color: #000000">}</span></span>
+<span class="line"></span></code></pre>
+<p>The folding range result for the document containing above function <code>bar</code> is emitted like this:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #008000">// a vertex representing the document</span></span>
+<span class="line"><span style="color: #000000">{ id: </span><span style="color: #098658">1</span><span style="color: #000000">, type: </span><span style="color: #A31515">&quot;vertex&quot;</span><span style="color: #000000">, label: </span><span style="color: #A31515">&quot;document&quot;</span><span style="color: #000000">, uri: </span><span style="color: #A31515">&quot;file:///Users/username/sample.ts&quot;</span><span style="color: #000000">, languageId: </span><span style="color: #A31515">&quot;typescript&quot;</span><span style="color: #000000"> }</span></span>
+<span class="line"><span style="color: #008000">// a vertex representing the folding result</span></span>
+<span class="line"><span style="color: #000000">{ id: </span><span style="color: #098658">2</span><span style="color: #000000">, type: </span><span style="color: #A31515">&quot;vertex&quot;</span><span style="color: #000000">, label: </span><span style="color: #A31515">&quot;foldingRangeResult&quot;</span><span style="color: #000000">, result: [ { </span><span style="color: #001080">startLine:</span><span style="color: #000000"> </span><span style="color: #098658">0</span><span style="color: #000000">, </span><span style="color: #001080">startCharacter:</span><span style="color: #000000"> </span><span style="color: #098658">20</span><span style="color: #000000">, </span><span style="color: #001080">endLine:</span><span style="color: #000000"> </span><span style="color: #098658">2</span><span style="color: #000000">, </span><span style="color: #001080">endCharacter:</span><span style="color: #000000"> </span><span style="color: #098658">1</span><span style="color: #000000"> } ] }</span></span>
+<span class="line"><span style="color: #008000">// an edge connecting the folding result to the document.</span></span>
+<span class="line"><span style="color: #000000">{ id: </span><span style="color: #098658">3</span><span style="color: #000000">, type: </span><span style="color: #A31515">&quot;edge&quot;</span><span style="color: #000000">, label: </span><span style="color: #A31515">&quot;textDocument/foldingRange&quot;</span><span style="color: #000000">, outV: </span><span style="color: #098658">1</span><span style="color: #000000">, inV: </span><span style="color: #098658">2</span><span style="color: #000000"> }</span></span>
+<span class="line"></span></code></pre>
+<p><img src="../../../../assets/blogs/2019/02/19/foldingRange.png" alt="LSIF graph for a folding range result" loading="lazy"></p>
+<p>These are only two examples of LSP requests supported by the LSIF. The current version of the <a href="https://github.com/microsoft/language-server-protocol/blob/main/indexFormat/specification.md" class="external-link" target="_blank">LSIF specification</a> also supports document symbols, document links, Go to Definition, Go to Declaration, Go to Type Definition, Find All References, and Go to Implementation.</p>
+<h2 id="_we-need-your-feedback" data-needslink="_we-need-your-feedback">We need your feedback!</h2>
+<p>We have made good initial progress on the LSIF specification and we want to open the conversation to the community so you can learn what we're working on. For feedback, please comment on the issue <a href="https://github.com/microsoft/language-server-protocol/issues/623" class="external-link" target="_blank">Language Server Index Format</a>.</p>
+<h2 id="_how-to-get-started" data-needslink="_how-to-get-started">How to get started</h2>
+<p>To get started with LSIF, you can have a look at the following resources:</p>
+<ul>
+<li>The <a href="https://github.com/microsoft/language-server-protocol/blob/main/indexFormat/specification.md" class="external-link" target="_blank">LSIF specification</a> - The document also describes some additional optimizations that have been done to keep the emitted data compact.</li>
+<li><a href="https://github.com/microsoft/lsif-typescript" class="external-link" target="_blank">LSIF Index for TypeScript</a> - A tool that generates LSIF for TypeScript. The README provides instructions for using the tool.</li>
+<li><a href="https://github.com/microsoft/vscode-lsif-extension" class="external-link" target="_blank">Visual Studio Code extension for LSIF</a> - An extension for VS Code that provides language comprehension features using an LSIF JSON dump. If you implement a new LSIF generator, you can use this extension to validate it with arbitrary source code.</li>
+</ul>
+
+        </div>
+        <div class="col-sm-3 col-md-2 docs-subnavbar-container">
+            <nav id="docs-subnavbar" aria-label="On Page" data-spy="affix" data-offset-top="20">
+                
+                <h4><span class="sr-only">In this blog post, there are 4
+                        sections</span><span aria-hidden="true">In this blog post</span></h4>
+                
+                <ul class="nav">
+                    
+                    <li><a href="#_rich-code-navigation-without-checkout">Rich code navigation without checkout</a></li>
+                    
+                    <li><a href="#_language-server-index-format">Language Server Index Format</a></li>
+                    
+                    <li><a href="#_we-need-your-feedback">We need your feedback!</a></li>
+                    
+                    <li><a href="#_how-to-get-started">How to get started</a></li>
+                    
+                </ul>
+                <div class="connect-widget"></div>
+            </nav>
+        </div>
+    </div>
+</div>
+      </div>
+  </div>
+
+  <footer role="contentinfo">
+      <div class="container">
+          <div class="row">
+              <div class="left col-md-7">
+                  <ul class="links">
+                      <li>
+                          <span class="message">Hello from Seattle.</span>
+                      </li>
+                      <li>
+                          <a href="https://go.microsoft.com/fwlink/?LinkID=533687" onclick="followOnTwitter()" tabindex="0">Follow @code</a>
+                      </li>
+                      <li>
+                          <div class="github-star-button">
+                              <iframe src="../../../../assets/github-button29be.html?user=Microsoft&amp;repo=vscode&amp;type=star&amp;count=true"
+                                  frameborder="0" scrolling="0" width="130px" height="20px" title="GitHub follow button" loading="lazy"></iframe>
+                          </div>
+                      </li>
+  
+                      <script>
+                          function followOnTwitter() {
+                              var windowFeatures = "location=yes,height=600,width=550,scrollbars=yes,status=yes";
+                              var originalReferer = "&original_referer=" + document.URL;
+                              var screenName = "&screen_name=code";
+                              var URL = "https://twitter.com/intent/follow?" + originalReferer + screenName;
+                              window.open(URL, "_blank", windowFeatures);
+                          }
+  
+                          function manageConsent() {
+                              if(WcpConsent.siteConsent.isConsentRequired){
+                                  WcpConsent.siteConsent.manageConsent();
+                              }
+                          }
+                      </script>
+                  </ul>
+              </div>
+              <div class="right col-md-5">
+                  <ul class="links">
+                      <li><a id="footer-support-link" href="https://support.serviceshub.microsoft.com/supportforbusiness/create?sapId=d66407ed-3967-b000-4cfb-2c318cad363d"
+                              target="_blank">Support</a></li>
+                      <li><a id="footer-privacy-link" href="https://privacy.microsoft.com/privacystatement"
+                              target="_blank">Privacy</a></li>
+                      <li style="display: none;"><a id="footer-cookie-link" style="cursor: pointer;" onclick="manageConsent()"
+                              target="_blank">Manage Cookies</a></li>
+                      <li><a id="footer-terms-link" href="https://www.microsoft.com/legal/terms-of-use"
+                              target="_blank">Terms of Use</a></li>
+                      <li><a id="footer-license-link" href="../../../../License.html">License</a></li>
+                  </ul>
+                  <div class="copyright">
+                      <a id="footer-microsoft-link" class="logo" href="https://www.microsoft.com/">
+                          <img class="microsoft-logo" src="../../../../assets/images/microsoft-logo.png" height="20" alt="Microsoft homepage"/>
+                          <img class="microsoft-logo-inverted" src="../../../../assets/images/microsoft-logo-inverted.png" height="20" alt="Microsoft homepage" />
+                      </a>
+                      <span>&copy; 2023 Microsoft</span>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </footer>
+  <script src="../../../../dist/index.js"></script>
+
+  
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "SoftwareApplication",
+      "name" : "Visual Studio Code",
+      "softwareVersion": "1.74",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "applicationCategory": "DeveloperApplication",
+      "applicationSubCategory": "Text Editor",
+      "alternateName": "VS Code",
+      "datePublished": "2021-11-03",
+      "operatingSystem": "Mac, Linux, Windows",
+      "logo": "https://code.visualstudio.com/assets/apple-touch-icon.png",
+      "screenshot": "https://code.visualstudio.com/assets/home/home-screenshot-win.png",
+      "releaseNotes": "https://code.visualstudio.com/updates",
+      "downloadUrl": "https://code.visualstudio.com/download",
+      "license": "https://code.visualstudio.com/license",
+      "softwareRequirements": "https://code.visualstudio.com/docs/supporting/requirements",
+      "url" : "https://code.visualstudio.com",
+      "author": {
+        "@type": "Organization",
+        "name": "Microsoft"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Microsoft"
+      },
+      "maintainer": {
+        "@type": "Organization",
+        "name": "Microsoft"
+      },
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://code.visualstudio.com/Search?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      },
+      "sameAs" : [
+        "https://en.wikipedia.org/wiki/Visual_Studio_Code",
+        "https://twitter.com/code",
+        "https://www.youtube.com/code",
+        "https://www.tiktok.com/@vscode",
+        "https://github.com/microsoft/vscode"
+      ]
+    }
+  </script>
+</body>
+
+<!-- Mirrored from code.visualstudio.com/blogs/2019/02/19/lsif by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 04 Jan 2023 12:15:16 GMT -->
+</html>

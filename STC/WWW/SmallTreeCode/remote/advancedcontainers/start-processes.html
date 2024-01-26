@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Mirrored from code.visualstudio.com/remote/advancedcontainers/start-processes by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 04 Jan 2023 12:15:03 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="google-site-verification" content="hNs7DXrTySP_X-0P_AC0WulAXvUwgSXEmgfcO2r79dw" />
+
+  <!-- Twitter and Facebook OpenGraph Metadata-->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@code" />
+
+  <meta name="description" content="Start a process when a container starts" />
+<meta name="keywords" content="" />
+<!-- Twitter and Facebook OpenGraph Metadata-->
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="og:url" content="start-processes.html" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Start a processes when a container starts" />
+<meta property="og:description" content="Start a process when a container starts" />
+
+<meta property="og:image" content="../../opengraphimg/opengraph-blog.png" />
+
+
+
+  <link rel="shortcut icon" href="../../favicon.ico" sizes="128x128" />
+  <link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+
+  <title>Start a processes when a container starts</title>
+
+  <link rel="stylesheet" href="../../vendor/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../../dist/style.css">
+
+  <script type="text/javascript" src="../../../js.monitor.azure.com/scripts/c/ms.analytics-web-3.min.js"></script>
+  <script>
+  window.appInsights = new oneDS.ApplicationInsights();
+  window.appInsights.initialize({
+    instrumentationKey: "1a3eb3104447440391ad5f2a6ee06a0a-62879566-bc58-4741-9650-302bf2af703f-7103",
+    webAnalyticsConfiguration:{ // Web Analytics Plugin configuration
+        urlCollectQuery:true, 
+        autoCapture: {
+          scroll: true,
+          pageView: true,
+          onLoad: true,
+          onUnload: true,
+          click: true,
+          resize: true,
+          jsError: true
+        }
+    }
+  }, []);
+  </script>
+  
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','../../../www.google-analytics.com/analytics.js','ga');
+  </script>  
+  <link rel="alternate" type="application/atom+xml" title="RSS Feed for code.visualstudio.com" href="../../feed.xml" />
+</head>
+
+<body>
+  <!-- EU Cookie Compliance JS -->
+  <script src="../../../wcpstatic.microsoft.com/mscc/lib/v2/wcp-consent.js"></script>
+
+  <div id="main">
+          <div class="navbar-fixed-container">
+              <div class="navbar navbar-inverse navbar-fixed-top ">
+                  <div id='cookie-banner'></div>        <nav role="navigation" aria-label="Top Level">
+                      <div class="container">
+                          <div class="nav navbar-header">
+                              <a role="button" id="skip-to-content" class="link-button" href="#main-content">Skip to content<i>&nbsp;</i><span class="glyphicon glyphicon-menu-down"></span></a>
+                              <a class="navbar-brand" id="navbar-brand" href="../../index.html">Visual Studio Code</a>
+                              <button type="button" class="navbar-toggle" role="navigation" data-toggle="collapse" data-target=".navbar-collapse" aria-label="Toggle Navigation Menu">
+                                  <span class="icon-bar"></span>
+                                  <span class="icon-bar"></span>
+                                  <span class="icon-bar"></span>
+                              </button>
+                          </div>
+                          <div class="navbar-collapse collapse" role="navigation">
+                              <ul class="nav navbar-nav navbar-left">
+                                  <li ><a id="nav-docs" href="../../docs.html">Docs</a></li>
+                                  <li ><a id="nav-updates" href="../../updates/v1_74.html">Updates</a></li>
+                                  <li ><a id="nav-blogs" href="../../blogs.html">Blog</a></li>
+                                  <li ><a id="nav-extend" href="../../api.html">API</a></li>
+                                  <li><a href="https://marketplace.visualstudio.com/VSCode" target="_blank" id="nav-extensions">Extensions</a></li>
+                                  <li ><a id="nav-faqs" href="../../docs/supporting/faq.html">FAQ</a></li>
+                                  <li ><a id="nav-learn" href="../../learn.html">Learn</a></li>
+                                  <li class='search visible-xs visible-sm'
+                                      ><a href="../../Search.html">Search</a></li>
+                              </ul>
+          
+                              <ul class="nav navbar-nav navbar-right" role="presentation">
+                                  <!-- Floating search icon -->
+                                  <li>
+                                      <a href="../../Search.html" title="Search" class="btn search-btn" id="nav-search">
+                                          <img class="search-icon" src="../../assets/icons/search.svg" width="16px" height="16px" alt="Search"/>
+                                          <img class="search-icon-inverted" src="../../assets/icons/search_dark.svg" width="16px" height="16px" alt="Search" />
+                                      </a>
+                                  </li>
+                                  <!-- Actual search icon -->
+                                  <li class="search" role="presentation">
+                                      <form class="nav-search search-form" role="search" aria-label="Search">
+                                          <div class="input-group" role="presentation">
+                                              <input type="text" name="q" class="search-box form-control" placeholder="Search Docs" aria-label="Search text"/>
+                                              <span class="input-group-btn">
+                                                  <button tabindex="0" class="btn" type="submit" aria-label="Search">
+                                                          <img class="search-icon" src="../../assets/icons/search.svg" width="16px" height="16px" alt="Search" />
+                                                          <img class="search-icon-inverted" src="../../assets/icons/search_dark.svg" width="16px" height="16px" alt="Search" />
+                                                  </button>
+                                              </span>
+                                          </div>
+                                      </form>                        </li>
+                                  <!-- this was hiden in the home and download page, keeping it for now -->
+                                  <li><a class="link-button" href="../../Download.html" id="nav-download">
+                                      <img class="download-icon" src="../../assets/icons/download.svg" width="16px" height="16px" alt="Download VS Code"/>
+                                      <img class="download-icon-inverted" src="../../assets/icons/download-black.svg" width="16px" height="16px" alt="Download VS Code" />
+                                      <span>Download</span>
+                                  </a></li>
+                              </ul>
+                          </div>
+                      </div>
+                  </nav>
+              </div>
+          </div>          <div class="updates-banner  ">
+              <div class="container">
+                  <p class="message"><a href="../../updates/v1_74.html" id="banner-link-updates">Version 1.74</a> is now available! Read about the new features and fixes from November.</p> 
+              </div>
+              <div tabindex="0" role="button" title="Dismiss this update" class="dismiss-btn" id="banner-dismiss-btn"><span class="sr-only">Dismiss this update</span><span aria-hidden="true" class="glyph-icon"></span></div>
+          </div>      <div role="main" id="main-content">
+        <script>
+    function closeReportIssue() {
+        var element = document.getElementById('surveypopup');
+        element.parentElement.removeChild(element);
+    }
+
+    function reportIssue(tutorial, page) {
+        var div = document.createElement('div');
+        div.innerHTML = '<div id="surveypopup" class="overlay visible"><div class="surveypopup"><div id="surveytitle">Tell us more<a href="javascript:void(0)" onclick="closeReportIssue()">X</a></div><div id="surveydiv"><iframe frameBorder="0" scrolling="0" src="https://www.research.net/r/PWZWZ52?tutorial=' + tutorial + '&step=' + page + '"></iframe></div></div></div>';
+        document.body.appendChild(div.children[0]);
+    }
+</script>
+
+<div class="container body-content docs tutorial">
+    <div class="row">
+        <div class="col-md-2 docs-navbar-container">
+            <nav id="docs-navbar" class="docs-nav visible-md visible-lg">
+            	<ul class="nav" id="main-nav">
+            		<li ><a class="docs-home" href="../../docs/devcontainers/containers.html">Back to Dev Containers</a></li>
+            		
+            			
+            				<li class="panel active expanded">
+            					<a class="area" role="button" href="#advancedcontainers-articles" data-parent="#main-nav" data-toggle="collapse">advanced containers</a>
+            					<ul id="advancedcontainers-articles" class="collapse in">
+            					
+            						<li ><a href="overview.html">Overview</a></li>
+            					
+            						<li ><a href="environment-variables.html">Environment variables</a></li>
+            					
+            						<li class="active"><a href="start-processes.html">Start processes</a></li>
+            					
+            						<li ><a href="add-local-file-mount.html">Add local file mount</a></li>
+            					
+            						<li ><a href="persist-bash-history.html">Persist bash history</a></li>
+            					
+            						<li ><a href="change-default-source-mount.html">Change default mount</a></li>
+            					
+            						<li ><a href="improve-performance.html">Improve performance</a></li>
+            					
+            						<li ><a href="avoid-extension-reinstalls.html">Avoid extension reinstalls</a></li>
+            					
+            						<li ><a href="add-nonroot-user.html">Add non-root user</a></li>
+            					
+            						<li ><a href="set-docker-compose-project-name.html">Set Docker Compose project name</a></li>
+            					
+            						<li ><a href="use-docker-kubernetes.html">Use Docker or Kubernetes</a></li>
+            					
+            						<li ><a href="connect-multiple-containers.html">Connect to multiple containers</a></li>
+            					
+            						<li ><a href="configure-separate-containers.html">Configure separate containers</a></li>
+            					
+            						<li ><a href="develop-remote-host.html">Develop on a remote Docker host</a></li>
+            					
+            						<li ><a href="reduce-docker-warnings.html">Reduce Docker warnings</a></li>
+            					
+            						<li ><a href="docker-options.html">Docker options</a></li>
+            					
+            						<li ><a href="questions-feedback.html">Questions or feedback</a></li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            	</ul>
+            </nav>
+            <nav id="small-nav" class="docs-nav hidden-md hidden-lg">
+            	<h4>Remote</h4>
+            	<select id="small-nav-dropdown" aria-label="remote">
+            		
+            			
+            				<optgroup label="advanced containers">
+            				
+            					<option value="/remote/advancedcontainers/overview" >Overview</option>
+            				
+            					<option value="/remote/advancedcontainers/environment-variables" >Environment variables</option>
+            				
+            					<option value="/remote/advancedcontainers/start-processes" selected>Start processes</option>
+            				
+            					<option value="/remote/advancedcontainers/add-local-file-mount" >Add local file mount</option>
+            				
+            					<option value="/remote/advancedcontainers/persist-bash-history" >Persist bash history</option>
+            				
+            					<option value="/remote/advancedcontainers/change-default-source-mount" >Change default mount</option>
+            				
+            					<option value="/remote/advancedcontainers/improve-performance" >Improve performance</option>
+            				
+            					<option value="/remote/advancedcontainers/avoid-extension-reinstalls" >Avoid extension reinstalls</option>
+            				
+            					<option value="/remote/advancedcontainers/add-nonroot-user" >Add non-root user</option>
+            				
+            					<option value="/remote/advancedcontainers/set-docker-compose-project-name" >Set Docker Compose project name</option>
+            				
+            					<option value="/remote/advancedcontainers/use-docker-kubernetes" >Use Docker or Kubernetes</option>
+            				
+            					<option value="/remote/advancedcontainers/connect-multiple-containers" >Connect to multiple containers</option>
+            				
+            					<option value="/remote/advancedcontainers/configure-separate-containers" >Configure separate containers</option>
+            				
+            					<option value="/remote/advancedcontainers/develop-remote-host" >Develop on a remote Docker host</option>
+            				
+            					<option value="/remote/advancedcontainers/reduce-docker-warnings" >Reduce Docker warnings</option>
+            				
+            					<option value="/remote/advancedcontainers/docker-options" >Docker options</option>
+            				
+            					<option value="/remote/advancedcontainers/questions-feedback" >Questions or feedback</option>
+            				
+            				</optgroup>
+            			
+            		
+            	</select>
+            </nav>        </div>
+        <div class="col-sm-9 col-md-8 body">
+            <h1>Start a process when the container starts</h1>
+<p>When you are working in a development container, you may want to execute a command or start something each time the container starts. The easiest way to do this is using the <code>postStartCommand</code> property in <code>devcontainer.json</code>. For example, if you wanted to run <code>yarn install</code> every time you connected to the container to keep dependencies up to date, you could add the following:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #A31515">&quot;postStartCommand&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;yarn install&quot;</span></span>
+<span class="line"></span></code></pre>
+<h3 id="_video-run-npm-install-when-a-container-is-created" data-needslink="_video-run-npm-install-when-a-container-is-created">Video: Run npm install when a container is created</h3>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/9qRy_kxVCK8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<p><br><br></p>
+<p>In other cases, you may want to start up a process and leave it running. This can be accomplished by using <code>nohup</code> and putting the process into the background using <code>&amp;</code>.  For example:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #A31515">&quot;postStartCommand&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;nohup bash -c &#39;your-command-here &amp;&#39;&quot;</span></span>
+<span class="line"></span></code></pre>
+<h3 id="_video-run-npm-start-whenever-the-container-is-started" data-needslink="_video-run-npm-start-whenever-the-container-is-started">Video: Run 'npm start' whenever the container is started</h3>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/zFzPnWgBx_I" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<p><br><br></p>
+<p>Those familiar with Linux may expect to be able to use the <code>systemctl</code> command to start and stop background services managed by something called <code>systemd</code>. Unfortunately, <code>systemd</code> has overhead and is generally not used in containers as a result.</p>
+<p>In many cases, there is a command you can run instead (for example, <code>sshd</code>). And on Debian/Ubuntu, there are often scripts under <code>/etc/init.d</code> that you can run directly.</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #A31515">&quot;postStartCommand&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;/etc/init.d/ssh start&quot;</span></span>
+<span class="line"></span></code></pre>
+<p>These systems also include a <code>service</code> command that will use <code>systemctl</code> or <code>/etc/init.d</code> scripts based on what is installed.</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #A31515">&quot;postStartCommand&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;service ssh start&quot;</span></span>
+<span class="line"></span></code></pre>
+<h3 id="_video-start-ssh-service-in-a-container" data-needslink="_video-start-ssh-service-in-a-container">Video: Start SSH service in a container</h3>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/KuSNpZgDYDs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<h2 id="_adding-startup-commands-to-the-docker-image-instead" data-needslink="_adding-startup-commands-to-the-docker-image-instead">Adding startup commands to the Docker image instead</h2>
+<p>While <code>postStartCommand</code> is convenient and allows you to execute commands in your source tree, you can also add these steps instead to a Dockerfile using a custom <a href="https://docs.docker.com/engine/reference/builder/#entrypoint" class="external-link" target="_blank">ENTRYPOINT</a> or <a href="https://docs.docker.com/engine/reference/builder/#cmd" class="external-link" target="_blank">CMD</a>.</p>
+<p>When referencing a Dockerfile in <code>devcontainer.json</code>, the default entrypoint and command is overridden. First, disable this behavior using the <code>overrrideCommand</code> property.</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #A31515">&quot;overrideCommand&quot;</span><span style="color: #000000">: </span><span style="color: #0000FF">false</span></span>
+<span class="line"></span></code></pre>
+<p>The <code>overrideCommand</code> property defaults to <code>true</code> because many images will immediately exit if a command is not specified. Instead, we will need to handle this in our Dockerfile.</p>
+<p>Next, consider this Dockerfile:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #0000FF">FROM</span><span style="color: #000000"> mcr.microsoft.com/vscode/devcontainers/base:0-focal</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #0000FF">COPY</span><span style="color: #000000"> docker-entrypoint.sh /</span></span>
+<span class="line"><span style="color: #0000FF">RUN</span><span style="color: #000000"> chmod +x /docker-entrypoint.sh</span></span>
+<span class="line"><span style="color: #0000FF">ENTRYPOINT</span><span style="color: #000000"> [ </span><span style="color: #A31515">&quot;/docker-entrypoint.sh&quot;</span><span style="color: #000000"> ]</span></span>
+<span class="line"><span style="color: #0000FF">CMD</span><span style="color: #000000"> [ </span><span style="color: #A31515">&quot;sleep&quot;</span><span style="color: #000000">, </span><span style="color: #A31515">&quot;infinity&quot;</span><span style="color: #000000"> ]</span></span>
+<span class="line"></span></code></pre>
+<p>The <code>CMD</code> here makes sure the container stays running by default. Keeping your startup steps in the <code>ENTRYPOINT</code> allows you to safely override the command when using <code>docker run</code> with your image or using Docker Compose. This resolves to the following:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #000000">/docker-entrypoint.sh sleep infinity</span></span>
+<span class="line"></span></code></pre>
+<p>Next, create a <code>docker-entrypoint.sh</code> script:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span class="line"><span style="color: #008000">#!/usr/bin/env bash</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #795E26">echo</span><span style="color: #000000"> </span><span style="color: #A31515">&quot;Hello from our entrypoint!&quot;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #795E26">exec</span><span style="color: #000000"> </span><span style="color: #A31515">&quot;</span><span style="color: #001080">$@</span><span style="color: #A31515">&quot;</span></span>
+<span class="line"></span></code></pre>
+<p>Anything you execute in this file will then fire each time the container starts. However, it's important to include the last <code>exec &quot;$@&quot;</code> line since this is what will cause the command <code>sleep infinity</code> in our example to fire.</p>
+<p>Finally, if you are using Docker Compose, be sure that neither the <a href="https://docs.docker.com/compose/compose-file/compose-file-v3/#entrypoint" class="external-link" target="_blank">entrypoint</a> nor <a href="https://docs.docker.com/compose/compose-file/compose-file-v3/#command" class="external-link" target="_blank">command</a> properties are set for your container.</p>
+
+            <div class="feedback"></div>
+            
+            <div class="body-footer">12/7/2022</div>
+            
+        </div>
+        <div class="col-sm-3 col-md-2 docs-subnavbar-container">
+            <nav id="docs-subnavbar" aria-label="On Page Navigation" data-spy="affix" data-offset-top="20">
+                
+                <h4><span class="sr-only">In this article, there are 1
+                        sections</span><span aria-hidden="true">In this article</span></h4>
+                
+                <ul class="nav">
+                    
+                    <li><a href="#_adding-startup-commands-to-the-docker-image-instead">Adding startup commands to the Docker image instead</a></li>
+                    
+                </ul>
+                <div class="connect-widget"></div>
+            </nav>
+        </div>
+    </div>
+</div>
+      </div>
+  </div>
+
+  <footer role="contentinfo">
+      <div class="container">
+          <div class="row">
+              <div class="left col-md-7">
+                  <ul class="links">
+                      <li>
+                          <span class="message">Hello from Seattle.</span>
+                      </li>
+                      <li>
+                          <a href="https://go.microsoft.com/fwlink/?LinkID=533687" onclick="followOnTwitter()" tabindex="0">Follow @code</a>
+                      </li>
+                      <li>
+                          <div class="github-star-button">
+                              <iframe src="../../assets/github-button29be.html?user=Microsoft&amp;repo=vscode&amp;type=star&amp;count=true"
+                                  frameborder="0" scrolling="0" width="130px" height="20px" title="GitHub follow button" loading="lazy"></iframe>
+                          </div>
+                      </li>
+  
+                      <script>
+                          function followOnTwitter() {
+                              var windowFeatures = "location=yes,height=600,width=550,scrollbars=yes,status=yes";
+                              var originalReferer = "&original_referer=" + document.URL;
+                              var screenName = "&screen_name=code";
+                              var URL = "https://twitter.com/intent/follow?" + originalReferer + screenName;
+                              window.open(URL, "_blank", windowFeatures);
+                          }
+  
+                          function manageConsent() {
+                              if(WcpConsent.siteConsent.isConsentRequired){
+                                  WcpConsent.siteConsent.manageConsent();
+                              }
+                          }
+                      </script>
+                  </ul>
+              </div>
+              <div class="right col-md-5">
+                  <ul class="links">
+                      <li><a id="footer-support-link" href="https://support.serviceshub.microsoft.com/supportforbusiness/create?sapId=d66407ed-3967-b000-4cfb-2c318cad363d"
+                              target="_blank">Support</a></li>
+                      <li><a id="footer-privacy-link" href="https://privacy.microsoft.com/privacystatement"
+                              target="_blank">Privacy</a></li>
+                      <li style="display: none;"><a id="footer-cookie-link" style="cursor: pointer;" onclick="manageConsent()"
+                              target="_blank">Manage Cookies</a></li>
+                      <li><a id="footer-terms-link" href="https://www.microsoft.com/legal/terms-of-use"
+                              target="_blank">Terms of Use</a></li>
+                      <li><a id="footer-license-link" href="../../License.html">License</a></li>
+                  </ul>
+                  <div class="copyright">
+                      <a id="footer-microsoft-link" class="logo" href="https://www.microsoft.com/">
+                          <img class="microsoft-logo" src="../../assets/images/microsoft-logo.png" height="20" alt="Microsoft homepage"/>
+                          <img class="microsoft-logo-inverted" src="../../assets/images/microsoft-logo-inverted.png" height="20" alt="Microsoft homepage" />
+                      </a>
+                      <span>&copy; 2023 Microsoft</span>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </footer>
+  <script src="../../dist/index.js"></script>
+
+  
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "SoftwareApplication",
+      "name" : "Visual Studio Code",
+      "softwareVersion": "1.74",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "applicationCategory": "DeveloperApplication",
+      "applicationSubCategory": "Text Editor",
+      "alternateName": "VS Code",
+      "datePublished": "2021-11-03",
+      "operatingSystem": "Mac, Linux, Windows",
+      "logo": "https://code.visualstudio.com/assets/apple-touch-icon.png",
+      "screenshot": "https://code.visualstudio.com/assets/home/home-screenshot-win.png",
+      "releaseNotes": "https://code.visualstudio.com/updates",
+      "downloadUrl": "https://code.visualstudio.com/download",
+      "license": "https://code.visualstudio.com/license",
+      "softwareRequirements": "https://code.visualstudio.com/docs/supporting/requirements",
+      "url" : "https://code.visualstudio.com",
+      "author": {
+        "@type": "Organization",
+        "name": "Microsoft"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Microsoft"
+      },
+      "maintainer": {
+        "@type": "Organization",
+        "name": "Microsoft"
+      },
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://code.visualstudio.com/Search?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      },
+      "sameAs" : [
+        "https://en.wikipedia.org/wiki/Visual_Studio_Code",
+        "https://twitter.com/code",
+        "https://www.youtube.com/code",
+        "https://www.tiktok.com/@vscode",
+        "https://github.com/microsoft/vscode"
+      ]
+    }
+  </script>
+</body>
+
+<!-- Mirrored from code.visualstudio.com/remote/advancedcontainers/start-processes by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 04 Jan 2023 12:15:03 GMT -->
+</html>
